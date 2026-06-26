@@ -46,10 +46,9 @@ Back up these files and directories before any approved remediation:
 - `~/.hermes/config.yaml`
 - `~/.hermes/.env`
 - `~/.hermes/SOUL.md`
-- `~/Library/LaunchAgents/ai.openclaw.gateway.plist`
-- `~/Library/LaunchAgents/ai.hermes.gateway.plist`
-- `/Volumes/macos/leon/Library/LaunchAgents/ai.openclaw.gateway.plist` if present
-- `/Volumes/macos/leon/Library/LaunchAgents/ai.hermes.gateway.plist` if present
+- `$HOME/Library/LaunchAgents/ai.openclaw.gateway.plist`
+- `$HOME/Library/LaunchAgents/ai.hermes.gateway.plist`
+- Any alternate user LaunchAgents path discovered during an approved private audit.
 
 Backups must redact sensitive values before being copied into this repo, shared in chat, or attached to reports.
 
@@ -107,4 +106,3 @@ The following command categories must not run without explicit approval:
 ## Stage 2A Boundary
 
 Stage 2A is repo-only. This plan must remain documentation only until the user explicitly approves a live remediation phase.
-

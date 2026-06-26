@@ -3,3 +3,27 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 
+.env
+.env.*
+*.env
+*.secret
+*.secrets
+*secret*
+*token*
+*auth*
+auth.json
+secrets.json
+*.key
+*.pem
+*.p12
+*.mobileprovision
+local_private/*
+!local_private/.gitkeep
+!local_private/README.md
+logs/*
+!logs/.gitkeep
+data/raw/live/*
+data/cache/live/*
+*.sqlite
+*.sqlite3
+*.db

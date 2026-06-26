@@ -42,7 +42,7 @@ The following command contains forbidden example terms for policy scanning. Thes
 Before a final response after code or policy changes, scan for forbidden execution surfaces and secret leakage. The first safety check can be a repository-only read:
 
 ```bash
-rg -n -i "execution_agent|order_agent|broker_agent|auto_trader|live_trader|place_order|submit_order|buy_market|sell_market|ib\\.placeOrder|alpaca\\.submit_order|broker write|auto_trade|automatic order|FEISHU_APP_SECRET|APP_SECRET|TOKEN=|SECRET=|AUTH=" .
+rg -n -i "execution_agent|order_agent|broker_agent|auto_trader|live_trader|place_order|submit_order|buy_market|sell_market|ib\\.placeOrder|alpaca\\.submit_order|broker write|auto_trade|automatic order|FEISHU_APP_SECRET|APP_SECRET|TOKEN_NAME|SECRET_NAME|AUTH_NAME" .
 ```
 
 Any hit must be reviewed. Policy documentation may mention forbidden terms only to prohibit them.

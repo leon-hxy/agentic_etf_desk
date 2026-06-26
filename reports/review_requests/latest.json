@@ -1,0 +1,45 @@
+{
+  "stage": "Stage 2A.5",
+  "commit": "c1619fc00778a8707db6966c0a393ebbb07b21c5",
+  "review_files": [
+    "docs/public_repo_policy.md",
+    "docs/current_state_audit.md",
+    "docs/github_public_repo_security.md",
+    "docs/git_history_sanitization_plan.md",
+    "docs/loop_protocol.md",
+    "docs/real_config_hardening_plan.md",
+    "docs/runbook.md",
+    ".gitignore",
+    "local_private/README.md",
+    "scripts/safety/check_public_repo_hygiene.py",
+    "tests/safety/test_public_repo_hygiene.py",
+    "tests/safety/test_safety.py",
+    "ops/tasks/stage2b_repo_only.md",
+    "ops/state/loop_state.json",
+    "ops/README.md",
+    "ops/tasks/README.md",
+    "ops/templates/codex_task_template.md",
+    "ops/templates/chatgpt_review_request_template.md",
+    "configs/codex_automation/loop_manager_prompt.md",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json"
+  ],
+  "tests": [
+    {
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.smoke.test_universe_and_data",
+      "result": "passed; 11 tests OK"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed; no whitespace errors"
+    },
+    {
+      "command": "git status --short --untracked-files=all",
+      "result": "changes limited to Stage 2A.5 repo-only hygiene, loop scaffolding, review request, handoff, and tests"
+    }
+  ],
+  "risk_statement": "Repo-only hygiene and loop scaffolding; no live config change, no service restart, no dependency install, no secrets, no broker write access, no automatic trading.",
+  "short_prompt": "请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核最新阶段是否通过。"
+}

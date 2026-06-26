@@ -1,314 +1,167 @@
 # Current State Audit
 
-Date: 2026-06-26  
-Scope: local read-only audit for Agentic ETF Desk phase 1  
-Workspace: `/Volumes/macos/leon/Desktop/agentic-etf-desk`
+Date: 2026-06-26
+Scope: public-safe read-only audit summary for Agentic ETF Desk Stage 1
+Workspace: `$PROJECT_ROOT`
 
-No live Hermes, OpenClaw, Feishu, broker, launchd, crontab, or service configuration was modified.
+This document is the sanitized public summary. It intentionally avoids user-specific absolute paths, local usernames, process identifiers, exact service state details, and secret values. Local private audit detail belongs under `local_private/`, which is ignored by git except for its README and `.gitkeep`.
+
+No live Hermes, OpenClaw, Feishu, broker, launchd, crontab, or service configuration was modified during the audit.
 
 ## Executive Summary
 
 Overall risk level: **high**
 
-Reason: no automatic trading or broker write interface was found in the scanned project/config surface, but `openclaw doctor` reported plaintext secret-bearing config field paths in the real OpenClaw config and OpenClaw state directory permissions that are too open. Gateway service state is also split between a running process and an unloaded launchd job.
+Reason: no automatic trading or broker write implementation was found in the scanned project/config surface, but the local OpenClaw health check reported secret-bearing config field paths and overly broad state-directory permissions. Hermes and OpenClaw gateway ownership also showed runtime drift that needs deliberate operator review before any live integration.
 
 Trading automation risk: **low**
 
-Reason: repository and related config scan found only policy documentation references to forbidden trading/order terms. No order-placement API implementation or broker write script was found in the scanned surface.
+Reason: the scanned repository and related local agent configuration surfaces contained policy-only references to forbidden trading and order terms. No order-placement API implementation, broker write script, automatic trading process, or broker write interface was found in the scanned surface.
 
-## 1. macOS And CPU
+## 1. Local Platform Summary
 
-- macOS: 26.5.1
-- Build: 25F80
-- CPU architecture: arm64
-- CPU brand: Apple M4
+- Platform: macOS on arm64.
+- Python: installed.
+- Node.js and npm: installed.
+- pnpm: not installed at audit time.
+- Docker: installed.
+- Homebrew: installed.
 
-## 2. Local Toolchain
+Exact local versions were recorded only in private audit notes and are not included in this public repo summary.
 
-- Python: Python 3.14.4
-- Node.js: v23.11.0
-- npm: 10.9.2
-- pnpm: not installed
-- Docker CLI: Docker version 29.4.0, build 9d7ad9f
-- Docker daemon/server: 29.4.0
-- Homebrew: 6.0.2
+## 2. Hermes Summary
 
-## 3. Hermes Installation
+- Hermes: installed.
+- Hermes config home: `$HERMES_HOME`.
+- Key files checked read-only:
+  - `$HERMES_HOME/config.yaml`
+  - `$HERMES_HOME/.env`
+  - `$HERMES_HOME/SOUL.md`
+  - `$HERMES_HOME/memories`
+  - `$HERMES_HOME/skills`
+- Hermes doctor: completed with warnings; no automatic fix was run.
+- Hermes gateway: local gateway state showed service/process ownership drift; no restart was performed.
 
-- `which hermes`: `/Volumes/macos/leon/.local/bin/hermes`
-- `hermes --version`: Hermes Agent v0.16.0 (2026.6.5)
-- Hermes runtime Python: 3.11.15
-- Hermes project path: `/Volumes/macos/leon/.local/share/uv/tools/hermes-agent/lib/python3.11/site-packages`
-- Hermes update status reported by CLI: 1 commit behind
+Configuration key names were inspected without values. Sensitive-looking key names were mentioned only as key names. No secret, token, auth value, Feishu App Secret, provider key, or broker credential value was printed.
 
-### `hermes doctor`
+## 3. Hermes Feishu Configuration Summary
 
-Result: completed with warnings; no automatic fix was run.
+Checked key existence only in `$HERMES_HOME/.env`:
 
-Notable findings:
+- `FEISHU_APP_ID`: present.
+- `FEISHU_DOMAIN`: present.
+- `FEISHU_CONNECTION_MODE`: present.
+- `FEISHU_ALLOWED_USERS`: present.
+- `FEISHU_HOME_CHANNEL`: present.
+- `FEISHU_GROUP_POLICY`: present.
+- `FEISHU_REQUIRE_MENTION`: present.
 
-- Security advisories: none active.
-- `~/.hermes/.env`: exists.
-- API key or custom endpoint: configured.
-- `~/.hermes/config.yaml`: exists.
-- Config version: up to date, v27.
-- `~/.hermes/SOUL.md`: exists.
-- `~/.hermes/memories`: exists.
-- `~/.hermes/skills`: exists.
-- Optional or gated tools missing include Telegram, browser-cdp, computer_use, Discord token, some web search keys, and x_search key.
-- Auth providers not logged in include Nous Portal, OpenAI Codex, Google Gemini OAuth, MiniMax OAuth, and xAI OAuth.
-- Venv entry point warning: `hermes` not found in venv/bin or .venv/bin.
+No Feishu value, token, App Secret, auth value, user ID, channel ID, or allowlist value was printed.
 
-No secrets were printed into this report.
+## 4. OpenClaw Summary
 
-## 4. Hermes Configuration
+- OpenClaw: installed.
+- OpenClaw config home: `$OPENCLAW_HOME`.
+- Key files and directories checked read-only:
+  - `$OPENCLAW_HOME`
+  - `$OPENCLAW_HOME/openclaw.json`
+  - `$OPENCLAW_HOME/agents`
+  - `$OPENCLAW_HOME/skills`
+  - `$OPENCLAW_HOME/workspace`
+  - `$OPENCLAW_HOME/cron`
+  - `$OPENCLAW_HOME/heartbeat`
+  - `$OPENCLAW_HOME/gateway`
+- OpenClaw doctor: completed with warnings; no automatic fix was run.
+- OpenClaw gateway: local gateway was reachable during the audit, but service ownership showed runtime drift; no restart was performed.
 
-Read-only path checks:
+Notable OpenClaw warnings:
 
-- `/Volumes/macos/leon/.hermes/config.yaml`: present
-- `/Volumes/macos/leon/.hermes/.env`: present
-- `/Volumes/macos/leon/.hermes/SOUL.md`: present
-- `/Volumes/macos/leon/.hermes/memories`: present
-- `/Volumes/macos/leon/.hermes/skills`: present
+- Legacy config and cron storage need review.
+- Some model/fallback settings need review.
+- State-directory permissions were reported as too open.
+- Secret-bearing config field paths were reported. Values were not printed.
+- Feishu group allowlist policy may need review before live routing.
+- Stale or orphaned local state was reported and should be handled only in an approved maintenance phase.
 
-Configuration key names were inspected without values. Notable key names present include:
+## 5. Cron, Launchd, And Process Summary
 
-- `_config_version`
-- `agent`
-- `approvals`
-- `cron`
-- `dashboard`
-- `delegation`
-- `feishu`
-- `gateway`
-- `goals`
-- `memory`
-- `model`
-- `providers`
-- `runtime_footer`
-- `security`
-- `skills`
-- `tools`
-- `web`
-
-Sensitive-looking key names such as `api_key`, `secret`, `secrets`, `password`, and `password_hash` were present as key names only. Values were not read into the report.
-
-## 5. Hermes Feishu Configuration
-
-Checked in `~/.hermes/.env` for key existence only:
-
-- `FEISHU_APP_ID`: present
-- `FEISHU_DOMAIN`: present
-- `FEISHU_CONNECTION_MODE`: present
-- `FEISHU_ALLOWED_USERS`: present
-- `FEISHU_HOME_CHANNEL`: present
-- `FEISHU_GROUP_POLICY`: present
-- `FEISHU_REQUIRE_MENTION`: present
-
-No Feishu value, token, App Secret, or auth value was printed.
-
-## 6. Hermes Gateway
-
-`hermes gateway status` result:
-
-- Launchd plist: `/Volumes/macos/leon/Library/LaunchAgents/ai.hermes.gateway.plist`
-- Service definition matches current Hermes install.
-- Gateway service is not loaded.
-- A gateway process is running for this profile.
-- Running PID reported by Hermes: 1413
-
-Assessment: Hermes gateway appears to be running as a process, but launchd does not own an active loaded service for it. This is a runtime ownership drift risk. No restart was performed.
-
-## 7. OpenClaw Installation
-
-- `which openclaw`: `/opt/homebrew/bin/openclaw`
-- `openclaw --version`: OpenClaw 2026.6.6 (8c802aa)
-
-### `openclaw doctor`
-
-Result: completed with warnings; no automatic fix was run.
-
-Notable findings:
-
-- Legacy config keys detected.
-- Doctor preview suggests config migrations, but they were not applied.
-- Feishu group policy warning: `groupPolicy` is allowlist while relevant allowlist fields are empty, which may silently drop group messages.
-- Several agent model objects have no explicit `fallbacks` key.
-- Managed npm OpenClaw host peer links need repair.
-- State directory permissions are too open for `~/.openclaw`.
-- Stale Codex session routing state found.
-- Orphan transcript files found under `~/.openclaw/agents/main/sessions`.
-- Cron model override detected at `~/.openclaw/cron/jobs.json`.
-- Legacy cron job storage detected at `~/.openclaw/cron/jobs.json`.
-- Security warning: `openclaw.json` contains plaintext secret-bearing config field paths. Reported field paths include gateway auth token, model provider API keys, and Feishu app secret path names. Values were not printed.
-- Fetch timeout observed while checking `https://chatgpt.com/backend-api/codex/models`.
-- TaskFlow recovery warnings found for blocked flows pointing at missing tasks.
-
-## 8. OpenClaw Configuration
-
-Read-only path checks:
-
-- `/Volumes/macos/leon/.openclaw`: present
-- `/Volumes/macos/leon/.openclaw/openclaw.json`: present
-- `/Volumes/macos/leon/.openclaw/agents`: present
-- `/Volumes/macos/leon/.openclaw/skills`: absent as a directory
-- `/Volumes/macos/leon/.openclaw/workspace`: present
-- `/Volumes/macos/leon/.openclaw/cron`: present
-- `/Volumes/macos/leon/.openclaw/heartbeat`: absent as a directory
-- `/Volumes/macos/leon/.openclaw/gateway`: absent as a directory
-
-Top-level `openclaw.json` key existence:
-
-- `agents`: present
-- `skills`: present
-- `workspace`: absent
-- `cron`: absent
-- `heartbeat`: absent
-- `gateway`: present
-
-Top-level key names found:
-
-- `agents`
-- `auth`
-- `bindings`
-- `channels`
-- `commands`
-- `gateway`
-- `messages`
-- `meta`
-- `models`
-- `plugins`
-- `secrets`
-- `session`
-- `skills`
-- `tools`
-- `wizard`
-
-No values were printed.
-
-## 9. OpenClaw Gateway
-
-`openclaw gateway status` result:
-
-- LaunchAgent service: not loaded.
-- Service file: `~/Library/LaunchAgents/ai.openclaw.gateway.plist`
-- Working directory: `~/.openclaw`
-- Config path: `~/.openclaw/openclaw.json`
-- Gateway bind: loopback, `127.0.0.1`
-- Port: 18789
-- Dashboard: `http://127.0.0.1:18789/`
-- CLI version: 2026.6.6
-- Gateway version: 2026.6.6
-- Connectivity probe: ok
-- Capability: admin-capable
-- Listening: `127.0.0.1:18789`, `[::1]:18789`
-
-Assessment: OpenClaw gateway is locally reachable, but launchd does not have the service loaded. This is a runtime ownership drift risk. No restart was performed.
-
-## 10. Crontab, Launchctl, And Process Checks
-
-Danger terms checked:
-
-- `trading`
-- `broker`
-- `alpaca`
-- `ibkr`
-- `order`
-- `execution`
-- `submit_order`
-- `place_order`
-- `auto_trade`
+Read-only checks were performed for terms related to trading, broker access, execution, order placement, and auto trading.
 
 Results:
 
-- `crontab -l`: 2 lines present; no dangerous term matches.
-- `launchctl list`: one match, `com.apple.SpeechRecognitionCore.brokerd`; assessed as an Apple system service false positive, not a trading broker process.
-- `ps`: no dangerous term matches after excluding the audit command itself.
+- No dangerous trading term matches were found in user crontab entries.
+- A system service false positive containing a generic broker-like word was observed and assessed as unrelated to trading.
+- No dangerous trading process matches were found after excluding the audit command itself.
 
-## 11. Dangerous API And Auto-Trading Surface Search
+No launchd, crontab, service, process, permission, or gateway state was changed.
 
-The terms in this section are policy-only forbidden example terms from the read-only audit query, not executable trading code.
+## 6. Dangerous API And Auto-Trading Surface Search
 
 Scanned surfaces:
 
 - Current repository.
-- `~/.openclaw/openclaw.json`
-- `~/.openclaw/cron`
-- `~/.hermes/config.yaml`
-- `~/.hermes/cron`
+- `$OPENCLAW_HOME/openclaw.json`.
+- `$OPENCLAW_HOME/cron`.
+- `$HERMES_HOME/config.yaml`.
+- `$HERMES_HOME/cron`.
 
 Excluded:
 
-- `.git`
-- `.env`
-- logs
-- sessions
-- node_modules
+- `.git`.
+- `.env` values.
+- logs.
+- sessions.
+- dependency caches.
 
-Search terms included:
-
-- `execution_agent`
-- `order_agent`
-- `broker_agent`
-- `auto_trader`
-- `live_trader`
-- `place_order`
-- `submit_order`
-- `buy_market`
-- `sell_market`
-- `ib.placeOrder`
-- `alpaca.submit_order`
-- `auto_trade`
-- `automatic trading`
-- `automatic order`
-- `broker write`
-- Chinese equivalents for automatic order/trading and broker write concepts
+Search terms included forbidden execution, order, broker, auto-trader, live-trader, order-placement, and broker-write concepts.
 
 Findings:
 
-- Hits in the current repository are policy-only references inside `AGENTS.md`, `README.md`, and `docs/`.
-- No dangerous order-placement API implementation was found in the scanned repository surface.
-- No dangerous order-placement API implementation was found in the scanned Hermes/OpenClaw config surface.
+- Hits in the current repository were policy-only references in project rules and documentation.
+- No dangerous order-placement API implementation was found.
+- No broker write interface was found.
+- No automatic trading implementation was found.
 
-## 12. Risk Rating
+## 7. Risk Rating
 
 Overall risk: **high**
 
 Primary reasons:
 
-- Real OpenClaw config contains plaintext secret-bearing field paths according to `openclaw doctor`.
-- OpenClaw state directory permissions are too open according to `openclaw doctor`.
-- Hermes and OpenClaw gateway runtime ownership both show process/service drift.
-- OpenClaw Feishu group allowlist state may silently drop group messages.
-- OpenClaw legacy config and cron storage need manual review before any future integration.
+- Local OpenClaw config contains secret-bearing field paths according to health-check output.
+- Local OpenClaw state-directory permissions were reported as too open.
+- Hermes and OpenClaw gateway ownership showed runtime drift.
+- OpenClaw Feishu group policy may silently drop group messages.
+- Legacy OpenClaw config and cron storage need manual review before live integration.
 
 Offsetting factors:
 
 - No automatic order-placement code was found.
 - No broker write interface was found.
 - No dangerous trading process or cron entry was found.
-- Hermes Feishu keys required by the audit are present.
+- Hermes Feishu configuration key names required by the audit were present.
+- No secret values were printed into this report.
 
-## 13. Recommended Next Steps
+## 8. Recommended Next Steps
 
-Before Phase 2:
+Before Stage 2B:
 
-1. Keep Phase 2 repo-only: ETF universe schema, data module interfaces, and safety tests only.
+1. Keep work repo-only.
 2. Do not connect Hermes/OpenClaw routing yet.
-3. Do not modify `~/.hermes` or `~/.openclaw` until the user explicitly approves a remediation phase.
-4. Add formal safety tests early in Phase 2 or Phase 6 to enforce forbidden APIs, ETF-only universe constraints, benchmark requirements, risk review requirements, and manual-trading disclaimers.
+3. Do not modify `$HERMES_HOME` or `$OPENCLAW_HOME` until the user explicitly approves a live maintenance phase.
+4. Continue expanding safety tests for forbidden APIs, ETF-only universe constraints, benchmark requirements, risk review gates, and manual-trading disclaimers.
 
 Before Hermes/OpenClaw router work:
 
 1. Ask the user for explicit approval to inspect and remediate OpenClaw secret storage and permissions.
 2. Ask the user before running any `doctor --fix`.
 3. Ask the user before restarting Hermes or OpenClaw.
-4. Review OpenClaw Feishu allowlist policy so group messages do not silently drop.
-5. Resolve gateway launchd ownership drift deliberately, not as part of the current phase.
+4. Review OpenClaw Feishu allowlist policy.
+5. Resolve gateway ownership drift deliberately, not as part of repo-only strategy/backtest work.
 
 Trading safety:
 
-1. Continue to prohibit execution/order/broker/auto-trader agents.
+1. Continue to prohibit execution, order, broker, auto-trading, and live-trading agents.
 2. Continue to prohibit order-placement APIs.
 3. Keep all tickets as research recommendations only.
 4. Require risk review before any ticket is shown as actionable.

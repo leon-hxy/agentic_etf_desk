@@ -1,15 +1,36 @@
 {
-  "stage": "Stage 2A completed",
-  "commit": "e03a28e130444bce4596d6a22ca57f87b9d086ea",
+  "stage": "Stage 2A.5 completed",
+  "commit": "c1619fc00778a8707db6966c0a393ebbb07b21c5",
   "changed_files": [
-    "docs/project_context_for_chatgpt.md",
+    ".gitignore",
+    "configs/codex_automation/loop_manager_prompt.md",
+    "docs/current_state_audit.md",
+    "docs/git_history_sanitization_plan.md",
+    "docs/github_public_repo_security.md",
+    "docs/loop_protocol.md",
+    "docs/public_repo_policy.md",
+    "docs/real_config_hardening_plan.md",
+    "docs/runbook.md",
+    "local_private/.gitkeep",
+    "local_private/README.md",
+    "ops/README.md",
+    "ops/state/loop_state.json",
+    "ops/tasks/README.md",
+    "ops/tasks/stage2b_repo_only.md",
+    "ops/templates/chatgpt_review_request_template.md",
+    "ops/templates/codex_task_template.md",
     "reports/codex_handoff/latest.md",
-    "reports/codex_handoff/latest.json"
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "scripts/safety/check_public_repo_hygiene.py",
+    "tests/safety/test_public_repo_hygiene.py",
+    "tests/safety/test_safety.py"
   ],
   "tests": [
     {
-      "command": "python3 -m unittest tests.safety.test_safety tests.smoke.test_universe_and_data",
-      "result": "passed; 8 tests OK"
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.smoke.test_universe_and_data",
+      "result": "passed; 11 tests OK"
     },
     {
       "command": "git diff --check",
@@ -17,7 +38,7 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to docs/project_context_for_chatgpt.md, reports/codex_handoff/latest.md, and reports/codex_handoff/latest.json"
+      "result": "changes limited to Stage 2A.5 repo-only hygiene, loop scaffolding, review request, handoff, and tests"
     }
   ],
   "real_config_modified": false,
@@ -27,6 +48,8 @@
   "dependencies_installed": false,
   "secrets_touched": false,
   "auto_trading_surface": false,
+  "public_repo_hygiene_completed": true,
+  "loop_manager_draft_completed": true,
   "next_recommended_stage": "Stage 2B repo-only",
   "stage2b_recommended": true,
   "requires_user_approval": [
@@ -38,13 +61,18 @@
     "Any dependency installation",
     "Any secret migration or credential storage",
     "Any broker integration, including read-only broker account access",
-    "Any expansion beyond ETF-only scope or addition of leveraged/inverse ETFs"
+    "Any expansion beyond ETF-only scope or addition of leveraged/inverse ETFs",
+    "Any git history rewrite or repository recreation"
   ],
   "forbidden_to_continue_automatically": [
     "Modifying real ~/.hermes",
     "Modifying real ~/.openclaw",
     "Restarting Hermes or OpenClaw",
-    "Installing dependencies",
+    "Running hermes doctor --fix or openclaw doctor --fix",
+    "Modifying Feishu gateway/configuration",
+    "Modifying launchd or crontab",
+    "Running chmod/chown on real Hermes/OpenClaw directories",
+    "Installing dependencies without user approval",
     "Writing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, or broker credentials",
     "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code",

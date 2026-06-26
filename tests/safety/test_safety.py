@@ -40,6 +40,10 @@ class SafetyChecksTest(unittest.TestCase):
         payload = self.assert_script_passes("scripts/safety/check_universe_only.py")
         self.assertEqual(payload["status"], "pass")
 
+    def test_public_repo_hygiene_scan_passes(self) -> None:
+        payload = self.assert_script_passes("scripts/safety/check_public_repo_hygiene.py")
+        self.assertEqual(payload["status"], "pass")
+
     def test_report_template_keeps_manual_trading_disclaimer(self) -> None:
         template = ROOT / "reports" / "trade_ticket_template.md"
         self.assertTrue(template.exists(), "reports/trade_ticket_template.md is required")
@@ -49,4 +53,3 @@ class SafetyChecksTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
