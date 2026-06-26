@@ -2,90 +2,65 @@
 
 ## Current Stage
 
-GitHub visibility handoff audit complete.
+Stage 2A completed.
 
-## Audit Timestamp
+## Latest Commit SHA
 
-2026-06-26 Asia/Shanghai.
+`ad7771ce9c1edcff5ba1917488f06a4589f2108b`
 
-## Repository Under Review
+Note: this SHA is the repository HEAD when this handoff update began. The final pushed commit for this handoff is reported by Git after commit and push.
 
-- Expected origin URL: `https://github.com/leon-hxy/agentic_etf_desk.git`
-- Actual origin URL: `https://github.com/leon-hxy/agentic_etf_desk.git`
-- GitHub repository: `leon-hxy/agentic_etf_desk`
+## Files Changed This Round
 
-## Commands Run
+- `docs/project_context_for_chatgpt.md`
+- `reports/codex_handoff/latest.md`
+- `reports/codex_handoff/latest.json`
 
-```text
-git remote -v
-origin  https://github.com/leon-hxy/agentic_etf_desk.git (fetch)
-origin  https://github.com/leon-hxy/agentic_etf_desk.git (push)
-```
+## Test Commands
 
-```text
-git branch --show-current
-main
-```
+- `python3 -m unittest tests.safety.test_safety tests.smoke.test_universe_and_data`
+- `git diff --check`
+- `git status --short --untracked-files=all`
 
-```text
-git log --oneline -5
-557389d chore: add codex handoff protocol
-67afd49 stage2a: make sample outputs reproducible
-20b431f stage1-2a: publish ETF desk foundation
-46332d1 Initial commit
-```
-
-```text
-git ls-remote --heads origin
-557389dc0839f23fad27aa25478ce626d1138891  refs/heads/main
-```
-
-## GitHub Visibility Findings
-
-- Origin URL is correct: yes.
-- Current branch: `main`.
-- Current branch is pushed to `origin`: yes.
-- Local `HEAD`: `557389dc0839f23fad27aa25478ce626d1138891`.
-- `origin/main`: `557389dc0839f23fad27aa25478ce626d1138891`.
-- Default branch exists: yes, `main`.
-- GitHub repository visibility: `PRIVATE`.
-- Anonymous unauthenticated access: not available; Git prompts for GitHub credentials when credential helpers are disabled.
-
-## Additional Repository Metadata
-
-```text
-gh repo view leon-hxy/agentic_etf_desk --json nameWithOwner,url,visibility,isPrivate,defaultBranchRef
-nameWithOwner: leon-hxy/agentic_etf_desk
-url: https://github.com/leon-hxy/agentic_etf_desk
-visibility: PRIVATE
-isPrivate: true
-defaultBranch: main
-```
-
-## Required User Action
-
-The repository is currently private. Do not change project code to solve this. To make the project visible to external reviewers or tools without local credentials, the user must either:
-
-- change `leon-hxy/agentic_etf_desk` to public on GitHub, or
-- provide an explicit access path, such as adding the relevant GitHub App, collaborator, deploy key, or token-based access approved for that reviewer/tool.
-
-## Runtime And Safety Checklist
-
-- Modified real `~/.hermes`: no.
-- Modified real `~/.openclaw`: no.
-- Restarted Hermes/OpenClaw: no.
-- Installed dependencies: no.
-- Touched secrets: no.
-- Changed code: no.
-- Changed broker, execution, or order placement behavior: no.
-- Automatic order placement or broker write interface present: no.
-
-## Verification Before Commit
+## Test Results
 
 - `python3 -m unittest tests.safety.test_safety tests.smoke.test_universe_and_data`: passed, 8 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: only `reports/codex_handoff/latest.md` modified.
+- `git status --short --untracked-files=all`: changes limited to `docs/project_context_for_chatgpt.md`, `reports/codex_handoff/latest.md`, and `reports/codex_handoff/latest.json`.
 
-## Next Recommended Step
+## Runtime And Safety Checklist
 
-User should decide whether the GitHub repository should become public. If it must remain private, provide the exact access method for the intended consumer before another visibility check.
+- Modified real `~/.hermes`: false.
+- Modified real `~/.openclaw`: false.
+- Restarted services: false.
+- Installed dependencies: false.
+- Touched secrets: false.
+- Automatic trading surface present: false.
+
+## Stage 2B Recommendation
+
+Yes. Stage 2B is recommended as repo-only work after explicit user approval.
+
+## Requires User Approval
+
+- Entering `/goal` long-running work for Stage 2B.
+- Any modification to real `~/.hermes`.
+- Any modification to real `~/.openclaw`.
+- Any Hermes or OpenClaw restart.
+- Any Feishu router or configuration change.
+- Any dependency installation.
+- Any secret migration or credential storage.
+- Any broker integration, including read-only broker account access.
+- Any expansion beyond ETF-only scope or addition of leveraged/inverse ETFs.
+
+## Forbidden To Continue Automatically
+
+- Modifying real `~/.hermes`.
+- Modifying real `~/.openclaw`.
+- Restarting Hermes or OpenClaw.
+- Installing dependencies.
+- Writing secrets, tokens, auth values, `.env` values, Feishu App Secret, provider keys, or broker credentials.
+- Creating execution, order, broker, auto-trading, or live-trading agents.
+- Adding automatic order placement code.
+- Adding broker write access.
+- Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or inverse ETFs unless explicitly allowlisted later.

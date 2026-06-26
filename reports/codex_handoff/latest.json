@@ -1,13 +1,10 @@
 {
-  "stage": "Stage 2A complete; handoff protocol setup",
-  "commit": "67afd49e395b68f6a6fb65d92c70da7d215c89af",
+  "stage": "Stage 2A completed",
+  "commit": "ad7771ce9c1edcff5ba1917488f06a4589f2108b",
   "changed_files": [
-    "README.md",
+    "docs/project_context_for_chatgpt.md",
     "reports/codex_handoff/latest.md",
-    "reports/codex_handoff/latest.json",
-    "scripts/data/build_price_panel.py",
-    "scripts/data/download_prices.py",
-    "scripts/safety/check_secret_leaks.py"
+    "reports/codex_handoff/latest.json"
   ],
   "tests": [
     {
@@ -20,7 +17,7 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to repo files for handoff protocol, CSV output stability, and secret-scan precision"
+      "result": "changes limited to docs/project_context_for_chatgpt.md, reports/codex_handoff/latest.md, and reports/codex_handoff/latest.json"
     }
   ],
   "real_config_modified": false,
@@ -30,20 +27,28 @@
   "dependencies_installed": false,
   "secrets_touched": false,
   "auto_trading_surface": false,
-  "next_recommended_stage": "Stage 2B after explicit user approval",
+  "next_recommended_stage": "Stage 2B repo-only",
+  "stage2b_recommended": true,
   "requires_user_approval": [
     "Entering /goal long-running work for Stage 2B",
     "Any modification to real ~/.hermes",
     "Any modification to real ~/.openclaw",
     "Any Hermes or OpenClaw restart",
+    "Any Feishu router or configuration change",
     "Any dependency installation",
-    "Any Feishu router/configuration change"
+    "Any secret migration or credential storage",
+    "Any broker integration, including read-only broker account access",
+    "Any expansion beyond ETF-only scope or addition of leveraged/inverse ETFs"
   ],
   "forbidden_to_continue_automatically": [
-    "Creating execution/order/broker/auto-trading/live-trading agents",
+    "Modifying real ~/.hermes",
+    "Modifying real ~/.openclaw",
+    "Restarting Hermes or OpenClaw",
+    "Installing dependencies",
+    "Writing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, or broker credentials",
+    "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code",
-    "Adding broker write access or write credentials",
-    "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or inverse ETFs unless explicitly allowlisted later",
-    "Writing secrets, tokens, auth values, .env values, Feishu App Secret, or broker credentials into logs, reports, commits, or tickets"
+    "Adding broker write access",
+    "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or inverse ETFs unless explicitly allowlisted later"
   ]
 }
