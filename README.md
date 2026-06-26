@@ -17,3 +17,11 @@ This project never places orders, never connects to broker write APIs, and never
 
 Phase 1 initializes the repository structure, project rules, implementation plan, and a read-only current-state audit. It does not modify Hermes, OpenClaw, Feishu, broker systems, or machine services.
 
+## Codex Handoff Protocol
+
+Every completed Codex work round must update the repo handoff artifacts before the final user response:
+
+- `reports/codex_handoff/latest.md`
+- `reports/codex_handoff/latest.json`
+
+The handoff must record the current stage, latest relevant commit, changed files, verification commands and results, runtime/config safety status, next recommended stage, required user approvals, and forbidden follow-up actions. The handoff update must be committed and pushed to GitHub so the user does not need to copy long Codex summaries out of chat.

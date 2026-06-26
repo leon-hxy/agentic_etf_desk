@@ -61,7 +61,7 @@ def build_panel(raw_csv: Path = RAW_CSV) -> dict[str, object]:
     symbols = sorted(by_symbol)
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     with PANEL_CSV.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["date", *symbols])
+        writer = csv.DictWriter(handle, fieldnames=["date", *symbols], lineterminator="\n")
         writer.writeheader()
         for current_date in sorted(by_date):
             output_row = {"date": current_date}

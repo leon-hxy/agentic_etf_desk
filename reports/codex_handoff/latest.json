@@ -1,0 +1,49 @@
+{
+  "stage": "Stage 2A complete; handoff protocol setup",
+  "commit": "67afd49e395b68f6a6fb65d92c70da7d215c89af",
+  "changed_files": [
+    "README.md",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "scripts/data/build_price_panel.py",
+    "scripts/data/download_prices.py",
+    "scripts/safety/check_secret_leaks.py"
+  ],
+  "tests": [
+    {
+      "command": "python3 -m unittest tests.safety.test_safety tests.smoke.test_universe_and_data",
+      "result": "passed; 8 tests OK"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed; no whitespace errors"
+    },
+    {
+      "command": "git status --short --untracked-files=all",
+      "result": "changes limited to repo files for handoff protocol, CSV output stability, and secret-scan precision"
+    }
+  ],
+  "real_config_modified": false,
+  "hermes_modified": false,
+  "openclaw_modified": false,
+  "services_restarted": false,
+  "dependencies_installed": false,
+  "secrets_touched": false,
+  "auto_trading_surface": false,
+  "next_recommended_stage": "Stage 2B after explicit user approval",
+  "requires_user_approval": [
+    "Entering /goal long-running work for Stage 2B",
+    "Any modification to real ~/.hermes",
+    "Any modification to real ~/.openclaw",
+    "Any Hermes or OpenClaw restart",
+    "Any dependency installation",
+    "Any Feishu router/configuration change"
+  ],
+  "forbidden_to_continue_automatically": [
+    "Creating execution/order/broker/auto-trading/live-trading agents",
+    "Adding automatic order placement code",
+    "Adding broker write access or write credentials",
+    "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or inverse ETFs unless explicitly allowlisted later",
+    "Writing secrets, tokens, auth values, .env values, Feishu App Secret, or broker credentials into logs, reports, commits, or tickets"
+  ]
+}

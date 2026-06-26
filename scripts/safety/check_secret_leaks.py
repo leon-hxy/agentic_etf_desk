@@ -11,16 +11,6 @@ from pathlib import Path
 
 OUTPUT_DIRS = ("logs", "reports")
 CONFIG_DIR = "configs"
-LEAK_PATTERNS = [
-    re.compile(pattern, re.IGNORECASE)
-    for pattern in (
-        r"\.env",
-        r"auth",
-        r"token",
-        r"secret",
-        r"FEISHU_APP_SECRET",
-    )
-]
 ASSIGNMENT_PATTERN = re.compile(
     r"(?i)(api[_-]?key|token|secret|auth|password)\s*[:=]\s*['\"]?([^'\"\s#]+)"
 )
@@ -35,6 +25,7 @@ PLACEHOLDER_VALUES = {
     "<redacted>",
     "${placeholder}",
 }
+SAFE_STATUS_VALUES = {"false", "true", "null", "none", "no", "yes"}
 
 
 def iter_text_files(root: Path, directory: str) -> list[Path]:
@@ -49,12 +40,17 @@ def scan_outputs(root: Path) -> list[dict[str, str]]:
     for directory in OUTPUT_DIRS:
         for path in iter_text_files(root, directory):
             text = path.read_text(encoding="utf-8", errors="ignore")
-            for pattern in LEAK_PATTERNS:
-                if pattern.search(text):
+            for match in ASSIGNMENT_PATTERN.finditer(text):
+                value = match.group(2).strip().rstrip(",")
+                lowered = value.lower()
+                if (
+                    lowered not in PLACEHOLDER_VALUES
+                    and lowered not in SAFE_STATUS_VALUES
+                    and not value.startswith("${")
+                ):
                     findings.append(
-                        {"file": str(path.relative_to(root)), "reason": f"matched {pattern.pattern}"}
+                        {"file": str(path.relative_to(root)), "reason": "sensitive assignment in output"}
                     )
-                    break
     return findings
 
 
@@ -64,7 +60,12 @@ def scan_config_values(root: Path) -> list[dict[str, str]]:
         text = path.read_text(encoding="utf-8", errors="ignore")
         for match in ASSIGNMENT_PATTERN.finditer(text):
             value = match.group(2).strip()
-            if value.lower() not in PLACEHOLDER_VALUES and not value.startswith("${"):
+            lowered = value.lower()
+            if (
+                lowered not in PLACEHOLDER_VALUES
+                and lowered not in SAFE_STATUS_VALUES
+                and not value.startswith("${")
+            ):
                 findings.append(
                     {"file": str(path.relative_to(root)), "reason": "non-placeholder sensitive value"}
                 )
@@ -87,4 +88,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

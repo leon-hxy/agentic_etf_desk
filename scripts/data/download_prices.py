@@ -80,6 +80,7 @@ def write_outputs(source: str, symbols: str | None, start: date, end: date) -> d
     with PRICE_CSV.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
             handle,
+            lineterminator="\n",
             fieldnames=[
                 "source",
                 "symbol",
