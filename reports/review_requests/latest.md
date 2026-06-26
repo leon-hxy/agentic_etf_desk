@@ -2,33 +2,37 @@
 
 ## Current Repo Commit
 
-`c1619fc00778a8707db6966c0a393ebbb07b21c5`
+`8a1b03f8078c9593f4730cf87785b4663ed05855`
 
 ## Current Stage
 
-Stage 2A.5 public repo hygiene and Codex loop manager scaffolding.
+Stage 2A.6 Hermes Feishu notification, review gate, and ChatGPT relay draft.
 
 ## Files For ChatGPT To Review
 
-- `docs/public_repo_policy.md`
-- `docs/current_state_audit.md`
-- `docs/github_public_repo_security.md`
-- `docs/git_history_sanitization_plan.md`
 - `docs/loop_protocol.md`
-- `docs/real_config_hardening_plan.md`
-- `docs/runbook.md`
-- `.gitignore`
-- `local_private/README.md`
-- `scripts/safety/check_public_repo_hygiene.py`
-- `tests/safety/test_public_repo_hygiene.py`
-- `tests/safety/test_safety.py`
-- `ops/tasks/stage2b_repo_only.md`
+- `docs/chatgpt_review_relay_design.md`
+- `configs/hermes/feishu_loop_notifier_skill.md`
+- `configs/hermes/feishu_review_command_skill.md`
+- `configs/codex_automation/chatgpt_review_relay_prompt.md`
+- `ops/notifications/feishu_message_templates.md`
+- `ops/review_gate/README.md`
+- `ops/review_gate/review_gate.example.json`
 - `ops/state/loop_state.json`
-- `ops/README.md`
-- `ops/tasks/README.md`
-- `ops/templates/codex_task_template.md`
-- `ops/templates/chatgpt_review_request_template.md`
-- `configs/codex_automation/loop_manager_prompt.md`
+- `local_private/README.md`
+- `scripts/review_relay/build_chatgpt_review_prompt.py`
+- `scripts/review_relay/check_review_gate.py`
+- `scripts/review_relay/mark_review_gate_used.py`
+- `scripts/review_relay/relay_common.py`
+- `scripts/review_relay/render_manual_fallback_prompt.py`
+- `scripts/safety/check_review_relay_safety.py`
+- `tests/safety/test_notification_loop_safety.py`
+- `tests/safety/test_review_relay_safety.py`
+- `reports/review_requests/chatgpt_review_prompt.md`
+- `reports/review_requests/chatgpt_review_prompt.json`
+- `reports/review_requests/manual_fallback_prompt.md`
+- `reports/review_requests/relay_status.md`
+- `reports/review_requests/relay_status.json`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
@@ -36,13 +40,14 @@ Stage 2A.5 public repo hygiene and Codex loop manager scaffolding.
 
 ## Test Result Summary
 
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.smoke.test_universe_and_data`: passed, 11 tests OK.
+- Relay preview commands passed without a real review gate; no ChatGPT UI action was executed.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.smoke.test_universe_and_data`: passed, 20 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2A.5 repo-only hygiene, loop scaffolding, review request, handoff, and tests.
+- `git status --short --untracked-files=all`: changes limited to Stage 2A.6 repo-only notification, review gate, ChatGPT relay draft, generated previews, handoff, and tests.
 
 ## Risk Statement
 
-This stage is repo-only. It must not modify real Hermes/OpenClaw configuration, restart services, install dependencies, touch secrets, create automatic trading capability, connect broker write access, or add order-placement APIs.
+This stage is repo-only. It does not modify real Hermes/OpenClaw configuration, Feishu gateway, launchd, crontab, or services. It does not install dependencies, touch secrets, execute Computer Use, create automatic trading capability, connect broker write access, or add order-placement APIs. The generated relay prompt is public-repo-only and reminds reviewers that final trading is manually decided by the user.
 
 ## Short Prompt For ChatGPT
 

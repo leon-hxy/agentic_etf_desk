@@ -1,8 +1,14 @@
 {
-  "current_stage": "Stage 2A.5",
+  "current_stage": "Stage 2A.6",
   "next_task": "ops/tasks/stage2b_repo_only.md",
   "last_handoff": "reports/codex_handoff/latest.json",
   "last_review_request": "reports/review_requests/latest.json",
   "status": "ready_for_codex_orchestration_draft",
-  "requires_user_approval_before_live_config_changes": true
+  "requires_user_approval_before_live_config_changes": true,
+  "notification_layer": "drafted",
+  "review_gate_layer": "drafted",
+  "chatgpt_review_relay": "drafted",
+  "computer_use_live_execution": false,
+  "manual_chatgpt_review_mode": true,
+  "public_repo_review_mode": true
 }

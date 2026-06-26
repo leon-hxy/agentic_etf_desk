@@ -1,0 +1,32 @@
+{
+  "commit": "8a1b03f8078c9593f4730cf87785b4663ed05855",
+  "computer_use_executed": false,
+  "gate": {
+    "chatgpt_prompt_generated": true,
+    "computer_use_executed": false,
+    "expected_commit": "8a1b03f8078c9593f4730cf87785b4663ed05855",
+    "expected_repo": "leon-hxy/agentic_etf_desk",
+    "gate_path": "local_private/review_gate.json",
+    "manual_fallback_available": true,
+    "relay_stage": "draft_only",
+    "review_gate_required": true,
+    "review_gate_seen": false,
+    "review_gate_valid": false,
+    "sent_to_chatgpt": false,
+    "status_reason": "waiting_for_user_confirmation"
+  },
+  "handoff": "reports/codex_handoff/latest.json",
+  "prompt": "\u8bf7\u5ba1\u6838\u516c\u5f00 GitHub repo\uff1a\n\nhttps://github.com/leon-hxy/agentic_etf_desk\n\n\u8bf7\u8bfb\u53d6\uff1a\n\n- `reports/review_requests/latest.md`\n- `reports/review_requests/latest.json`\n- `reports/codex_handoff/latest.md`\n- `reports/codex_handoff/latest.json`\n- `AGENTS.md`\n- `docs/security_policy.md`\n\n\u8bf7\u6839\u636e `reports/review_requests/latest.json` \u4e2d\u7684 commit `8a1b03f8078c9593f4730cf87785b4663ed05855` \u548c changed_files \u5ba1\u6838\u6700\u65b0\u9636\u6bb5\u3002\n\n\u672c\u6b21 changed_files\uff1a\n\n- `configs/codex_automation/chatgpt_review_relay_prompt.md`\n- `configs/hermes/feishu_loop_notifier_skill.md`\n- `configs/hermes/feishu_review_command_skill.md`\n- `docs/chatgpt_review_relay_design.md`\n- `docs/loop_protocol.md`\n- `local_private/README.md`\n- `ops/notifications/feishu_message_templates.md`\n- `ops/review_gate/README.md`\n- `ops/review_gate/review_gate.example.json`\n- `ops/state/loop_state.json`\n- `reports/codex_handoff/latest.md`\n- `reports/codex_handoff/latest.json`\n- `reports/review_requests/chatgpt_review_prompt.md`\n- `reports/review_requests/chatgpt_review_prompt.json`\n- `reports/review_requests/latest.md`\n- `reports/review_requests/latest.json`\n- `reports/review_requests/manual_fallback_prompt.md`\n- `reports/review_requests/relay_status.md`\n- `reports/review_requests/relay_status.json`\n- `scripts/review_relay/build_chatgpt_review_prompt.py`\n- `scripts/review_relay/check_review_gate.py`\n- `scripts/review_relay/mark_review_gate_used.py`\n- `scripts/review_relay/relay_common.py`\n- `scripts/review_relay/render_manual_fallback_prompt.py`\n- `scripts/safety/check_review_relay_safety.py`\n- `tests/safety/test_notification_loop_safety.py`\n- `tests/safety/test_review_relay_safety.py`\n\n\u91cd\u70b9\u68c0\u67e5\uff1a\n\n- ETF-only \u662f\u5426\u4fdd\u6301\u3002\n- \u662f\u5426\u6709\u81ea\u52a8\u4e0b\u5355 surface\u3002\n- \u662f\u5426\u6709 secrets \u6cc4\u6f0f\u3002\n- \u662f\u5426\u6709\u771f\u5b9e `~/.hermes` / `~/.openclaw` \u4fee\u6539\u8ff9\u8c61\u3002\n- safety tests \u548c smoke tests \u662f\u5426\u5408\u7406\u3002\n- public repo hygiene \u662f\u5426\u4fdd\u6301\u3002\n- \u662f\u5426\u53ef\u4ee5\u8fdb\u5165\u4e0b\u4e00\u9636\u6bb5\u3002\n\n\u8bf7\u8f93\u51fa\uff1a\n\n- \u901a\u8fc7/\u4e0d\u901a\u8fc7\u3002\n- \u9ad8\u98ce\u9669\u95ee\u9898\u3002\n- \u5fc5\u987b\u4fee\u590d\u9879\u3002\n- \u5efa\u8bae\u4e0b\u4e00\u6b65\u3002\n\n\u63d0\u793a\uff1arepo \u662f public\uff0c\u4e0d\u9700\u8981 GitHub connector\u3002\n\u63d0\u9192\uff1a\u672c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002\n",
+  "public_files": [
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "AGENTS.md",
+    "docs/security_policy.md"
+  ],
+  "public_repo_url": "https://github.com/leon-hxy/agentic_etf_desk",
+  "repo": "leon-hxy/agentic_etf_desk",
+  "review_request": "reports/review_requests/latest.json",
+  "sent_to_chatgpt": false
+}

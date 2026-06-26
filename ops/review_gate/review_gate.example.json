@@ -1,0 +1,11 @@
+{
+  "approved": true,
+  "approved_action": "chatgpt_review_relay",
+  "repo": "leon-hxy/agentic_etf_desk",
+  "commit": "PLACEHOLDER_COMMIT_SHA",
+  "review_request": "reports/review_requests/latest.json",
+  "approved_at": "PLACEHOLDER_ISO_TIME",
+  "expires_at": "PLACEHOLDER_ISO_TIME",
+  "one_time_nonce": "PLACEHOLDER_NONCE",
+  "used": false
+}

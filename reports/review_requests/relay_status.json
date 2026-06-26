@@ -1,0 +1,14 @@
+{
+  "chatgpt_prompt_generated": true,
+  "computer_use_executed": false,
+  "expected_commit": "8a1b03f8078c9593f4730cf87785b4663ed05855",
+  "expected_repo": "leon-hxy/agentic_etf_desk",
+  "gate_path": "local_private/review_gate.json",
+  "manual_fallback_available": true,
+  "relay_stage": "draft_only",
+  "review_gate_required": true,
+  "review_gate_seen": false,
+  "review_gate_valid": false,
+  "sent_to_chatgpt": false,
+  "status_reason": "waiting_for_user_confirmation"
+}

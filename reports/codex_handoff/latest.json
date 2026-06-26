@@ -1,36 +1,51 @@
 {
-  "stage": "Stage 2A.5 completed",
-  "commit": "c1619fc00778a8707db6966c0a393ebbb07b21c5",
+  "stage": "Stage 2A.6 completed",
+  "commit": "8a1b03f8078c9593f4730cf87785b4663ed05855",
   "changed_files": [
-    ".gitignore",
-    "configs/codex_automation/loop_manager_prompt.md",
-    "docs/current_state_audit.md",
-    "docs/git_history_sanitization_plan.md",
-    "docs/github_public_repo_security.md",
+    "configs/codex_automation/chatgpt_review_relay_prompt.md",
+    "configs/hermes/feishu_loop_notifier_skill.md",
+    "configs/hermes/feishu_review_command_skill.md",
+    "docs/chatgpt_review_relay_design.md",
     "docs/loop_protocol.md",
-    "docs/public_repo_policy.md",
-    "docs/real_config_hardening_plan.md",
-    "docs/runbook.md",
-    "local_private/.gitkeep",
     "local_private/README.md",
-    "ops/README.md",
+    "ops/notifications/feishu_message_templates.md",
+    "ops/review_gate/README.md",
+    "ops/review_gate/review_gate.example.json",
     "ops/state/loop_state.json",
-    "ops/tasks/README.md",
-    "ops/tasks/stage2b_repo_only.md",
-    "ops/templates/chatgpt_review_request_template.md",
-    "ops/templates/codex_task_template.md",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
+    "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
     "reports/review_requests/latest.md",
     "reports/review_requests/latest.json",
-    "scripts/safety/check_public_repo_hygiene.py",
-    "tests/safety/test_public_repo_hygiene.py",
-    "tests/safety/test_safety.py"
+    "reports/review_requests/manual_fallback_prompt.md",
+    "reports/review_requests/relay_status.md",
+    "reports/review_requests/relay_status.json",
+    "scripts/review_relay/build_chatgpt_review_prompt.py",
+    "scripts/review_relay/check_review_gate.py",
+    "scripts/review_relay/mark_review_gate_used.py",
+    "scripts/review_relay/relay_common.py",
+    "scripts/review_relay/render_manual_fallback_prompt.py",
+    "scripts/safety/check_review_relay_safety.py",
+    "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_review_relay_safety.py"
   ],
   "tests": [
     {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.smoke.test_universe_and_data",
-      "result": "passed; 11 tests OK"
+      "command": "python3 scripts/review_relay/build_chatgpt_review_prompt.py",
+      "result": "passed; generated public prompt preview without sending to ChatGPT"
+    },
+    {
+      "command": "python3 scripts/review_relay/check_review_gate.py",
+      "result": "passed; no real review gate present, waiting for confirmation"
+    },
+    {
+      "command": "python3 scripts/review_relay/render_manual_fallback_prompt.py",
+      "result": "passed; generated manual fallback prompt"
+    },
+    {
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.smoke.test_universe_and_data",
+      "result": "passed; 20 tests OK"
     },
     {
       "command": "git diff --check",
@@ -38,45 +53,49 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to Stage 2A.5 repo-only hygiene, loop scaffolding, review request, handoff, and tests"
+      "result": "changes limited to Stage 2A.6 repo-only notification, review gate, ChatGPT relay draft, generated previews, handoff, and tests"
     }
   ],
   "real_config_modified": false,
   "hermes_modified": false,
   "openclaw_modified": false,
+  "feishu_gateway_modified": false,
   "services_restarted": false,
   "dependencies_installed": false,
   "secrets_touched": false,
   "auto_trading_surface": false,
-  "public_repo_hygiene_completed": true,
-  "loop_manager_draft_completed": true,
+  "feishu_notification_draft_completed": true,
+  "review_gate_draft_completed": true,
+  "chatgpt_review_relay_draft_completed": true,
+  "computer_use_executed": false,
   "next_recommended_stage": "Stage 2B repo-only",
   "stage2b_recommended": true,
   "requires_user_approval": [
     "Entering /goal long-running work for Stage 2B",
+    "Installing any real Hermes skill or Feishu notification handler",
+    "Writing any real local_private/review_gate.json through Hermes",
+    "Executing live Computer Use / Chrome relay to ChatGPT",
     "Any modification to real ~/.hermes",
     "Any modification to real ~/.openclaw",
     "Any Hermes or OpenClaw restart",
-    "Any Feishu router or configuration change",
+    "Any Feishu gateway or configuration change",
     "Any dependency installation",
     "Any secret migration or credential storage",
     "Any broker integration, including read-only broker account access",
-    "Any expansion beyond ETF-only scope or addition of leveraged/inverse ETFs",
-    "Any git history rewrite or repository recreation"
+    "Any expansion beyond ETF-only scope or addition of leveraged/inverse ETFs"
   ],
   "forbidden_to_continue_automatically": [
     "Modifying real ~/.hermes",
     "Modifying real ~/.openclaw",
+    "Modifying real Feishu gateway",
     "Restarting Hermes or OpenClaw",
-    "Running hermes doctor --fix or openclaw doctor --fix",
-    "Modifying Feishu gateway/configuration",
     "Modifying launchd or crontab",
-    "Running chmod/chown on real Hermes/OpenClaw directories",
     "Installing dependencies without user approval",
-    "Writing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, or broker credentials",
+    "Writing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, OpenAI API keys, or broker credentials",
     "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code",
     "Adding broker write access",
+    "Running live Computer Use relay without future explicit approval",
     "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or inverse ETFs unless explicitly allowlisted later"
   ]
 }
