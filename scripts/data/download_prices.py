@@ -95,9 +95,21 @@ def write_outputs(source: str, symbols: str | None, start: date, end: date) -> d
     for row in rows:
         first_available.setdefault(row["symbol"], row["date"])
 
+    downloaded_at = datetime.now(timezone.utc).isoformat()
+    if METADATA_JSON.exists():
+        previous = json.loads(METADATA_JSON.read_text(encoding="utf-8"))
+        same_request = (
+            previous.get("source") == source
+            and previous.get("symbols") == [str(entry["symbol"]).upper() for entry in entries]
+            and previous.get("start_date") == start.isoformat()
+            and previous.get("end_date") == end.isoformat()
+        )
+        if same_request and previous.get("downloaded_at"):
+            downloaded_at = str(previous["downloaded_at"])
+
     metadata = {
         "source": source,
-        "downloaded_at": datetime.now(timezone.utc).isoformat(),
+        "downloaded_at": downloaded_at,
         "universe_file": "configs/universe/etf_universe.yaml",
         "symbols": [str(entry["symbol"]).upper() for entry in entries],
         "start_date": start.isoformat(),
@@ -135,4 +147,3 @@ if __name__ == "__main__":
     except Exception as exc:
         print(str(exc), file=sys.stderr)
         raise SystemExit(1)
-

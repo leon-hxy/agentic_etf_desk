@@ -29,10 +29,23 @@ def write_report() -> dict[str, object]:
     metadata = load_json(PANEL_METADATA)
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
+    json_path = REPORTS_DIR / "stage2a_smoke_report.json"
+    generated_at = datetime.now(timezone.utc).isoformat()
+    if json_path.exists():
+        previous = json.loads(json_path.read_text(encoding="utf-8"))
+        same_report = (
+            previous.get("stage") == "2A"
+            and previous.get("scope") == "repo-only"
+            and previous.get("price_panel_file") == metadata["price_panel_file"]
+            and previous.get("symbols") == metadata["symbols"]
+        )
+        if same_report and previous.get("generated_at"):
+            generated_at = str(previous["generated_at"])
+
     payload = {
         "stage": "2A",
         "scope": "repo-only",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": generated_at,
         "universe_file": "configs/universe/etf_universe.yaml",
         "allowed_count": len([entry for entry in universe["universe"] if entry["is_allowed"]]),
         "price_panel_file": metadata["price_panel_file"],
@@ -57,7 +70,6 @@ def write_report() -> dict[str, object]:
     )
 
     md_path = REPORTS_DIR / "stage2a_smoke_report.md"
-    json_path = REPORTS_DIR / "stage2a_smoke_report.json"
     md_path.write_text(md, encoding="utf-8")
     json_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
     return payload
@@ -75,4 +87,3 @@ if __name__ == "__main__":
     except Exception as exc:
         print(str(exc), file=sys.stderr)
         raise SystemExit(1)
-

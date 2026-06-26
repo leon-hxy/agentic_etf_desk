@@ -1,6 +1,6 @@
 {
   "allowed_count": 10,
-  "generated_at": "2026-06-26T00:10:28.915598+00:00",
+  "generated_at": "2026-06-26T00:21:20.591251+00:00",
   "manual_trading_disclaimer": "Final trading is manually decided by the user.",
   "price_panel_file": "data/processed/price_panel.csv",
   "scope": "repo-only",

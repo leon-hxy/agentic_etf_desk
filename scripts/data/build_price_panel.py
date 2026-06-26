@@ -84,9 +84,21 @@ def build_panel(raw_csv: Path = RAW_CSV) -> dict[str, object]:
     if RAW_METADATA.exists():
         source = json.loads(RAW_METADATA.read_text(encoding="utf-8")).get("source", source)
 
+    generated_at = datetime.now(timezone.utc).isoformat()
+    if PANEL_METADATA.exists():
+        previous = json.loads(PANEL_METADATA.read_text(encoding="utf-8"))
+        same_panel = (
+            previous.get("raw_file") == "data/raw/prices_sample.csv"
+            and previous.get("symbols") == symbols
+            and previous.get("panel_start_date") == (all_dates[0] if all_dates else None)
+            and previous.get("panel_end_date") == (all_dates[-1] if all_dates else None)
+        )
+        if same_panel and previous.get("generated_at"):
+            generated_at = str(previous["generated_at"])
+
     metadata = {
         "source": source,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": generated_at,
         "universe_file": "configs/universe/etf_universe.yaml",
         "raw_file": "data/raw/prices_sample.csv",
         "price_panel_file": "data/processed/price_panel.csv",
@@ -119,4 +131,3 @@ if __name__ == "__main__":
     except Exception as exc:
         print(str(exc), file=sys.stderr)
         raise SystemExit(1)
-
