@@ -1,0 +1,34 @@
+{
+  "downloaded_at": "2026-06-26T00:10:28.857675+00:00",
+  "end_date": "2024-01-08",
+  "first_available_dates": {
+    "BIL": "2024-01-02",
+    "BND": "2024-01-03",
+    "DBC": "2024-01-02",
+    "EWJ": "2024-01-02",
+    "GLD": "2024-01-03",
+    "IEF": "2024-01-04",
+    "VEA": "2024-01-03",
+    "VNQ": "2024-01-04",
+    "VTI": "2024-01-02",
+    "VWO": "2024-01-04"
+  },
+  "price_field": "adjusted_close",
+  "raw_file": "data/raw/prices_sample.csv",
+  "source": "sample",
+  "start_date": "2024-01-02",
+  "symbols": [
+    "VTI",
+    "VEA",
+    "VWO",
+    "EWJ",
+    "BND",
+    "IEF",
+    "BIL",
+    "GLD",
+    "VNQ",
+    "DBC"
+  ],
+  "total_return_field": "total_return_index",
+  "universe_file": "configs/universe/etf_universe.yaml"
+}

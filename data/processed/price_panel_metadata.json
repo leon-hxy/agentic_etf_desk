@@ -1,0 +1,49 @@
+{
+  "abnormal_price_points": [],
+  "first_available_dates": {
+    "BIL": "2024-01-02",
+    "BND": "2024-01-03",
+    "DBC": "2024-01-02",
+    "EWJ": "2024-01-02",
+    "GLD": "2024-01-03",
+    "IEF": "2024-01-04",
+    "VEA": "2024-01-03",
+    "VNQ": "2024-01-04",
+    "VTI": "2024-01-02",
+    "VWO": "2024-01-04"
+  },
+  "generated_at": "2026-06-26T00:10:28.893022+00:00",
+  "missing_values_by_symbol": {
+    "BIL": 0,
+    "BND": 1,
+    "DBC": 0,
+    "EWJ": 0,
+    "GLD": 1,
+    "IEF": 2,
+    "VEA": 1,
+    "VNQ": 2,
+    "VTI": 0,
+    "VWO": 2
+  },
+  "panel_end_date": "2024-01-08",
+  "panel_start_date": "2024-01-02",
+  "price_field": "adjusted_close",
+  "price_panel_file": "data/processed/price_panel.csv",
+  "raw_file": "data/raw/prices_sample.csv",
+  "source": "sample",
+  "symbols": [
+    "BIL",
+    "BND",
+    "DBC",
+    "EWJ",
+    "GLD",
+    "IEF",
+    "VEA",
+    "VNQ",
+    "VTI",
+    "VWO"
+  ],
+  "total_return_supported": true,
+  "universe_file": "configs/universe/etf_universe.yaml",
+  "unknown_symbols": []
+}
