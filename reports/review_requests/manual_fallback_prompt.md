@@ -18,25 +18,24 @@ https://github.com/leon-hxy/agentic_etf_desk
 - `AGENTS.md`
 - `docs/security_policy.md`
 
-请审核 `review_target_commit`：`3991a8c083d73a42ff2879b53ad009a022d7ed02`。
+请审核 `review_target_commit`：`630433a5cef96756811950738f4cf8dd8b4c820e`。
 
-请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2C completed。
+请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2D preparation plan completed。
 不要把旧阶段 commit 当作本阶段的审核目标。
 
-Stage 2C completed review_files：
+Stage 2D preparation plan completed review_files：
 
+- `ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/installation_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/backup_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/rollback_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/safety_checks.md`
 - `ops/state/loop_state.json`
-- `ops/tasks/stage2c_loop_automation_dry_run.md`
-- `reports/loop_dry_run/stage2c_loop_dry_run.md`
-- `reports/loop_dry_run/stage2c_loop_dry_run.json`
 - `reports/review_requests/notification_preview.md`
 - `reports/review_requests/notification_preview.json`
-- `scripts/review_relay/render_notification_preview.py`
-- `scripts/safety/run_loop_dry_run.py`
-- `tests/safety/test_loop_automation_dry_run.py`
+- `tests/safety/test_stage2d_preparation_plan.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_review_relay_safety.py`
 
 重点检查：
 

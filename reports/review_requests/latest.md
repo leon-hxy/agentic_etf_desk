@@ -2,21 +2,21 @@
 
 ## Current Stage
 
-Stage 2C completed.
+Stage 2D preparation plan completed.
 
 ## Loop State Stage
 
-Stage 2C completed.
+Stage 2D preparation plan completed.
 
 ## Review Target Commit
 
-`3991a8c083d73a42ff2879b53ad009a022d7ed02`
+`630433a5cef96756811950738f4cf8dd8b4c820e`
 
-Please review this `review_target_commit` for Stage 2C.
+Please review this `review_target_commit` for Stage 2D preparation.
 
 ## Current Repo Head
 
-`3991a8c083d73a42ff2879b53ad009a022d7ed02`
+`630433a5cef96756811950738f4cf8dd8b4c820e`
 
 ## Handoff Commit
 
@@ -27,7 +27,7 @@ its own final SHA in the same commit.
 
 ## Handoff Generated From Head
 
-`3991a8c083d73a42ff2879b53ad009a022d7ed02`
+`630433a5cef96756811950738f4cf8dd8b4c820e`
 
 ## Commit Binding Note
 
@@ -39,29 +39,28 @@ its own final SHA in the same commit.
 - `reports/review_requests/latest.json`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
+- `ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/installation_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/backup_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/rollback_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/safety_checks.md`
 - `ops/state/loop_state.json`
-- `ops/tasks/stage2c_loop_automation_dry_run.md`
-- `reports/loop_dry_run/stage2c_loop_dry_run.md`
-- `reports/loop_dry_run/stage2c_loop_dry_run.json`
 - `reports/review_requests/notification_preview.md`
 - `reports/review_requests/notification_preview.json`
-- `scripts/review_relay/render_notification_preview.py`
-- `scripts/safety/run_loop_dry_run.py`
-- `tests/safety/test_loop_automation_dry_run.py`
+- `tests/safety/test_stage2d_preparation_plan.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_review_relay_safety.py`
 
 ## Test Result Summary
 
-- `python3 scripts/safety/run_loop_dry_run.py --check`: passed; dry-run report is current and repo-only.
+- `python3 scripts/safety/run_loop_dry_run.py --check`: passed; Stage 2C dry-run report remains current.
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`: passed; generated public prompt preview without sending to ChatGPT.
 - `python3 scripts/review_relay/check_review_gate.py`: passed; no real review gate present, waiting for confirmation.
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`: passed; generated manual fallback prompt.
 - `python3 scripts/review_relay/render_notification_preview.py`: passed; generated repo-only notification preview without sending to Feishu.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed, 55 tests OK.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed, 59 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2C handoff/review artifacts before handoff commit.
+- `git status --short --untracked-files=all`: changes limited to Stage 2D handoff/review artifacts before handoff commit.
 
 ## Risk Statement
 
@@ -73,4 +72,4 @@ reports and tickets state that final trading is manually decided by the user.
 
 ## Short Prompt For ChatGPT
 
-请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2C review_target_commit 3991a8c083d73a42ff2879b53ad009a022d7ed02 是否通过。
+请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2D preparation review_target_commit 630433a5cef96756811950738f4cf8dd8b4c820e 是否通过。

@@ -2,22 +2,22 @@
 
 ## Current Stage
 
-Stage 2C completed.
+Stage 2D preparation plan completed.
 
 ## Loop State Stage
 
-Stage 2C completed.
+Stage 2D preparation plan completed.
 
 ## Review Target Commit
 
-`3991a8c083d73a42ff2879b53ad009a022d7ed02`
+`630433a5cef96756811950738f4cf8dd8b4c820e`
 
-This is the Stage 2C repo-only loop automation dry-run commit that ChatGPT
-should review.
+This is the Stage 2D repo-only Hermes/Feishu notification and local approval
+gate preparation plan commit that ChatGPT should review.
 
 ## Current Repo Head
 
-`3991a8c083d73a42ff2879b53ad009a022d7ed02`
+`630433a5cef96756811950738f4cf8dd8b4c820e`
 
 ## Handoff Commit
 
@@ -28,7 +28,7 @@ its own final SHA in the same commit.
 
 ## Handoff Generated From Head
 
-`3991a8c083d73a42ff2879b53ad009a022d7ed02`
+`630433a5cef96756811950738f4cf8dd8b4c820e`
 
 ## Commit Binding Note
 
@@ -36,18 +36,19 @@ its own final SHA in the same commit.
 
 ## Files Changed This Round
 
+- `ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/installation_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/backup_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/rollback_plan.md`
+- `docs/stage2d_hermes_feishu_approval_gate_preflight/safety_checks.md`
 - `ops/state/loop_state.json`
-- `ops/tasks/stage2c_loop_automation_dry_run.md`
-- `reports/loop_dry_run/stage2c_loop_dry_run.md`
-- `reports/loop_dry_run/stage2c_loop_dry_run.json`
 - `reports/review_requests/notification_preview.md`
 - `reports/review_requests/notification_preview.json`
-- `scripts/review_relay/render_notification_preview.py`
 - `scripts/safety/run_loop_dry_run.py`
 - `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_review_relay_safety.py`
+- `tests/safety/test_stage2d_preparation_plan.py`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
@@ -67,20 +68,20 @@ its own final SHA in the same commit.
 - `python3 scripts/review_relay/check_review_gate.py`
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`
 - `python3 scripts/review_relay/render_notification_preview.py`
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
 - `git diff --check`
 - `git status --short --untracked-files=all`
 
 ## Test Results
 
-- `python3 scripts/safety/run_loop_dry_run.py --check`: passed; dry-run report is current and repo-only.
+- `python3 scripts/safety/run_loop_dry_run.py --check`: passed; Stage 2C dry-run report remains current.
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`: passed; generated public prompt preview without sending to ChatGPT.
 - `python3 scripts/review_relay/check_review_gate.py`: passed; no real review gate present, waiting for confirmation.
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`: passed; generated manual fallback prompt.
 - `python3 scripts/review_relay/render_notification_preview.py`: passed; generated repo-only notification preview without sending to Feishu.
-- Full unittest command: passed, 55 tests OK.
+- Full unittest command: passed, 59 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2C handoff/review artifacts before handoff commit.
+- `git status --short --untracked-files=all`: changes limited to Stage 2D handoff/review artifacts before handoff commit.
 
 ## Runtime And Safety Checklist
 
@@ -92,14 +93,15 @@ its own final SHA in the same commit.
 - Touched secrets: false.
 - Automatic trading surface present: false.
 - Real Computer Use executed: false.
-- Loop state updated to Stage 2C completed: true.
-- Stage 2C task marked completed: true.
-- Loop dry-run report generated: true.
-- Notification preview generated: true.
+- Stage 2D task file created: true.
+- Installation plan created: true.
+- Backup plan created: true.
+- Rollback plan created: true.
+- Safety checks created: true.
 
 ## Next Recommended Stage
 
-User direction required before Stage 2D.
+Await explicit user approval before live Stage 2D execution.
 
 ## Requires User Approval
 
@@ -113,7 +115,7 @@ User direction required before Stage 2D.
 - Any broker integration, including read-only broker account access.
 - Any expansion beyond ETF-only scope or addition of leveraged or defensive-inverse instruments.
 - Any Computer Use relay beyond repo-only prompt generation.
-- Any Stage 2D scope.
+- Any execution of the Stage 2D live installation plan.
 
 ## Forbidden To Continue Automatically
 
@@ -129,4 +131,4 @@ User direction required before Stage 2D.
 - Adding broker write access.
 - Running live Computer Use relay without future explicit approval.
 - Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later.
-- Starting Stage 2D without explicit user approval.
+- Executing the Stage 2D live installation plan without explicit user approval.

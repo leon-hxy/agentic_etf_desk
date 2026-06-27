@@ -12,6 +12,7 @@ PREVIOUS_STAGE_COMMITS = {
     "83eeec" + "88ddda138b310aa7d41078919ee0f9b12d",
     "d40315a" + "ea238db28b1bdf857efa4052b250634c4",
     "acd9995" + "d7c48c24f1d381158ac72afb7579e0039",
+    "3991a8c" + "083d73a42ff2879b53ad009a022d7ed02",
 }
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
@@ -52,10 +53,10 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.review_target_commit = self.handoff.get("review_target_commit")
 
     def test_latest_json_files_declare_review_target_commit(self) -> None:
-        self.assertEqual(self.handoff["stage"], "Stage 2C completed")
-        self.assertEqual(self.review["stage"], "Stage 2C completed")
-        self.assertEqual(self.handoff["loop_state_stage"], "Stage 2C completed")
-        self.assertEqual(self.review["loop_state_stage"], "Stage 2C completed")
+        self.assertEqual(self.handoff["stage"], "Stage 2D preparation plan completed")
+        self.assertEqual(self.review["stage"], "Stage 2D preparation plan completed")
+        self.assertEqual(self.handoff["loop_state_stage"], "Stage 2D preparation plan completed")
+        self.assertEqual(self.review["loop_state_stage"], "Stage 2D preparation plan completed")
         self.assertTrue(self.review_target_commit)
         self.assertNotIn(self.review_target_commit, PREVIOUS_STAGE_COMMITS)
         self.assertEqual(self.review_target_commit, self.review.get("review_target_commit"))
@@ -69,14 +70,14 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertIn("review_target_commit is the commit to review", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
-    def test_review_target_commit_is_valid_stage2c_commit(self) -> None:
+    def test_review_target_commit_is_valid_stage2d_commit(self) -> None:
         target = str(self.review_target_commit)
         result = git("cat-file", "-e", f"{target}^{{commit}}")
         self.assertEqual(result.returncode, 0, msg=result.stderr)
 
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertIn("stage2c", subject.stdout.lower())
+        self.assertIn("stage2d", subject.stdout.lower())
         self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_recorded_current_head_is_valid_git_commit(self) -> None:
