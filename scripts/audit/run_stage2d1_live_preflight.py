@@ -37,16 +37,16 @@ OUTPUTS = {
         REPORT_DIR / "stage2d1_safety_test_results.md",
     ),
 }
-EXPECTED_FEISHU_KEYS = [
-    "FEISHU_APP_ID",
-    "FEISHU_APP_SECRET",
-    "FEISHU_DOMAIN",
-    "FEISHU_CONNECTION_MODE",
-    "FEISHU_ALLOWED_USERS",
-    "FEISHU_HOME_CHANNEL",
-    "FEISHU_GROUP_POLICY",
-    "FEISHU_REQUIRE_MENTION",
-]
+EXPECTED_FEISHU_CAPABILITIES = {
+    "FEISHU_APP_ID": "feishu_app_identity",
+    "FEISHU_APP_SECRET": "feishu_app_secret_reference",
+    "FEISHU_DOMAIN": "feishu_domain",
+    "FEISHU_CONNECTION_MODE": "feishu_connection_mode",
+    "FEISHU_ALLOWED_USERS": "feishu_allowed_users_policy",
+    "FEISHU_HOME_CHANNEL": "feishu_home_channel",
+    "FEISHU_GROUP_POLICY": "feishu_group_policy",
+    "FEISHU_REQUIRE_MENTION": "feishu_require_mention_policy",
+}
 
 
 def run_read_only_command(command: list[str], timeout: int = 5) -> dict[str, Any]:
@@ -61,17 +61,15 @@ def run_read_only_command(command: list[str], timeout: int = 5) -> dict[str, Any
         return {
             "command": " ".join(command[:3]),
             "available": True,
-            "exit_code": completed.returncode,
-            "stdout_line_count": len(completed.stdout.splitlines()),
-            "stderr_line_count": len(completed.stderr.splitlines()),
+            "succeeded": completed.returncode == 0,
+            "raw_output_written": False,
         }
     except (FileNotFoundError, subprocess.TimeoutExpired):
         return {
             "command": " ".join(command[:3]),
             "available": False,
-            "exit_code": None,
-            "stdout_line_count": 0,
-            "stderr_line_count": 0,
+            "succeeded": False,
+            "raw_output_written": False,
         }
 
 
@@ -118,18 +116,16 @@ def process_summary() -> dict[str, Any]:
         check=False,
     )
     keywords = ("hermes", "feishu", "gateway")
-    names: set[str] = set()
     matched_count = 0
     for line in completed.stdout.splitlines():
         lowered = line.lower()
         if not any(keyword in lowered for keyword in keywords):
             continue
         matched_count += 1
-        command = line.strip().split(maxsplit=1)[0]
-        names.add(Path(command).name)
     return {
-        "keyword_match_count": matched_count,
-        "process_names": sorted(names),
+        "keyword_match_detected": matched_count > 0,
+        "process_names_public": False,
+        "raw_process_output_written": False,
     }
 
 
@@ -140,8 +136,8 @@ def launchctl_summary() -> dict[str, Any]:
         capture_output=True,
         check=False,
     )
-    labels: set[str] = set()
-    running_labels: set[str] = set()
+    label_count = 0
+    running_label_count = 0
     keywords = ("hermes", "feishu", "gateway")
     for line in completed.stdout.splitlines()[1:]:
         parts = line.split()
@@ -150,13 +146,14 @@ def launchctl_summary() -> dict[str, Any]:
         label = parts[-1]
         if not any(keyword in label.lower() for keyword in keywords):
             continue
-        labels.add(label)
+        label_count += 1
         if parts[0] != "-":
-            running_labels.add(label)
+            running_label_count += 1
     return {
-        "label_count": len(labels),
-        "running_label_count": len(running_labels),
-        "labels": sorted(labels),
+        "candidate_detected": label_count > 0,
+        "running_candidate_detected": running_label_count > 0,
+        "labels_public": False,
+        "raw_launchctl_output_written": False,
     }
 
 
@@ -167,23 +164,18 @@ def listening_ports_summary() -> dict[str, Any]:
         capture_output=True,
         check=False,
     )
-    ports: set[str] = set()
-    commands: set[str] = set()
+    matched_count = 0
     keywords = ("hermes", "feishu", "gateway")
     for line in completed.stdout.splitlines()[1:]:
         lowered = line.lower()
         if not any(keyword in lowered for keyword in keywords):
             continue
-        parts = line.split()
-        if not parts:
-            continue
-        commands.add(parts[0])
-        address = parts[-2] if len(parts) >= 2 else ""
-        if ":" in address:
-            ports.add(address.rsplit(":", 1)[-1])
+        matched_count += 1
     return {
-        "matched_command_names": sorted(commands),
-        "listening_ports": sorted(port for port in ports if port.isdigit()),
+        "listening_candidate_detected": matched_count > 0,
+        "command_names_public": False,
+        "ports_public": False,
+        "raw_lsof_output_written": False,
     }
 
 
@@ -202,6 +194,11 @@ def build_preflight(root: Path) -> dict[str, Any]:
         "hermes_version": run_read_only_command(["hermes", "--version"]),
         "hermes_gateway_status": run_read_only_command(["hermes", "gateway", "status"]),
     }
+    missing_feishu_capabilities = sorted(
+        capability
+        for key, capability in EXPECTED_FEISHU_CAPABILITIES.items()
+        if key not in env_keys
+    )
 
     return {
         "stage": "Stage 2D.1 read-only live preflight completed",
@@ -231,17 +228,29 @@ def build_preflight(root: Path) -> dict[str, Any]:
                 path_status(home, "~/.hermes/memories"),
                 path_status(home, "~/.hermes/skills"),
             ],
-            "config_key_names": config_keys,
-            "env_key_names": env_keys,
+            "public_capability_summary": {
+                "config_file_present": config_path.exists(),
+                "config_file_has_settings": bool(config_keys),
+                "env_file_present": env_path.exists(),
+                "env_file_has_settings": bool(env_keys),
+                "skills_dir_present": (hermes_home / "skills").exists(),
+                "gateway_status_command_succeeded": command_checks["hermes_gateway_status"][
+                    "succeeded"
+                ],
+                "detailed_key_names_public": False,
+            },
             "command_checks": command_checks,
             "process_summary": process_summary(),
             "launchctl_summary": launchctl_summary(),
             "listening_ports_summary": listening_ports_summary(),
         },
         "feishu_gateway": {
-            "expected_key_names": EXPECTED_FEISHU_KEYS,
-            "present_key_names": sorted(key for key in EXPECTED_FEISHU_KEYS if key in env_keys),
-            "missing_key_names": sorted(key for key in EXPECTED_FEISHU_KEYS if key not in env_keys),
+            "public_capability_summary": {
+                "required_capabilities_checked": True,
+                "all_required_capabilities_present": not missing_feishu_capabilities,
+                "missing_required_capabilities": missing_feishu_capabilities,
+                "detailed_key_names_public": False,
+            },
             "gateway_config_candidate_paths": [
                 "~/.hermes/config.yaml",
                 "~/.hermes/.env",
@@ -262,6 +271,12 @@ def build_preflight(root: Path) -> dict[str, Any]:
             "ops/review_gate/review_gate.example.json": (
                 root / "ops/review_gate/review_gate.example.json"
             ).exists(),
+        },
+        "local_private_detail_policy": {
+            "detailed_key_names_public": False,
+            "detailed_key_names_written": False,
+            "allowed_private_path": "local_private/stage2d1_live_preflight_private.json",
+            "local_private_gitignored": True,
         },
         "safety_flags": safety_flags(),
         "raw_command_output_written": False,
@@ -333,7 +348,8 @@ def backup_checklist() -> dict[str, Any]:
             "real Feishu gateway config path selected by user",
         ],
         "manifest_rules": [
-            "Record file labels, checksums, sizes, timestamps, and redacted key names only",
+            "Record file labels, checksums, sizes, timestamps, and capability labels only",
+            "If detailed key names are needed, write them only under gitignored local_private",
             "Do not record secret values",
             "Do not commit backup files to this repo",
         ],
@@ -372,7 +388,7 @@ def safety_results() -> dict[str, Any]:
         "safety_flags": flags,
         "checks": [
             "Read-only config path existence checked",
-            "Only key names recorded from environment-like files",
+            "Detailed config and environment key names kept out of tracked public reports",
             "Process and launchctl status summarized without raw command lines",
             "No Feishu message sent",
             "No Computer Use run",
@@ -457,6 +473,18 @@ def check_outputs(root: Path) -> dict[str, Any]:
         "/" + "Users" + "/",
         "/" + "Volumes" + "/",
         "FEISHU" + "_APP" + "_SECRET=",
+        "FEISHU" + "_APP" + "_SECRET",
+        "DEEPSEEK" + "_API" + "_KEY",
+        "KIMI" + "_API" + "_KEY",
+        "OPENAI" + "_API" + "_KEY",
+        "ANTHROPIC" + "_API" + "_KEY",
+        '"api_key"',
+        "config_key_names",
+        "env_key_names",
+        "present_key_names",
+        "expected_key_names",
+        "fallback_providers",
+        "provider_filter",
         "OpenAI API key=",
         "token=",
         "secret=",

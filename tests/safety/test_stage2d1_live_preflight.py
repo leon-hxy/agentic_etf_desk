@@ -69,8 +69,62 @@ class Stage2D1LivePreflightTest(unittest.TestCase):
         self.assertIn("~/.hermes/config.yaml", payload["hermes"]["config_paths"])
         self.assertIn("~/.hermes/.env", payload["hermes"]["config_paths"])
         self.assertIn("~/.hermes/skills", payload["installable_points"])
-        self.assertIn("FEISHU_APP_ID", payload["feishu_gateway"]["expected_key_names"])
-        self.assertIn("FEISHU_APP_SECRET", payload["feishu_gateway"]["expected_key_names"])
+        self.assertIn("public_capability_summary", payload["hermes"])
+        self.assertIn("public_capability_summary", payload["feishu_gateway"])
+        self.assertFalse(
+            payload["hermes"]["public_capability_summary"]["detailed_key_names_public"]
+        )
+        self.assertIn(
+            "missing_required_capabilities",
+            payload["feishu_gateway"]["public_capability_summary"],
+        )
+
+    def test_public_live_preflight_reports_do_not_expose_config_fingerprints(self) -> None:
+        payload = read_json(JSON_FILES["preflight"])
+        serialized = json.dumps(payload, sort_keys=True)
+        live_report_text = "\n".join(read_text(path) for path in JSON_FILES.values())
+        live_report_text += "\n" + "\n".join(read_text(path) for path in MD_FILES.values())
+
+        forbidden_json_fields = {
+            "config_key_names",
+            "env_key_names",
+            "present_key_names",
+            "expected_key_names",
+        }
+
+        def walk(value):
+            if isinstance(value, dict):
+                for key, child in value.items():
+                    yield key
+                    yield from walk(child)
+            elif isinstance(value, list):
+                for child in value:
+                    yield from walk(child)
+
+        exposed_fields = forbidden_json_fields.intersection(set(walk(payload)))
+        self.assertEqual(exposed_fields, set())
+
+        forbidden_fragments = [
+            "DEEPSEEK_API_KEY",
+            "KIMI_API_KEY",
+            "OPENAI_API_KEY",
+            "ANTHROPIC_API_KEY",
+            "FEISHU_APP_SECRET",
+            '"api_key"',
+            "fallback_providers",
+            "provider_filter",
+        ]
+        for fragment in forbidden_fragments:
+            self.assertNotIn(fragment, serialized)
+            self.assertNotIn(fragment, live_report_text)
+
+        private_policy = payload["local_private_detail_policy"]
+        self.assertFalse(private_policy["detailed_key_names_written"])
+        self.assertEqual(
+            private_policy["allowed_private_path"],
+            "local_private/stage2d1_live_preflight_private.json",
+        )
+        self.assertIn("local_private/*", read_text(ROOT / ".gitignore"))
 
     def test_change_backup_rollback_and_safety_outputs_are_gate_only(self) -> None:
         minimal = read_json(JSON_FILES["minimal_change"])

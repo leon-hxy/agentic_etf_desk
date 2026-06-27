@@ -45,6 +45,22 @@ class PublicRepoHygieneTest(unittest.TestCase):
         self.assertIn("absolute user path", reasons)
         self.assertIn("real pid line", reasons)
 
+    def test_public_repo_hygiene_detects_live_preflight_config_fingerprints(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            report_dir = root / "reports" / "live_preflight"
+            report_dir.mkdir(parents=True)
+            (report_dir / "stage2d1_live_preflight_report.json").write_text(
+                '{"env_key_names": ["KIMI_API_KEY"], "provider_filter": true}\n',
+                encoding="utf-8",
+            )
+            result = self.run_script(root)
+        self.assertNotEqual(result.returncode, 0)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "fail")
+        reasons = {finding["reason"] for finding in payload["findings"]}
+        self.assertIn("public live preflight config fingerprint", reasons)
+
 
 if __name__ == "__main__":
     unittest.main()

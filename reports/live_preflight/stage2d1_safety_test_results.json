@@ -1,7 +1,7 @@
 {
   "checks": [
     "Read-only config path existence checked",
-    "Only key names recorded from environment-like files",
+    "Detailed config and environment key names kept out of tracked public reports",
     "Process and launchctl status summarized without raw command lines",
     "No Feishu message sent",
     "No Computer Use run",

@@ -8,7 +8,8 @@
     "real Feishu gateway config path selected by user"
   ],
   "manifest_rules": [
-    "Record file labels, checksums, sizes, timestamps, and redacted key names only",
+    "Record file labels, checksums, sizes, timestamps, and capability labels only",
+    "If detailed key names are needed, write them only under gitignored local_private",
     "Do not record secret values",
     "Do not commit backup files to this repo"
   ],

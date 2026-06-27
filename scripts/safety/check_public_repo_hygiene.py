@@ -71,6 +71,14 @@ ASSIGNMENT_PATTERN = re.compile(
 PID_PATTERN = re.compile(r"(?im)^.*\bpid\b[^\n]*\b[1-9][0-9]{1,6}\b.*$")
 PID_REASON = "real " + "pid" + " line"
 SAMPLE_CHARS = 80
+LIVE_PREFLIGHT_REPORT_PREFIX = "reports/live_preflight/"
+LIVE_PREFLIGHT_CONFIG_FINGERPRINT_PATTERNS = [
+    re.compile(r"\b(config_key_names|env_key_names|present_key_names|expected_key_names)\b"),
+    re.compile(r"\b(DEEPSEEK|KIMI|OPENAI|ANTHROPIC|GEMINI|GOOGLE)_API_KEY\b"),
+    re.compile(r"\bFEISHU_APP_SECRET\b"),
+    re.compile(r'"api_key"'),
+    re.compile(r"\b(fallback_providers|provider_filter)\b"),
+]
 
 
 def iter_candidate_files(root: Path) -> list[Path]:
@@ -136,6 +144,14 @@ def scan_file(root: Path, path: Path) -> list[dict[str, str]]:
         value = match.group(2)
         if not safe_assignment_value(value):
             findings.append({"file": rel, "reason": f"sensitive-looking {match.group(1)} value"})
+
+    if rel.startswith(LIVE_PREFLIGHT_REPORT_PREFIX):
+        for pattern in LIVE_PREFLIGHT_CONFIG_FINGERPRINT_PATTERNS:
+            if pattern.search(text):
+                findings.append(
+                    {"file": rel, "reason": "public live preflight config fingerprint"}
+                )
+                break
 
     return findings
 
