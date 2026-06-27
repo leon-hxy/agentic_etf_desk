@@ -1,0 +1,34 @@
+{
+  "stage": "Stage 2D.2A minimal live Hermes skills install completed",
+  "rollback_available": true,
+  "rollback_executed": false,
+  "backup_id": "stage2d2a-20260627T144729Z",
+  "backup_path_public": "outside_public_repo_private_backup",
+  "private_backup_manifest_public_label": "outside_public_repo_private_backup/manifest.txt",
+  "restore_source_labels": [
+    "~/.hermes/config.yaml",
+    "~/.hermes/skills"
+  ],
+  "installed_skill_target_labels": [
+    "~/.hermes/skills/feishu-loop-notifier/SKILL.md",
+    "~/.hermes/skills/feishu-review-command/SKILL.md"
+  ],
+  "rollback_steps": [
+    "Get explicit user approval before rollback.",
+    "Use the private backup path shown before live execution.",
+    "Restore ~/.hermes/config.yaml only if needed.",
+    "Restore the backed-up ~/.hermes/skills tree or remove only the two installed Stage 2D.2A skill directories.",
+    "Do not restart Hermes or OpenClaw unless the user separately approves.",
+    "Do not send Feishu messages during rollback."
+  ],
+  "forbidden_during_rollback_without_new_approval": [
+    "Restarting Hermes or OpenClaw",
+    "Modifying ~/.openclaw",
+    "Sending Feishu messages",
+    "Installing dependencies",
+    "Running Computer Use",
+    "Printing or committing secret values",
+    "Adding broker or automatic trading capability"
+  ],
+  "final_trading_notice": "Final trading is manually decided by the user."
+}

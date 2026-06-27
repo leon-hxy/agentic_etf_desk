@@ -1,0 +1,30 @@
+{
+  "stage": "Stage 2D.2A minimal live Hermes skills install completed",
+  "status": "passed",
+  "approved_hermes_skills_install": true,
+  "backup_created": true,
+  "backup_outside_public_repo": true,
+  "live_hermes_skills_modified": true,
+  "openclaw_modified": false,
+  "services_restarted": false,
+  "dependencies_installed": false,
+  "feishu_message_sent": false,
+  "computer_use_executed": false,
+  "secret_values_printed": false,
+  "secret_values_committed": false,
+  "auto_trading_surface": false,
+  "broker_surface": false,
+  "checks": [
+    "Backup path is outside the public repository.",
+    "Hermes config and skills backup files are present in the private backup location.",
+    "Installed loop notifier skill matches the repo source file.",
+    "Installed review command skill matches the repo source file.",
+    "No OpenClaw path was modified.",
+    "No Hermes or OpenClaw service restart was executed.",
+    "No dependency installation was executed.",
+    "No real Feishu message was sent.",
+    "No Computer Use action was executed.",
+    "No secret values were printed or committed."
+  ],
+  "final_trading_notice": "Final trading is manually decided by the user."
+}

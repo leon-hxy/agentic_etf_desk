@@ -1,0 +1,49 @@
+{
+  "stage": "Stage 2D.2A minimal live Hermes skills install completed",
+  "mode": "approved_minimal_live_install",
+  "approved_live_install": true,
+  "backup_id": "stage2d2a-20260627T144729Z",
+  "backup_created": true,
+  "backup_outside_public_repo": true,
+  "backup_path_public": "outside_public_repo_private_backup",
+  "private_backup_manifest_public_label": "outside_public_repo_private_backup/manifest.txt",
+  "backed_up_labels": [
+    "~/.hermes/config.yaml",
+    "~/.hermes/skills"
+  ],
+  "installed_skill_ids": [
+    "feishu-loop-notifier",
+    "feishu-review-command"
+  ],
+  "installed_skill_target_labels": [
+    "~/.hermes/skills/feishu-loop-notifier/SKILL.md",
+    "~/.hermes/skills/feishu-review-command/SKILL.md"
+  ],
+  "source_files": [
+    "configs/hermes/feishu_loop_notifier_skill.md",
+    "configs/hermes/feishu_review_command_skill.md"
+  ],
+  "live_hermes_skills_modified": true,
+  "real_hermes_modified": true,
+  "openclaw_modified": false,
+  "services_restarted": false,
+  "dependencies_installed": false,
+  "feishu_message_sent": false,
+  "computer_use_executed": false,
+  "secret_values_printed": false,
+  "secret_values_committed": false,
+  "auto_trading_surface": false,
+  "broker_surface": false,
+  "verification": {
+    "backup_files_present": true,
+    "loop_notifier_matches_repo_source": true,
+    "review_command_matches_repo_source": true
+  },
+  "notes": [
+    "The backup path was shown to the user before live execution and is intentionally not committed.",
+    "Only Hermes skills were installed; Hermes config values were backed up but not changed.",
+    "No OpenClaw path was modified.",
+    "No Feishu message was sent.",
+    "Final trading is manually decided by the user."
+  ]
+}
