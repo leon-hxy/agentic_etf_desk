@@ -2,27 +2,33 @@
 
 ## Current Stage
 
+Stage 2B.1 completed.
+
+## Loop State Stage
+
 Stage 2B completed.
 
 ## Review Target Commit
 
-`d40315aea238db28b1bdf857efa4052b250634c4`
+`acd9995d7c48c24f1d381158ac72afb7579e0039`
 
-This is the Stage 2B business commit that ChatGPT should review.
+This is the Stage 2B.1 repo-only state consistency repair commit that ChatGPT
+should review.
 
 ## Current Repo Head
 
-`d40315aea238db28b1bdf857efa4052b250634c4`
+`acd9995d7c48c24f1d381158ac72afb7579e0039`
 
 ## Handoff Commit
 
 `null`
 
-The handoff file is committed after it is generated, so it cannot self-reference its own final SHA in the same commit.
+The handoff file is committed after it is generated, so it cannot self-reference
+its own final SHA in the same commit.
 
 ## Handoff Generated From Head
 
-`d40315aea238db28b1bdf857efa4052b250634c4`
+`acd9995d7c48c24f1d381158ac72afb7579e0039`
 
 ## Commit Binding Note
 
@@ -30,37 +36,11 @@ The handoff file is committed after it is generated, so it cannot self-reference
 
 ## Files Changed This Round
 
-- `strategies/*/README.md`
-- `strategies/*/strategy.yaml`
-- `scripts/backtest/run_backtest.py`
-- `scripts/backtest/metrics.py`
-- `scripts/backtest/portfolio.py`
-- `scripts/backtest/strategies.py`
-- `scripts/backtest/report_writer.py`
-- `scripts/reports/generate_market_brief.py`
-- `scripts/reports/generate_weekly_report.py`
-- `scripts/reports/generate_rebalance_ticket.py`
-- `scripts/reports/generate_portfolio_journal.py`
-- `configs/openclaw/openclaw_agents_draft.json`
-- `configs/openclaw/README.md`
-- `configs/hermes/trading_desk_router_skill.md`
-- `configs/hermes/feishu_router_draft.md`
-- `configs/hermes/README.md`
-- `reports/stage2b_backtest_report.md`
-- `reports/stage2b_backtest_report.json`
-- `reports/stage2b_backtest_report.html`
-- `reports/stage2b_market_brief.md`
-- `reports/stage2b_weekly_report.md`
-- `reports/stage2b_rebalance_ticket.md`
-- `journals/stage2b_portfolio_journal.md`
-- `reports/trade_ticket_template.md`
-- `journals/portfolio_journal_template.md`
-- `tests/safety/test_strategy_templates_safety.py`
-- `tests/safety/test_backtest_safety.py`
-- `tests/safety/test_openclaw_agents_safety.py`
-- `tests/safety/test_hermes_router_safety.py`
-- `tests/smoke/test_backtest_smoke.py`
-- `tests/smoke/test_reports_smoke.py`
+- `ops/state/loop_state.json`
+- `ops/tasks/stage2b_repo_only.md`
+- `ops/tasks/stage2c_loop_automation_dry_run.md`
+- `tests/safety/test_loop_state_consistency.py`
+- `tests/safety/test_notification_loop_safety.py`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
@@ -70,7 +50,6 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - `reports/review_requests/manual_fallback_prompt.md`
 - `reports/review_requests/relay_status.md`
 - `reports/review_requests/relay_status.json`
-- `scripts/review_relay/relay_common.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 
@@ -79,16 +58,18 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`
 - `python3 scripts/review_relay/check_review_gate.py`
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
 - `git diff --check`
 - `git status --short --untracked-files=all`
 
 ## Test Results
 
-- Relay preview commands: passed without a real review gate; status remains draft-only and `sent_to_chatgpt=false`.
-- Full unittest command: passed, 46 tests OK.
+- `python3 scripts/review_relay/build_chatgpt_review_prompt.py`: passed; generated public prompt preview without sending to ChatGPT.
+- `python3 scripts/review_relay/check_review_gate.py`: passed; no real review gate present, waiting for confirmation.
+- `python3 scripts/review_relay/render_manual_fallback_prompt.py`: passed; generated manual fallback prompt.
+- Full unittest command: passed, 51 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2B handoff/review relay artifacts after the business commit.
+- `git status --short --untracked-files=all`: changes limited to Stage 2B.1 handoff/review artifacts before handoff commit.
 
 ## Runtime And Safety Checklist
 
@@ -100,15 +81,13 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - Touched secrets: false.
 - Automatic trading surface present: false.
 - Real Computer Use executed: false.
-- ETF strategy templates generated: true.
-- Backtest engine generated: true.
-- Reports and tickets generated: true.
-- OpenClaw agents draft generated: true.
-- Hermes Feishu router draft generated: true.
+- Loop state updated to Stage 2B completed: true.
+- Stage 2B task marked completed: true.
+- Stage 2C dry-run task created: true.
 
 ## Next Recommended Stage
 
-Stage 2C repo-only review hardening, or a separate user-approved live integration planning task.
+Stage 2C loop automation dry-run repo-only.
 
 ## Requires User Approval
 
@@ -121,6 +100,7 @@ Stage 2C repo-only review hardening, or a separate user-approved live integratio
 - Any secret migration or credential storage.
 - Any broker integration, including read-only broker account access.
 - Any expansion beyond ETF-only scope or addition of leveraged or defensive-inverse instruments.
+- Any Computer Use relay beyond repo-only prompt generation.
 
 ## Forbidden To Continue Automatically
 

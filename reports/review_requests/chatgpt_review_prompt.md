@@ -11,58 +11,18 @@ https://github.com/leon-hxy/agentic_etf_desk
 - `AGENTS.md`
 - `docs/security_policy.md`
 
-请审核 `review_target_commit`：`d40315aea238db28b1bdf857efa4052b250634c4`。
+请审核 `review_target_commit`：`acd9995d7c48c24f1d381158ac72afb7579e0039`。
 
-请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2B completed。
+请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2B.1 completed。
 不要把旧阶段 commit 当作本阶段的审核目标。
 
-Stage 2B completed review_files：
+Stage 2B.1 completed review_files：
 
-- `strategies/benchmark_buy_hold/README.md`
-- `strategies/benchmark_buy_hold/strategy.yaml`
-- `strategies/static_6040/README.md`
-- `strategies/static_6040/strategy.yaml`
-- `strategies/equal_weight_etf/README.md`
-- `strategies/equal_weight_etf/strategy.yaml`
-- `strategies/gtaa_10m_sma/README.md`
-- `strategies/gtaa_10m_sma/strategy.yaml`
-- `strategies/dual_momentum/README.md`
-- `strategies/dual_momentum/strategy.yaml`
-- `strategies/time_series_momentum_vol_target/README.md`
-- `strategies/time_series_momentum_vol_target/strategy.yaml`
-- `strategies/inverse_volatility_allocation/README.md`
-- `strategies/inverse_volatility_allocation/strategy.yaml`
-- `strategies/etf_mean_reversion_sandbox/README.md`
-- `strategies/etf_mean_reversion_sandbox/strategy.yaml`
-- `scripts/backtest/run_backtest.py`
-- `scripts/backtest/metrics.py`
-- `scripts/backtest/portfolio.py`
-- `scripts/backtest/strategies.py`
-- `scripts/backtest/report_writer.py`
-- `scripts/reports/generate_market_brief.py`
-- `scripts/reports/generate_weekly_report.py`
-- `scripts/reports/generate_rebalance_ticket.py`
-- `scripts/reports/generate_portfolio_journal.py`
-- `configs/openclaw/openclaw_agents_draft.json`
-- `configs/openclaw/README.md`
-- `configs/hermes/trading_desk_router_skill.md`
-- `configs/hermes/feishu_router_draft.md`
-- `configs/hermes/README.md`
-- `reports/stage2b_backtest_report.md`
-- `reports/stage2b_backtest_report.json`
-- `reports/stage2b_backtest_report.html`
-- `reports/stage2b_market_brief.md`
-- `reports/stage2b_weekly_report.md`
-- `reports/stage2b_rebalance_ticket.md`
-- `journals/stage2b_portfolio_journal.md`
-- `reports/trade_ticket_template.md`
-- `journals/portfolio_journal_template.md`
-- `tests/safety/test_strategy_templates_safety.py`
-- `tests/safety/test_backtest_safety.py`
-- `tests/safety/test_openclaw_agents_safety.py`
-- `tests/safety/test_hermes_router_safety.py`
-- `tests/smoke/test_backtest_smoke.py`
-- `tests/smoke/test_reports_smoke.py`
+- `ops/state/loop_state.json`
+- `ops/tasks/stage2b_repo_only.md`
+- `ops/tasks/stage2c_loop_automation_dry_run.md`
+- `tests/safety/test_loop_state_consistency.py`
+- `tests/safety/test_notification_loop_safety.py`
 
 重点检查：
 

@@ -1,59 +1,20 @@
 {
-  "stage": "Stage 2B completed",
-  "review_target_commit": "d40315aea238db28b1bdf857efa4052b250634c4",
+  "stage": "Stage 2B.1 completed",
+  "loop_state_stage": "Stage 2B completed",
+  "review_target_commit": "acd9995d7c48c24f1d381158ac72afb7579e0039",
   "handoff_commit": null,
-  "handoff_generated_from_head": "d40315aea238db28b1bdf857efa4052b250634c4",
-  "current_repo_head": "d40315aea238db28b1bdf857efa4052b250634c4",
+  "handoff_generated_from_head": "acd9995d7c48c24f1d381158ac72afb7579e0039",
+  "current_repo_head": "acd9995d7c48c24f1d381158ac72afb7579e0039",
   "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "review_files": [
-    "strategies/benchmark_buy_hold/README.md",
-    "strategies/benchmark_buy_hold/strategy.yaml",
-    "strategies/static_6040/README.md",
-    "strategies/static_6040/strategy.yaml",
-    "strategies/equal_weight_etf/README.md",
-    "strategies/equal_weight_etf/strategy.yaml",
-    "strategies/gtaa_10m_sma/README.md",
-    "strategies/gtaa_10m_sma/strategy.yaml",
-    "strategies/dual_momentum/README.md",
-    "strategies/dual_momentum/strategy.yaml",
-    "strategies/time_series_momentum_vol_target/README.md",
-    "strategies/time_series_momentum_vol_target/strategy.yaml",
-    "strategies/inverse_volatility_allocation/README.md",
-    "strategies/inverse_volatility_allocation/strategy.yaml",
-    "strategies/etf_mean_reversion_sandbox/README.md",
-    "strategies/etf_mean_reversion_sandbox/strategy.yaml",
-    "scripts/backtest/run_backtest.py",
-    "scripts/backtest/metrics.py",
-    "scripts/backtest/portfolio.py",
-    "scripts/backtest/strategies.py",
-    "scripts/backtest/report_writer.py",
-    "scripts/reports/generate_market_brief.py",
-    "scripts/reports/generate_weekly_report.py",
-    "scripts/reports/generate_rebalance_ticket.py",
-    "scripts/reports/generate_portfolio_journal.py",
-    "configs/openclaw/openclaw_agents_draft.json",
-    "configs/openclaw/README.md",
-    "configs/hermes/trading_desk_router_skill.md",
-    "configs/hermes/feishu_router_draft.md",
-    "configs/hermes/README.md",
-    "reports/stage2b_backtest_report.md",
-    "reports/stage2b_backtest_report.json",
-    "reports/stage2b_backtest_report.html",
-    "reports/stage2b_market_brief.md",
-    "reports/stage2b_weekly_report.md",
-    "reports/stage2b_rebalance_ticket.md",
-    "journals/stage2b_portfolio_journal.md",
-    "reports/trade_ticket_template.md",
-    "journals/portfolio_journal_template.md",
-    "tests/safety/test_strategy_templates_safety.py",
-    "tests/safety/test_backtest_safety.py",
-    "tests/safety/test_openclaw_agents_safety.py",
-    "tests/safety/test_hermes_router_safety.py",
-    "tests/smoke/test_backtest_smoke.py",
-    "tests/smoke/test_reports_smoke.py"
+    "ops/state/loop_state.json",
+    "ops/tasks/stage2b_repo_only.md",
+    "ops/tasks/stage2c_loop_automation_dry_run.md",
+    "tests/safety/test_loop_state_consistency.py",
+    "tests/safety/test_notification_loop_safety.py"
   ],
   "changed_files": [
-    "Stage 2B business files are listed in review_files",
+    "Stage 2B.1 review target files are listed in review_files",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
@@ -63,7 +24,6 @@
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/relay_status.md",
     "reports/review_requests/relay_status.json",
-    "scripts/review_relay/relay_common.py",
     "scripts/safety/check_handoff_commit_consistency.py",
     "tests/safety/test_handoff_commit_consistency.py"
   ],
@@ -81,8 +41,8 @@
       "result": "passed; generated manual fallback prompt"
     },
     {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "passed; 46 tests OK"
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
+      "result": "passed; 51 tests OK"
     },
     {
       "command": "git diff --check",
@@ -90,9 +50,9 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to Stage 2B handoff/review relay artifacts after business commit"
+      "result": "changes limited to Stage 2B.1 handoff/review artifacts before handoff commit"
     }
   ],
-  "risk_statement": "Repo-only Stage 2B; no live config change, no service restart, no dependency install, no secrets, no broker write access, no automatic trading, no Computer Use execution.",
-  "short_prompt": "请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2B review_target_commit d40315aea238db28b1bdf857efa4052b250634c4 是否通过。"
+  "risk_statement": "Repo-only Stage 2B.1 state and handoff repair; no live config change, no service restart, no dependency install, no secrets, no broker write access, no automatic trading, no Computer Use execution.",
+  "short_prompt": "请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2B.1 review_target_commit acd9995d7c48c24f1d381158ac72afb7579e0039 是否通过。"
 }
