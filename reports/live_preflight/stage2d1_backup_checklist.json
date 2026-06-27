@@ -1,0 +1,17 @@
+{
+  "backup_created": false,
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "future_backup_items": [
+    "~/.hermes/config.yaml",
+    "~/.hermes/.env",
+    "~/.hermes/skills",
+    "real Feishu gateway config path selected by user"
+  ],
+  "manifest_rules": [
+    "Record file labels, checksums, sizes, timestamps, and redacted key names only",
+    "Do not record secret values",
+    "Do not commit backup files to this repo"
+  ],
+  "requires_user_approval_before_backup": true,
+  "stage": "Stage 2D.1 read-only live preflight completed"
+}

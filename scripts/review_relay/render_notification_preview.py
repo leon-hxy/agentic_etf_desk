@@ -28,7 +28,7 @@ def payload() -> dict[str, Any]:
     target = (
         str(review.get("review_target_commit") or "")
         if review_stage == stage
-        else "pending_stage2c_review_target_commit"
+        else "pending_review_target_commit_for_current_stage"
     )
     message = (
         f"Codex dry-run 阶段 `{stage}` 已生成 repo-only 预览。"

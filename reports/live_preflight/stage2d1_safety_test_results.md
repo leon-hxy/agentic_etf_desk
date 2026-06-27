@@ -1,0 +1,42 @@
+# Stage 2D.1 Safety Test Results
+
+- Stage: `Stage 2D.1 read-only live preflight completed`
+- Mode: `passed`
+
+## Sanitized JSON
+
+```json
+{
+  "checks": [
+    "Read-only config path existence checked",
+    "Only key names recorded from environment-like files",
+    "Process and launchctl status summarized without raw command lines",
+    "No Feishu message sent",
+    "No Computer Use run",
+    "No service restart",
+    "No dependency installation",
+    "No broker or automatic trading surface added"
+  ],
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "live_actions_detected": false,
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "feishu_gateway_modified": false,
+    "feishu_message_sent": false,
+    "hermes_modified": false,
+    "openclaw_modified": false,
+    "real_config_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "services_restarted": false
+  },
+  "stage": "Stage 2D.1 read-only live preflight completed",
+  "status": "passed"
+}
+```
+
+No secret values, raw command output, absolute local paths, service restarts, dependency installs, Feishu sends, or Computer Use actions are included.
+
+Final trading is manually decided by the user.

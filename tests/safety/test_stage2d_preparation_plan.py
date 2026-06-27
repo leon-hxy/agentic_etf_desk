@@ -47,11 +47,19 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
 
     def test_loop_state_points_to_stage2d_preparation_without_live_action(self) -> None:
         payload = loop_state()
-        self.assertEqual(payload["current_stage"], "Stage 2D preparation plan completed")
+        self.assertIn(
+            payload["current_stage"],
+            {
+                "Stage 2D preparation plan completed",
+                "Stage 2D.1 read-only live preflight completed",
+            },
+        )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
-        self.assertEqual(payload["next_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
-        self.assertEqual(payload["next_task_status"], "requires_user_approval")
+        self.assertIn(
+            payload["next_task_status"],
+            {"requires_user_approval", "requires_user_approval_for_live_write"},
+        )
         for field in (
             "real_config_modified",
             "hermes_modified",

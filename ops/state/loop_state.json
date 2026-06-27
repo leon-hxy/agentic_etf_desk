@@ -1,5 +1,5 @@
 {
-  "current_stage": "Stage 2D preparation plan completed",
+  "current_stage": "Stage 2D.1 read-only live preflight completed",
   "status": "completed",
   "stage2b_task": "ops/tasks/stage2b_repo_only.md",
   "stage2b_task_status": "completed",
@@ -7,13 +7,15 @@
   "stage2c_task_status": "completed",
   "stage2d_task": "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md",
   "stage2d_task_status": "planned_requires_user_approval",
-  "next_task": "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md",
-  "next_task_status": "requires_user_approval",
+  "stage2d1_task": "ops/tasks/stage2d1_read_only_live_preflight.md",
+  "stage2d1_task_status": "completed_read_only",
+  "next_task": null,
+  "next_task_status": "requires_user_approval_for_live_write",
   "last_handoff": "reports/codex_handoff/latest.json",
   "last_review_request": "reports/review_requests/latest.json",
-  "handoff_update_pending": false,
-  "review_target_commit": "630433a5cef96756811950738f4cf8dd8b4c820e",
-  "review_target_commit_note": "Stage 2D preparation review_target_commit is the plan commit reviewed by reports/review_requests/latest.json.",
+  "handoff_update_pending": true,
+  "review_target_commit": null,
+  "review_target_commit_note": "Stage 2D.1 review_target_commit is set in reports/review_requests/latest.json after the preflight commit exists.",
   "latest_handoff_commit": null,
   "latest_handoff_commit_note": "The handoff commit is created after these state files and cannot self-reference its own final SHA.",
   "repo_only": true,
@@ -26,6 +28,7 @@
   "secrets_touched": false,
   "auto_trading_surface": false,
   "computer_use_executed": false,
+  "feishu_message_sent": false,
   "requires_user_approval_before_live_config_changes": true,
   "notification_layer": "drafted",
   "review_gate_layer": "drafted",
@@ -33,5 +36,5 @@
   "computer_use_live_execution": false,
   "manual_chatgpt_review_mode": true,
   "public_repo_review_mode": true,
-  "next_recommended_stage": "Await explicit user approval before live Stage 2D execution"
+  "next_recommended_stage": "Await explicit user approval before any live Stage 2D write"
 }
