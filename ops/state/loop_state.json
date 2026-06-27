@@ -1,5 +1,5 @@
 {
-  "current_stage": "Stage 2D.1 read-only live preflight completed",
+  "current_stage": "Stage 2D.1.1 public live preflight minimization completed",
   "status": "completed",
   "stage2b_task": "ops/tasks/stage2b_repo_only.md",
   "stage2b_task_status": "completed",
@@ -14,8 +14,8 @@
   "last_handoff": "reports/codex_handoff/latest.json",
   "last_review_request": "reports/review_requests/latest.json",
   "handoff_update_pending": false,
-  "review_target_commit": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
-  "review_target_commit_note": "Stage 2D.1 review_target_commit is the read-only live preflight commit reviewed by reports/review_requests/latest.json.",
+  "review_target_commit": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
+  "review_target_commit_note": "Stage 2D.1.1 review_target_commit is the public live preflight minimization commit reviewed by reports/review_requests/latest.json.",
   "latest_handoff_commit": null,
   "latest_handoff_commit_note": "The handoff commit is created after these state files and cannot self-reference its own final SHA.",
   "repo_only": true,

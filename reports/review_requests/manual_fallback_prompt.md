@@ -35,9 +35,13 @@ Stage 2D.1.1 public live preflight minimization completed review_files：
 - `scripts/review_relay/render_notification_preview.py`
 - `scripts/safety/check_public_repo_hygiene.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
+- `ops/state/loop_state.json`
 - `tests/safety/test_public_repo_hygiene.py`
 - `tests/safety/test_loop_automation_dry_run.py`
+- `tests/safety/test_loop_state_consistency.py`
+- `tests/safety/test_notification_loop_safety.py`
 - `tests/safety/test_review_relay_safety.py`
+- `tests/safety/test_stage2d_preparation_plan.py`
 - `tests/safety/test_stage2d1_live_preflight.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 

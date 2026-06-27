@@ -42,7 +42,10 @@ class NotificationLoopSafetyTest(unittest.TestCase):
 
     def test_loop_state_declares_completed_stage_with_draft_layers(self) -> None:
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
-        self.assertEqual(payload["current_stage"], "Stage 2D.1 read-only live preflight completed")
+        self.assertEqual(
+            payload["current_stage"],
+            "Stage 2D.1.1 public live preflight minimization completed",
+        )
         self.assertEqual(payload["status"], "completed")
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")

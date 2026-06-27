@@ -1,6 +1,6 @@
 {
   "stage": "Stage 2D.1.1 public live preflight minimization completed",
-  "loop_state_stage": "Stage 2D.1 read-only live preflight completed",
+  "loop_state_stage": "Stage 2D.1.1 public live preflight minimization completed",
   "review_target_commit": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
   "handoff_commit": null,
   "handoff_generated_from_head": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
@@ -17,14 +17,19 @@
     "scripts/review_relay/render_notification_preview.py",
     "scripts/safety/check_public_repo_hygiene.py",
     "scripts/safety/check_handoff_commit_consistency.py",
+    "ops/state/loop_state.json",
     "tests/safety/test_public_repo_hygiene.py",
     "tests/safety/test_loop_automation_dry_run.py",
+    "tests/safety/test_loop_state_consistency.py",
+    "tests/safety/test_notification_loop_safety.py",
     "tests/safety/test_review_relay_safety.py",
+    "tests/safety/test_stage2d_preparation_plan.py",
     "tests/safety/test_stage2d1_live_preflight.py",
     "tests/safety/test_handoff_commit_consistency.py"
   ],
   "changed_files": [
     "Stage 2D.1.1 review target files are listed in review_files",
+    "ops/state/loop_state.json",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
@@ -68,7 +73,7 @@
     },
     {
       "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "passed; 65 tests OK"
+      "result": "passed; 66 tests OK"
     },
     {
       "command": "git diff --check",

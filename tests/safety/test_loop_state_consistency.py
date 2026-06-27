@@ -21,18 +21,29 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.loop_state = read_json("ops/state/loop_state.json")
 
     def expected_loop_stage(self) -> str:
-        return str(self.handoff.get("loop_state_stage") or self.handoff["stage"])
+        return str(self.handoff["stage"])
 
     def test_loop_state_matches_handoff_and_review_completed_stage(self) -> None:
         expected_stage = self.expected_loop_stage()
-        if self.loop_state.get("handoff_update_pending"):
-            self.assertEqual(self.loop_state["current_stage"], "Stage 2D.1 read-only live preflight completed")
-            self.assertNotEqual(expected_stage, self.loop_state["current_stage"])
-        else:
-            self.assertEqual(expected_stage, "Stage 2D.1 read-only live preflight completed")
-            self.assertEqual(self.review.get("loop_state_stage", expected_stage), expected_stage)
-            self.assertEqual(self.loop_state["current_stage"], expected_stage)
+        self.assertEqual(
+            expected_stage,
+            "Stage 2D.1.1 public live preflight minimization completed",
+        )
+        self.assertFalse(self.loop_state.get("handoff_update_pending"))
+        self.assertEqual(self.review["stage"], expected_stage)
+        self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
+        self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
+        self.assertEqual(self.loop_state["current_stage"], expected_stage)
         self.assertEqual(self.loop_state["status"], "completed")
+
+    def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
+        expected_commit = "9f06d6467fb0bb5194affa43d5230c4d1f8c057b"
+        stale_commit = "a60f314c39bf73274ffb6daff5ad902bf63b9293"
+        self.assertEqual(self.handoff["review_target_commit"], expected_commit)
+        self.assertEqual(self.review["review_target_commit"], expected_commit)
+        self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
+        self.assertNotEqual(self.loop_state["review_target_commit"], stale_commit)
+        self.assertIn("Stage 2D.1.1", self.loop_state["review_target_commit_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")

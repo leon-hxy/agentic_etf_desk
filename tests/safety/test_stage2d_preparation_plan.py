@@ -52,6 +52,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             {
                 "Stage 2D preparation plan completed",
                 "Stage 2D.1 read-only live preflight completed",
+                "Stage 2D.1.1 public live preflight minimization completed",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")

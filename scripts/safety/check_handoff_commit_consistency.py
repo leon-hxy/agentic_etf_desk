@@ -96,7 +96,7 @@ def scan(root: Path) -> dict[str, Any]:
     validate_git_commit(root, str(target), findings, "review_target_commit")
 
     expected_stage = "Stage 2D.1.1 public live preflight minimization completed"
-    expected_loop_state_stage = "Stage 2D.1 read-only live preflight completed"
+    expected_loop_state_stage = "Stage 2D.1.1 public live preflight minimization completed"
     for path, payload in (
         ("reports/review_requests/latest.json", review),
         ("reports/codex_handoff/latest.json", handoff),
@@ -104,7 +104,11 @@ def scan(root: Path) -> dict[str, Any]:
         if payload.get("stage") != expected_stage:
             add(findings, path, "stage must be Stage 2D.1.1 public live preflight minimization completed")
         if payload.get("loop_state_stage") != expected_loop_state_stage:
-            add(findings, path, "loop_state_stage must be Stage 2D.1 read-only live preflight completed")
+            add(
+                findings,
+                path,
+                "loop_state_stage must be Stage 2D.1.1 public live preflight minimization completed",
+            )
         if payload.get("review_target_commit") != target:
             add(findings, path, "review_target_commit mismatch")
         if payload.get("handoff_commit") is not None:

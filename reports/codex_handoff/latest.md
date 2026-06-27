@@ -6,7 +6,7 @@ Stage 2D.1.1 public live preflight minimization completed.
 
 ## Loop State Stage
 
-Stage 2D.1 read-only live preflight completed.
+Stage 2D.1.1 public live preflight minimization completed.
 
 ## Review Target Commit
 
@@ -46,9 +46,13 @@ its own final SHA in the same commit.
 - `scripts/review_relay/render_notification_preview.py`
 - `scripts/safety/check_public_repo_hygiene.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
+- `ops/state/loop_state.json`
 - `tests/safety/test_public_repo_hygiene.py`
 - `tests/safety/test_loop_automation_dry_run.py`
+- `tests/safety/test_loop_state_consistency.py`
+- `tests/safety/test_notification_loop_safety.py`
 - `tests/safety/test_review_relay_safety.py`
+- `tests/safety/test_stage2d_preparation_plan.py`
 - `tests/safety/test_stage2d1_live_preflight.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 - `reports/codex_handoff/latest.md`
@@ -85,7 +89,7 @@ its own final SHA in the same commit.
 - `python3 scripts/review_relay/check_review_gate.py`: passed; no real review gate present, waiting for confirmation.
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`: passed; generated manual fallback prompt.
 - `python3 scripts/review_relay/render_notification_preview.py`: passed; generated repo-only notification preview without sending to Feishu.
-- Full unittest command: passed, 65 tests OK.
+- Full unittest command: passed, 66 tests OK.
 - `git diff --check`: passed, no whitespace errors.
 - `git status --short --untracked-files=all`: changes limited to Stage 2D.1.1 handoff/review artifacts before handoff commit.
 

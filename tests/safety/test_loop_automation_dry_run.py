@@ -65,7 +65,10 @@ class LoopAutomationDryRunTest(unittest.TestCase):
 
     def test_loop_state_and_task_mark_stage2c_completed(self) -> None:
         loop_state = read_json(ROOT / "ops" / "state" / "loop_state.json")
-        self.assertEqual(loop_state["current_stage"], "Stage 2D.1 read-only live preflight completed")
+        self.assertEqual(
+            loop_state["current_stage"],
+            "Stage 2D.1.1 public live preflight minimization completed",
+        )
         self.assertEqual(loop_state["status"], "completed")
         self.assertEqual(loop_state["stage2c_task"], "ops/tasks/stage2c_loop_automation_dry_run.md")
         self.assertEqual(loop_state["stage2c_task_status"], "completed")
@@ -87,7 +90,7 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         latest_review = read_json(ROOT / "reports" / "review_requests" / "latest.json")
         self.assertEqual(
             payload["loop_state_stage"],
-            "Stage 2D.1 read-only live preflight completed",
+            "Stage 2D.1.1 public live preflight minimization completed",
         )
         self.assertEqual(payload["stage"], latest_review["stage"])
         self.assertEqual(payload["review_target_commit"], latest_review["review_target_commit"])

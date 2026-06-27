@@ -64,8 +64,14 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
             self.review["stage"],
             "Stage 2D.1.1 public live preflight minimization completed",
         )
-        self.assertEqual(self.handoff["loop_state_stage"], "Stage 2D.1 read-only live preflight completed")
-        self.assertEqual(self.review["loop_state_stage"], "Stage 2D.1 read-only live preflight completed")
+        self.assertEqual(
+            self.handoff["loop_state_stage"],
+            "Stage 2D.1.1 public live preflight minimization completed",
+        )
+        self.assertEqual(
+            self.review["loop_state_stage"],
+            "Stage 2D.1.1 public live preflight minimization completed",
+        )
         self.assertTrue(self.review_target_commit)
         self.assertNotIn(self.review_target_commit, PREVIOUS_STAGE_COMMITS)
         self.assertEqual(self.review_target_commit, self.review.get("review_target_commit"))
