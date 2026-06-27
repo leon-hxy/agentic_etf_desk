@@ -1,7 +1,7 @@
 # Stage 2E.1 Relay Hardening Report
 
 - Stage: `Stage 2E.1 ChatGPT relay target and input delivery hardened`
-- review_target_commit: `23cebebed1d07f0b35e66b284ec0891b427d8716`
+- review_target_commit: `9ac1dd8b96fe98bae4bd676966293f03e0908047`
 - Mode: `repo_only_hardening`
 - Recommended target mode: `dedicated_review_thread`
 - Supported target modes: `dedicated_review_thread`, `existing_conversation_url`

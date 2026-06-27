@@ -17,7 +17,7 @@
   "last_handoff": "reports/codex_handoff/latest.json",
   "last_review_request": "reports/review_requests/latest.json",
   "handoff_update_pending": false,
-  "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "review_target_commit": "9ac1dd8b96fe98bae4bd676966293f03e0908047",
   "review_target_commit_note": "Stage 2E.1 review_target_commit is the relay hardening business commit reviewed by latest handoff artifacts.",
   "relay_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
   "relay_target_commit_note": "relay_target_commit is the Stage 2D.2B.1 commit that was sent to ChatGPT during the Stage 2E.0 relay smoke.",

@@ -10,13 +10,13 @@ Stage 2E.1 ChatGPT relay target and input delivery hardened.
 
 ## Review Target Commit
 
-`23cebebed1d07f0b35e66b284ec0891b427d8716`
+`9ac1dd8b96fe98bae4bd676966293f03e0908047`
 
 Please review this `review_target_commit` for Stage 2E.1.
 
 ## Current Repo Head
 
-`23cebebed1d07f0b35e66b284ec0891b427d8716`
+`9ac1dd8b96fe98bae4bd676966293f03e0908047`
 
 ## Handoff Commit
 
@@ -54,6 +54,7 @@ The handoff update is committed after generation, so it cannot self-reference it
 - `scripts/safety/check_review_relay_safety.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
 - `tests/safety/test_stage2e1_relay_hardening.py`
+- `tests/safety/test_stage2e0_relay_smoke.py`
 - `tests/safety/test_review_relay_safety.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 - `tests/safety/test_loop_state_consistency.py`
@@ -61,12 +62,12 @@ The handoff update is committed after generation, so it cannot self-reference it
 
 ## Test Result Summary
 
-- `python3 -m unittest tests.safety.test_stage2e1_relay_hardening tests.safety.test_review_relay_safety`: pending final verification.
-- `python3 scripts/safety/check_review_relay_safety.py`: pending final verification.
-- `python3 scripts/safety/check_public_repo_hygiene.py`: pending final verification.
-- `python3 scripts/safety/check_handoff_commit_consistency.py`: pending final verification.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: pending final verification.
-- `git diff --check`: pending final verification.
+- `python3 -m unittest tests.safety.test_stage2e1_relay_hardening tests.safety.test_review_relay_safety`: passed; Stage 2E.1 hardening and review relay safety tests.
+- `python3 scripts/safety/check_review_relay_safety.py`: passed; no relay safety findings.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no local path or secret findings.
+- `python3 scripts/safety/check_handoff_commit_consistency.py`: passed; review_target_commit binds to Stage 2E.1 business commit.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed; 86 tests OK.
+- `git diff --check`: passed; no whitespace errors.
 
 ## Risk Statement
 
@@ -76,4 +77,4 @@ Final trading is manually decided by the user.
 
 ## Short Prompt For ChatGPT
 
-请审核公开 repo https://github.com/leon-hxy/agentic_etf_desk 的 review_target_commit 23cebebed1d07f0b35e66b284ec0891b427d8716；只读取 reports/review_requests/latest.md、reports/review_requests/latest.json、reports/codex_handoff/latest.md、reports/codex_handoff/latest.json。
+请审核公开 repo https://github.com/leon-hxy/agentic_etf_desk 的 review_target_commit 9ac1dd8b96fe98bae4bd676966293f03e0908047；只读取 reports/review_requests/latest.md、reports/review_requests/latest.json、reports/codex_handoff/latest.md、reports/codex_handoff/latest.json。

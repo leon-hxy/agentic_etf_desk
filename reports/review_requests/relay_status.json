@@ -7,7 +7,7 @@
   "existing_conversation_url_present": false,
   "existing_conversation_url_public_value": null,
   "existing_conversation_url_source": "local_private/chatgpt_review_target.json",
-  "expected_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "expected_commit": "9ac1dd8b96fe98bae4bd676966293f03e0908047",
   "expected_repo": "leon-hxy/agentic_etf_desk",
   "failure_policy": "mark_failed_and_stop",
   "failure_stop_conditions": [
@@ -42,7 +42,7 @@
   "review_gate_required": true,
   "review_gate_seen": true,
   "review_gate_valid": false,
-  "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "review_target_commit": "9ac1dd8b96fe98bae4bd676966293f03e0908047",
   "sent_to_chatgpt": false,
   "stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
   "status_reason": "repo_only_relay_hardening_ready_no_live_send",

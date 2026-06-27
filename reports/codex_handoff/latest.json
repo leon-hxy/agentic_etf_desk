@@ -1,11 +1,11 @@
 {
   "stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
   "loop_state_stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
-  "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "review_target_commit": "9ac1dd8b96fe98bae4bd676966293f03e0908047",
   "handoff_commit": null,
-  "handoff_generated_from_head": "23cebebed1d07f0b35e66b284ec0891b427d8716",
-  "current_repo_head": "23cebebed1d07f0b35e66b284ec0891b427d8716",
-  "commit_binding_note": "review_target_commit is the Stage 2E.1 business commit to review after it is created; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
+  "handoff_generated_from_head": "9ac1dd8b96fe98bae4bd676966293f03e0908047",
+  "current_repo_head": "9ac1dd8b96fe98bae4bd676966293f03e0908047",
+  "commit_binding_note": "review_target_commit is the Stage 2E.1 business commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "review_files": [
     "reports/review_requests/latest.md",
     "reports/review_requests/latest.json",
@@ -31,7 +31,8 @@
     "tests/safety/test_review_relay_safety.py",
     "tests/safety/test_handoff_commit_consistency.py",
     "tests/safety/test_loop_state_consistency.py",
-    "tests/safety/test_notification_loop_safety.py"
+    "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_stage2e0_relay_smoke.py"
   ],
   "changed_files": [
     "scripts/review_relay/relay_common.py",
@@ -41,6 +42,7 @@
     "scripts/safety/check_review_relay_safety.py",
     "scripts/safety/check_handoff_commit_consistency.py",
     "tests/safety/test_stage2e1_relay_hardening.py",
+    "tests/safety/test_stage2e0_relay_smoke.py",
     "tests/safety/test_review_relay_safety.py",
     "tests/safety/test_handoff_commit_consistency.py",
     "tests/safety/test_loop_state_consistency.py",
@@ -66,31 +68,31 @@
   "tests": [
     {
       "command": "python3 -m unittest tests.safety.test_stage2e1_relay_hardening tests.safety.test_review_relay_safety",
-      "result": "pending final verification"
+      "result": "passed; Stage 2E.1 hardening and review relay safety tests"
     },
     {
       "command": "python3 scripts/safety/check_review_relay_safety.py",
-      "result": "pending final verification"
+      "result": "passed; no relay safety findings"
     },
     {
       "command": "python3 scripts/safety/check_public_repo_hygiene.py",
-      "result": "pending final verification"
+      "result": "passed; no local path or secret findings"
     },
     {
       "command": "python3 scripts/safety/check_handoff_commit_consistency.py",
-      "result": "pending final verification"
+      "result": "passed; review_target_commit binds to Stage 2E.1 business commit"
     },
     {
       "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "pending final verification"
+      "result": "passed; 86 tests OK"
     },
     {
       "command": "git diff --check",
-      "result": "pending final verification"
+      "result": "passed; no whitespace errors"
     }
   ],
   "risk_statement": "Stage 2E.1 is repo-only hardening for ChatGPT relay target selection and input delivery. It does not run Computer Use, does not send a ChatGPT message, does not modify real Hermes/OpenClaw/Feishu gateway, does not restart services, does not install dependencies, does not touch secrets, and adds no broker or auto-trading surface. The hardened relay defaults to a dedicated review thread; an existing ChatGPT conversation URL may only be read from local_private/chatgpt_review_target.json and is never written to public artifacts.",
-  "short_prompt": "请审核公开 repo https://github.com/leon-hxy/agentic_etf_desk 的 review_target_commit 23cebebed1d07f0b35e66b284ec0891b427d8716；只读取 reports/review_requests/latest.md、reports/review_requests/latest.json、reports/codex_handoff/latest.md、reports/codex_handoff/latest.json。",
+  "short_prompt": "请审核公开 repo https://github.com/leon-hxy/agentic_etf_desk 的 review_target_commit 9ac1dd8b96fe98bae4bd676966293f03e0908047；只读取 reports/review_requests/latest.md、reports/review_requests/latest.json、reports/codex_handoff/latest.md、reports/codex_handoff/latest.json。",
   "target_conversation_mode": "dedicated_review_thread",
   "supported_target_modes": [
     "dedicated_review_thread",

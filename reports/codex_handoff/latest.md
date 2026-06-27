@@ -12,13 +12,13 @@ Stage 2E.1 ChatGPT relay target and input delivery hardened.
 
 `review_target_commit`
 
-`23cebebed1d07f0b35e66b284ec0891b427d8716`
+`9ac1dd8b96fe98bae4bd676966293f03e0908047`
 
-This is the Stage 2E.1 business commit that ChatGPT should review after it is created.
+This is the Stage 2E.1 business commit that ChatGPT should review.
 
 ## Current Repo Head
 
-`23cebebed1d07f0b35e66b284ec0891b427d8716`
+`9ac1dd8b96fe98bae4bd676966293f03e0908047`
 
 ## Handoff Commit
 
@@ -33,6 +33,7 @@ This is the Stage 2E.1 business commit that ChatGPT should review after it is cr
 - `scripts/safety/check_review_relay_safety.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
 - `tests/safety/test_stage2e1_relay_hardening.py`
+- `tests/safety/test_stage2e0_relay_smoke.py`
 - `tests/safety/test_review_relay_safety.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 - `tests/safety/test_loop_state_consistency.py`
@@ -66,12 +67,12 @@ This is the Stage 2E.1 business commit that ChatGPT should review after it is cr
 
 ## Test Results
 
-- pending final verification.
-- pending final verification.
-- pending final verification.
-- pending final verification.
-- pending final verification.
-- pending final verification.
+- passed; Stage 2E.1 hardening and review relay safety tests.
+- passed; no relay safety findings.
+- passed; no local path or secret findings.
+- passed; review_target_commit binds to Stage 2E.1 business commit.
+- passed; 86 tests OK.
+- passed; no whitespace errors.
 
 ## Runtime And Safety Checklist
 
