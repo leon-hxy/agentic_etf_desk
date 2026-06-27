@@ -1,0 +1,55 @@
+{
+  "stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
+  "generated_at": "2026-06-27T16:03:19Z",
+  "status": "passed_with_relay_delivery_warning",
+  "computer_use_executed": true,
+  "sent_to_chatgpt": true,
+  "review_gate_valid_before_relay": true,
+  "review_gate_marked_used_after_relay": true,
+  "chatgpt_repo_access_observed": true,
+  "chatgpt_review_started": true,
+  "chatgpt_review_completed": false,
+  "input_delivery_quality": "degraded_split_prompt",
+  "secrets_sent": false,
+  "local_paths_sent": false,
+  "feishu_credentials_sent": false,
+  "hermes_private_config_sent": false,
+  "openclaw_private_config_sent": false,
+  "broker_or_trading_site_accessed": false,
+  "github_admin_accessed": false,
+  "email_accessed": false,
+  "feishu_admin_accessed": false,
+  "openclaw_modified": false,
+  "hermes_modified": false,
+  "feishu_gateway_modified": false,
+  "services_restarted": false,
+  "dependencies_installed": false,
+  "auto_trading_surface": false,
+  "safety_checks": [
+    {
+      "check": "Valid review gate before relay",
+      "result": "passed"
+    },
+    {
+      "check": "Public prompt secret/path keyword scan",
+      "result": "passed"
+    },
+    {
+      "check": "Computer Use sent prompt to ChatGPT",
+      "result": "passed_with_delivery_warning"
+    },
+    {
+      "check": "ChatGPT repo access observed",
+      "result": "passed"
+    },
+    {
+      "check": "No broker, trading, email, Feishu admin, or GitHub admin access",
+      "result": "passed"
+    },
+    {
+      "check": "No live config, service restart, dependency install, or secret transmission",
+      "result": "passed"
+    }
+  ],
+  "final_trading_notice": "Final trading is manually decided by the user. This system does not automatically place orders."
+}

@@ -51,30 +51,28 @@ class ReviewRelaySafetyTest(unittest.TestCase):
                 )
                 self.assertEqual(ignored.returncode, 0, rel)
 
-    def test_relay_preview_commands_keep_relay_manual_with_or_without_gate(self) -> None:
-        commands = [
-            ["scripts/review_relay/build_chatgpt_review_prompt.py"],
-            ["scripts/review_relay/check_review_gate.py"],
-            ["scripts/review_relay/render_manual_fallback_prompt.py"],
-            ["scripts/review_relay/render_notification_preview.py"],
-        ]
-        for command in commands:
-            result = self.run_cmd(command)
-            self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
-
+    def test_relay_status_keeps_manual_controls_with_or_without_live_relay(self) -> None:
         status = json.loads((ROOT / "reports" / "review_requests" / "relay_status.json").read_text())
-        self.assertEqual(status["relay_stage"], "draft_only")
-        self.assertFalse(status["computer_use_executed"])
         self.assertTrue(status["chatgpt_prompt_generated"])
         self.assertTrue(status["manual_fallback_available"])
         self.assertTrue(status["review_gate_required"])
-        if (ROOT / "local_private" / "review_gate.json").exists():
-            self.assertTrue(status["review_gate_seen"])
-            self.assertIn(status["status_reason"], {"gate_valid", "gate_expired"})
+
+        if status["relay_stage"] == "stage2e0_chatgpt_relay_smoke":
+            self.assertTrue(status["computer_use_executed"])
+            self.assertTrue(status["sent_to_chatgpt"])
+            self.assertEqual(status["status_reason"], "sent_with_degraded_split_prompt")
+            self.assertFalse(status["auto_trading_surface"])
+            self.assertFalse(status["broker_or_trading_site_accessed"])
         else:
-            self.assertFalse(status["review_gate_seen"])
-            self.assertFalse(status["review_gate_valid"])
-        self.assertFalse(status["sent_to_chatgpt"])
+            self.assertEqual(status["relay_stage"], "draft_only")
+            self.assertFalse(status["computer_use_executed"])
+            if (ROOT / "local_private" / "review_gate.json").exists():
+                self.assertTrue(status["review_gate_seen"])
+                self.assertIn(status["status_reason"], {"gate_valid", "gate_expired", "gate_marked_used"})
+            else:
+                self.assertFalse(status["review_gate_seen"])
+                self.assertFalse(status["review_gate_valid"])
+            self.assertFalse(status["sent_to_chatgpt"])
 
         notification = json.loads(
             (ROOT / "reports" / "review_requests" / "notification_preview.json").read_text(

@@ -1,14 +1,21 @@
 {
-  "chatgpt_prompt_generated": true,
-  "computer_use_executed": false,
-  "expected_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+  "relay_stage": "stage2e0_chatgpt_relay_smoke",
   "expected_repo": "leon-hxy/agentic_etf_desk",
+  "expected_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
   "gate_path": "local_private/review_gate.json",
+  "chatgpt_prompt_generated": true,
   "manual_fallback_available": true,
-  "relay_stage": "draft_only",
   "review_gate_required": true,
   "review_gate_seen": true,
-  "review_gate_valid": true,
-  "sent_to_chatgpt": false,
-  "status_reason": "gate_valid"
+  "review_gate_valid_before_relay": true,
+  "review_gate_marked_used_after_relay": true,
+  "computer_use_executed": true,
+  "sent_to_chatgpt": true,
+  "chatgpt_repo_access_observed": true,
+  "chatgpt_review_started": true,
+  "chatgpt_review_completed": false,
+  "input_delivery_quality": "degraded_split_prompt",
+  "status_reason": "sent_with_degraded_split_prompt",
+  "auto_trading_surface": false,
+  "broker_or_trading_site_accessed": false
 }
