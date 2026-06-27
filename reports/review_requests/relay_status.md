@@ -2,6 +2,8 @@
 
 - Expected repo: `leon-hxy/agentic_etf_desk`
 - Expected commit: `d30169e512f260dd5b29eb328d0f41c73cc927a9`
+- Relay target commit: `d30169e512f260dd5b29eb328d0f41c73cc927a9`
+- Review target commit: `74215dd69814c07fd5c3fd3937ccee15f9be8e8f`
 - Relay stage: `stage2e0_chatgpt_relay_smoke`
 - Computer Use executed: `true`
 - Sent to ChatGPT: `true`

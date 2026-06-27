@@ -67,14 +67,14 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         loop_state = read_json(ROOT / "ops" / "state" / "loop_state.json")
         self.assertEqual(
             loop_state["current_stage"],
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
-        self.assertEqual(loop_state["status"], "review_gate_confirmed_waiting_for_relay_approval")
+        self.assertEqual(loop_state["status"], "relay_smoke_completed_with_delivery_warning")
         self.assertEqual(loop_state["stage2c_task"], "ops/tasks/stage2c_loop_automation_dry_run.md")
         self.assertEqual(loop_state["stage2c_task_status"], "completed")
         self.assertEqual(loop_state["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
         self.assertEqual(loop_state["stage2d1_task"], "ops/tasks/stage2d1_read_only_live_preflight.md")
-        self.assertEqual(loop_state["next_task_status"], "requires_user_approval_for_computer_use_relay")
+        self.assertEqual(loop_state["next_task_status"], "requires_user_review_before_any_followup_relay")
 
         task = (ROOT / "ops" / "tasks" / "stage2c_loop_automation_dry_run.md").read_text(
             encoding="utf-8"
@@ -83,25 +83,29 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         self.assertIn("stage: Stage 2C completed", task)
         self.assertIn("repo-only dry run completed", task)
 
-    def test_notification_preview_is_draft_only_and_manual(self) -> None:
+    def test_notification_preview_is_repo_only_and_manual(self) -> None:
         self.assertTrue(NOTIFICATION_JSON.exists())
         self.assertTrue(NOTIFICATION_MD.exists())
         payload = read_json(NOTIFICATION_JSON)
         latest_review = read_json(ROOT / "reports" / "review_requests" / "latest.json")
         self.assertEqual(
             payload["loop_state_stage"],
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
         self.assertEqual(payload["stage"], latest_review["stage"])
         self.assertEqual(payload["review_target_commit"], latest_review["review_target_commit"])
         self.assertFalse(payload["sent_to_feishu"])
-        self.assertFalse(payload["computer_use_executed"])
         self.assertEqual(payload["mode"], "repo_only_preview")
 
         preview = NOTIFICATION_MD.read_text(encoding="utf-8")
         self.assertIn("不会自动下单", preview)
         self.assertIn("最终交易由用户手动决定", preview)
-        self.assertIn("Computer Use 未执行", preview)
+        if payload["stage"].startswith("Stage 2E.0"):
+            self.assertTrue(payload["computer_use_executed"])
+            self.assertIn("Computer Use 已执行一次 relay smoke", preview)
+        else:
+            self.assertFalse(payload["computer_use_executed"])
+            self.assertIn("Computer Use 未执行", preview)
 
 
 if __name__ == "__main__":

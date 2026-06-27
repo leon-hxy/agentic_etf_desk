@@ -23,7 +23,9 @@ PREVIOUS_STAGE_COMMITS = {
     "59374cc" + "173da8cf57dfd1b8f98d27ef3338573e5",
     "88e31e9" + "daedcabb070469600f4fe2437a42c150c",
     "7dc1f0a" + "0dd7287105ba9add47588b2e37943d997",
+    "f7fa73b" + "79ab1e3886c69bfd6ca5874a662acbb75",
 }
+STAGE2E0_RELAY_TARGET_COMMIT = "d30169e512f260dd5b29eb328d0f41c73cc927a9"
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
@@ -65,19 +67,19 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
     def test_latest_json_files_declare_review_target_commit(self) -> None:
         self.assertEqual(
             self.handoff["stage"],
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
         self.assertEqual(
             self.review["stage"],
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
         self.assertEqual(
             self.handoff["loop_state_stage"],
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
         self.assertEqual(
             self.review["loop_state_stage"],
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
         self.assertTrue(self.review_target_commit)
         self.assertNotIn(self.review_target_commit, PREVIOUS_STAGE_COMMITS)
@@ -89,17 +91,18 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         )
         self.assertIn("handoff_generated_from_head", self.handoff)
         self.assertIn("commit_binding_note", self.handoff)
-        self.assertIn("review_target_commit is the commit to review", self.handoff["commit_binding_note"])
+        self.assertIn("review_target_commit", self.handoff["commit_binding_note"])
+        self.assertIn("commit to review", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
-    def test_review_target_commit_is_valid_stage2d2b_commit(self) -> None:
+    def test_review_target_commit_is_valid_stage2e0_commit(self) -> None:
         target = str(self.review_target_commit)
         result = git("cat-file", "-e", f"{target}^{{commit}}")
         self.assertEqual(result.returncode, 0, msg=result.stderr)
 
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertIn("stage2d.2b", subject.stdout.lower())
+        self.assertIn("stage2e.0", subject.stdout.lower())
         self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_recorded_current_head_is_valid_git_commit(self) -> None:
@@ -115,9 +118,11 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
             self.assertNotIn(payload["review_target_commit"], PREVIOUS_STAGE_COMMITS, path)
 
         prompt_payload = read_json("reports/review_requests/chatgpt_review_prompt.json")
-        self.assertEqual(prompt_payload["gate"]["expected_commit"], target)
+        self.assertEqual(prompt_payload["gate"]["expected_commit"], STAGE2E0_RELAY_TARGET_COMMIT)
         relay_status = read_json("reports/review_requests/relay_status.json")
-        self.assertEqual(relay_status["expected_commit"], target)
+        self.assertEqual(relay_status["review_target_commit"], target)
+        self.assertEqual(relay_status["relay_target_commit"], STAGE2E0_RELAY_TARGET_COMMIT)
+        self.assertEqual(relay_status["expected_commit"], STAGE2E0_RELAY_TARGET_COMMIT)
 
     def test_human_readable_artifacts_include_review_target(self) -> None:
         target = str(self.review_target_commit)
@@ -135,7 +140,9 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
     def test_relay_status_json_binds_same_review_target(self) -> None:
         target = str(self.review_target_commit)
         relay_status = read_json(RELAY_STATUS_JSON)
-        self.assertEqual(relay_status["expected_commit"], target)
+        self.assertEqual(relay_status["review_target_commit"], target)
+        self.assertEqual(relay_status["relay_target_commit"], STAGE2E0_RELAY_TARGET_COMMIT)
+        self.assertEqual(relay_status["expected_commit"], STAGE2E0_RELAY_TARGET_COMMIT)
 
     def test_review_target_does_not_point_to_old_stage(self) -> None:
         target = str(self.review_target_commit)

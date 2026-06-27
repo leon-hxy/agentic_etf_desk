@@ -6,13 +6,13 @@
     "\u5f00\u59cb\u4e0b\u4e00\u9636\u6bb5",
     "\u6682\u505c loop"
   ],
-  "computer_use_executed": false,
-  "loop_state_stage": "Stage 2D.2B review gate confirmed locally",
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2D.2B review gate confirmed locally` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `d30169e512f260dd5b29eb328d0f41c73cc927a9`\u3002 Computer Use \u672a\u6267\u884c\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "computer_use_executed": true,
+  "loop_state_stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
+  "message": "Codex dry-run \u9636\u6bb5 `Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `74215dd69814c07fd5c3fd3937ccee15f9be8e8f`\u3002 Computer Use \u5df2\u6267\u884c\u4e00\u6b21 relay smoke\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
   "mode": "repo_only_preview",
   "real_gateway_modified": false,
-  "review_stage": "Stage 2D.2B review gate confirmed locally",
-  "review_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+  "review_stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
+  "review_target_commit": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
   "sent_to_feishu": false,
-  "stage": "Stage 2D.2B review gate confirmed locally"
+  "stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery"
 }

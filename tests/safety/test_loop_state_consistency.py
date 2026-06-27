@@ -27,7 +27,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         expected_stage = self.expected_loop_stage()
         self.assertEqual(
             expected_stage,
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
         self.assertFalse(self.loop_state.get("handoff_update_pending"))
         self.assertEqual(self.review["stage"], expected_stage)
@@ -36,17 +36,21 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
         self.assertEqual(
             self.loop_state["status"],
-            "review_gate_confirmed_waiting_for_relay_approval",
+            "relay_smoke_completed_with_delivery_warning",
         )
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
-        expected_commit = "d30169e512f260dd5b29eb328d0f41c73cc927a9"
-        stale_commit = "88e31e9daedcabb070469600f4fe2437a42c150c"
+        expected_commit = "74215dd69814c07fd5c3fd3937ccee15f9be8e8f"
+        stale_commit = "d30169e512f260dd5b29eb328d0f41c73cc927a9"
         self.assertEqual(self.handoff["review_target_commit"], expected_commit)
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotEqual(self.loop_state["review_target_commit"], stale_commit)
-        self.assertIn("Stage 2D.2B.1", self.loop_state["review_target_commit_note"])
+        self.assertIn("Stage 2E.0", self.loop_state["review_target_commit_note"])
+        self.assertEqual(
+            self.loop_state["relay_target_commit"],
+            "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+        )
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
@@ -101,9 +105,19 @@ class LoopStateConsistencyTest(unittest.TestCase):
             self.loop_state["stage2d2b_task_status"],
             "review_gate_confirmed_locally",
         )
+        self.assertEqual(
+            self.loop_state["stage2e0_task_status"],
+            "completed_with_degraded_input_delivery",
+        )
         self.assertTrue(self.loop_state["feishu_message_sent"])
         self.assertTrue(self.loop_state["review_gate_written"])
         self.assertTrue(self.loop_state["feishu_confirmation_observed"])
+        self.assertTrue(self.loop_state["computer_use_executed"])
+        self.assertTrue(self.loop_state["computer_use_live_execution"])
+        self.assertEqual(
+            self.loop_state["chatgpt_review_relay"],
+            "sent_with_degraded_split_prompt",
+        )
         for field in (
             "openclaw_modified",
             "feishu_gateway_modified",
@@ -111,8 +125,6 @@ class LoopStateConsistencyTest(unittest.TestCase):
             "dependencies_installed",
             "secrets_touched",
             "auto_trading_surface",
-            "computer_use_executed",
-            "computer_use_live_execution",
         ):
             self.assertIs(self.loop_state[field], False, field)
 

@@ -56,6 +56,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 2D.2A minimal live Hermes skills install completed",
                 "Stage 2D.2B live notification smoke completed; review gate pending",
                 "Stage 2D.2B review gate confirmed locally",
+                "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -68,12 +69,14 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "requires_user_approval_for_any_live_followup",
                 "waiting_for_feishu_confirmation",
                 "requires_user_approval_for_computer_use_relay",
+                "requires_user_review_before_any_followup_relay",
             },
         )
         if payload["current_stage"] in {
             "Stage 2D.2A minimal live Hermes skills install completed",
             "Stage 2D.2B live notification smoke completed; review gate pending",
             "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
@@ -87,10 +90,14 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "dependencies_installed",
             "secrets_touched",
             "auto_trading_surface",
-            "computer_use_executed",
-            "computer_use_live_execution",
         ):
             self.assertIs(payload[field], False, field)
+        if payload["current_stage"] == "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery":
+            self.assertTrue(payload["computer_use_executed"])
+            self.assertTrue(payload["computer_use_live_execution"])
+        else:
+            self.assertFalse(payload["computer_use_executed"])
+            self.assertFalse(payload["computer_use_live_execution"])
 
     def test_stage2d_plan_files_do_not_contain_private_or_live_execution_artifacts(self) -> None:
         combined = "\n".join(read(path) for path in [TASK, *PLAN_FILES.values()])

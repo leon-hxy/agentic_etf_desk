@@ -2,6 +2,8 @@
   "relay_stage": "stage2e0_chatgpt_relay_smoke",
   "expected_repo": "leon-hxy/agentic_etf_desk",
   "expected_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+  "relay_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+  "review_target_commit": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
   "gate_path": "local_private/review_gate.json",
   "chatgpt_prompt_generated": true,
   "manual_fallback_available": true,

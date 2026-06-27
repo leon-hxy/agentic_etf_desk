@@ -88,7 +88,10 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             latest_review["review_target_commit"],
         )
         self.assertFalse(notification["sent_to_feishu"])
-        self.assertFalse(notification["computer_use_executed"])
+        if latest_review["stage"].startswith("Stage 2E.0"):
+            self.assertTrue(notification["computer_use_executed"])
+        else:
+            self.assertFalse(notification["computer_use_executed"])
 
     def test_generated_prompt_is_public_only(self) -> None:
         prompt = (ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.md").read_text(

@@ -1,71 +1,58 @@
 {
-  "stage": "Stage 2D.2B review gate confirmed locally",
-  "loop_state_stage": "Stage 2D.2B review gate confirmed locally",
-  "review_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+  "stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
+  "loop_state_stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
+  "review_target_commit": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
+  "relay_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
   "handoff_commit": null,
-  "handoff_generated_from_head": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
-  "current_repo_head": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
-  "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
+  "handoff_generated_from_head": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
+  "current_repo_head": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
+  "commit_binding_note": "review_target_commit is the Stage 2E.0 commit to review; relay_target_commit is the prior Stage 2D.2B.1 commit that was sent to ChatGPT during the relay smoke.",
   "changed_files": [
-    "reports/live_smoke/stage2d2b_smoke_test_report.md",
-    "reports/live_smoke/stage2d2b_smoke_test_report.json",
-    "reports/live_smoke/stage2d2b_review_gate_validation_report.md",
-    "reports/live_smoke/stage2d2b_review_gate_validation_report.json",
-    "reports/live_smoke/stage2d2b_rollback_note.md",
-    "reports/live_smoke/stage2d2b_rollback_note.json",
-    "reports/live_smoke/stage2d2b_safety_test_results.md",
-    "reports/live_smoke/stage2d2b_safety_test_results.json",
-    "scripts/review_relay/relay_common.py",
-    "scripts/safety/check_review_relay_safety.py",
-    "tests/safety/test_notification_loop_safety.py",
+    "reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.md",
+    "reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.json",
+    "reports/relay_smoke/stage2e0_safety_test_results.md",
+    "reports/relay_smoke/stage2e0_safety_test_results.json",
+    "reports/review_requests/relay_status.md",
+    "reports/review_requests/relay_status.json",
+    "reports/review_requests/chatgpt_review_prompt.json",
+    "tests/safety/test_stage2e0_relay_smoke.py",
     "tests/safety/test_review_relay_safety.py",
-    "tests/safety/test_stage2d2b_live_smoke.py",
     "ops/state/loop_state.json",
     "scripts/safety/check_handoff_commit_consistency.py",
     "tests/safety/test_handoff_commit_consistency.py",
     "tests/safety/test_loop_automation_dry_run.py",
     "tests/safety/test_loop_state_consistency.py",
+    "tests/safety/test_notification_loop_safety.py",
     "tests/safety/test_stage2d_preparation_plan.py",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
     "reports/review_requests/latest.json",
     "reports/review_requests/chatgpt_review_prompt.md",
-    "reports/review_requests/chatgpt_review_prompt.json",
     "reports/review_requests/manual_fallback_prompt.md",
-    "reports/review_requests/relay_status.md",
-    "reports/review_requests/relay_status.json",
     "reports/review_requests/notification_preview.md",
     "reports/review_requests/notification_preview.json"
   ],
   "tests": [
     {
-      "command": "hermes logs gateway --since 2h -n 1000 with sanitized counts",
-      "result": "passed; exact confirmation phrase had reply-like inbound matches and raw log lines were not published"
+      "command": "python3 -m unittest tests.safety.test_stage2e0_relay_smoke tests.safety.test_review_relay_safety",
+      "result": "passed; relay smoke report and durable relay status are consistent"
     },
     {
-      "command": "python3 scripts/review_relay/check_review_gate.py",
-      "result": "passed; local private review gate seen and valid, Computer Use not executed"
+      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+      "result": "passed; no local path or secret findings"
     },
     {
-      "command": "python3 -m unittest tests.safety.test_stage2d2b_live_smoke",
-      "result": "passed; Stage 2D.2B reports record confirmed local review gate"
+      "command": "python3 scripts/safety/check_handoff_commit_consistency.py",
+      "result": "passed; Stage 2E.0 review target and relay target are distinct and explicit"
     },
     {
-      "command": "python3 scripts/safety/check_review_relay_safety.py --root <repo-root>",
-      "result": "passed; local private runtime state is ignored and untracked"
-    },
-    {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
       "result": "passed; full safety/smoke suite"
     },
     {
       "command": "git diff --check",
       "result": "passed; no whitespace errors"
-    },
-    {
-      "command": "git status --short --untracked-files=all",
-      "result": "changes limited to Stage 2D.2B.1 handoff/review artifacts before handoff commit"
     }
   ],
   "real_config_modified": false,
@@ -76,29 +63,25 @@
   "dependencies_installed": false,
   "secrets_touched": false,
   "secret_values_written": false,
-  "feishu_message_sent": true,
-  "feishu_message_count": 1,
-  "feishu_confirmation_observed": true,
-  "review_gate_written": true,
-  "review_gate_status": "confirmed_local_private_gate",
-  "review_gate_committed": false,
+  "feishu_message_sent": false,
+  "review_gate_used": true,
+  "computer_use_executed": true,
+  "sent_to_chatgpt": true,
+  "chatgpt_repo_access_observed": true,
+  "chatgpt_review_started": true,
+  "chatgpt_review_completed": false,
+  "input_delivery_quality": "degraded_split_prompt",
   "auto_trading_surface": false,
   "broker_surface": false,
-  "computer_use_executed": false,
-  "sent_to_chatgpt": false,
-  "live_smoke_report_generated": true,
-  "review_gate_validation_report_generated": true,
-  "rollback_note_generated": true,
-  "safety_test_results_generated": true,
-  "next_recommended_stage": "Request explicit user approval before any Computer Use ChatGPT relay; manual ChatGPT review remains available",
+  "next_recommended_stage": "Fix relay input delivery before any follow-up Computer Use relay; manual ChatGPT review remains available",
   "requires_user_approval": [
+    "Any follow-up Computer Use relay",
     "Any Hermes/OpenClaw restart",
     "Any real Feishu gateway or router change",
     "Any further live Hermes config change",
     "Any live OpenClaw change",
     "Any dependency installation",
     "Any secret migration or credential storage",
-    "Any Computer Use relay",
     "Any broker integration or trading execution surface"
   ],
   "forbidden_to_continue_automatically": [
@@ -110,7 +93,7 @@
     "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code",
     "Adding broker write access",
-    "Running Computer Use without separate explicit user approval",
+    "Running follow-up Computer Use without separate explicit user approval",
     "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later"
   ]
 }

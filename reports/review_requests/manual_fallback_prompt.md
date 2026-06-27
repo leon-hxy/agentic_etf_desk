@@ -18,36 +18,33 @@ https://github.com/leon-hxy/agentic_etf_desk
 - `AGENTS.md`
 - `docs/security_policy.md`
 
-请审核 `review_target_commit`：`d30169e512f260dd5b29eb328d0f41c73cc927a9`。
+请审核 `review_target_commit`：`74215dd69814c07fd5c3fd3937ccee15f9be8e8f`。
 
-请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2D.2B review gate confirmed locally。
+请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery。
 不要把旧阶段 commit 当作本阶段的审核目标。
 
-Stage 2D.2B review gate confirmed locally review_files：
+Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery review_files：
 
 - `reports/review_requests/latest.md`
 - `reports/review_requests/latest.json`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
-- `reports/live_smoke/stage2d2b_smoke_test_report.md`
-- `reports/live_smoke/stage2d2b_smoke_test_report.json`
-- `reports/live_smoke/stage2d2b_review_gate_validation_report.md`
-- `reports/live_smoke/stage2d2b_review_gate_validation_report.json`
-- `reports/live_smoke/stage2d2b_rollback_note.md`
-- `reports/live_smoke/stage2d2b_rollback_note.json`
-- `reports/live_smoke/stage2d2b_safety_test_results.md`
-- `reports/live_smoke/stage2d2b_safety_test_results.json`
+- `reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.md`
+- `reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.json`
+- `reports/relay_smoke/stage2e0_safety_test_results.md`
+- `reports/relay_smoke/stage2e0_safety_test_results.json`
+- `reports/review_requests/relay_status.md`
+- `reports/review_requests/relay_status.json`
+- `reports/review_requests/chatgpt_review_prompt.json`
 - `ops/state/loop_state.json`
-- `scripts/review_relay/relay_common.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
-- `scripts/safety/check_review_relay_safety.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 - `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
 - `tests/safety/test_review_relay_safety.py`
 - `tests/safety/test_stage2d_preparation_plan.py`
-- `tests/safety/test_stage2d2b_live_smoke.py`
+- `tests/safety/test_stage2e0_relay_smoke.py`
 
 重点检查：
 

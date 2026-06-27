@@ -62,9 +62,9 @@ class NotificationLoopSafetyTest(unittest.TestCase):
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
         self.assertEqual(
             payload["current_stage"],
-            "Stage 2D.2B review gate confirmed locally",
+            "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
         )
-        self.assertEqual(payload["status"], "review_gate_confirmed_waiting_for_relay_approval")
+        self.assertEqual(payload["status"], "relay_smoke_completed_with_delivery_warning")
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
@@ -74,18 +74,22 @@ class NotificationLoopSafetyTest(unittest.TestCase):
             payload["stage2d2b_task_status"],
             "review_gate_confirmed_locally",
         )
+        self.assertEqual(
+            payload["stage2e0_task_status"],
+            "completed_with_degraded_input_delivery",
+        )
         self.assertIsNone(payload["next_task"])
         self.assertEqual(
             payload["next_task_status"],
-            "requires_user_approval_for_computer_use_relay",
+            "requires_user_review_before_any_followup_relay",
         )
         self.assertEqual(payload["notification_layer"], "live_smoke_sent")
         self.assertEqual(payload["review_gate_layer"], "confirmed_local_private_gate")
         self.assertTrue(payload["feishu_message_sent"])
         self.assertTrue(payload["review_gate_written"])
         self.assertTrue(payload["feishu_confirmation_observed"])
-        self.assertEqual(payload["chatgpt_review_relay"], "drafted_gate_valid")
-        self.assertFalse(payload["computer_use_live_execution"])
+        self.assertEqual(payload["chatgpt_review_relay"], "sent_with_degraded_split_prompt")
+        self.assertTrue(payload["computer_use_live_execution"])
         self.assertTrue(payload["manual_chatgpt_review_mode"])
         self.assertTrue(payload["public_repo_review_mode"])
 
