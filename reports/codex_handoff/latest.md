@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-Stage 2A.6 completed.
+Stage 2A.6.1 completed.
 
 ## Review Target Commit
 
@@ -18,7 +18,11 @@ The handoff file is committed after it is generated, so it cannot self-reference
 
 ## Handoff Generated From Head
 
-`c83711053e6570bb447315e603c0a0701b9086b2`
+`d25d02b5faa9c90861d3950e8df9ae78c67b05c4`
+
+## Current Repo Head
+
+`d25d02b5faa9c90861d3950e8df9ae78c67b05c4`
 
 ## Commit Binding Note
 
@@ -54,7 +58,7 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - `tests/safety/test_notification_loop_safety.py`
 - `tests/safety/test_review_relay_safety.py`
 
-## Handoff Update Files
+## Files Changed This Round
 
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
@@ -63,8 +67,10 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - `reports/review_requests/chatgpt_review_prompt.md`
 - `reports/review_requests/chatgpt_review_prompt.json`
 - `reports/review_requests/manual_fallback_prompt.md`
+- `reports/review_requests/relay_status.md`
 - `reports/review_requests/relay_status.json`
 - `scripts/review_relay/relay_common.py`
+- `scripts/safety/check_handoff_commit_consistency.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 
 ## Test Commands
@@ -72,6 +78,7 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`
 - `python3 scripts/review_relay/check_review_gate.py`
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`
+- `python3 scripts/safety/check_handoff_commit_consistency.py`
 - `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`
 - `git diff --check`
 - `git status --short --untracked-files=all`
@@ -79,9 +86,10 @@ The handoff file is committed after it is generated, so it cannot self-reference
 ## Test Results
 
 - Relay preview commands: passed without a real review gate; status remains draft-only and `sent_to_chatgpt=false`.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`: passed, 24 tests OK.
+- `python3 scripts/safety/check_handoff_commit_consistency.py`: passed, all review relay artifacts bind to the same `review_target_commit`.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`: passed, 30 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2A.6.1 repo-only commit-binding handoff, review request, generated previews, relay helper, and safety test updates.
+- `git status --short --untracked-files=all`: changes limited to Stage 2A.6.1 repo-only review relay artifact consistency fix, generated previews, handoff, and tests.
 
 ## Runtime And Safety Checklist
 

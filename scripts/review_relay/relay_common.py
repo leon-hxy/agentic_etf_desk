@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -66,6 +67,19 @@ def latest_review() -> dict[str, Any]:
 
 def review_target_commit(review: dict[str, Any]) -> str:
     return str(review.get("review_target_commit") or review.get("commit") or "")
+
+
+def current_repo_head() -> str | None:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip()
 
 
 def default_status() -> dict[str, Any]:
@@ -132,8 +146,8 @@ def check_gate(review: dict[str, Any] | None = None) -> dict[str, Any]:
 
 
 def render_prompt(review: dict[str, Any]) -> str:
-    changed_files = review.get("changed_files", [])
-    changed_lines = "\n".join(f"- `{path}`" for path in changed_files) or "- latest.json 中未列出。"
+    review_files = review.get("review_files", [])
+    review_lines = "\n".join(f"- `{path}`" for path in review_files) or "- latest.json 中未列出。"
     public_files = "\n".join(f"- `{path}`" for path in PUBLIC_REVIEW_FILES)
     target_commit = review_target_commit(review)
     return "\n".join(
@@ -148,12 +162,12 @@ def render_prompt(review: dict[str, Any]) -> str:
             "",
             f"请审核 `review_target_commit`：`{target_commit}`。",
             "",
-            "请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 changed_files 审核 Stage 2A.6。",
+            "请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2A.6。",
             "不要把 Stage 2A.5 commit 当作 Stage 2A.6 的审核目标。",
             "",
-            "本次 changed_files：",
+            "Stage 2A.6 review_files：",
             "",
-            changed_lines,
+            review_lines,
             "",
             "重点检查：",
             "",
@@ -184,6 +198,8 @@ def write_status(status: dict[str, Any]) -> None:
     lines = [
         "# Review Relay Status",
         "",
+        f"- Expected repo: `{status.get('expected_repo', REPO)}`",
+        f"- Expected commit: `{status.get('expected_commit', '')}`",
         f"- Relay stage: `{status['relay_stage']}`",
         f"- Computer Use executed: `{str(status['computer_use_executed']).lower()}`",
         f"- ChatGPT prompt generated: `{str(status['chatgpt_prompt_generated']).lower()}`",
@@ -208,6 +224,7 @@ def public_payload(review: dict[str, Any], prompt: str, gate_status: dict[str, A
         "review_target_commit": target_commit,
         "handoff_commit": review.get("handoff_commit"),
         "handoff_generated_from_head": review.get("handoff_generated_from_head"),
+        "current_repo_head": review.get("current_repo_head") or current_repo_head(),
         "commit_binding_note": review.get("commit_binding_note") or COMMIT_BINDING_NOTE,
         "review_request": "reports/review_requests/latest.json",
         "handoff": "reports/codex_handoff/latest.json",
