@@ -10,8 +10,11 @@ from pathlib import Path
 from typing import Any
 
 
-REVIEW_TARGET_COMMIT = "c83711053e6570bb447315e603c0a0701b9086b2"
-PREVIOUS_STAGE_COMMIT = "8a1b03f" + "8078c9593f4730cf87785b4663ed05855"
+PREVIOUS_STAGE_COMMITS = {
+    "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
+    "c837110" + "53e6570bb447315e603c0a0701b9086b2",
+    "83eeec" + "88ddda138b310aa7d41078919ee0f9b12d",
+}
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
@@ -61,10 +64,10 @@ def validate_git_commit(root: Path, commit: str, findings: list[dict[str, str]],
         return
 
     lowered = subject.stdout.lower()
-    if "stage2a.6" not in lowered:
-        add(findings, label, "review target subject does not contain stage2a.6")
-    if "stage2a.5" in lowered:
-        add(findings, label, "review target points to stage2a.5")
+    if "stage2b" not in lowered:
+        add(findings, label, "review target subject does not contain stage2b")
+    if "stage2a" in lowered:
+        add(findings, label, "review target points to an old stage")
 
 
 def scan(root: Path) -> dict[str, Any]:
@@ -79,17 +82,20 @@ def scan(root: Path) -> dict[str, Any]:
         return {"status": "fail", "findings": [{"file": "reports", "reason": str(exc)}]}
 
     target = review.get("review_target_commit")
-    if target != REVIEW_TARGET_COMMIT:
-        add(findings, "reports/review_requests/latest.json", "wrong review_target_commit")
+    if not isinstance(target, str) or not target:
+        add(findings, "reports/review_requests/latest.json", "missing review_target_commit")
+        target = ""
+    if target in PREVIOUS_STAGE_COMMITS:
+        add(findings, "reports/review_requests/latest.json", "review_target_commit points to old stage")
     validate_git_commit(root, str(target), findings, "review_target_commit")
 
-    expected_stage = "Stage 2A.6.1 completed"
+    expected_stage = "Stage 2B completed"
     for path, payload in (
         ("reports/review_requests/latest.json", review),
         ("reports/codex_handoff/latest.json", handoff),
     ):
         if payload.get("stage") != expected_stage:
-            add(findings, path, "stage must be Stage 2A.6.1 completed")
+            add(findings, path, "stage must be Stage 2B completed")
         if payload.get("review_target_commit") != target:
             add(findings, path, "review_target_commit mismatch")
         if payload.get("handoff_commit") is not None:
@@ -119,8 +125,10 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, STATUS_MD, "missing expected commit value")
 
     for path in JSON_TARGET_PATHS + TEXT_TARGET_PATHS + [STATUS_JSON, STATUS_MD]:
-        if PREVIOUS_STAGE_COMMIT in read_text(root, path):
-            add(findings, path, "contains previous Stage 2A.5 commit")
+        content = read_text(root, path)
+        for old_commit in PREVIOUS_STAGE_COMMITS:
+            if old_commit in content:
+                add(findings, path, "contains previous stage commit")
 
     if '"commit"' in read_text(root, "reports/review_requests/chatgpt_review_prompt.json"):
         add(findings, "reports/review_requests/chatgpt_review_prompt.json", "top-level commit field is ambiguous")

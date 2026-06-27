@@ -11,40 +11,58 @@ https://github.com/leon-hxy/agentic_etf_desk
 - `AGENTS.md`
 - `docs/security_policy.md`
 
-请审核 `review_target_commit`：`c83711053e6570bb447315e603c0a0701b9086b2`。
+请审核 `review_target_commit`：`d40315aea238db28b1bdf857efa4052b250634c4`。
 
-请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2A.6。
-不要把 Stage 2A.5 commit 当作 Stage 2A.6 的审核目标。
+请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2B completed。
+不要把旧阶段 commit 当作本阶段的审核目标。
 
-Stage 2A.6 review_files：
+Stage 2B completed review_files：
 
-- `docs/loop_protocol.md`
-- `docs/chatgpt_review_relay_design.md`
-- `configs/hermes/feishu_loop_notifier_skill.md`
-- `configs/hermes/feishu_review_command_skill.md`
-- `configs/codex_automation/chatgpt_review_relay_prompt.md`
-- `ops/notifications/feishu_message_templates.md`
-- `ops/review_gate/README.md`
-- `ops/review_gate/review_gate.example.json`
-- `ops/state/loop_state.json`
-- `local_private/README.md`
-- `scripts/review_relay/build_chatgpt_review_prompt.py`
-- `scripts/review_relay/check_review_gate.py`
-- `scripts/review_relay/mark_review_gate_used.py`
-- `scripts/review_relay/relay_common.py`
-- `scripts/review_relay/render_manual_fallback_prompt.py`
-- `scripts/safety/check_review_relay_safety.py`
-- `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_review_relay_safety.py`
-- `reports/review_requests/chatgpt_review_prompt.md`
-- `reports/review_requests/chatgpt_review_prompt.json`
-- `reports/review_requests/manual_fallback_prompt.md`
-- `reports/review_requests/relay_status.md`
-- `reports/review_requests/relay_status.json`
-- `reports/codex_handoff/latest.md`
-- `reports/codex_handoff/latest.json`
-- `reports/review_requests/latest.md`
-- `reports/review_requests/latest.json`
+- `strategies/benchmark_buy_hold/README.md`
+- `strategies/benchmark_buy_hold/strategy.yaml`
+- `strategies/static_6040/README.md`
+- `strategies/static_6040/strategy.yaml`
+- `strategies/equal_weight_etf/README.md`
+- `strategies/equal_weight_etf/strategy.yaml`
+- `strategies/gtaa_10m_sma/README.md`
+- `strategies/gtaa_10m_sma/strategy.yaml`
+- `strategies/dual_momentum/README.md`
+- `strategies/dual_momentum/strategy.yaml`
+- `strategies/time_series_momentum_vol_target/README.md`
+- `strategies/time_series_momentum_vol_target/strategy.yaml`
+- `strategies/inverse_volatility_allocation/README.md`
+- `strategies/inverse_volatility_allocation/strategy.yaml`
+- `strategies/etf_mean_reversion_sandbox/README.md`
+- `strategies/etf_mean_reversion_sandbox/strategy.yaml`
+- `scripts/backtest/run_backtest.py`
+- `scripts/backtest/metrics.py`
+- `scripts/backtest/portfolio.py`
+- `scripts/backtest/strategies.py`
+- `scripts/backtest/report_writer.py`
+- `scripts/reports/generate_market_brief.py`
+- `scripts/reports/generate_weekly_report.py`
+- `scripts/reports/generate_rebalance_ticket.py`
+- `scripts/reports/generate_portfolio_journal.py`
+- `configs/openclaw/openclaw_agents_draft.json`
+- `configs/openclaw/README.md`
+- `configs/hermes/trading_desk_router_skill.md`
+- `configs/hermes/feishu_router_draft.md`
+- `configs/hermes/README.md`
+- `reports/stage2b_backtest_report.md`
+- `reports/stage2b_backtest_report.json`
+- `reports/stage2b_backtest_report.html`
+- `reports/stage2b_market_brief.md`
+- `reports/stage2b_weekly_report.md`
+- `reports/stage2b_rebalance_ticket.md`
+- `journals/stage2b_portfolio_journal.md`
+- `reports/trade_ticket_template.md`
+- `journals/portfolio_journal_template.md`
+- `tests/safety/test_strategy_templates_safety.py`
+- `tests/safety/test_backtest_safety.py`
+- `tests/safety/test_openclaw_agents_safety.py`
+- `tests/safety/test_hermes_router_safety.py`
+- `tests/smoke/test_backtest_smoke.py`
+- `tests/smoke/test_reports_smoke.py`
 
 重点检查：
 

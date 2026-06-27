@@ -150,6 +150,7 @@ def render_prompt(review: dict[str, Any]) -> str:
     review_lines = "\n".join(f"- `{path}`" for path in review_files) or "- latest.json 中未列出。"
     public_files = "\n".join(f"- `{path}`" for path in PUBLIC_REVIEW_FILES)
     target_commit = review_target_commit(review)
+    stage = str(review.get("stage", "latest stage"))
     return "\n".join(
         [
             "请审核公开 GitHub repo：",
@@ -162,10 +163,10 @@ def render_prompt(review: dict[str, Any]) -> str:
             "",
             f"请审核 `review_target_commit`：`{target_commit}`。",
             "",
-            "请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2A.6。",
-            "不要把 Stage 2A.5 commit 当作 Stage 2A.6 的审核目标。",
+            f"请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 {stage}。",
+            "不要把旧阶段 commit 当作本阶段的审核目标。",
             "",
-            "Stage 2A.6 review_files：",
+            f"{stage} review_files：",
             "",
             review_lines,
             "",

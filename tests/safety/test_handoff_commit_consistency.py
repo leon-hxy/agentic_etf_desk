@@ -6,8 +6,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-REVIEW_TARGET_COMMIT = "c83711053e6570bb447315e603c0a0701b9086b2"
-PREVIOUS_STAGE_COMMIT = "8a1b03f" + "8078c9593f4730cf87785b4663ed05855"
+PREVIOUS_STAGE_COMMITS = {
+    "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
+    "c837110" + "53e6570bb447315e603c0a0701b9086b2",
+    "83eeec" + "88ddda138b310aa7d41078919ee0f9b12d",
+}
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
@@ -47,9 +50,10 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.review_target_commit = self.handoff.get("review_target_commit")
 
     def test_latest_json_files_declare_review_target_commit(self) -> None:
-        self.assertEqual(self.handoff["stage"], "Stage 2A.6.1 completed")
-        self.assertEqual(self.review["stage"], "Stage 2A.6.1 completed")
-        self.assertEqual(self.review_target_commit, REVIEW_TARGET_COMMIT)
+        self.assertEqual(self.handoff["stage"], "Stage 2B completed")
+        self.assertEqual(self.review["stage"], "Stage 2B completed")
+        self.assertTrue(self.review_target_commit)
+        self.assertNotIn(self.review_target_commit, PREVIOUS_STAGE_COMMITS)
         self.assertEqual(self.review_target_commit, self.review.get("review_target_commit"))
         self.assertEqual(self.handoff.get("current_repo_head"), self.review.get("current_repo_head"))
         self.assertEqual(
@@ -61,15 +65,15 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertIn("review_target_commit is the commit to review", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
-    def test_review_target_commit_is_valid_stage2a6_commit(self) -> None:
+    def test_review_target_commit_is_valid_stage2b_commit(self) -> None:
         target = str(self.review_target_commit)
         result = git("cat-file", "-e", f"{target}^{{commit}}")
         self.assertEqual(result.returncode, 0, msg=result.stderr)
 
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertIn("stage2a.6", subject.stdout.lower())
-        self.assertNotIn("stage2a.5", subject.stdout.lower())
+        self.assertIn("stage2b", subject.stdout.lower())
+        self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_recorded_current_head_is_valid_git_commit(self) -> None:
         current_repo_head = str(self.handoff.get("current_repo_head"))
@@ -81,7 +85,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         for path in JSON_TARGET_PATHS:
             payload = read_json(path)
             self.assertEqual(payload["review_target_commit"], target, path)
-            self.assertNotEqual(payload["review_target_commit"], PREVIOUS_STAGE_COMMIT, path)
+            self.assertNotIn(payload["review_target_commit"], PREVIOUS_STAGE_COMMITS, path)
 
         prompt_payload = read_json("reports/review_requests/chatgpt_review_prompt.json")
         self.assertEqual(prompt_payload["gate"]["expected_commit"], target)
@@ -106,16 +110,18 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         relay_status = read_json(RELAY_STATUS_JSON)
         self.assertEqual(relay_status["expected_commit"], target)
 
-    def test_review_target_does_not_point_to_stage2a5(self) -> None:
+    def test_review_target_does_not_point_to_old_stage(self) -> None:
         target = str(self.review_target_commit)
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertNotIn("stage2a.5", subject.stdout.lower())
+        self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_previous_stage_commit_is_absent_from_review_artifacts(self) -> None:
         paths = JSON_TARGET_PATHS + TEXT_TARGET_PATHS + [RELAY_STATUS_JSON]
         for path in paths:
-            self.assertNotIn(PREVIOUS_STAGE_COMMIT, read_text(path), path)
+            content = read_text(path)
+            for old_commit in PREVIOUS_STAGE_COMMITS:
+                self.assertNotIn(old_commit, content, path)
 
     def test_handoff_commit_consistency_script_passes(self) -> None:
         result = subprocess.run(

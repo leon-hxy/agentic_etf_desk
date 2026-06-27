@@ -2,13 +2,17 @@
 
 ## Current Stage
 
-Stage 2A.6.1 completed.
+Stage 2B completed.
 
 ## Review Target Commit
 
-`c83711053e6570bb447315e603c0a0701b9086b2`
+`d40315aea238db28b1bdf857efa4052b250634c4`
 
-This is the Stage 2A.6 commit that ChatGPT should review.
+This is the Stage 2B business commit that ChatGPT should review.
+
+## Current Repo Head
+
+`d40315aea238db28b1bdf857efa4052b250634c4`
 
 ## Handoff Commit
 
@@ -18,48 +22,45 @@ The handoff file is committed after it is generated, so it cannot self-reference
 
 ## Handoff Generated From Head
 
-`d25d02b5faa9c90861d3950e8df9ae78c67b05c4`
-
-## Current Repo Head
-
-`d25d02b5faa9c90861d3950e8df9ae78c67b05c4`
+`d40315aea238db28b1bdf857efa4052b250634c4`
 
 ## Commit Binding Note
 
 `review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.`
 
-## Review Target Files
-
-- `configs/codex_automation/chatgpt_review_relay_prompt.md`
-- `configs/hermes/feishu_loop_notifier_skill.md`
-- `configs/hermes/feishu_review_command_skill.md`
-- `docs/chatgpt_review_relay_design.md`
-- `docs/loop_protocol.md`
-- `local_private/README.md`
-- `ops/notifications/feishu_message_templates.md`
-- `ops/review_gate/README.md`
-- `ops/review_gate/review_gate.example.json`
-- `ops/state/loop_state.json`
-- `reports/codex_handoff/latest.md`
-- `reports/codex_handoff/latest.json`
-- `reports/review_requests/chatgpt_review_prompt.md`
-- `reports/review_requests/chatgpt_review_prompt.json`
-- `reports/review_requests/latest.md`
-- `reports/review_requests/latest.json`
-- `reports/review_requests/manual_fallback_prompt.md`
-- `reports/review_requests/relay_status.md`
-- `reports/review_requests/relay_status.json`
-- `scripts/review_relay/build_chatgpt_review_prompt.py`
-- `scripts/review_relay/check_review_gate.py`
-- `scripts/review_relay/mark_review_gate_used.py`
-- `scripts/review_relay/relay_common.py`
-- `scripts/review_relay/render_manual_fallback_prompt.py`
-- `scripts/safety/check_review_relay_safety.py`
-- `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_review_relay_safety.py`
-
 ## Files Changed This Round
 
+- `strategies/*/README.md`
+- `strategies/*/strategy.yaml`
+- `scripts/backtest/run_backtest.py`
+- `scripts/backtest/metrics.py`
+- `scripts/backtest/portfolio.py`
+- `scripts/backtest/strategies.py`
+- `scripts/backtest/report_writer.py`
+- `scripts/reports/generate_market_brief.py`
+- `scripts/reports/generate_weekly_report.py`
+- `scripts/reports/generate_rebalance_ticket.py`
+- `scripts/reports/generate_portfolio_journal.py`
+- `configs/openclaw/openclaw_agents_draft.json`
+- `configs/openclaw/README.md`
+- `configs/hermes/trading_desk_router_skill.md`
+- `configs/hermes/feishu_router_draft.md`
+- `configs/hermes/README.md`
+- `reports/stage2b_backtest_report.md`
+- `reports/stage2b_backtest_report.json`
+- `reports/stage2b_backtest_report.html`
+- `reports/stage2b_market_brief.md`
+- `reports/stage2b_weekly_report.md`
+- `reports/stage2b_rebalance_ticket.md`
+- `journals/stage2b_portfolio_journal.md`
+- `reports/trade_ticket_template.md`
+- `journals/portfolio_journal_template.md`
+- `tests/safety/test_strategy_templates_safety.py`
+- `tests/safety/test_backtest_safety.py`
+- `tests/safety/test_openclaw_agents_safety.py`
+- `tests/safety/test_hermes_router_safety.py`
+- `tests/smoke/test_backtest_smoke.py`
+- `tests/smoke/test_reports_smoke.py`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
@@ -78,18 +79,16 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`
 - `python3 scripts/review_relay/check_review_gate.py`
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`
-- `python3 scripts/safety/check_handoff_commit_consistency.py`
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
 - `git diff --check`
 - `git status --short --untracked-files=all`
 
 ## Test Results
 
 - Relay preview commands: passed without a real review gate; status remains draft-only and `sent_to_chatgpt=false`.
-- `python3 scripts/safety/check_handoff_commit_consistency.py`: passed, all review relay artifacts bind to the same `review_target_commit`.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`: passed, 30 tests OK.
+- Full unittest command: passed, 46 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2A.6.1 repo-only review relay artifact consistency fix, generated previews, handoff, and tests.
+- `git status --short --untracked-files=all`: changes limited to Stage 2B handoff/review relay artifacts after the business commit.
 
 ## Runtime And Safety Checklist
 
@@ -100,29 +99,28 @@ The handoff file is committed after it is generated, so it cannot self-reference
 - Installed dependencies: false.
 - Touched secrets: false.
 - Automatic trading surface present: false.
-- Feishu notification draft completed: true.
-- Review gate draft completed: true.
-- ChatGPT review relay draft completed: true.
 - Real Computer Use executed: false.
+- ETF strategy templates generated: true.
+- Backtest engine generated: true.
+- Reports and tickets generated: true.
+- OpenClaw agents draft generated: true.
+- Hermes Feishu router draft generated: true.
 
 ## Next Recommended Stage
 
-Stage 2B repo-only.
+Stage 2C repo-only review hardening, or a separate user-approved live integration planning task.
 
 ## Requires User Approval
 
-- Entering `/goal` long-running work for Stage 2B.
-- Installing any real Hermes skill or Feishu notification handler.
-- Writing any real `local_private/review_gate.json` through Hermes.
-- Executing live Computer Use / Chrome relay to ChatGPT.
-- Any modification to real `~/.hermes`.
-- Any modification to real `~/.openclaw`.
+- Any live Hermes config change.
+- Any live OpenClaw config change.
 - Any Hermes or OpenClaw restart.
-- Any Feishu gateway or configuration change.
+- Any real Feishu gateway or router change.
+- Any launchd or crontab change.
 - Any dependency installation.
 - Any secret migration or credential storage.
 - Any broker integration, including read-only broker account access.
-- Any expansion beyond ETF-only scope or addition of leveraged/inverse ETFs.
+- Any expansion beyond ETF-only scope or addition of leveraged or defensive-inverse instruments.
 
 ## Forbidden To Continue Automatically
 
@@ -137,4 +135,4 @@ Stage 2B repo-only.
 - Adding automatic order placement code.
 - Adding broker write access.
 - Running live Computer Use relay without future explicit approval.
-- Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or inverse ETFs unless explicitly allowlisted later.
+- Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later.
