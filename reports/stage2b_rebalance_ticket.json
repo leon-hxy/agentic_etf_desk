@@ -1,0 +1,42 @@
+{
+  "invalid_conditions": [
+    "ETF leaves allowlist",
+    "risk_agent review fails",
+    "data freshness check fails"
+  ],
+  "local_report_path": "reports/stage2b_rebalance_ticket.md",
+  "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user. \u8fd9\u662f\u7814\u7a76\u5efa\u8bae\uff0c\u4e0d\u662f\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "report_type": "rebalance_ticket",
+  "risk_agent_review": {
+    "mode": "repo-only",
+    "passed": true,
+    "reviewer": "risk_agent"
+  },
+  "risk_level": "medium",
+  "risk_points": [
+    "sample data only",
+    "allocation drift may differ with live data"
+  ],
+  "stage": "Stage 2B",
+  "strategy_id": "static_6040",
+  "ticket_rows": [
+    {
+      "current_weight": 0.55,
+      "direction": "increase",
+      "symbol": "VTI",
+      "target_weight": 0.6
+    },
+    {
+      "current_weight": 0.35,
+      "direction": "decrease",
+      "symbol": "BND",
+      "target_weight": 0.3
+    },
+    {
+      "current_weight": 0.1,
+      "direction": "hold",
+      "symbol": "BIL",
+      "target_weight": 0.1
+    }
+  ]
+}

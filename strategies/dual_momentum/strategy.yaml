@@ -1,0 +1,33 @@
+{
+  "strategy_id": "dual_momentum",
+  "description": "Relative momentum plus absolute momentum with defensive fallback.",
+  "universe_source": "configs/universe/etf_universe.yaml",
+  "allowed_symbols": ["VTI", "VEA", "VWO", "EWJ", "BND", "IEF", "BIL", "GLD", "VNQ", "DBC"],
+  "rebalance_frequency": "monthly",
+  "signal_frequency": "monthly",
+  "weight_rule": {
+    "type": "dual_momentum",
+    "lookback_months": 12,
+    "candidate_symbols": ["VTI", "VEA", "VWO", "EWJ", "GLD", "VNQ", "DBC"],
+    "defensive_symbol": "BIL",
+    "absolute_momentum_threshold": 0.0
+  },
+  "risk_limits": {
+    "max_single_etf_weight": 1.0,
+    "requires_risk_agent_review": true
+  },
+  "benchmark": {
+    "symbol": "VTI",
+    "description": "Broad equity ETF benchmark."
+  },
+  "transaction_cost_assumption": {
+    "cost_bps": 1.0,
+    "slippage_bps": 1.0
+  },
+  "data_requirements": {
+    "price_field": "adjusted_close",
+    "supports_total_return": true,
+    "minimum_history_days": 252
+  },
+  "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user. 这是研究建议，不是自动下单，最终交易由用户手动决定。"
+}

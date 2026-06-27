@@ -1,0 +1,34 @@
+{
+  "strategy_id": "etf_mean_reversion_sandbox",
+  "description": "Sandbox-only short-horizon ETF mean reversion research template; not recommended for live manual use.",
+  "universe_source": "configs/universe/etf_universe.yaml",
+  "allowed_symbols": ["VTI", "VEA", "VWO", "EWJ", "BND", "IEF", "BIL", "GLD", "VNQ", "DBC"],
+  "rebalance_frequency": "weekly_or_monthly_research_only",
+  "signal_frequency": "daily_research_only",
+  "weight_rule": {
+    "type": "mean_reversion_sandbox",
+    "lookback_days": 5,
+    "defensive_symbol": "BIL",
+    "sandbox": true
+  },
+  "risk_limits": {
+    "max_single_etf_weight": 0.2,
+    "max_asset_category_weight": 0.4,
+    "requires_risk_agent_review": true,
+    "sandbox_report_label_required": true
+  },
+  "benchmark": {
+    "symbol": "VTI",
+    "description": "Broad equity ETF benchmark."
+  },
+  "transaction_cost_assumption": {
+    "cost_bps": 1.0,
+    "slippage_bps": 1.0
+  },
+  "data_requirements": {
+    "price_field": "adjusted_close",
+    "supports_total_return": true,
+    "minimum_history_days": 10
+  },
+  "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user. 这是研究建议，不是自动下单，最终交易由用户手动决定。"
+}

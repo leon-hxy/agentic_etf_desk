@@ -1,0 +1,84 @@
+{
+  "benchmark": {
+    "metrics": {
+      "annualized_volatility": 0.00012713354192621552,
+      "cagr": 0.8717444252272559,
+      "calmar": 0.0,
+      "longest_drawdown_recovery_days": 0,
+      "max_drawdown": 0.0,
+      "sharpe": 4936.944127767838,
+      "sortino": 0.0,
+      "trade_count": 0,
+      "turnover": 0.0,
+      "win_rate": 1.0,
+      "worst_month": {
+        "period": "2024-01",
+        "return": 0.009999999999999787
+      },
+      "worst_year": {
+        "period": "2024",
+        "return": 0.009999999999999787
+      }
+    },
+    "symbol": "VTI"
+  },
+  "data_source": "data/processed/price_panel.csv",
+  "equity_curve": [
+    {
+      "benchmark_equity": 1.0025,
+      "benchmark_return": 0.0025,
+      "date": "2024-01-03",
+      "equity": 1.00154955,
+      "return": 0.00154955,
+      "turnover": 1.0
+    },
+    {
+      "benchmark_equity": 1.005,
+      "benchmark_return": 0.00249377,
+      "date": "2024-01-04",
+      "equity": 1.00404584,
+      "return": 0.00249242,
+      "turnover": 0.0
+    },
+    {
+      "benchmark_equity": 1.0075,
+      "benchmark_return": 0.00248756,
+      "date": "2024-01-05",
+      "equity": 1.00654212,
+      "return": 0.00248623,
+      "turnover": 0.0
+    },
+    {
+      "benchmark_equity": 1.01,
+      "benchmark_return": 0.00248139,
+      "date": "2024-01-08",
+      "equity": 1.00903841,
+      "return": 0.00248006,
+      "turnover": 0.0
+    }
+  ],
+  "manual_execution_note": "\u8fd9\u662f\u7814\u7a76\u5efa\u8bae\uff0c\u4e0d\u662f\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "metrics": {
+    "annualized_volatility": 0.007435153349823952,
+    "cagr": 0.7627267359017855,
+    "calmar": 0.0,
+    "longest_drawdown_recovery_days": 0,
+    "max_drawdown": 0.0,
+    "sharpe": 76.32937725152051,
+    "sortino": 0.0,
+    "trade_count": 1,
+    "turnover": 1.0,
+    "win_rate": 1.0,
+    "worst_month": {
+      "period": "2024-01",
+      "return": 0.009038409765667055
+    },
+    "worst_year": {
+      "period": "2024",
+      "return": 0.009038409765667055
+    }
+  },
+  "price_field": "adjusted_close",
+  "strategy_id": "static_6040",
+  "universe_source": "configs/universe/etf_universe.yaml"
+}

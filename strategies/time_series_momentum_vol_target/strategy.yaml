@@ -1,0 +1,34 @@
+{
+  "strategy_id": "time_series_momentum_vol_target",
+  "description": "Independent ETF trend filters with inverse volatility sizing and portfolio volatility control.",
+  "universe_source": "configs/universe/etf_universe.yaml",
+  "allowed_symbols": ["VTI", "VEA", "VWO", "EWJ", "BND", "IEF", "BIL", "GLD", "VNQ", "DBC"],
+  "rebalance_frequency": "monthly",
+  "signal_frequency": "monthly",
+  "weight_rule": {
+    "type": "trend_filter_inverse_volatility",
+    "lookback_months": 10,
+    "volatility_lookback_days": 63,
+    "target_annual_volatility": 0.1,
+    "defensive_symbol": "BIL"
+  },
+  "risk_limits": {
+    "max_single_etf_weight": 0.3,
+    "max_asset_category_weight": 0.55,
+    "requires_risk_agent_review": true
+  },
+  "benchmark": {
+    "symbol": "VTI",
+    "description": "Broad equity ETF benchmark."
+  },
+  "transaction_cost_assumption": {
+    "cost_bps": 1.0,
+    "slippage_bps": 1.0
+  },
+  "data_requirements": {
+    "price_field": "adjusted_close",
+    "supports_total_return": true,
+    "minimum_history_days": 210
+  },
+  "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user. 这是研究建议，不是自动下单，最终交易由用户手动决定。"
+}

@@ -1,0 +1,20 @@
+{
+  "annualized_volatility": 0.0014913062814876838,
+  "cagr": 0.84629363705362,
+  "calmar": 0.0,
+  "longest_drawdown_recovery_days": 0,
+  "max_drawdown": 0.0,
+  "sharpe": 411.67106112130796,
+  "sortino": 0.0,
+  "trade_count": 1,
+  "turnover": 1.0,
+  "win_rate": 1.0,
+  "worst_month": {
+    "period": "2024-01",
+    "return": 0.009780538764168512
+  },
+  "worst_year": {
+    "period": "2024",
+    "return": 0.009780538764168512
+  }
+}

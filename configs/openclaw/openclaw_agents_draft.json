@@ -1,0 +1,157 @@
+{
+  "stage": "Stage 2B repo-only draft",
+  "apply_to_real_openclaw": false,
+  "universe_source": "configs/universe/etf_universe.yaml",
+  "workspace_isolation": {
+    "mode": "repo_only",
+    "workspace_root": "agentic_etf_desk",
+    "may_read": [
+      "configs/universe/",
+      "data/processed/",
+      "strategies/",
+      "scripts/",
+      "reports/",
+      "backtests/",
+      "journals/"
+    ],
+    "may_write": [
+      "reports/",
+      "backtests/",
+      "journals/"
+    ],
+    "must_not_apply_to": [
+      "~/.openclaw",
+      "~/.hermes",
+      "real Feishu gateway"
+    ]
+  },
+  "allowed_outputs": [
+    "research",
+    "backtests",
+    "risk_review",
+    "reports",
+    "manual_trade_recommendation_tickets",
+    "portfolio_journal"
+  ],
+  "global_safety_rules": [
+    "ETF-only version 1.",
+    "No broker write permissions.",
+    "No order placement.",
+    "No automatic trading.",
+    "Final trading is manually decided by the user."
+  ],
+  "agents": [
+    {
+      "agent_id": "market_data_agent",
+      "purpose": "Validate ETF universe and processed price panels.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    },
+    {
+      "agent_id": "etf_research_agent",
+      "purpose": "Summarize allowed ETF research context from repo data.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    },
+    {
+      "agent_id": "etf_strategy_agent",
+      "purpose": "Prepare ETF-only strategy template inputs and assumptions.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    },
+    {
+      "agent_id": "backtest_agent",
+      "purpose": "Run repo-only backtests and write local reports.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    },
+    {
+      "agent_id": "risk_agent",
+      "purpose": "Review risk limits before any recommendation ticket is shown.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    },
+    {
+      "agent_id": "trade_ticket_agent",
+      "purpose": "Draft manual trade recommendation tickets after risk review.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    },
+    {
+      "agent_id": "portfolio_journal_agent",
+      "purpose": "Record repo-only portfolio research journal entries.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    },
+    {
+      "agent_id": "report_agent",
+      "purpose": "Generate Feishu-readable summaries and local report files.",
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ]
+    }
+  ]
+}

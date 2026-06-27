@@ -1,0 +1,31 @@
+{
+  "strategy_id": "static_6040",
+  "description": "Static 60 percent equity ETF and 40 percent bond or short-duration ETF allocation.",
+  "universe_source": "configs/universe/etf_universe.yaml",
+  "allowed_symbols": ["VTI", "BND", "BIL"],
+  "rebalance_frequency": "monthly_or_quarterly",
+  "signal_frequency": "monthly",
+  "weight_rule": {
+    "type": "static_allocation",
+    "target_weights": {"VTI": 0.6, "BND": 0.3, "BIL": 0.1}
+  },
+  "risk_limits": {
+    "max_single_etf_weight": 0.6,
+    "max_asset_category_weight": 0.7,
+    "requires_risk_agent_review": true
+  },
+  "benchmark": {
+    "symbol": "VTI",
+    "description": "Broad equity ETF benchmark plus reported comparison to benchmark_buy_hold."
+  },
+  "transaction_cost_assumption": {
+    "cost_bps": 1.0,
+    "slippage_bps": 1.0
+  },
+  "data_requirements": {
+    "price_field": "adjusted_close",
+    "supports_total_return": true,
+    "minimum_history_days": 2
+  },
+  "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user. 这是研究建议，不是自动下单，最终交易由用户手动决定。"
+}

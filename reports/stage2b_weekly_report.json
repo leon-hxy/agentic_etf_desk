@@ -1,0 +1,18 @@
+{
+  "local_report_path": "reports/stage2b_weekly_report.md",
+  "manual_execution_note": "\u8fd9\u662f\u7814\u7a76\u5efa\u8bae\uff0c\u4e0d\u662f\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "report_type": "weekly_report",
+  "risk_agent_review": {
+    "mode": "repo-only",
+    "passed": true,
+    "reviewer": "risk_agent"
+  },
+  "risk_level": "medium",
+  "stage": "Stage 2B",
+  "strategies_reviewed": [
+    "benchmark_buy_hold",
+    "dual_momentum",
+    "gtaa_10m_sma",
+    "static_6040"
+  ]
+}
