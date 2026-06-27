@@ -1,60 +1,106 @@
 {
-  "stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
-  "loop_state_stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
-  "review_target_commit": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
-  "relay_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+  "stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+  "loop_state_stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+  "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
   "handoff_commit": null,
-  "handoff_generated_from_head": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
-  "current_repo_head": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
-  "commit_binding_note": "review_target_commit is the Stage 2E.0 commit to review; relay_target_commit is the prior Stage 2D.2B.1 commit that was sent to ChatGPT during the relay smoke.",
-  "changed_files": [
-    "reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.md",
-    "reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.json",
-    "reports/relay_smoke/stage2e0_safety_test_results.md",
-    "reports/relay_smoke/stage2e0_safety_test_results.json",
+  "handoff_generated_from_head": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "current_repo_head": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "commit_binding_note": "review_target_commit is the Stage 2E.1 business commit to review after it is created; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
+  "review_files": [
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/relay_status.md",
     "reports/review_requests/relay_status.json",
-    "reports/review_requests/chatgpt_review_prompt.json",
-    "tests/safety/test_stage2e0_relay_smoke.py",
-    "tests/safety/test_review_relay_safety.py",
+    "reports/review_requests/notification_preview.md",
+    "reports/review_requests/notification_preview.json",
+    "reports/relay_smoke/stage2e1_relay_hardening_report.md",
+    "reports/relay_smoke/stage2e1_relay_hardening_report.json",
     "ops/state/loop_state.json",
+    "scripts/review_relay/relay_common.py",
+    "scripts/review_relay/build_chatgpt_review_prompt.py",
+    "scripts/review_relay/render_manual_fallback_prompt.py",
+    "scripts/review_relay/render_notification_preview.py",
+    "scripts/safety/check_review_relay_safety.py",
     "scripts/safety/check_handoff_commit_consistency.py",
+    "tests/safety/test_stage2e1_relay_hardening.py",
+    "tests/safety/test_review_relay_safety.py",
     "tests/safety/test_handoff_commit_consistency.py",
-    "tests/safety/test_loop_automation_dry_run.py",
+    "tests/safety/test_loop_state_consistency.py",
+    "tests/safety/test_notification_loop_safety.py"
+  ],
+  "changed_files": [
+    "scripts/review_relay/relay_common.py",
+    "scripts/review_relay/build_chatgpt_review_prompt.py",
+    "scripts/review_relay/render_manual_fallback_prompt.py",
+    "scripts/review_relay/render_notification_preview.py",
+    "scripts/safety/check_review_relay_safety.py",
+    "scripts/safety/check_handoff_commit_consistency.py",
+    "tests/safety/test_stage2e1_relay_hardening.py",
+    "tests/safety/test_review_relay_safety.py",
+    "tests/safety/test_handoff_commit_consistency.py",
     "tests/safety/test_loop_state_consistency.py",
     "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_loop_automation_dry_run.py",
     "tests/safety/test_stage2d_preparation_plan.py",
+    "configs/codex_automation/chatgpt_review_relay_prompt.md",
+    "ops/state/loop_state.json",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
     "reports/review_requests/latest.json",
     "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/notification_preview.md",
-    "reports/review_requests/notification_preview.json"
+    "reports/review_requests/notification_preview.json",
+    "reports/review_requests/relay_status.md",
+    "reports/review_requests/relay_status.json",
+    "reports/relay_smoke/stage2e1_relay_hardening_report.md",
+    "reports/relay_smoke/stage2e1_relay_hardening_report.json"
   ],
   "tests": [
     {
-      "command": "python3 -m unittest tests.safety.test_stage2e0_relay_smoke tests.safety.test_review_relay_safety",
-      "result": "passed; relay smoke report and durable relay status are consistent"
+      "command": "python3 -m unittest tests.safety.test_stage2e1_relay_hardening tests.safety.test_review_relay_safety",
+      "result": "pending final verification"
+    },
+    {
+      "command": "python3 scripts/safety/check_review_relay_safety.py",
+      "result": "pending final verification"
     },
     {
       "command": "python3 scripts/safety/check_public_repo_hygiene.py",
-      "result": "passed; no local path or secret findings"
+      "result": "pending final verification"
     },
     {
       "command": "python3 scripts/safety/check_handoff_commit_consistency.py",
-      "result": "passed; Stage 2E.0 review target and relay target are distinct and explicit"
+      "result": "pending final verification"
     },
     {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "passed; full safety/smoke suite"
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
+      "result": "pending final verification"
     },
     {
       "command": "git diff --check",
-      "result": "passed; no whitespace errors"
+      "result": "pending final verification"
     }
   ],
+  "risk_statement": "Stage 2E.1 is repo-only hardening for ChatGPT relay target selection and input delivery. It does not run Computer Use, does not send a ChatGPT message, does not modify real Hermes/OpenClaw/Feishu gateway, does not restart services, does not install dependencies, does not touch secrets, and adds no broker or auto-trading surface. The hardened relay defaults to a dedicated review thread; an existing ChatGPT conversation URL may only be read from local_private/chatgpt_review_target.json and is never written to public artifacts.",
+  "short_prompt": "请审核公开 repo https://github.com/leon-hxy/agentic_etf_desk 的 review_target_commit 23cebebed1d07f0b35e66b284ec0891b427d8716；只读取 reports/review_requests/latest.md、reports/review_requests/latest.json、reports/codex_handoff/latest.md、reports/codex_handoff/latest.json。",
+  "target_conversation_mode": "dedicated_review_thread",
+  "supported_target_modes": [
+    "dedicated_review_thread",
+    "existing_conversation_url"
+  ],
+  "existing_conversation_url_source": "local_private/chatgpt_review_target.json",
+  "computer_use_executed": false,
+  "sent_to_chatgpt": false,
+  "auto_trading_surface": false,
+  "broker_surface": false,
   "real_config_modified": false,
   "hermes_modified": false,
   "openclaw_modified": false,
@@ -64,36 +110,26 @@
   "secrets_touched": false,
   "secret_values_written": false,
   "feishu_message_sent": false,
-  "review_gate_used": true,
-  "computer_use_executed": true,
-  "sent_to_chatgpt": true,
-  "chatgpt_repo_access_observed": true,
-  "chatgpt_review_started": true,
-  "chatgpt_review_completed": false,
-  "input_delivery_quality": "degraded_split_prompt",
-  "auto_trading_surface": false,
-  "broker_surface": false,
-  "next_recommended_stage": "Fix relay input delivery before any follow-up Computer Use relay; manual ChatGPT review remains available",
+  "next_recommended_stage": "Request user approval before any live Computer Use relay retry; use dedicated_review_thread by default.",
   "requires_user_approval": [
-    "Any follow-up Computer Use relay",
+    "Any live Computer Use relay retry",
+    "Using existing_conversation_url mode with a local_private target file",
     "Any Hermes/OpenClaw restart",
     "Any real Feishu gateway or router change",
-    "Any further live Hermes config change",
-    "Any live OpenClaw change",
+    "Any live Hermes or OpenClaw config change",
     "Any dependency installation",
     "Any secret migration or credential storage",
     "Any broker integration or trading execution surface"
   ],
   "forbidden_to_continue_automatically": [
-    "Modifying real ~/.openclaw",
+    "Modifying real ~/.hermes or ~/.openclaw",
     "Restarting Hermes or OpenClaw",
     "Modifying real Feishu gateway",
     "Installing dependencies",
-    "Printing or committing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, OpenAI API keys, or broker credentials",
+    "Sending secrets, local paths, tokens, auth values, Feishu credentials, provider keys, or broker credentials",
+    "Accessing broker, email, GitHub admin, or Feishu admin pages",
     "Creating execution, order, broker, auto-trading, or live-trading agents",
-    "Adding automatic order placement code",
-    "Adding broker write access",
-    "Running follow-up Computer Use without separate explicit user approval",
-    "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later"
+    "Adding automatic order placement code or broker write access",
+    "Running live Computer Use relay without separate explicit user approval"
   ]
 }

@@ -58,13 +58,18 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
 
     def test_relay_status_records_sent_but_no_trading_surface(self) -> None:
         status = read_json(ROOT / "reports" / "review_requests" / "relay_status.json")
-        self.assertEqual(status["relay_stage"], "stage2e0_chatgpt_relay_smoke")
-        self.assertTrue(status["computer_use_executed"])
-        self.assertTrue(status["sent_to_chatgpt"])
-        self.assertEqual(status["expected_commit"], D2B_RELAY_TARGET)
-        self.assertEqual(status["status_reason"], "sent_with_degraded_split_prompt")
-        self.assertFalse(status["auto_trading_surface"])
-        self.assertFalse(status["broker_or_trading_site_accessed"])
+        if status["relay_stage"] == "stage2e0_chatgpt_relay_smoke":
+            self.assertTrue(status["computer_use_executed"])
+            self.assertTrue(status["sent_to_chatgpt"])
+            self.assertEqual(status["expected_commit"], D2B_RELAY_TARGET)
+            self.assertEqual(status["status_reason"], "sent_with_degraded_split_prompt")
+            self.assertFalse(status["auto_trading_surface"])
+            self.assertFalse(status["broker_or_trading_site_accessed"])
+        else:
+            self.assertEqual(status["relay_stage"], "stage2e1_relay_hardening_repo_only")
+            self.assertFalse(status["computer_use_executed"])
+            self.assertFalse(status["sent_to_chatgpt"])
+            self.assertEqual(status["status_reason"], "repo_only_relay_hardening_ready_no_live_send")
 
     def test_safety_results_record_forbidden_actions_absent(self) -> None:
         payload = read_json(JSON_FILES["safety"])

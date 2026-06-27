@@ -6,7 +6,17 @@ from __future__ import annotations
 import json
 import sys
 
-from relay_common import PROMPT_JSON, PROMPT_MD, check_gate, latest_review, public_payload, render_prompt, write_json, write_status
+from relay_common import (
+    PROMPT_JSON,
+    PROMPT_MD,
+    check_gate,
+    latest_review,
+    public_payload,
+    relay_status_for_review,
+    render_prompt,
+    write_json,
+    write_status,
+)
 
 
 def main() -> int:
@@ -15,15 +25,11 @@ def main() -> int:
     prompt = render_prompt(review)
 
     PROMPT_MD.write_text(prompt, encoding="utf-8")
-    write_json(PROMPT_JSON, public_payload(review, prompt, gate_status))
+    status = relay_status_for_review(review, prompt, gate_status)
+    write_json(PROMPT_JSON, public_payload(review, prompt, status))
+    write_status(status)
 
-    gate_status["chatgpt_prompt_generated"] = True
-    gate_status["manual_fallback_available"] = True
-    gate_status["sent_to_chatgpt"] = False
-    gate_status["computer_use_executed"] = False
-    write_status(gate_status)
-
-    print(json.dumps(gate_status, indent=2, sort_keys=True))
+    print(json.dumps(status, indent=2, sort_keys=True))
     return 0
 
 

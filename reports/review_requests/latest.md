@@ -2,35 +2,34 @@
 
 ## Current Stage
 
-Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery.
+Stage 2E.1 ChatGPT relay target and input delivery hardened.
 
 ## Loop State Stage
 
-Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery.
+Stage 2E.1 ChatGPT relay target and input delivery hardened.
 
 ## Review Target Commit
 
-`74215dd69814c07fd5c3fd3937ccee15f9be8e8f`
+`23cebebed1d07f0b35e66b284ec0891b427d8716`
 
-Please review this `review_target_commit` for Stage 2E.0.
-
-## Relay Target Commit
-
-`d30169e512f260dd5b29eb328d0f41c73cc927a9`
-
-This is the Stage 2D.2B.1 commit that was sent to ChatGPT during the Computer
-Use relay smoke.
+Please review this `review_target_commit` for Stage 2E.1.
 
 ## Current Repo Head
 
-`74215dd69814c07fd5c3fd3937ccee15f9be8e8f`
+`23cebebed1d07f0b35e66b284ec0891b427d8716`
 
 ## Handoff Commit
 
 `null`
 
-The handoff update is committed after generation, so it cannot self-reference
-its own final SHA in the same commit.
+The handoff update is committed after generation, so it cannot self-reference its own final SHA in the same commit.
+
+## Target Conversation Modes
+
+- Recommended: `dedicated_review_thread`
+- Supported: `dedicated_review_thread`, `existing_conversation_url`
+- Existing conversation URL source: `local_private/chatgpt_review_target.json`
+- Existing conversation URL values must not be committed or written to public artifacts.
 
 ## Files For ChatGPT To Review
 
@@ -38,48 +37,43 @@ its own final SHA in the same commit.
 - `reports/review_requests/latest.json`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
-- `reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.md`
-- `reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.json`
-- `reports/relay_smoke/stage2e0_safety_test_results.md`
-- `reports/relay_smoke/stage2e0_safety_test_results.json`
+- `reports/review_requests/chatgpt_review_prompt.md`
+- `reports/review_requests/chatgpt_review_prompt.json`
+- `reports/review_requests/manual_fallback_prompt.md`
 - `reports/review_requests/relay_status.md`
 - `reports/review_requests/relay_status.json`
-- `reports/review_requests/chatgpt_review_prompt.json`
+- `reports/review_requests/notification_preview.md`
+- `reports/review_requests/notification_preview.json`
+- `reports/relay_smoke/stage2e1_relay_hardening_report.md`
+- `reports/relay_smoke/stage2e1_relay_hardening_report.json`
 - `ops/state/loop_state.json`
+- `scripts/review_relay/relay_common.py`
+- `scripts/review_relay/build_chatgpt_review_prompt.py`
+- `scripts/review_relay/render_manual_fallback_prompt.py`
+- `scripts/review_relay/render_notification_preview.py`
+- `scripts/safety/check_review_relay_safety.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
+- `tests/safety/test_stage2e1_relay_hardening.py`
+- `tests/safety/test_review_relay_safety.py`
 - `tests/safety/test_handoff_commit_consistency.py`
-- `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_review_relay_safety.py`
-- `tests/safety/test_stage2d_preparation_plan.py`
-- `tests/safety/test_stage2e0_relay_smoke.py`
 
 ## Test Result Summary
 
-- `python3 -m unittest tests.safety.test_stage2e0_relay_smoke tests.safety.test_review_relay_safety`: passed.
-- `python3 scripts/safety/check_public_repo_hygiene.py`: passed.
-- `python3 scripts/safety/check_handoff_commit_consistency.py`: passed.
-- Full safety/smoke unittest command: passed.
-- `git diff --check`: passed.
+- `python3 -m unittest tests.safety.test_stage2e1_relay_hardening tests.safety.test_review_relay_safety`: pending final verification.
+- `python3 scripts/safety/check_review_relay_safety.py`: pending final verification.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: pending final verification.
+- `python3 scripts/safety/check_handoff_commit_consistency.py`: pending final verification.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: pending final verification.
+- `git diff --check`: pending final verification.
 
 ## Risk Statement
 
-Approved Stage 2E.0 used Computer Use once to open ChatGPT and relay a public
-GitHub review prompt. The relay reached ChatGPT and ChatGPT observed the public
-repo and review target, but Computer Use text entry split/degraded the prompt
-and left unsent draft text in the input box. No OpenClaw path was modified, no
-Hermes or Feishu gateway config was modified, no service was restarted, no
-dependency was installed, no secret values or local paths were sent, no
-broker/admin/email site was accessed, and no automatic trading surface was
-added.
+Stage 2E.1 is repo-only hardening for ChatGPT relay target selection and input delivery. It does not run Computer Use, does not send a ChatGPT message, does not modify real Hermes/OpenClaw/Feishu gateway, does not restart services, does not install dependencies, does not touch secrets, and adds no broker or auto-trading surface. The hardened relay defaults to a dedicated review thread; an existing ChatGPT conversation URL may only be read from local_private/chatgpt_review_target.json and is never written to public artifacts.
 
 Final trading is manually decided by the user.
 
 ## Short Prompt For ChatGPT
 
-请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和
-reports/codex_handoff/latest.json，审核 Stage 2E.0 review_target_commit
-74215dd69814c07fd5c3fd3937ccee15f9be8e8f 是否通过；注意 relay_target_commit
-d30169e512f260dd5b29eb328d0f41c73cc927a9 已通过 Computer Use 发给 ChatGPT，但
-input delivery degraded。
+请审核公开 repo https://github.com/leon-hxy/agentic_etf_desk 的 review_target_commit 23cebebed1d07f0b35e66b284ec0891b427d8716；只读取 reports/review_requests/latest.md、reports/review_requests/latest.json、reports/codex_handoff/latest.md、reports/codex_handoff/latest.json。

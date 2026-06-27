@@ -6,7 +6,7 @@ from __future__ import annotations
 import json
 import sys
 
-from relay_common import FALLBACK_MD, check_gate, latest_review, render_prompt, write_status
+from relay_common import FALLBACK_MD, check_gate, latest_review, relay_status_for_review, render_prompt, write_status
 
 
 def main() -> int:
@@ -28,10 +28,7 @@ def main() -> int:
     )
     FALLBACK_MD.write_text(fallback, encoding="utf-8")
     status = check_gate(review)
-    status["chatgpt_prompt_generated"] = True
-    status["manual_fallback_available"] = True
-    status["sent_to_chatgpt"] = False
-    status["computer_use_executed"] = False
+    status = relay_status_for_review(review, prompt, status)
     write_status(status)
     print(json.dumps(status, indent=2, sort_keys=True))
     return 0

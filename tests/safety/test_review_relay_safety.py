@@ -57,7 +57,30 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         self.assertTrue(status["manual_fallback_available"])
         self.assertTrue(status["review_gate_required"])
 
-        if status["relay_stage"] == "stage2e0_chatgpt_relay_smoke":
+        if status["relay_stage"] == "stage2e1_relay_hardening_repo_only":
+            self.assertFalse(status["computer_use_executed"])
+            self.assertFalse(status["sent_to_chatgpt"])
+            self.assertEqual(status["status_reason"], "repo_only_relay_hardening_ready_no_live_send")
+            self.assertEqual(status["target_conversation_mode"], "dedicated_review_thread")
+            self.assertEqual(status["recommended_target_mode"], "dedicated_review_thread")
+            self.assertIn("existing_conversation_url", status["supported_target_modes"])
+            self.assertEqual(
+                status["existing_conversation_url_source"],
+                "local_private/chatgpt_review_target.json",
+            )
+            self.assertIsNone(status["existing_conversation_url_public_value"])
+            self.assertEqual(
+                status["input_delivery_contract"]["prompt_entry_method"],
+                "paste_or_clipboard_insert",
+            )
+            self.assertTrue(status["input_delivery_contract"]["long_prompt_typing_forbidden"])
+            self.assertEqual(
+                status["input_delivery_contract"]["pre_send_safety_check_status"],
+                "pass",
+            )
+            self.assertEqual(status["failure_policy"], "mark_failed_and_stop")
+            self.assertFalse(status["auto_trading_surface"] if "auto_trading_surface" in status else False)
+        elif status["relay_stage"] == "stage2e0_chatgpt_relay_smoke":
             self.assertTrue(status["computer_use_executed"])
             self.assertTrue(status["sent_to_chatgpt"])
             self.assertEqual(status["status_reason"], "sent_with_degraded_split_prompt")
@@ -108,6 +131,10 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         self.assertIn("https://github.com/leon-hxy/agentic_etf_desk", prompt)
         self.assertIn("repo 是 public，不需要 GitHub connector", prompt)
         self.assertIn("最终交易由用户手动决定", prompt)
+        self.assertLessEqual(len(prompt), 900)
+        self.assertNotIn("local_private", prompt)
+        self.assertNotIn("reports/relay_smoke", prompt)
+        self.assertNotIn("review_files", prompt)
 
     def test_review_relay_safety_script_passes(self) -> None:
         result = self.run_cmd(["scripts/safety/check_review_relay_safety.py", "--root", str(ROOT)])

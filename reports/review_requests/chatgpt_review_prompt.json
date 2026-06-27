@@ -1,45 +1,111 @@
 {
-  "commit_binding_note": "review_target_commit is the Stage 2E.0 commit to review; relay_target_commit is the prior Stage 2D.2B.1 commit that was sent to ChatGPT during the relay smoke.",
-  "chatgpt_repo_access_observed": true,
-  "chatgpt_review_completed": false,
-  "chatgpt_review_started": true,
-  "computer_use_executed": true,
-  "current_repo_head": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
+  "commit_binding_note": "review_target_commit is the Stage 2E.1 business commit to review after it is created; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
+  "computer_use_executed": false,
+  "current_repo_head": "23cebebed1d07f0b35e66b284ec0891b427d8716",
   "gate": {
     "chatgpt_prompt_generated": true,
-    "computer_use_executed": true,
-    "expected_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+    "chatgpt_repo_access_observed": false,
+    "chatgpt_review_completed": false,
+    "chatgpt_review_started": false,
+    "computer_use_executed": false,
+    "existing_conversation_url_present": false,
+    "existing_conversation_url_public_value": null,
+    "existing_conversation_url_source": "local_private/chatgpt_review_target.json",
+    "expected_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
     "expected_repo": "leon-hxy/agentic_etf_desk",
+    "failure_policy": "mark_failed_and_stop",
+    "failure_stop_conditions": [
+      "target_conversation_mismatch",
+      "input_box_residual_draft_detected",
+      "prompt_split_detected",
+      "sent_message_not_confirmed"
+    ],
     "gate_path": "local_private/review_gate.json",
+    "input_delivery_contract": {
+      "long_prompt_typing_forbidden": true,
+      "max_prompt_chars": 900,
+      "pre_send_safety_check_required": true,
+      "pre_send_safety_check_status": "pass",
+      "prompt_chars": 421,
+      "prompt_entry_method": "paste_or_clipboard_insert",
+      "prompt_kind": "short_review_prompt",
+      "prompt_split_check_required": true,
+      "residual_draft_check_required": true,
+      "send_confirmation_required": true
+    },
+    "input_delivery_quality": "not_sent_repo_only_hardened",
     "manual_fallback_available": true,
-    "relay_stage": "stage2e0_chatgpt_relay_smoke",
-    "review_gate_marked_used_after_relay": true,
+    "prompt_safety_check": {
+      "findings": [],
+      "max_prompt_chars": 900,
+      "prompt_chars": 421,
+      "status": "pass"
+    },
+    "recommended_target_mode": "dedicated_review_thread",
+    "relay_stage": "stage2e1_relay_hardening_repo_only",
     "review_gate_required": true,
     "review_gate_seen": true,
     "review_gate_valid": false,
-    "review_gate_valid_before_relay": true,
-    "sent_to_chatgpt": true,
-    "status_reason": "sent_with_degraded_split_prompt"
+    "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+    "sent_to_chatgpt": false,
+    "stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+    "status_reason": "repo_only_relay_hardening_ready_no_live_send",
+    "supported_target_modes": [
+      "dedicated_review_thread",
+      "existing_conversation_url"
+    ],
+    "target_config_seen": false,
+    "target_conversation_mode": "dedicated_review_thread",
+    "target_selection_reason": "dedicated_review_thread_default",
+    "target_selection_status": "pass"
   },
   "handoff": "reports/codex_handoff/latest.json",
   "handoff_commit": null,
-  "handoff_generated_from_head": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
-  "prompt": "\u8bf7\u5ba1\u6838\u516c\u5f00 GitHub repo\uff1a\n\nhttps://github.com/leon-hxy/agentic_etf_desk\n\n\u8bf7\u8bfb\u53d6\uff1a\n\n- `reports/review_requests/latest.md`\n- `reports/review_requests/latest.json`\n- `reports/codex_handoff/latest.md`\n- `reports/codex_handoff/latest.json`\n- `AGENTS.md`\n- `docs/security_policy.md`\n\n\u8bf7\u5ba1\u6838 `review_target_commit`\uff1a`74215dd69814c07fd5c3fd3937ccee15f9be8e8f`\u3002\n\n\u8bf7\u6839\u636e `reports/review_requests/latest.json` \u4e2d\u7684 `review_target_commit` \u548c review_files \u5ba1\u6838 Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery\u3002\n\u4e0d\u8981\u628a\u65e7\u9636\u6bb5 commit \u5f53\u4f5c\u672c\u9636\u6bb5\u7684\u5ba1\u6838\u76ee\u6807\u3002\n\nStage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery review_files\uff1a\n\n- `reports/review_requests/latest.md`\n- `reports/review_requests/latest.json`\n- `reports/codex_handoff/latest.md`\n- `reports/codex_handoff/latest.json`\n- `reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.md`\n- `reports/relay_smoke/stage2e0_chatgpt_relay_smoke_report.json`\n- `reports/relay_smoke/stage2e0_safety_test_results.md`\n- `reports/relay_smoke/stage2e0_safety_test_results.json`\n- `reports/review_requests/relay_status.md`\n- `reports/review_requests/relay_status.json`\n- `reports/review_requests/chatgpt_review_prompt.json`\n- `ops/state/loop_state.json`\n- `scripts/safety/check_handoff_commit_consistency.py`\n- `tests/safety/test_handoff_commit_consistency.py`\n- `tests/safety/test_loop_automation_dry_run.py`\n- `tests/safety/test_loop_state_consistency.py`\n- `tests/safety/test_notification_loop_safety.py`\n- `tests/safety/test_review_relay_safety.py`\n- `tests/safety/test_stage2d_preparation_plan.py`\n- `tests/safety/test_stage2e0_relay_smoke.py`\n\n\u91cd\u70b9\u68c0\u67e5\uff1a\n\n- ETF-only \u662f\u5426\u4fdd\u6301\u3002\n- \u662f\u5426\u6709\u81ea\u52a8\u4e0b\u5355 surface\u3002\n- \u662f\u5426\u6709 secrets \u6cc4\u6f0f\u3002\n- \u662f\u5426\u6709\u771f\u5b9e `~/.hermes` / `~/.openclaw` \u4fee\u6539\u8ff9\u8c61\u3002\n- safety tests \u548c smoke tests \u662f\u5426\u5408\u7406\u3002\n- public repo hygiene \u662f\u5426\u4fdd\u6301\u3002\n- \u662f\u5426\u53ef\u4ee5\u8fdb\u5165\u4e0b\u4e00\u9636\u6bb5\u3002\n\n\u8bf7\u8f93\u51fa\uff1a\n\n- \u901a\u8fc7/\u4e0d\u901a\u8fc7\u3002\n- \u9ad8\u98ce\u9669\u95ee\u9898\u3002\n- \u5fc5\u987b\u4fee\u590d\u9879\u3002\n- \u5efa\u8bae\u4e0b\u4e00\u6b65\u3002\n\n\u63d0\u793a\uff1arepo \u662f public\uff0c\u4e0d\u9700\u8981 GitHub connector\u3002\n\u63d0\u9192\uff1a\u672c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002\n",
+  "handoff_generated_from_head": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "input_delivery_contract": {
+    "long_prompt_typing_forbidden": true,
+    "max_prompt_chars": 900,
+    "pre_send_safety_check_required": true,
+    "pre_send_safety_check_status": "pass",
+    "prompt_chars": 421,
+    "prompt_entry_method": "paste_or_clipboard_insert",
+    "prompt_kind": "short_review_prompt",
+    "prompt_split_check_required": true,
+    "residual_draft_check_required": true,
+    "send_confirmation_required": true
+  },
+  "prompt": "\u8bf7\u5ba1\u6838\u516c\u5f00 repo https://github.com/leon-hxy/agentic_etf_desk \u7684 `review_target_commit`: `23cebebed1d07f0b35e66b284ec0891b427d8716`\u3002\n\u8bf7\u53ea\u8bfb\u53d6\u8fd9\u4e9b\u516c\u5f00\u8def\u5f84\uff1a`reports/review_requests/latest.md`, `reports/review_requests/latest.json`, `reports/codex_handoff/latest.md`, `reports/codex_handoff/latest.json`\u3002\n\u91cd\u70b9\u68c0\u67e5 ETF-only\u3001\u5b89\u5168\u8fb9\u754c\u3001\u65e0\u81ea\u52a8\u4e0b\u5355/\u5238\u5546\u5199\u63a5\u53e3\u3001\u65e0\u654f\u611f\u4fe1\u606f\u6cc4\u6f0f\u3001\u6d4b\u8bd5\u662f\u5426\u8db3\u591f\u3002\n\u8bf7\u8f93\u51fa pass/fail\u3001\u9ad8\u98ce\u9669\u95ee\u9898\u3001\u5fc5\u987b\u4fee\u590d\u9879\u3001\u4e0b\u4e00\u6b65\u5efa\u8bae\u3002\nrepo \u662f public\uff0c\u4e0d\u9700\u8981 GitHub connector\u3002\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
+  "prompt_safety_check": {
+    "findings": [],
+    "max_prompt_chars": 900,
+    "prompt_chars": 421,
+    "status": "pass"
+  },
   "public_files": [
     "reports/review_requests/latest.md",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.md",
-    "reports/codex_handoff/latest.json",
-    "AGENTS.md",
-    "docs/security_policy.md"
+    "reports/codex_handoff/latest.json"
   ],
   "public_repo_url": "https://github.com/leon-hxy/agentic_etf_desk",
+  "relay_stage": "stage2e1_relay_hardening_repo_only",
   "repo": "leon-hxy/agentic_etf_desk",
   "review_request": "reports/review_requests/latest.json",
-  "review_target_commit": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
-  "input_delivery_quality": "degraded_split_prompt",
-  "relay_stage": "stage2e0_chatgpt_relay_smoke",
-  "relay_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
-  "sent_to_chatgpt": true,
-  "status_reason": "sent_with_degraded_split_prompt"
+  "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "sent_to_chatgpt": false,
+  "stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+  "target_conversation": {
+    "existing_conversation_url_present": false,
+    "existing_conversation_url_public_value": null,
+    "existing_conversation_url_source": "local_private/chatgpt_review_target.json",
+    "recommended_target_mode": "dedicated_review_thread",
+    "supported_target_modes": [
+      "dedicated_review_thread",
+      "existing_conversation_url"
+    ],
+    "target_config_seen": false,
+    "target_conversation_mode": "dedicated_review_thread",
+    "target_selection_reason": "dedicated_review_thread_default",
+    "target_selection_status": "pass"
+  }
 }

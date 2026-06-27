@@ -26,14 +26,20 @@ def payload() -> dict[str, Any]:
     loop_stage = str(loop_state["current_stage"])
     review_stage = str(review.get("stage") or "")
     review_loop_stage = str(review.get("loop_state_stage") or "")
-    computer_use_executed = bool(loop_state.get("computer_use_executed"))
+    current_stage_computer_use_executed = bool(
+        loop_state.get("current_stage_computer_use_executed", loop_state.get("computer_use_executed"))
+    )
     display_stage = review_stage or loop_stage
     target = (
         str(review.get("review_target_commit") or "")
         if review_stage == loop_stage or review_loop_stage == loop_stage
         else "pending_review_target_commit_for_current_stage"
     )
-    computer_use_text = "Computer Use 已执行一次 relay smoke" if computer_use_executed else "Computer Use 未执行"
+    computer_use_text = (
+        "本阶段已执行 Computer Use relay"
+        if current_stage_computer_use_executed
+        else "本阶段未执行 Computer Use"
+    )
     message = (
         f"Codex dry-run 阶段 `{display_stage}` 已生成 repo-only 预览。"
         f" review_target_commit: `{target}`。"
@@ -46,7 +52,8 @@ def payload() -> dict[str, Any]:
         "review_target_commit": target,
         "mode": "repo_only_preview",
         "sent_to_feishu": False,
-        "computer_use_executed": computer_use_executed,
+        "computer_use_executed": current_stage_computer_use_executed,
+        "historical_computer_use_executed": bool(loop_state.get("computer_use_executed")),
         "real_gateway_modified": False,
         "message": message,
         "allowed_user_replies": [

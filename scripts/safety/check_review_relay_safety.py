@@ -94,8 +94,43 @@ def scan(root: Path) -> dict[str, object]:
                 add(findings, str(prompt_path.relative_to(root)), f"prompt contains {term}")
         if "https://github.com/leon-hxy/agentic_etf_desk" not in prompt:
             add(findings, str(prompt_path.relative_to(root)), "missing public GitHub URL")
+        if len(prompt) > 900:
+            add(findings, str(prompt_path.relative_to(root)), "prompt is too long for relay")
+        for forbidden in ("local_private", "reports/relay_smoke", "review_files"):
+            if forbidden in prompt:
+                add(findings, str(prompt_path.relative_to(root)), f"prompt contains {forbidden}")
     else:
         add(findings, str(prompt_path.relative_to(root)), "missing generated ChatGPT prompt")
+
+    status_path = root / "reports" / "review_requests" / "relay_status.json"
+    if status_path.exists():
+        status = json.loads(status_path.read_text(encoding="utf-8"))
+        if status.get("relay_stage") == "stage2e1_relay_hardening_repo_only":
+            if status.get("target_conversation_mode") != "dedicated_review_thread":
+                add(findings, str(status_path.relative_to(root)), "target mode must default to dedicated_review_thread")
+            if status.get("existing_conversation_url_source") != "local_private/chatgpt_review_target.json":
+                add(findings, str(status_path.relative_to(root)), "existing conversation URL must use local_private source")
+            if status.get("existing_conversation_url_public_value") is not None:
+                add(findings, str(status_path.relative_to(root)), "existing conversation URL value must not be public")
+            contract = status.get("input_delivery_contract", {})
+            if contract.get("prompt_entry_method") != "paste_or_clipboard_insert":
+                add(findings, str(status_path.relative_to(root)), "prompt entry method must avoid long typed input")
+            if contract.get("long_prompt_typing_forbidden") is not True:
+                add(findings, str(status_path.relative_to(root)), "long prompt typing must be forbidden")
+            if contract.get("pre_send_safety_check_status") != "pass":
+                add(findings, str(status_path.relative_to(root)), "pre-send safety check must pass")
+            if status.get("failure_policy") != "mark_failed_and_stop":
+                add(findings, str(status_path.relative_to(root)), "failure policy must stop on relay mismatch")
+            for condition in (
+                "target_conversation_mismatch",
+                "input_box_residual_draft_detected",
+                "prompt_split_detected",
+                "sent_message_not_confirmed",
+            ):
+                if condition not in status.get("failure_stop_conditions", []):
+                    add(findings, str(status_path.relative_to(root)), f"missing stop condition {condition}")
+            if status.get("computer_use_executed") is not False or status.get("sent_to_chatgpt") is not False:
+                add(findings, str(status_path.relative_to(root)), "Stage 2E.1 must stay repo-only")
 
     fallback_path = root / "reports" / "review_requests" / "manual_fallback_prompt.md"
     if not fallback_path.exists():

@@ -1,16 +1,16 @@
 # Notification Preview
 
-- Stage: `Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery`
-- Review stage: `Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery`
-- review_target_commit: `74215dd69814c07fd5c3fd3937ccee15f9be8e8f`
+- Stage: `Stage 2E.1 ChatGPT relay target and input delivery hardened`
+- Review stage: `Stage 2E.1 ChatGPT relay target and input delivery hardened`
+- review_target_commit: `23cebebed1d07f0b35e66b284ec0891b427d8716`
 - Mode: `repo_only_preview`
 - Sent to Feishu: `false`
-- Computer Use executed: `true`
+- Computer Use executed: `false`
 - Real gateway modified: `false`
 
 ## Preview Message
 
-Codex dry-run 阶段 `Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery` 已生成 repo-only 预览。 review_target_commit: `74215dd69814c07fd5c3fd3937ccee15f9be8e8f`。 Computer Use 已执行一次 relay smoke；不会自动下单，最终交易由用户手动决定。
+Codex dry-run 阶段 `Stage 2E.1 ChatGPT relay target and input delivery hardened` 已生成 repo-only 预览。 review_target_commit: `23cebebed1d07f0b35e66b284ec0891b427d8716`。 本阶段未执行 Computer Use；不会自动下单，最终交易由用户手动决定。
 
 ## Allowed User Replies
 

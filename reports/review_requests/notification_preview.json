@@ -6,13 +6,14 @@
     "\u5f00\u59cb\u4e0b\u4e00\u9636\u6bb5",
     "\u6682\u505c loop"
   ],
-  "computer_use_executed": true,
-  "loop_state_stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `74215dd69814c07fd5c3fd3937ccee15f9be8e8f`\u3002 Computer Use \u5df2\u6267\u884c\u4e00\u6b21 relay smoke\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "computer_use_executed": false,
+  "historical_computer_use_executed": true,
+  "loop_state_stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+  "message": "Codex dry-run \u9636\u6bb5 `Stage 2E.1 ChatGPT relay target and input delivery hardened` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `23cebebed1d07f0b35e66b284ec0891b427d8716`\u3002 \u672c\u9636\u6bb5\u672a\u6267\u884c Computer Use\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
   "mode": "repo_only_preview",
   "real_gateway_modified": false,
-  "review_stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
-  "review_target_commit": "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
+  "review_stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+  "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
   "sent_to_feishu": false,
-  "stage": "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery"
+  "stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened"
 }

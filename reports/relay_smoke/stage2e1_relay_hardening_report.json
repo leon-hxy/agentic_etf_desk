@@ -1,0 +1,29 @@
+{
+  "stage": "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+  "review_target_commit": "23cebebed1d07f0b35e66b284ec0891b427d8716",
+  "mode": "repo_only_hardening",
+  "supported_target_modes": [
+    "dedicated_review_thread",
+    "existing_conversation_url"
+  ],
+  "recommended_target_mode": "dedicated_review_thread",
+  "existing_conversation_url_source": "local_private/chatgpt_review_target.json",
+  "existing_conversation_url_public_value": null,
+  "short_prompt_required": true,
+  "long_prompt_typing_forbidden": true,
+  "prompt_entry_method": "paste_or_clipboard_insert",
+  "pre_send_safety_check_required": true,
+  "failure_stop_conditions": [
+    "target_conversation_mismatch",
+    "input_box_residual_draft_detected",
+    "prompt_split_detected",
+    "sent_message_not_confirmed"
+  ],
+  "computer_use_executed": false,
+  "sent_to_chatgpt": false,
+  "secrets_touched": false,
+  "local_paths_sent": false,
+  "auto_trading_surface": false,
+  "broker_surface": false,
+  "final_trading_manual": true
+}

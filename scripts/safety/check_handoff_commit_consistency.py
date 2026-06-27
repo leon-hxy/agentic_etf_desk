@@ -27,9 +27,12 @@ PREVIOUS_STAGE_COMMITS = {
     "59374cc" + "173da8cf57dfd1b8f98d27ef3338573e5",
     "88e31e9" + "daedcabb070469600f4fe2437a42c150c",
     "7dc1f0a" + "0dd7287105ba9add47588b2e37943d997",
+    "d30169e" + "512f260dd5b29eb328d0f41c73cc927a9",
+    "74215dd" + "69814c07fd5c3fd3937ccee15f9be8e8f",
+    "23cebeb" + "ed1d07f0b35e66b284ec0891b427d8716",
     "f7fa73b" + "79ab1e3886c69bfd6ca5874a662acbb75",
 }
-STAGE2E0_RELAY_TARGET_COMMIT = "d30169e512f260dd5b29eb328d0f41c73cc927a9"
+EXPECTED_STAGE = "Stage 2E.1 ChatGPT relay target and input delivery hardened"
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
@@ -79,8 +82,8 @@ def validate_git_commit(root: Path, commit: str, findings: list[dict[str, str]],
         return
 
     lowered = subject.stdout.lower()
-    if "stage2e.0" not in lowered:
-        add(findings, label, "review target subject does not contain stage2e.0")
+    if "stage2e.1" not in lowered:
+        add(findings, label, "review target subject does not contain stage2e.1")
     if "stage2a" in lowered:
         add(findings, label, "review target points to an old stage")
 
@@ -104,19 +107,19 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, "reports/review_requests/latest.json", "review_target_commit points to old stage")
     validate_git_commit(root, str(target), findings, "review_target_commit")
 
-    expected_stage = "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery"
-    expected_loop_state_stage = "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery"
+    expected_stage = EXPECTED_STAGE
+    expected_loop_state_stage = EXPECTED_STAGE
     for path, payload in (
         ("reports/review_requests/latest.json", review),
         ("reports/codex_handoff/latest.json", handoff),
     ):
         if payload.get("stage") != expected_stage:
-            add(findings, path, "stage must be Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery")
+            add(findings, path, f"stage must be {EXPECTED_STAGE}")
         if payload.get("loop_state_stage") != expected_loop_state_stage:
             add(
                 findings,
                 path,
-                "loop_state_stage must be Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
+                f"loop_state_stage must be {EXPECTED_STAGE}",
             )
         if payload.get("review_target_commit") != target:
             add(findings, path, "review_target_commit mismatch")
@@ -130,14 +133,18 @@ def scan(root: Path) -> dict[str, Any]:
 
     if prompt_json.get("review_target_commit") != target:
         add(findings, "reports/review_requests/chatgpt_review_prompt.json", "review_target_commit mismatch")
-    if prompt_json.get("gate", {}).get("expected_commit") != STAGE2E0_RELAY_TARGET_COMMIT:
+    if prompt_json.get("gate", {}).get("expected_commit") != target:
         add(findings, "reports/review_requests/chatgpt_review_prompt.json", "gate expected_commit mismatch")
     if relay_status.get("review_target_commit") != target:
         add(findings, STATUS_JSON, "review_target_commit mismatch")
-    if relay_status.get("relay_target_commit") != STAGE2E0_RELAY_TARGET_COMMIT:
-        add(findings, STATUS_JSON, "relay_target_commit mismatch")
-    if relay_status.get("expected_commit") != STAGE2E0_RELAY_TARGET_COMMIT:
+    if relay_status.get("expected_commit") != target:
         add(findings, STATUS_JSON, "expected_commit mismatch")
+    if relay_status.get("relay_stage") != "stage2e1_relay_hardening_repo_only":
+        add(findings, STATUS_JSON, "relay_stage mismatch")
+    if relay_status.get("sent_to_chatgpt") is not False:
+        add(findings, STATUS_JSON, "Stage 2E.1 must not send to ChatGPT")
+    if relay_status.get("computer_use_executed") is not False:
+        add(findings, STATUS_JSON, "Stage 2E.1 must not execute Computer Use")
 
     for path in TEXT_TARGET_PATHS:
         content = read_text(root, path)
