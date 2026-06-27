@@ -17,6 +17,7 @@ PREVIOUS_STAGE_COMMITS = {
     "d40315a" + "ea238db28b1bdf857efa4052b250634c4",
     "acd9995" + "d7c48c24f1d381158ac72afb7579e0039",
     "3991a8c" + "083d73a42ff2879b53ad009a022d7ed02",
+    "630433a" + "5cef96756811950738f4cf8dd8b4c820e",
 }
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
@@ -67,8 +68,8 @@ def validate_git_commit(root: Path, commit: str, findings: list[dict[str, str]],
         return
 
     lowered = subject.stdout.lower()
-    if "stage2d" not in lowered:
-        add(findings, label, "review target subject does not contain stage2d")
+    if "stage2d.1" not in lowered:
+        add(findings, label, "review target subject does not contain stage2d.1")
     if "stage2a" in lowered:
         add(findings, label, "review target points to an old stage")
 
@@ -92,15 +93,15 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, "reports/review_requests/latest.json", "review_target_commit points to old stage")
     validate_git_commit(root, str(target), findings, "review_target_commit")
 
-    expected_stage = "Stage 2D preparation plan completed"
+    expected_stage = "Stage 2D.1 read-only live preflight completed"
     for path, payload in (
         ("reports/review_requests/latest.json", review),
         ("reports/codex_handoff/latest.json", handoff),
     ):
         if payload.get("stage") != expected_stage:
-            add(findings, path, "stage must be Stage 2D preparation plan completed")
-        if payload.get("loop_state_stage") != "Stage 2D preparation plan completed":
-            add(findings, path, "loop_state_stage must be Stage 2D preparation plan completed")
+            add(findings, path, "stage must be Stage 2D.1 read-only live preflight completed")
+        if payload.get("loop_state_stage") != "Stage 2D.1 read-only live preflight completed":
+            add(findings, path, "loop_state_stage must be Stage 2D.1 read-only live preflight completed")
         if payload.get("review_target_commit") != target:
             add(findings, path, "review_target_commit mismatch")
         if payload.get("handoff_commit") is not None:

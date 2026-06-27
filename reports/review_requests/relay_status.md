@@ -1,7 +1,7 @@
 # Review Relay Status
 
 - Expected repo: `leon-hxy/agentic_etf_desk`
-- Expected commit: `630433a5cef96756811950738f4cf8dd8b4c820e`
+- Expected commit: `a60f314c39bf73274ffb6daff5ad902bf63b9293`
 - Relay stage: `draft_only`
 - Computer Use executed: `false`
 - ChatGPT prompt generated: `true`

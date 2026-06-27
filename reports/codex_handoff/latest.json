@@ -1,21 +1,29 @@
 {
-  "stage": "Stage 2D preparation plan completed",
-  "loop_state_stage": "Stage 2D preparation plan completed",
-  "review_target_commit": "630433a5cef96756811950738f4cf8dd8b4c820e",
+  "stage": "Stage 2D.1 read-only live preflight completed",
+  "loop_state_stage": "Stage 2D.1 read-only live preflight completed",
+  "review_target_commit": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
   "handoff_commit": null,
-  "handoff_generated_from_head": "630433a5cef96756811950738f4cf8dd8b4c820e",
-  "current_repo_head": "630433a5cef96756811950738f4cf8dd8b4c820e",
+  "handoff_generated_from_head": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
+  "current_repo_head": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
   "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "changed_files": [
-    "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md",
-    "docs/stage2d_hermes_feishu_approval_gate_preflight/installation_plan.md",
-    "docs/stage2d_hermes_feishu_approval_gate_preflight/backup_plan.md",
-    "docs/stage2d_hermes_feishu_approval_gate_preflight/rollback_plan.md",
-    "docs/stage2d_hermes_feishu_approval_gate_preflight/safety_checks.md",
+    "ops/tasks/stage2d1_read_only_live_preflight.md",
+    "reports/live_preflight/stage2d1_live_preflight_report.md",
+    "reports/live_preflight/stage2d1_live_preflight_report.json",
+    "reports/live_preflight/stage2d1_minimal_change_list.md",
+    "reports/live_preflight/stage2d1_minimal_change_list.json",
+    "reports/live_preflight/stage2d1_backup_checklist.md",
+    "reports/live_preflight/stage2d1_backup_checklist.json",
+    "reports/live_preflight/stage2d1_rollback_checklist.md",
+    "reports/live_preflight/stage2d1_rollback_checklist.json",
+    "reports/live_preflight/stage2d1_safety_test_results.md",
+    "reports/live_preflight/stage2d1_safety_test_results.json",
+    "scripts/audit/run_stage2d1_live_preflight.py",
     "ops/state/loop_state.json",
     "reports/review_requests/notification_preview.md",
     "reports/review_requests/notification_preview.json",
-    "scripts/safety/run_loop_dry_run.py",
+    "scripts/review_relay/render_notification_preview.py",
+    "tests/safety/test_stage2d1_live_preflight.py",
     "tests/safety/test_loop_automation_dry_run.py",
     "tests/safety/test_loop_state_consistency.py",
     "tests/safety/test_notification_loop_safety.py",
@@ -33,6 +41,10 @@
     "tests/safety/test_handoff_commit_consistency.py"
   ],
   "tests": [
+    {
+      "command": "python3 scripts/audit/run_stage2d1_live_preflight.py --check",
+      "result": "passed; sanitized live preflight outputs are present"
+    },
     {
       "command": "python3 scripts/safety/run_loop_dry_run.py --check",
       "result": "passed; Stage 2C dry-run report remains current"
@@ -54,8 +66,8 @@
       "result": "passed; generated repo-only notification preview without sending to Feishu"
     },
     {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "passed; 59 tests OK"
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
+      "result": "passed; 63 tests OK"
     },
     {
       "command": "git diff --check",
@@ -63,7 +75,7 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to Stage 2D handoff/review artifacts before handoff commit"
+      "result": "changes limited to Stage 2D.1 handoff/review artifacts before handoff commit"
     }
   ],
   "real_config_modified": false,
@@ -73,14 +85,16 @@
   "services_restarted": false,
   "dependencies_installed": false,
   "secrets_touched": false,
+  "secret_values_written": false,
+  "feishu_message_sent": false,
   "auto_trading_surface": false,
   "computer_use_executed": false,
-  "stage2d_task_created": true,
-  "installation_plan_created": true,
-  "backup_plan_created": true,
-  "rollback_plan_created": true,
-  "safety_checks_created": true,
-  "next_recommended_stage": "Await explicit user approval before live Stage 2D execution",
+  "live_preflight_report_generated": true,
+  "minimal_change_list_generated": true,
+  "backup_checklist_generated": true,
+  "rollback_checklist_generated": true,
+  "safety_test_results_generated": true,
+  "next_recommended_stage": "Await explicit user approval before any live Stage 2D write",
   "requires_user_approval": [
     "Any live Hermes config change",
     "Any live OpenClaw config change",
@@ -89,10 +103,11 @@
     "Any launchd or crontab change",
     "Any dependency installation",
     "Any secret migration or credential storage",
+    "Any Feishu message send",
+    "Any Computer Use relay beyond repo-only prompt generation",
     "Any broker integration, including read-only broker account access",
     "Any expansion beyond ETF-only scope or addition of leveraged or defensive-inverse instruments",
-    "Any Computer Use relay beyond repo-only prompt generation",
-    "Any execution of the Stage 2D live installation plan"
+    "Any execution of a live Stage 2D write"
   ],
   "forbidden_to_continue_automatically": [
     "Modifying real ~/.hermes",
@@ -102,11 +117,12 @@
     "Modifying launchd or crontab",
     "Installing dependencies without user approval",
     "Writing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, OpenAI API keys, or broker credentials",
+    "Sending real Feishu messages",
     "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code",
     "Adding broker write access",
     "Running live Computer Use relay without future explicit approval",
     "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later",
-    "Executing the Stage 2D live installation plan without explicit user approval"
+    "Executing any live Stage 2D write without explicit user approval"
   ]
 }
