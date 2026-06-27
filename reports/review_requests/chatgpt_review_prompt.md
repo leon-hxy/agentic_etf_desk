@@ -11,18 +11,25 @@ https://github.com/leon-hxy/agentic_etf_desk
 - `AGENTS.md`
 - `docs/security_policy.md`
 
-请审核 `review_target_commit`：`acd9995d7c48c24f1d381158ac72afb7579e0039`。
+请审核 `review_target_commit`：`3991a8c083d73a42ff2879b53ad009a022d7ed02`。
 
-请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2B.1 completed。
+请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2C completed。
 不要把旧阶段 commit 当作本阶段的审核目标。
 
-Stage 2B.1 completed review_files：
+Stage 2C completed review_files：
 
 - `ops/state/loop_state.json`
-- `ops/tasks/stage2b_repo_only.md`
 - `ops/tasks/stage2c_loop_automation_dry_run.md`
+- `reports/loop_dry_run/stage2c_loop_dry_run.md`
+- `reports/loop_dry_run/stage2c_loop_dry_run.json`
+- `reports/review_requests/notification_preview.md`
+- `reports/review_requests/notification_preview.json`
+- `scripts/review_relay/render_notification_preview.py`
+- `scripts/safety/run_loop_dry_run.py`
+- `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
+- `tests/safety/test_review_relay_safety.py`
 
 重点检查：
 

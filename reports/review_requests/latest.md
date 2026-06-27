@@ -2,21 +2,21 @@
 
 ## Current Stage
 
-Stage 2B.1 completed.
+Stage 2C completed.
 
 ## Loop State Stage
 
-Stage 2B completed.
+Stage 2C completed.
 
 ## Review Target Commit
 
-`acd9995d7c48c24f1d381158ac72afb7579e0039`
+`3991a8c083d73a42ff2879b53ad009a022d7ed02`
 
-Please review this `review_target_commit` for Stage 2B.1.
+Please review this `review_target_commit` for Stage 2C.
 
 ## Current Repo Head
 
-`acd9995d7c48c24f1d381158ac72afb7579e0039`
+`3991a8c083d73a42ff2879b53ad009a022d7ed02`
 
 ## Handoff Commit
 
@@ -27,7 +27,7 @@ its own final SHA in the same commit.
 
 ## Handoff Generated From Head
 
-`acd9995d7c48c24f1d381158ac72afb7579e0039`
+`3991a8c083d73a42ff2879b53ad009a022d7ed02`
 
 ## Commit Binding Note
 
@@ -40,19 +40,28 @@ its own final SHA in the same commit.
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `ops/state/loop_state.json`
-- `ops/tasks/stage2b_repo_only.md`
 - `ops/tasks/stage2c_loop_automation_dry_run.md`
+- `reports/loop_dry_run/stage2c_loop_dry_run.md`
+- `reports/loop_dry_run/stage2c_loop_dry_run.json`
+- `reports/review_requests/notification_preview.md`
+- `reports/review_requests/notification_preview.json`
+- `scripts/review_relay/render_notification_preview.py`
+- `scripts/safety/run_loop_dry_run.py`
+- `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
+- `tests/safety/test_review_relay_safety.py`
 
 ## Test Result Summary
 
+- `python3 scripts/safety/run_loop_dry_run.py --check`: passed; dry-run report is current and repo-only.
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`: passed; generated public prompt preview without sending to ChatGPT.
 - `python3 scripts/review_relay/check_review_gate.py`: passed; no real review gate present, waiting for confirmation.
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`: passed; generated manual fallback prompt.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed, 51 tests OK.
+- `python3 scripts/review_relay/render_notification_preview.py`: passed; generated repo-only notification preview without sending to Feishu.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed, 55 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2B.1 handoff/review artifacts before handoff commit.
+- `git status --short --untracked-files=all`: changes limited to Stage 2C handoff/review artifacts before handoff commit.
 
 ## Risk Statement
 
@@ -64,4 +73,4 @@ reports and tickets state that final trading is manually decided by the user.
 
 ## Short Prompt For ChatGPT
 
-请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2B.1 review_target_commit acd9995d7c48c24f1d381158ac72afb7579e0039 是否通过。
+请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2C review_target_commit 3991a8c083d73a42ff2879b53ad009a022d7ed02 是否通过。

@@ -7,11 +7,11 @@
     "\u6682\u505c loop"
   ],
   "computer_use_executed": false,
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2C completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `pending_stage2c_review_target_commit`\u3002 Computer Use \u672a\u6267\u884c\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "message": "Codex dry-run \u9636\u6bb5 `Stage 2C completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `3991a8c083d73a42ff2879b53ad009a022d7ed02`\u3002 Computer Use \u672a\u6267\u884c\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
   "mode": "repo_only_preview",
   "real_gateway_modified": false,
-  "review_stage": "Stage 2B.1 completed",
-  "review_target_commit": "pending_stage2c_review_target_commit",
+  "review_stage": "Stage 2C completed",
+  "review_target_commit": "3991a8c083d73a42ff2879b53ad009a022d7ed02",
   "sent_to_feishu": false,
   "stage": "Stage 2C completed"
 }
