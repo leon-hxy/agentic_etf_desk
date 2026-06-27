@@ -1,10 +1,10 @@
 {
-  "stage": "Stage 2D.2B live notification smoke completed; review gate pending",
-  "loop_state_stage": "Stage 2D.2B live notification smoke completed; review gate pending",
-  "review_target_commit": "88e31e9daedcabb070469600f4fe2437a42c150c",
+  "stage": "Stage 2D.2B review gate confirmed locally",
+  "loop_state_stage": "Stage 2D.2B review gate confirmed locally",
+  "review_target_commit": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
   "handoff_commit": null,
-  "handoff_generated_from_head": "88e31e9daedcabb070469600f4fe2437a42c150c",
-  "current_repo_head": "88e31e9daedcabb070469600f4fe2437a42c150c",
+  "handoff_generated_from_head": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
+  "current_repo_head": "d30169e512f260dd5b29eb328d0f41c73cc927a9",
   "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "changed_files": [
     "reports/live_smoke/stage2d2b_smoke_test_report.md",
@@ -15,12 +15,17 @@
     "reports/live_smoke/stage2d2b_rollback_note.json",
     "reports/live_smoke/stage2d2b_safety_test_results.md",
     "reports/live_smoke/stage2d2b_safety_test_results.json",
+    "scripts/review_relay/relay_common.py",
+    "scripts/safety/check_review_relay_safety.py",
+    "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_review_relay_safety.py",
     "tests/safety/test_stage2d2b_live_smoke.py",
     "ops/state/loop_state.json",
     "scripts/safety/check_handoff_commit_consistency.py",
     "tests/safety/test_handoff_commit_consistency.py",
+    "tests/safety/test_loop_automation_dry_run.py",
     "tests/safety/test_loop_state_consistency.py",
-    "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_stage2d_preparation_plan.py",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
@@ -35,48 +40,20 @@
   ],
   "tests": [
     {
-      "command": "hermes skills list | rg -n \"feishu-loop-notifier|feishu-review-command\"",
-      "result": "passed; both installed Hermes skills were listed as local and enabled"
-    },
-    {
-      "command": "hermes gateway status",
-      "result": "passed; command returned successfully, raw output not published"
-    },
-    {
-      "command": "hermes send --to feishu --quiet --subject \"[agentic-etf-desk Stage 2D.2B smoke]\" \"<non-sensitive smoke message>\"",
-      "result": "passed; one non-sensitive Feishu smoke notification sent"
-    },
-    {
-      "command": "poll local_private/review_gate.json and sanitized gateway log counts for 60 seconds",
-      "result": "passed; no exact Feishu confirmation observed and no review gate written"
-    },
-    {
-      "command": "python3 -m unittest tests.safety.test_stage2d2b_live_smoke",
-      "result": "passed; Stage 2D.2B reports are present, redacted, and gate remains pending"
-    },
-    {
-      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
-      "result": "passed; public reports did not expose secrets or private config detail"
-    },
-    {
-      "command": "python3 scripts/safety/check_handoff_commit_consistency.py",
-      "result": "passed; review_target_commit binds to Stage 2D.2B smoke commit"
-    },
-    {
-      "command": "python3 scripts/review_relay/build_chatgpt_review_prompt.py",
-      "result": "passed; generated public prompt preview without sending to ChatGPT"
+      "command": "hermes logs gateway --since 2h -n 1000 with sanitized counts",
+      "result": "passed; exact confirmation phrase had reply-like inbound matches and raw log lines were not published"
     },
     {
       "command": "python3 scripts/review_relay/check_review_gate.py",
-      "result": "passed; no real gate consumed, still waiting for Feishu confirmation"
+      "result": "passed; local private review gate seen and valid, Computer Use not executed"
     },
     {
-      "command": "python3 scripts/review_relay/render_manual_fallback_prompt.py",
-      "result": "passed; generated manual fallback prompt"
+      "command": "python3 -m unittest tests.safety.test_stage2d2b_live_smoke",
+      "result": "passed; Stage 2D.2B reports record confirmed local review gate"
     },
     {
-      "command": "python3 scripts/review_relay/render_notification_preview.py",
-      "result": "passed; generated repo-only notification preview"
+      "command": "python3 scripts/safety/check_review_relay_safety.py --root <repo-root>",
+      "result": "passed; local private runtime state is ignored and untracked"
     },
     {
       "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
@@ -88,7 +65,7 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to Stage 2D.2B handoff/review artifacts before handoff commit"
+      "result": "changes limited to Stage 2D.2B.1 handoff/review artifacts before handoff commit"
     }
   ],
   "real_config_modified": false,
@@ -101,16 +78,19 @@
   "secret_values_written": false,
   "feishu_message_sent": true,
   "feishu_message_count": 1,
-  "review_gate_written": false,
-  "review_gate_status": "pending_feishu_confirmation",
+  "feishu_confirmation_observed": true,
+  "review_gate_written": true,
+  "review_gate_status": "confirmed_local_private_gate",
+  "review_gate_committed": false,
   "auto_trading_surface": false,
   "broker_surface": false,
   "computer_use_executed": false,
+  "sent_to_chatgpt": false,
   "live_smoke_report_generated": true,
   "review_gate_validation_report_generated": true,
   "rollback_note_generated": true,
   "safety_test_results_generated": true,
-  "next_recommended_stage": "Wait for live Feishu confirmation before writing or consuming local_private/review_gate.json",
+  "next_recommended_stage": "Request explicit user approval before any Computer Use ChatGPT relay; manual ChatGPT review remains available",
   "requires_user_approval": [
     "Any Hermes/OpenClaw restart",
     "Any real Feishu gateway or router change",
@@ -119,7 +99,6 @@
     "Any dependency installation",
     "Any secret migration or credential storage",
     "Any Computer Use relay",
-    "Writing or consuming local_private/review_gate.json before an observed Feishu confirmation",
     "Any broker integration or trading execution surface"
   ],
   "forbidden_to_continue_automatically": [
@@ -131,7 +110,7 @@
     "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code",
     "Adding broker write access",
-    "Running Computer Use",
+    "Running Computer Use without separate explicit user approval",
     "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later"
   ]
 }

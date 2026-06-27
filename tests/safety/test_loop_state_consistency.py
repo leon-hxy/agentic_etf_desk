@@ -27,23 +27,26 @@ class LoopStateConsistencyTest(unittest.TestCase):
         expected_stage = self.expected_loop_stage()
         self.assertEqual(
             expected_stage,
-            "Stage 2D.2B live notification smoke completed; review gate pending",
+            "Stage 2D.2B review gate confirmed locally",
         )
         self.assertFalse(self.loop_state.get("handoff_update_pending"))
         self.assertEqual(self.review["stage"], expected_stage)
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(self.loop_state["status"], "waiting_for_feishu_confirmation")
+        self.assertEqual(
+            self.loop_state["status"],
+            "review_gate_confirmed_waiting_for_relay_approval",
+        )
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
-        expected_commit = "88e31e9daedcabb070469600f4fe2437a42c150c"
-        stale_commit = "1d82b8083c86613d9d516958aee704d0d8c65b2c"
+        expected_commit = "d30169e512f260dd5b29eb328d0f41c73cc927a9"
+        stale_commit = "88e31e9daedcabb070469600f4fe2437a42c150c"
         self.assertEqual(self.handoff["review_target_commit"], expected_commit)
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotEqual(self.loop_state["review_target_commit"], stale_commit)
-        self.assertIn("Stage 2D.2B", self.loop_state["review_target_commit_note"])
+        self.assertIn("Stage 2D.2B.1", self.loop_state["review_target_commit_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
@@ -96,11 +99,11 @@ class LoopStateConsistencyTest(unittest.TestCase):
         )
         self.assertEqual(
             self.loop_state["stage2d2b_task_status"],
-            "live_smoke_sent_review_gate_pending",
+            "review_gate_confirmed_locally",
         )
         self.assertTrue(self.loop_state["feishu_message_sent"])
-        self.assertFalse(self.loop_state["review_gate_written"])
-        self.assertFalse(self.loop_state["feishu_confirmation_observed"])
+        self.assertTrue(self.loop_state["review_gate_written"])
+        self.assertTrue(self.loop_state["feishu_confirmation_observed"])
         for field in (
             "openclaw_modified",
             "feishu_gateway_modified",

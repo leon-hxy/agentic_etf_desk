@@ -21,6 +21,8 @@ PREVIOUS_STAGE_COMMITS = {
     "336f28e" + "40fbb7fde70a63e55caebd346d28cb34a",
     "1d82b80" + "83c86613d9d516958aee704d0d8c65b2c",
     "59374cc" + "173da8cf57dfd1b8f98d27ef3338573e5",
+    "88e31e9" + "daedcabb070469600f4fe2437a42c150c",
+    "7dc1f0a" + "0dd7287105ba9add47588b2e37943d997",
 }
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
@@ -63,19 +65,19 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
     def test_latest_json_files_declare_review_target_commit(self) -> None:
         self.assertEqual(
             self.handoff["stage"],
-            "Stage 2D.2B live notification smoke completed; review gate pending",
+            "Stage 2D.2B review gate confirmed locally",
         )
         self.assertEqual(
             self.review["stage"],
-            "Stage 2D.2B live notification smoke completed; review gate pending",
+            "Stage 2D.2B review gate confirmed locally",
         )
         self.assertEqual(
             self.handoff["loop_state_stage"],
-            "Stage 2D.2B live notification smoke completed; review gate pending",
+            "Stage 2D.2B review gate confirmed locally",
         )
         self.assertEqual(
             self.review["loop_state_stage"],
-            "Stage 2D.2B live notification smoke completed; review gate pending",
+            "Stage 2D.2B review gate confirmed locally",
         )
         self.assertTrue(self.review_target_commit)
         self.assertNotIn(self.review_target_commit, PREVIOUS_STAGE_COMMITS)

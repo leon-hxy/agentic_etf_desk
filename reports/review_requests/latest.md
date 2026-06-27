@@ -2,22 +2,22 @@
 
 ## Current Stage
 
-Stage 2D.2B live notification smoke completed; review gate pending.
+Stage 2D.2B review gate confirmed locally.
 
 ## Loop State Stage
 
-Stage 2D.2B live notification smoke completed; review gate pending.
+Stage 2D.2B review gate confirmed locally.
 
 ## Review Target Commit
 
-`88e31e9daedcabb070469600f4fe2437a42c150c`
+`d30169e512f260dd5b29eb328d0f41c73cc927a9`
 
 Please review this `review_target_commit` for Stage 2D.2B. Do not review the
-older Stage 2D.2A commit as the current target.
+older Stage 2D.2B smoke commit as the current target.
 
 ## Current Repo Head
 
-`88e31e9daedcabb070469600f4fe2437a42c150c`
+`d30169e512f260dd5b29eb328d0f41c73cc927a9`
 
 ## Handoff Commit
 
@@ -41,36 +41,35 @@ its own final SHA in the same commit.
 - `reports/live_smoke/stage2d2b_safety_test_results.md`
 - `reports/live_smoke/stage2d2b_safety_test_results.json`
 - `ops/state/loop_state.json`
+- `scripts/review_relay/relay_common.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
+- `scripts/safety/check_review_relay_safety.py`
 - `tests/safety/test_handoff_commit_consistency.py`
+- `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
+- `tests/safety/test_review_relay_safety.py`
+- `tests/safety/test_stage2d_preparation_plan.py`
 - `tests/safety/test_stage2d2b_live_smoke.py`
 
 ## Test Result Summary
 
-- `hermes skills list | rg -n "feishu-loop-notifier|feishu-review-command"`: passed; both installed Hermes skills were local and enabled.
-- `hermes gateway status`: passed; raw output was not published.
-- `hermes send --to feishu --quiet --subject "[agentic-etf-desk Stage 2D.2B smoke]" "<non-sensitive smoke message>"`: passed; one non-sensitive Feishu smoke notification was sent.
-- `poll local_private/review_gate.json and sanitized gateway log counts for 60 seconds`: passed; no exact Feishu confirmation observed and no review gate written.
+- `python3 scripts/review_relay/check_review_gate.py`: passed; local private review gate valid, no Computer Use.
 - `python3 -m unittest tests.safety.test_stage2d2b_live_smoke`: passed.
-- `python3 scripts/safety/check_public_repo_hygiene.py`: passed.
+- `python3 scripts/safety/check_review_relay_safety.py --root <repo-root>`: passed.
 - `python3 scripts/safety/check_handoff_commit_consistency.py`: passed.
-- `python3 scripts/review_relay/build_chatgpt_review_prompt.py`: passed; no Computer Use.
-- `python3 scripts/review_relay/check_review_gate.py`: passed; no real gate consumed.
-- `python3 scripts/review_relay/render_manual_fallback_prompt.py`: passed.
-- `python3 scripts/review_relay/render_notification_preview.py`: passed; repo-only preview.
+- Review relay prompt/fallback/notification preview scripts: passed without Computer Use.
 - Full safety/smoke unittest command: passed.
 - `git diff --check`: passed.
 
 ## Risk Statement
 
-Approved Stage 2D.2B live smoke verified the installed Hermes Feishu loop skills
-are enabled and sent one non-sensitive Feishu notification. No OpenClaw path was
-modified, no service was restarted, no dependency was installed, no Computer Use
-was executed, no broker or automatic trading surface was added, and no secret
-values were printed or committed. No exact Feishu confirmation was observed, so
-`local_private/review_gate.json` was not written.
+Approved Stage 2D.2B confirmation observed the Feishu confirmation phrase
+through sanitized gateway-log counts and wrote a gitignored local private review
+gate. No OpenClaw path was modified, no service was restarted, no dependency
+was installed, no Computer Use was executed, no ChatGPT relay was sent, no
+broker or automatic trading surface was added, and no secret values were printed
+or committed.
 
 Final trading is manually decided by the user.
 
@@ -78,4 +77,5 @@ Final trading is manually decided by the user.
 
 请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和
 reports/codex_handoff/latest.json，审核 Stage 2D.2B review_target_commit
-88e31e9daedcabb070469600f4fe2437a42c150c 是否通过；注意 review gate 仍等待飞书确认。
+d30169e512f260dd5b29eb328d0f41c73cc927a9 是否通过；注意本地 review gate 已确认，但
+Computer Use relay 仍需用户单独批准。

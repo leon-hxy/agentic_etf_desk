@@ -2,25 +2,25 @@
 
 ## Current Stage
 
-Stage 2D.2B live notification smoke completed; review gate pending.
+Stage 2D.2B review gate confirmed locally.
 
 ## Loop State Stage
 
-Stage 2D.2B live notification smoke completed; review gate pending.
+Stage 2D.2B review gate confirmed locally.
 
 ## Review Target Commit
 
 `review_target_commit`
 
-`88e31e9daedcabb070469600f4fe2437a42c150c`
+`d30169e512f260dd5b29eb328d0f41c73cc927a9`
 
-This is the Stage 2D.2B approved live notification smoke commit that ChatGPT
-should review. The handoff commit is created after these files are generated,
-so it cannot self-reference its own final SHA in the same commit.
+This is the Stage 2D.2B.1 approved local Feishu review gate confirmation commit
+that ChatGPT should review. The handoff commit is created after these files are
+generated, so it cannot self-reference its own final SHA in the same commit.
 
 ## Current Repo Head
 
-`88e31e9daedcabb070469600f4fe2437a42c150c`
+`d30169e512f260dd5b29eb328d0f41c73cc927a9`
 
 ## Handoff Commit
 
@@ -36,12 +36,17 @@ so it cannot self-reference its own final SHA in the same commit.
 - `reports/live_smoke/stage2d2b_rollback_note.json`
 - `reports/live_smoke/stage2d2b_safety_test_results.md`
 - `reports/live_smoke/stage2d2b_safety_test_results.json`
+- `scripts/review_relay/relay_common.py`
+- `scripts/safety/check_review_relay_safety.py`
+- `tests/safety/test_notification_loop_safety.py`
+- `tests/safety/test_review_relay_safety.py`
 - `tests/safety/test_stage2d2b_live_smoke.py`
 - `ops/state/loop_state.json`
 - `scripts/safety/check_handoff_commit_consistency.py`
 - `tests/safety/test_handoff_commit_consistency.py`
+- `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
-- `tests/safety/test_notification_loop_safety.py`
+- `tests/safety/test_stage2d_preparation_plan.py`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
@@ -56,15 +61,12 @@ so it cannot self-reference its own final SHA in the same commit.
 
 ## Test Commands
 
-- `hermes skills list | rg -n "feishu-loop-notifier|feishu-review-command"`
-- `hermes gateway status`
-- `hermes send --to feishu --quiet --subject "[agentic-etf-desk Stage 2D.2B smoke]" "<non-sensitive smoke message>"`
-- `poll local_private/review_gate.json and sanitized gateway log counts for 60 seconds`
+- `hermes logs gateway --since 2h -n 1000 with sanitized counts`
+- `python3 scripts/review_relay/check_review_gate.py`
 - `python3 -m unittest tests.safety.test_stage2d2b_live_smoke`
-- `python3 scripts/safety/check_public_repo_hygiene.py`
+- `python3 scripts/safety/check_review_relay_safety.py --root <repo-root>`
 - `python3 scripts/safety/check_handoff_commit_consistency.py`
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`
-- `python3 scripts/review_relay/check_review_gate.py`
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`
 - `python3 scripts/review_relay/render_notification_preview.py`
 - `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
@@ -72,12 +74,10 @@ so it cannot self-reference its own final SHA in the same commit.
 
 ## Test Results
 
-- Hermes skills list: passed; both installed Feishu loop skills were listed as local and enabled.
-- Hermes gateway status: passed; raw output was not published.
-- Feishu live smoke send: passed; exactly one non-sensitive notification was sent.
-- Review gate polling: passed; no exact Feishu confirmation was observed, so no gate was written.
+- Feishu confirmation observation: passed through sanitized counts; raw logs were not published.
+- Review gate check: passed; local private gate was seen and valid.
 - Stage 2D.2B report test: passed.
-- Public repo hygiene: passed.
+- Review relay safety: passed; local private runtime state is ignored and untracked.
 - Handoff commit consistency: passed.
 - Review relay preview/fallback/status scripts: passed without Computer Use.
 - Full safety/smoke unittest command: passed.
@@ -91,17 +91,18 @@ so it cannot self-reference its own final SHA in the same commit.
 - Restarted services: false.
 - Installed dependencies: false.
 - Printed or committed secret values: false.
-- Sent real Feishu messages: true, one non-sensitive smoke notification.
-- Observed Feishu confirmation: false.
-- Wrote `local_private/review_gate.json`: false.
+- Sent real Feishu messages in this follow-up: false.
+- Observed Feishu confirmation: true.
+- Wrote `local_private/review_gate.json`: true, gitignored and untracked.
+- Sent to ChatGPT: false.
 - Automatic trading surface present: false.
 - Broker surface present: false.
 - Real Computer Use executed: false.
 
 ## Next Recommended Stage
 
-Wait for a live Feishu `确认审核` reply before writing or consuming
-`local_private/review_gate.json`.
+Request explicit user approval before any Computer Use ChatGPT relay. Manual
+ChatGPT review remains available.
 
 ## Requires User Approval
 
@@ -112,7 +113,6 @@ Wait for a live Feishu `确认审核` reply before writing or consuming
 - Any dependency installation.
 - Any secret migration or credential storage.
 - Any Computer Use relay.
-- Writing or consuming `local_private/review_gate.json` before an observed Feishu confirmation.
 - Any broker integration or trading execution surface.
 
 ## Forbidden To Continue Automatically
@@ -125,7 +125,7 @@ Wait for a live Feishu `确认审核` reply before writing or consuming
 - Creating execution, order, broker, auto-trading, or live-trading agents.
 - Adding automatic order placement code.
 - Adding broker write access.
-- Running Computer Use.
+- Running Computer Use without separate explicit user approval.
 - Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later.
 
 Final trading is manually decided by the user.
