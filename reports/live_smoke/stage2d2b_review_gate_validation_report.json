@@ -1,0 +1,18 @@
+{
+  "stage": "Stage 2D.2B live notification smoke completed; review gate pending",
+  "generated_at": "2026-06-27T15:13:26Z",
+  "review_gate_status": "pending_feishu_confirmation",
+  "allowed_confirmation_phrase": "确认审核",
+  "feishu_confirmation_observed": false,
+  "confirmation_poll_window_seconds": 60,
+  "review_gate_written": false,
+  "review_gate_file_present": false,
+  "review_gate_committed": false,
+  "gate_path_public": "local_private/review_gate.json",
+  "local_private_gitignored": true,
+  "gate_write_policy": "Write the local private review gate only after a live Feishu reply with the exact confirmation phrase is observed.",
+  "raw_logs_published": false,
+  "secret_values_printed": false,
+  "secret_values_committed": false,
+  "final_trading_notice": "Final trading is manually decided by the user. This system does not automatically place orders."
+}

@@ -1,0 +1,14 @@
+{
+  "stage": "Stage 2D.2B live notification smoke completed; review gate pending",
+  "generated_at": "2026-06-27T15:13:26Z",
+  "rollback_executed": false,
+  "rollback_required": false,
+  "rollback_action": "none_required_for_stage2d2b_send_smoke",
+  "new_live_files_created": false,
+  "new_live_config_changes": [],
+  "stage2d2a_rollback_manifest_still_applies": true,
+  "rollback_note": "Stage 2D.2B did not create new live files, modify live configuration, restart services, or install dependencies. Stage 2D.2A rollback materials remain the rollback source for the installed Hermes skills.",
+  "secret_values_printed": false,
+  "secret_values_committed": false,
+  "final_trading_notice": "Final trading is manually decided by the user. This system does not automatically place orders."
+}

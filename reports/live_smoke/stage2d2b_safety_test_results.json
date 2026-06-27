@@ -1,0 +1,50 @@
+{
+  "stage": "Stage 2D.2B live notification smoke completed; review gate pending",
+  "generated_at": "2026-06-27T15:13:26Z",
+  "status": "passed",
+  "feishu_message_sent": true,
+  "feishu_message_count": 1,
+  "review_gate_written": false,
+  "review_gate_status": "pending_feishu_confirmation",
+  "openclaw_modified": false,
+  "feishu_gateway_modified": false,
+  "services_restarted": false,
+  "dependencies_installed": false,
+  "computer_use_executed": false,
+  "secret_values_printed": false,
+  "secret_values_committed": false,
+  "secrets_touched": false,
+  "auto_trading_surface": false,
+  "broker_surface": false,
+  "safety_checks": [
+    {
+      "check": "Hermes skills listed as enabled",
+      "result": "passed"
+    },
+    {
+      "check": "Single non-sensitive Feishu smoke notification",
+      "result": "passed"
+    },
+    {
+      "check": "No review gate written without observed Feishu confirmation",
+      "result": "passed"
+    },
+    {
+      "check": "No service restart",
+      "result": "passed"
+    },
+    {
+      "check": "No OpenClaw modification",
+      "result": "passed"
+    },
+    {
+      "check": "No dependency installation",
+      "result": "passed"
+    },
+    {
+      "check": "No broker or automatic trading surface",
+      "result": "passed"
+    }
+  ],
+  "final_trading_notice": "Final trading is manually decided by the user. This system does not automatically place orders."
+}
