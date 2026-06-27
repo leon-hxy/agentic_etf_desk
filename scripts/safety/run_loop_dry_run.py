@@ -34,7 +34,6 @@ def safety_flags() -> dict[str, bool]:
 
 
 def build_payload(root: Path) -> dict[str, Any]:
-    loop_state = load_json(root, LOOP_STATE)
     repo_only_writes = [
         str(REPORT_JSON),
         str(REPORT_MD),
@@ -57,9 +56,9 @@ def build_payload(root: Path) -> dict[str, Any]:
         "repo_only_writes": repo_only_writes,
         "state_transition": {
             "from": "Stage 2B completed",
-            "to": loop_state["current_stage"],
-            "next_task": loop_state["next_task"],
-            "next_task_status": loop_state["next_task_status"],
+            "to": "Stage 2C completed",
+            "next_task": None,
+            "next_task_status": "requires_user_direction",
         },
         "dry_run_steps": [
             "Read latest handoff and review request artifacts.",

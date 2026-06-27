@@ -26,10 +26,10 @@ class LoopStateConsistencyTest(unittest.TestCase):
     def test_loop_state_matches_handoff_and_review_completed_stage(self) -> None:
         expected_stage = self.expected_loop_stage()
         if self.loop_state.get("handoff_update_pending"):
-            self.assertEqual(self.loop_state["current_stage"], "Stage 2C completed")
+            self.assertEqual(self.loop_state["current_stage"], "Stage 2D preparation plan completed")
             self.assertNotEqual(expected_stage, self.loop_state["current_stage"])
         else:
-            self.assertEqual(expected_stage, "Stage 2C completed")
+            self.assertEqual(expected_stage, "Stage 2D preparation plan completed")
             self.assertEqual(self.review.get("loop_state_stage", expected_stage), expected_stage)
             self.assertEqual(self.loop_state["current_stage"], expected_stage)
         self.assertEqual(self.loop_state["status"], "completed")
@@ -39,7 +39,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.loop_state["last_review_request"], "reports/review_requests/latest.json")
         self.assertEqual(
             self.loop_state["next_task"],
-            None,
+            "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md",
         )
         self.assertEqual(
             self.loop_state["stage2b_task"],
@@ -48,6 +48,10 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(
             self.loop_state["stage2c_task"],
             "ops/tasks/stage2c_loop_automation_dry_run.md",
+        )
+        self.assertEqual(
+            self.loop_state["stage2d_task"],
+            "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md",
         )
 
     def test_stage2b_task_is_marked_completed(self) -> None:

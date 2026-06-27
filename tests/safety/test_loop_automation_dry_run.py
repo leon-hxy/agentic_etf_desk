@@ -65,12 +65,12 @@ class LoopAutomationDryRunTest(unittest.TestCase):
 
     def test_loop_state_and_task_mark_stage2c_completed(self) -> None:
         loop_state = read_json(ROOT / "ops" / "state" / "loop_state.json")
-        self.assertEqual(loop_state["current_stage"], "Stage 2C completed")
+        self.assertEqual(loop_state["current_stage"], "Stage 2D preparation plan completed")
         self.assertEqual(loop_state["status"], "completed")
         self.assertEqual(loop_state["stage2c_task"], "ops/tasks/stage2c_loop_automation_dry_run.md")
         self.assertEqual(loop_state["stage2c_task_status"], "completed")
-        self.assertIsNone(loop_state["next_task"])
-        self.assertEqual(loop_state["next_task_status"], "requires_user_direction")
+        self.assertEqual(loop_state["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
+        self.assertEqual(loop_state["next_task_status"], "requires_user_approval")
 
         task = (ROOT / "ops" / "tasks" / "stage2c_loop_automation_dry_run.md").read_text(
             encoding="utf-8"
@@ -83,7 +83,7 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         self.assertTrue(NOTIFICATION_JSON.exists())
         self.assertTrue(NOTIFICATION_MD.exists())
         payload = read_json(NOTIFICATION_JSON)
-        self.assertEqual(payload["stage"], "Stage 2C completed")
+        self.assertEqual(payload["stage"], "Stage 2D preparation plan completed")
         self.assertFalse(payload["sent_to_feishu"])
         self.assertFalse(payload["computer_use_executed"])
         self.assertEqual(payload["mode"], "repo_only_preview")
