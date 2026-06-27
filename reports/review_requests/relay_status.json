@@ -1,7 +1,7 @@
 {
   "chatgpt_prompt_generated": true,
   "computer_use_executed": false,
-  "expected_commit": "8a1b03f8078c9593f4730cf87785b4663ed05855",
+  "expected_commit": "c83711053e6570bb447315e603c0a0701b9086b2",
   "expected_repo": "leon-hxy/agentic_etf_desk",
   "gate_path": "local_private/review_gate.json",
   "manual_fallback_available": true,

@@ -4,13 +4,27 @@
 
 Stage 2A.6 completed.
 
-## Latest Commit SHA
+## Review Target Commit
 
-`8a1b03f8078c9593f4730cf87785b4663ed05855`
+`c83711053e6570bb447315e603c0a0701b9086b2`
 
-Note: this SHA is the repository HEAD when this handoff update began. The final pushed commit for this handoff is reported by Git after commit and push.
+This is the Stage 2A.6 commit that ChatGPT should review.
 
-## Files Changed This Round
+## Handoff Commit
+
+`null`
+
+The handoff file is committed after it is generated, so it cannot self-reference its own final SHA in the same commit.
+
+## Handoff Generated From Head
+
+`c83711053e6570bb447315e603c0a0701b9086b2`
+
+## Commit Binding Note
+
+`review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.`
+
+## Review Target Files
 
 - `configs/codex_automation/chatgpt_review_relay_prompt.md`
 - `configs/hermes/feishu_loop_notifier_skill.md`
@@ -40,21 +54,34 @@ Note: this SHA is the repository HEAD when this handoff update began. The final 
 - `tests/safety/test_notification_loop_safety.py`
 - `tests/safety/test_review_relay_safety.py`
 
+## Handoff Update Files
+
+- `reports/codex_handoff/latest.md`
+- `reports/codex_handoff/latest.json`
+- `reports/review_requests/latest.md`
+- `reports/review_requests/latest.json`
+- `reports/review_requests/chatgpt_review_prompt.md`
+- `reports/review_requests/chatgpt_review_prompt.json`
+- `reports/review_requests/manual_fallback_prompt.md`
+- `reports/review_requests/relay_status.json`
+- `scripts/review_relay/relay_common.py`
+- `tests/safety/test_handoff_commit_consistency.py`
+
 ## Test Commands
 
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`
 - `python3 scripts/review_relay/check_review_gate.py`
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.smoke.test_universe_and_data`
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`
 - `git diff --check`
 - `git status --short --untracked-files=all`
 
 ## Test Results
 
 - Relay preview commands: passed without a real review gate; status remains draft-only and `sent_to_chatgpt=false`.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.smoke.test_universe_and_data`: passed, 20 tests OK.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`: passed, 24 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2A.6 repo-only notification, review gate, ChatGPT relay draft, generated previews, handoff, and tests.
+- `git status --short --untracked-files=all`: changes limited to Stage 2A.6.1 repo-only commit-binding handoff, review request, generated previews, relay helper, and safety test updates.
 
 ## Runtime And Safety Checklist
 

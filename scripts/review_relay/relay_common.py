@@ -28,6 +28,10 @@ PUBLIC_REVIEW_FILES = [
     "AGENTS.md",
     "docs/security_policy.md",
 ]
+COMMIT_BINDING_NOTE = (
+    "review_target_commit is the commit to review; handoff may be committed later "
+    "and therefore cannot self-reference its own final SHA in the same commit."
+)
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -60,6 +64,10 @@ def latest_review() -> dict[str, Any]:
     return load_json(LATEST_REVIEW)
 
 
+def review_target_commit(review: dict[str, Any]) -> str:
+    return str(review.get("review_target_commit") or review.get("commit") or "")
+
+
 def default_status() -> dict[str, Any]:
     return {
         "relay_stage": "draft_only",
@@ -76,9 +84,10 @@ def default_status() -> dict[str, Any]:
 
 def check_gate(review: dict[str, Any] | None = None) -> dict[str, Any]:
     review_payload = review or latest_review()
+    target_commit = review_target_commit(review_payload)
     status = default_status()
     status["expected_repo"] = REPO
-    status["expected_commit"] = review_payload.get("commit")
+    status["expected_commit"] = target_commit
     status["gate_path"] = "local_private/review_gate.json"
 
     if not GATE_PATH.exists():
@@ -98,7 +107,7 @@ def check_gate(review: dict[str, Any] | None = None) -> dict[str, Any]:
         failures.append("approved_action_mismatch")
     if gate.get("repo") != REPO:
         failures.append("repo_mismatch")
-    if gate.get("commit") != review_payload.get("commit"):
+    if gate.get("commit") != target_commit:
         failures.append("commit_mismatch")
     if gate.get("review_request") != "reports/review_requests/latest.json":
         failures.append("review_request_mismatch")
@@ -126,6 +135,7 @@ def render_prompt(review: dict[str, Any]) -> str:
     changed_files = review.get("changed_files", [])
     changed_lines = "\n".join(f"- `{path}`" for path in changed_files) or "- latest.json 中未列出。"
     public_files = "\n".join(f"- `{path}`" for path in PUBLIC_REVIEW_FILES)
+    target_commit = review_target_commit(review)
     return "\n".join(
         [
             "请审核公开 GitHub repo：",
@@ -136,7 +146,10 @@ def render_prompt(review: dict[str, Any]) -> str:
             "",
             public_files,
             "",
-            f"请根据 `reports/review_requests/latest.json` 中的 commit `{review.get('commit')}` 和 changed_files 审核最新阶段。",
+            f"请审核 `review_target_commit`：`{target_commit}`。",
+            "",
+            "请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 changed_files 审核 Stage 2A.6。",
+            "不要把 Stage 2A.5 commit 当作 Stage 2A.6 的审核目标。",
             "",
             "本次 changed_files：",
             "",
@@ -188,10 +201,14 @@ def write_status(status: dict[str, Any]) -> None:
 
 
 def public_payload(review: dict[str, Any], prompt: str, gate_status: dict[str, Any]) -> dict[str, Any]:
+    target_commit = review_target_commit(review)
     return {
         "repo": REPO,
         "public_repo_url": PUBLIC_REPO_URL,
-        "commit": review.get("commit"),
+        "review_target_commit": target_commit,
+        "handoff_commit": review.get("handoff_commit"),
+        "handoff_generated_from_head": review.get("handoff_generated_from_head"),
+        "commit_binding_note": review.get("commit_binding_note") or COMMIT_BINDING_NOTE,
         "review_request": "reports/review_requests/latest.json",
         "handoff": "reports/codex_handoff/latest.json",
         "public_files": PUBLIC_REVIEW_FILES,

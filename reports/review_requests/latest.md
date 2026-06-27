@@ -1,12 +1,28 @@
 # Review Request
 
-## Current Repo Commit
+## Review Target Commit
 
-`8a1b03f8078c9593f4730cf87785b4663ed05855`
+`c83711053e6570bb447315e603c0a0701b9086b2`
+
+Please review this `review_target_commit` for Stage 2A.6.
+
+## Handoff Commit
+
+`null`
+
+The handoff update is committed after generation, so it cannot self-reference its own final SHA in the same commit.
+
+## Handoff Generated From Head
+
+`c83711053e6570bb447315e603c0a0701b9086b2`
+
+## Commit Binding Note
+
+`review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.`
 
 ## Current Stage
 
-Stage 2A.6 Hermes Feishu notification, review gate, and ChatGPT relay draft.
+Stage 2A.6 completed: Hermes Feishu notification, review gate, and ChatGPT relay draft.
 
 ## Files For ChatGPT To Review
 
@@ -41,9 +57,9 @@ Stage 2A.6 Hermes Feishu notification, review gate, and ChatGPT relay draft.
 ## Test Result Summary
 
 - Relay preview commands passed without a real review gate; no ChatGPT UI action was executed.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.smoke.test_universe_and_data`: passed, 20 tests OK.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data`: passed, 24 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2A.6 repo-only notification, review gate, ChatGPT relay draft, generated previews, handoff, and tests.
+- `git status --short --untracked-files=all`: changes limited to Stage 2A.6.1 repo-only commit-binding handoff, review request, generated previews, relay helper, and safety test updates.
 
 ## Risk Statement
 
@@ -51,4 +67,4 @@ This stage is repo-only. It does not modify real Hermes/OpenClaw configuration, 
 
 ## Short Prompt For ChatGPT
 
-请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核最新阶段是否通过。
+请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 review_target_commit c83711053e6570bb447315e603c0a0701b9086b2 是否通过。

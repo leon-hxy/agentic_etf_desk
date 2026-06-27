@@ -11,7 +11,10 @@ https://github.com/leon-hxy/agentic_etf_desk
 - `AGENTS.md`
 - `docs/security_policy.md`
 
-请根据 `reports/review_requests/latest.json` 中的 commit `8a1b03f8078c9593f4730cf87785b4663ed05855` 和 changed_files 审核最新阶段。
+请审核 `review_target_commit`：`c83711053e6570bb447315e603c0a0701b9086b2`。
+
+请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 changed_files 审核 Stage 2A.6。
+不要把 Stage 2A.5 commit 当作 Stage 2A.6 的审核目标。
 
 本次 changed_files：
 

@@ -1,6 +1,9 @@
 {
   "stage": "Stage 2A.6 completed",
-  "commit": "8a1b03f8078c9593f4730cf87785b4663ed05855",
+  "review_target_commit": "c83711053e6570bb447315e603c0a0701b9086b2",
+  "handoff_commit": null,
+  "handoff_generated_from_head": "c83711053e6570bb447315e603c0a0701b9086b2",
+  "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "changed_files": [
     "configs/codex_automation/chatgpt_review_relay_prompt.md",
     "configs/hermes/feishu_loop_notifier_skill.md",
@@ -30,6 +33,18 @@
     "tests/safety/test_notification_loop_safety.py",
     "tests/safety/test_review_relay_safety.py"
   ],
+  "handoff_update_files": [
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/manual_fallback_prompt.md",
+    "reports/review_requests/relay_status.json",
+    "scripts/review_relay/relay_common.py",
+    "tests/safety/test_handoff_commit_consistency.py"
+  ],
   "tests": [
     {
       "command": "python3 scripts/review_relay/build_chatgpt_review_prompt.py",
@@ -44,8 +59,8 @@
       "result": "passed; generated manual fallback prompt"
     },
     {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.smoke.test_universe_and_data",
-      "result": "passed; 20 tests OK"
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.smoke.test_universe_and_data",
+      "result": "passed; 24 tests OK"
     },
     {
       "command": "git diff --check",
