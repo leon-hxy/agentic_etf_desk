@@ -54,6 +54,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 2D.1 read-only live preflight completed",
                 "Stage 2D.1.1 public live preflight minimization completed",
                 "Stage 2D.2A minimal live Hermes skills install completed",
+                "Stage 2D.2B live notification smoke completed; review gate pending",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -64,9 +65,13 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "requires_user_approval",
                 "requires_user_approval_for_live_write",
                 "requires_user_approval_for_any_live_followup",
+                "waiting_for_feishu_confirmation",
             },
         )
-        if payload["current_stage"] == "Stage 2D.2A minimal live Hermes skills install completed":
+        if payload["current_stage"] in {
+            "Stage 2D.2A minimal live Hermes skills install completed",
+            "Stage 2D.2B live notification smoke completed; review gate pending",
+        }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
         else:

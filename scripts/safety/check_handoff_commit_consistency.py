@@ -23,6 +23,8 @@ PREVIOUS_STAGE_COMMITS = {
     "9f06d64" + "67fb0bb5194affa43d5230c4d1f8c057b",
     "3a8076c" + "14c1918ad0e2225356c2acade63ba42c3",
     "336f28e" + "40fbb7fde70a63e55caebd346d28cb34a",
+    "1d82b80" + "83c86613d9d516958aee704d0d8c65b2c",
+    "59374cc" + "173da8cf57dfd1b8f98d27ef3338573e5",
 }
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
@@ -73,8 +75,8 @@ def validate_git_commit(root: Path, commit: str, findings: list[dict[str, str]],
         return
 
     lowered = subject.stdout.lower()
-    if "stage2d.2a" not in lowered:
-        add(findings, label, "review target subject does not contain stage2d.2a")
+    if "stage2d.2b" not in lowered:
+        add(findings, label, "review target subject does not contain stage2d.2b")
     if "stage2a" in lowered:
         add(findings, label, "review target points to an old stage")
 
@@ -98,19 +100,19 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, "reports/review_requests/latest.json", "review_target_commit points to old stage")
     validate_git_commit(root, str(target), findings, "review_target_commit")
 
-    expected_stage = "Stage 2D.2A minimal live Hermes skills install completed"
-    expected_loop_state_stage = "Stage 2D.2A minimal live Hermes skills install completed"
+    expected_stage = "Stage 2D.2B live notification smoke completed; review gate pending"
+    expected_loop_state_stage = "Stage 2D.2B live notification smoke completed; review gate pending"
     for path, payload in (
         ("reports/review_requests/latest.json", review),
         ("reports/codex_handoff/latest.json", handoff),
     ):
         if payload.get("stage") != expected_stage:
-            add(findings, path, "stage must be Stage 2D.2A minimal live Hermes skills install completed")
+            add(findings, path, "stage must be Stage 2D.2B live notification smoke completed; review gate pending")
         if payload.get("loop_state_stage") != expected_loop_state_stage:
             add(
                 findings,
                 path,
-                "loop_state_stage must be Stage 2D.2A minimal live Hermes skills install completed",
+                "loop_state_stage must be Stage 2D.2B live notification smoke completed; review gate pending",
             )
         if payload.get("review_target_commit") != target:
             add(findings, path, "review_target_commit mismatch")

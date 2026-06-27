@@ -1,29 +1,26 @@
 {
-  "stage": "Stage 2D.2A minimal live Hermes skills install completed",
-  "loop_state_stage": "Stage 2D.2A minimal live Hermes skills install completed",
-  "review_target_commit": "1d82b8083c86613d9d516958aee704d0d8c65b2c",
+  "stage": "Stage 2D.2B live notification smoke completed; review gate pending",
+  "loop_state_stage": "Stage 2D.2B live notification smoke completed; review gate pending",
+  "review_target_commit": "88e31e9daedcabb070469600f4fe2437a42c150c",
   "handoff_commit": null,
-  "handoff_generated_from_head": "1d82b8083c86613d9d516958aee704d0d8c65b2c",
-  "current_repo_head": "1d82b8083c86613d9d516958aee704d0d8c65b2c",
+  "handoff_generated_from_head": "88e31e9daedcabb070469600f4fe2437a42c150c",
+  "current_repo_head": "88e31e9daedcabb070469600f4fe2437a42c150c",
   "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "changed_files": [
-    "reports/live_install/stage2d2a_live_install_report.md",
-    "reports/live_install/stage2d2a_live_install_report.json",
-    "reports/live_install/stage2d2a_rollback_manifest.md",
-    "reports/live_install/stage2d2a_rollback_manifest.json",
-    "reports/live_install/stage2d2a_safety_test_results.md",
-    "reports/live_install/stage2d2a_safety_test_results.json",
-    "scripts/review_relay/render_notification_preview.py",
-    "scripts/safety/check_public_repo_hygiene.py",
-    "scripts/safety/check_handoff_commit_consistency.py",
+    "reports/live_smoke/stage2d2b_smoke_test_report.md",
+    "reports/live_smoke/stage2d2b_smoke_test_report.json",
+    "reports/live_smoke/stage2d2b_review_gate_validation_report.md",
+    "reports/live_smoke/stage2d2b_review_gate_validation_report.json",
+    "reports/live_smoke/stage2d2b_rollback_note.md",
+    "reports/live_smoke/stage2d2b_rollback_note.json",
+    "reports/live_smoke/stage2d2b_safety_test_results.md",
+    "reports/live_smoke/stage2d2b_safety_test_results.json",
+    "tests/safety/test_stage2d2b_live_smoke.py",
     "ops/state/loop_state.json",
-    "tests/safety/test_loop_automation_dry_run.py",
+    "scripts/safety/check_handoff_commit_consistency.py",
+    "tests/safety/test_handoff_commit_consistency.py",
     "tests/safety/test_loop_state_consistency.py",
     "tests/safety/test_notification_loop_safety.py",
-    "tests/safety/test_review_relay_safety.py",
-    "tests/safety/test_stage2d_preparation_plan.py",
-    "tests/safety/test_stage2d2a_live_install.py",
-    "tests/safety/test_handoff_commit_consistency.py",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
@@ -38,16 +35,32 @@
   ],
   "tests": [
     {
-      "command": "python3 -m unittest tests.safety.test_stage2d2a_live_install",
-      "result": "passed; live install report, rollback manifest, and safety results are present and redacted"
+      "command": "hermes skills list | rg -n \"feishu-loop-notifier|feishu-review-command\"",
+      "result": "passed; both installed Hermes skills were listed as local and enabled"
+    },
+    {
+      "command": "hermes gateway status",
+      "result": "passed; command returned successfully, raw output not published"
+    },
+    {
+      "command": "hermes send --to feishu --quiet --subject \"[agentic-etf-desk Stage 2D.2B smoke]\" \"<non-sensitive smoke message>\"",
+      "result": "passed; one non-sensitive Feishu smoke notification sent"
+    },
+    {
+      "command": "poll local_private/review_gate.json and sanitized gateway log counts for 60 seconds",
+      "result": "passed; no exact Feishu confirmation observed and no review gate written"
+    },
+    {
+      "command": "python3 -m unittest tests.safety.test_stage2d2b_live_smoke",
+      "result": "passed; Stage 2D.2B reports are present, redacted, and gate remains pending"
     },
     {
       "command": "python3 scripts/safety/check_public_repo_hygiene.py",
-      "result": "passed; public live preflight config fingerprint scan has no findings"
+      "result": "passed; public reports did not expose secrets or private config detail"
     },
     {
-      "command": "python3 scripts/safety/run_loop_dry_run.py --check",
-      "result": "passed; Stage 2C dry-run report remains current"
+      "command": "python3 scripts/safety/check_handoff_commit_consistency.py",
+      "result": "passed; review_target_commit binds to Stage 2D.2B smoke commit"
     },
     {
       "command": "python3 scripts/review_relay/build_chatgpt_review_prompt.py",
@@ -55,7 +68,7 @@
     },
     {
       "command": "python3 scripts/review_relay/check_review_gate.py",
-      "result": "passed; no real review gate present, waiting for confirmation"
+      "result": "passed; no real gate consumed, still waiting for Feishu confirmation"
     },
     {
       "command": "python3 scripts/review_relay/render_manual_fallback_prompt.py",
@@ -63,11 +76,11 @@
     },
     {
       "command": "python3 scripts/review_relay/render_notification_preview.py",
-      "result": "passed; generated repo-only notification preview without sending to Feishu"
+      "result": "passed; generated repo-only notification preview"
     },
     {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "passed; 71 tests OK"
+      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
+      "result": "passed; full safety/smoke suite"
     },
     {
       "command": "git diff --check",
@@ -75,55 +88,50 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to Stage 2D.2A handoff/review artifacts before handoff commit"
+      "result": "changes limited to Stage 2D.2B handoff/review artifacts before handoff commit"
     }
   ],
-  "real_config_modified": true,
-  "hermes_modified": true,
+  "real_config_modified": false,
+  "hermes_modified": false,
   "openclaw_modified": false,
   "feishu_gateway_modified": false,
   "services_restarted": false,
   "dependencies_installed": false,
   "secrets_touched": false,
   "secret_values_written": false,
-  "feishu_message_sent": false,
+  "feishu_message_sent": true,
+  "feishu_message_count": 1,
+  "review_gate_written": false,
+  "review_gate_status": "pending_feishu_confirmation",
   "auto_trading_surface": false,
+  "broker_surface": false,
   "computer_use_executed": false,
-  "live_preflight_report_generated": true,
-  "live_install_report_generated": true,
-  "minimal_change_list_generated": true,
-  "backup_checklist_generated": true,
-  "rollback_manifest_generated": true,
+  "live_smoke_report_generated": true,
+  "review_gate_validation_report_generated": true,
+  "rollback_note_generated": true,
   "safety_test_results_generated": true,
-  "next_recommended_stage": "Review Stage 2D.2A before any service restart, Feishu send, or live follow-up",
+  "next_recommended_stage": "Wait for live Feishu confirmation before writing or consuming local_private/review_gate.json",
   "requires_user_approval": [
-    "Any live Hermes config change",
-    "Any live OpenClaw config change",
-    "Any Hermes or OpenClaw restart",
+    "Any Hermes/OpenClaw restart",
     "Any real Feishu gateway or router change",
-    "Any launchd or crontab change",
+    "Any further live Hermes config change",
+    "Any live OpenClaw change",
     "Any dependency installation",
     "Any secret migration or credential storage",
-    "Any Feishu message send",
-    "Any Computer Use relay beyond repo-only prompt generation",
-    "Any broker integration, including read-only broker account access",
-    "Any expansion beyond ETF-only scope or addition of leveraged or defensive-inverse instruments",
-    "Any execution of a live Stage 2D write"
+    "Any Computer Use relay",
+    "Writing or consuming local_private/review_gate.json before an observed Feishu confirmation",
+    "Any broker integration or trading execution surface"
   ],
   "forbidden_to_continue_automatically": [
-    "Modifying real ~/.hermes",
     "Modifying real ~/.openclaw",
-    "Modifying real Feishu gateway",
     "Restarting Hermes or OpenClaw",
-    "Modifying launchd or crontab",
-    "Installing dependencies without user approval",
-    "Writing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, OpenAI API keys, or broker credentials",
-    "Sending real Feishu messages",
+    "Modifying real Feishu gateway",
+    "Installing dependencies",
+    "Printing or committing secrets, tokens, auth values, .env values, Feishu App Secret, provider keys, OpenAI API keys, or broker credentials",
     "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code",
     "Adding broker write access",
-    "Running live Computer Use relay without future explicit approval",
-    "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later",
-    "Executing any live Stage 2D write without explicit user approval"
+    "Running Computer Use",
+    "Adding individual stocks, options, futures, crypto assets, leveraged ETFs, or defensive-inverse instruments unless explicitly allowlisted later"
   ]
 }
