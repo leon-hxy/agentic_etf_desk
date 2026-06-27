@@ -1,11 +1,13 @@
 # Stage 2B Repo-Only Task
 
-status: ready
-stage: Stage 2B repo-only
+status: completed
+stage: Stage 2B completed
+review_target_commit: d40315aea238db28b1bdf857efa4052b250634c4
+handoff_commit: 687510b5d5ab4fb1f36734a726d3486bbfc6fcaf
 
 ## Summary
 
-Build the next repo-only layer of the ETF research system.
+Built the next repo-only layer of the ETF research system.
 
 ## Scope
 
@@ -42,11 +44,13 @@ Build the next repo-only layer of the ETF research system.
 
 ## Completion
 
-Update:
+Completed files:
 
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
 - `reports/review_requests/latest.json`
 
-Then commit and push the repo-only change.
+Stage 2B was completed in `review_target_commit`. Handoff and review request
+artifacts were committed in `handoff_commit`. The loop state should now point to
+`ops/tasks/stage2c_loop_automation_dry_run.md` as the next repo-only task.
