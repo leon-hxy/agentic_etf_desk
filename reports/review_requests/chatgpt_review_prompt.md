@@ -11,31 +11,29 @@ https://github.com/leon-hxy/agentic_etf_desk
 - `AGENTS.md`
 - `docs/security_policy.md`
 
-请审核 `review_target_commit`：`9f06d6467fb0bb5194affa43d5230c4d1f8c057b`。
+请审核 `review_target_commit`：`1d82b8083c86613d9d516958aee704d0d8c65b2c`。
 
-请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2D.1.1 public live preflight minimization completed。
+请根据 `reports/review_requests/latest.json` 中的 `review_target_commit` 和 review_files 审核 Stage 2D.2A minimal live Hermes skills install completed。
 不要把旧阶段 commit 当作本阶段的审核目标。
 
-Stage 2D.1.1 public live preflight minimization completed review_files：
+Stage 2D.2A minimal live Hermes skills install completed review_files：
 
-- `reports/live_preflight/stage2d1_live_preflight_report.md`
-- `reports/live_preflight/stage2d1_live_preflight_report.json`
-- `reports/live_preflight/stage2d1_backup_checklist.md`
-- `reports/live_preflight/stage2d1_backup_checklist.json`
-- `reports/live_preflight/stage2d1_safety_test_results.md`
-- `reports/live_preflight/stage2d1_safety_test_results.json`
-- `scripts/audit/run_stage2d1_live_preflight.py`
+- `reports/live_install/stage2d2a_live_install_report.md`
+- `reports/live_install/stage2d2a_live_install_report.json`
+- `reports/live_install/stage2d2a_rollback_manifest.md`
+- `reports/live_install/stage2d2a_rollback_manifest.json`
+- `reports/live_install/stage2d2a_safety_test_results.md`
+- `reports/live_install/stage2d2a_safety_test_results.json`
 - `scripts/review_relay/render_notification_preview.py`
 - `scripts/safety/check_public_repo_hygiene.py`
 - `scripts/safety/check_handoff_commit_consistency.py`
 - `ops/state/loop_state.json`
-- `tests/safety/test_public_repo_hygiene.py`
 - `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
 - `tests/safety/test_review_relay_safety.py`
 - `tests/safety/test_stage2d_preparation_plan.py`
-- `tests/safety/test_stage2d1_live_preflight.py`
+- `tests/safety/test_stage2d2a_live_install.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 
 重点检查：

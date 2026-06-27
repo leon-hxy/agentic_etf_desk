@@ -44,15 +44,19 @@ class NotificationLoopSafetyTest(unittest.TestCase):
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
         self.assertEqual(
             payload["current_stage"],
-            "Stage 2D.1.1 public live preflight minimization completed",
+            "Stage 2D.2A minimal live Hermes skills install completed",
         )
         self.assertEqual(payload["status"], "completed")
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
         self.assertEqual(payload["stage2d1_task_status"], "completed_read_only")
+        self.assertEqual(payload["stage2d2a_task_status"], "completed_minimal_live_install")
         self.assertIsNone(payload["next_task"])
-        self.assertEqual(payload["next_task_status"], "requires_user_approval_for_live_write")
+        self.assertEqual(
+            payload["next_task_status"],
+            "requires_user_approval_for_any_live_followup",
+        )
         self.assertEqual(payload["notification_layer"], "drafted")
         self.assertEqual(payload["review_gate_layer"], "drafted")
         self.assertEqual(payload["chatgpt_review_relay"], "drafted")

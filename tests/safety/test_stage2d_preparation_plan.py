@@ -53,17 +53,26 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 2D preparation plan completed",
                 "Stage 2D.1 read-only live preflight completed",
                 "Stage 2D.1.1 public live preflight minimization completed",
+                "Stage 2D.2A minimal live Hermes skills install completed",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
         self.assertIn(
             payload["next_task_status"],
-            {"requires_user_approval", "requires_user_approval_for_live_write"},
+            {
+                "requires_user_approval",
+                "requires_user_approval_for_live_write",
+                "requires_user_approval_for_any_live_followup",
+            },
         )
+        if payload["current_stage"] == "Stage 2D.2A minimal live Hermes skills install completed":
+            self.assertTrue(payload["real_config_modified"])
+            self.assertTrue(payload["hermes_modified"])
+        else:
+            self.assertFalse(payload["real_config_modified"])
+            self.assertFalse(payload["hermes_modified"])
         for field in (
-            "real_config_modified",
-            "hermes_modified",
             "openclaw_modified",
             "feishu_gateway_modified",
             "services_restarted",

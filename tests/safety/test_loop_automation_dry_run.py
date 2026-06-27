@@ -67,14 +67,14 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         loop_state = read_json(ROOT / "ops" / "state" / "loop_state.json")
         self.assertEqual(
             loop_state["current_stage"],
-            "Stage 2D.1.1 public live preflight minimization completed",
+            "Stage 2D.2A minimal live Hermes skills install completed",
         )
         self.assertEqual(loop_state["status"], "completed")
         self.assertEqual(loop_state["stage2c_task"], "ops/tasks/stage2c_loop_automation_dry_run.md")
         self.assertEqual(loop_state["stage2c_task_status"], "completed")
         self.assertEqual(loop_state["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
         self.assertEqual(loop_state["stage2d1_task"], "ops/tasks/stage2d1_read_only_live_preflight.md")
-        self.assertEqual(loop_state["next_task_status"], "requires_user_approval_for_live_write")
+        self.assertEqual(loop_state["next_task_status"], "requires_user_approval_for_any_live_followup")
 
         task = (ROOT / "ops" / "tasks" / "stage2c_loop_automation_dry_run.md").read_text(
             encoding="utf-8"
@@ -90,7 +90,7 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         latest_review = read_json(ROOT / "reports" / "review_requests" / "latest.json")
         self.assertEqual(
             payload["loop_state_stage"],
-            "Stage 2D.1.1 public live preflight minimization completed",
+            "Stage 2D.2A minimal live Hermes skills install completed",
         )
         self.assertEqual(payload["stage"], latest_review["stage"])
         self.assertEqual(payload["review_target_commit"], latest_review["review_target_commit"])

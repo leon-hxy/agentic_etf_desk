@@ -27,7 +27,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         expected_stage = self.expected_loop_stage()
         self.assertEqual(
             expected_stage,
-            "Stage 2D.1.1 public live preflight minimization completed",
+            "Stage 2D.2A minimal live Hermes skills install completed",
         )
         self.assertFalse(self.loop_state.get("handoff_update_pending"))
         self.assertEqual(self.review["stage"], expected_stage)
@@ -37,13 +37,13 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.loop_state["status"], "completed")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
-        expected_commit = "9f06d6467fb0bb5194affa43d5230c4d1f8c057b"
-        stale_commit = "a60f314c39bf73274ffb6daff5ad902bf63b9293"
+        expected_commit = "1d82b8083c86613d9d516958aee704d0d8c65b2c"
+        stale_commit = "9f06d6467fb0bb5194affa43d5230c4d1f8c057b"
         self.assertEqual(self.handoff["review_target_commit"], expected_commit)
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotEqual(self.loop_state["review_target_commit"], stale_commit)
-        self.assertIn("Stage 2D.1.1", self.loop_state["review_target_commit_note"])
+        self.assertIn("Stage 2D.2A", self.loop_state["review_target_commit_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
@@ -86,10 +86,15 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertIn("Do not modify real `~/.openclaw`", task)
         self.assertIn("Do not run Computer Use", task)
 
-    def test_repo_only_safety_flags_remain_false(self) -> None:
+    def test_only_approved_live_install_flags_are_true(self) -> None:
+        self.assertFalse(self.loop_state["repo_only"])
+        self.assertTrue(self.loop_state["real_config_modified"])
+        self.assertTrue(self.loop_state["hermes_modified"])
+        self.assertEqual(
+            self.loop_state["stage2d2a_task_status"],
+            "completed_minimal_live_install",
+        )
         for field in (
-            "real_config_modified",
-            "hermes_modified",
             "openclaw_modified",
             "feishu_gateway_modified",
             "services_restarted",

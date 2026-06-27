@@ -7,12 +7,12 @@
     "\u6682\u505c loop"
   ],
   "computer_use_executed": false,
-  "loop_state_stage": "Stage 2D.1.1 public live preflight minimization completed",
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2D.1.1 public live preflight minimization completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `9f06d6467fb0bb5194affa43d5230c4d1f8c057b`\u3002 Computer Use \u672a\u6267\u884c\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "loop_state_stage": "Stage 2D.2A minimal live Hermes skills install completed",
+  "message": "Codex dry-run \u9636\u6bb5 `Stage 2D.2A minimal live Hermes skills install completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `1d82b8083c86613d9d516958aee704d0d8c65b2c`\u3002 Computer Use \u672a\u6267\u884c\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
   "mode": "repo_only_preview",
   "real_gateway_modified": false,
-  "review_stage": "Stage 2D.1.1 public live preflight minimization completed",
-  "review_target_commit": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
+  "review_stage": "Stage 2D.2A minimal live Hermes skills install completed",
+  "review_target_commit": "1d82b8083c86613d9d516958aee704d0d8c65b2c",
   "sent_to_feishu": false,
-  "stage": "Stage 2D.1.1 public live preflight minimization completed"
+  "stage": "Stage 2D.2A minimal live Hermes skills install completed"
 }
