@@ -39,6 +39,7 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             ["scripts/review_relay/build_chatgpt_review_prompt.py"],
             ["scripts/review_relay/check_review_gate.py"],
             ["scripts/review_relay/render_manual_fallback_prompt.py"],
+            ["scripts/review_relay/render_notification_preview.py"],
         ]
         for command in commands:
             result = self.run_cmd(command)
@@ -53,6 +54,15 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         self.assertFalse(status["review_gate_seen"])
         self.assertFalse(status["review_gate_valid"])
         self.assertFalse(status["sent_to_chatgpt"])
+
+        notification = json.loads(
+            (ROOT / "reports" / "review_requests" / "notification_preview.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(notification["mode"], "repo_only_preview")
+        self.assertFalse(notification["sent_to_feishu"])
+        self.assertFalse(notification["computer_use_executed"])
 
     def test_generated_prompt_is_public_only(self) -> None:
         prompt = (ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.md").read_text(

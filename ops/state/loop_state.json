@@ -1,13 +1,17 @@
 {
-  "current_stage": "Stage 2B completed",
+  "current_stage": "Stage 2C completed",
   "status": "completed",
   "stage2b_task": "ops/tasks/stage2b_repo_only.md",
   "stage2b_task_status": "completed",
-  "next_task": "ops/tasks/stage2c_loop_automation_dry_run.md",
-  "next_task_status": "planned",
+  "stage2c_task": "ops/tasks/stage2c_loop_automation_dry_run.md",
+  "stage2c_task_status": "completed",
+  "next_task": null,
+  "next_task_status": "requires_user_direction",
   "last_handoff": "reports/codex_handoff/latest.json",
   "last_review_request": "reports/review_requests/latest.json",
-  "review_target_commit": "d40315aea238db28b1bdf857efa4052b250634c4",
+  "handoff_update_pending": true,
+  "review_target_commit": null,
+  "review_target_commit_note": "Stage 2C review_target_commit is set in reports/review_requests/latest.json after the business commit exists.",
   "latest_handoff_commit": null,
   "latest_handoff_commit_note": "The handoff commit is created after these state files and cannot self-reference its own final SHA.",
   "repo_only": true,
@@ -27,5 +31,5 @@
   "computer_use_live_execution": false,
   "manual_chatgpt_review_mode": true,
   "public_repo_review_mode": true,
-  "next_recommended_stage": "Stage 2C loop automation dry-run repo-only"
+  "next_recommended_stage": "User direction required before Stage 2D"
 }
