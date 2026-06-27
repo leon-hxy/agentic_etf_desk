@@ -1,16 +1,19 @@
 {
-  "stage": "Stage 2D.2B live notification smoke completed; review gate pending",
-  "generated_at": "2026-06-27T15:13:26Z",
+  "stage": "Stage 2D.2B review gate confirmed locally",
+  "generated_at": "2026-06-27T15:31:18Z",
   "status": "passed",
   "feishu_message_sent": true,
   "feishu_message_count": 1,
-  "review_gate_written": false,
-  "review_gate_status": "pending_feishu_confirmation",
+  "feishu_confirmation_observed": true,
+  "review_gate_written": true,
+  "review_gate_status": "confirmed_local_private_gate",
+  "review_gate_committed": false,
   "openclaw_modified": false,
   "feishu_gateway_modified": false,
   "services_restarted": false,
   "dependencies_installed": false,
   "computer_use_executed": false,
+  "sent_to_chatgpt": false,
   "secret_values_printed": false,
   "secret_values_committed": false,
   "secrets_touched": false,
@@ -26,7 +29,15 @@
       "result": "passed"
     },
     {
-      "check": "No review gate written without observed Feishu confirmation",
+      "check": "Exact Feishu confirmation observed through sanitized counts",
+      "result": "passed"
+    },
+    {
+      "check": "Local private review gate written and kept uncommitted",
+      "result": "passed"
+    },
+    {
+      "check": "No Computer Use execution",
       "result": "passed"
     },
     {

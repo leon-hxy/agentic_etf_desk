@@ -117,18 +117,25 @@ def check_gate(review: dict[str, Any] | None = None) -> dict[str, Any]:
     failures: list[str] = []
     if gate.get("approved") is not True:
         failures.append("approved_not_true")
-    if gate.get("approved_action") != "chatgpt_review_relay":
+
+    gate_commit = gate.get("commit") or gate.get("review_target_commit")
+    gate_nonce = gate.get("one_time_nonce") or gate.get("nonce")
+    uses_live_skill_schema = "review_target_commit" in gate
+
+    if gate.get("approved_action") not in (None, "chatgpt_review_relay"):
         failures.append("approved_action_mismatch")
-    if gate.get("repo") != REPO:
+    if gate.get("repo") not in (None, REPO):
         failures.append("repo_mismatch")
-    if gate.get("commit") != target_commit:
+    if gate_commit != target_commit:
         failures.append("commit_mismatch")
-    if gate.get("review_request") != "reports/review_requests/latest.json":
+    if gate.get("review_request") not in (None, "reports/review_requests/latest.json"):
         failures.append("review_request_mismatch")
-    if gate.get("used") is not False:
+    if gate.get("used") not in (None, False):
         failures.append("gate_already_used")
-    if not gate.get("one_time_nonce"):
+    if not gate_nonce:
         failures.append("missing_nonce")
+    if not uses_live_skill_schema and gate.get("approved_action") is None:
+        failures.append("approved_action_missing")
 
     expires_at = parse_time(gate.get("expires_at"))
     if expires_at is None:

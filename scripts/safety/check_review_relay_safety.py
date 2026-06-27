@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 from pathlib import Path
 
 
@@ -48,12 +49,27 @@ def add(findings: list[dict[str, str]], file: str, reason: str) -> None:
     findings.append({"file": file, "reason": reason})
 
 
+def git(root: Path, *args: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", *args],
+        cwd=root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+
 def scan(root: Path) -> dict[str, object]:
     findings: list[dict[str, str]] = []
 
     for rel in ("local_private/review_gate.json", "local_private/notification_state.json"):
         if (root / rel).exists():
-            add(findings, rel, "local private runtime state must not be committed")
+            ignored = git(root, "check-ignore", "-q", rel)
+            tracked = git(root, "ls-files", "--error-unmatch", rel)
+            if ignored.returncode != 0:
+                add(findings, rel, "local private runtime state must be gitignored")
+            if tracked.returncode == 0:
+                add(findings, rel, "local private runtime state must not be tracked")
 
     example = root / "ops" / "review_gate" / "review_gate.example.json"
     if not example.exists():

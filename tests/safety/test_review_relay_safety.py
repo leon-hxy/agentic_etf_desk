@@ -31,10 +31,27 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         self.assertIn("expires_at", payload)
 
     def test_real_review_gate_and_notification_state_are_not_committed(self) -> None:
-        self.assertFalse((ROOT / "local_private" / "review_gate.json").exists())
-        self.assertFalse((ROOT / "local_private" / "notification_state.json").exists())
+        for rel in ("local_private/review_gate.json", "local_private/notification_state.json"):
+            path = ROOT / rel
+            tracked = subprocess.run(
+                ["git", "ls-files", "--error-unmatch", rel],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertNotEqual(tracked.returncode, 0, rel)
+            if path.exists():
+                ignored = subprocess.run(
+                    ["git", "check-ignore", "-q", rel],
+                    cwd=ROOT,
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                )
+                self.assertEqual(ignored.returncode, 0, rel)
 
-    def test_relay_preview_commands_work_without_real_gate(self) -> None:
+    def test_relay_preview_commands_keep_relay_manual_with_or_without_gate(self) -> None:
         commands = [
             ["scripts/review_relay/build_chatgpt_review_prompt.py"],
             ["scripts/review_relay/check_review_gate.py"],
@@ -51,8 +68,12 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         self.assertTrue(status["chatgpt_prompt_generated"])
         self.assertTrue(status["manual_fallback_available"])
         self.assertTrue(status["review_gate_required"])
-        self.assertFalse(status["review_gate_seen"])
-        self.assertFalse(status["review_gate_valid"])
+        if (ROOT / "local_private" / "review_gate.json").exists():
+            self.assertTrue(status["review_gate_seen"])
+            self.assertIn(status["status_reason"], {"gate_valid", "gate_expired"})
+        else:
+            self.assertFalse(status["review_gate_seen"])
+            self.assertFalse(status["review_gate_valid"])
         self.assertFalse(status["sent_to_chatgpt"])
 
         notification = json.loads(

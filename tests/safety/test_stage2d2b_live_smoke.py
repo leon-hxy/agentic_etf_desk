@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 REPORT_DIR = ROOT / "reports" / "live_smoke"
-STAGE = "Stage 2D.2B live notification smoke completed; review gate pending"
+STAGE = "Stage 2D.2B review gate confirmed locally"
 SKILL_IDS = ["feishu-loop-notifier", "feishu-review-command"]
 
 JSON_FILES = {
@@ -57,13 +57,13 @@ class Stage2D2BLiveSmokeTest(unittest.TestCase):
         self.assertFalse(payload["secret_values_committed"])
         self.assertFalse(payload["auto_trading_surface"])
 
-    def test_review_gate_validation_records_pending_confirmation(self) -> None:
+    def test_review_gate_validation_records_local_confirmation(self) -> None:
         payload = read_json(JSON_FILES["gate"])
         self.assertEqual(payload["stage"], STAGE)
-        self.assertEqual(payload["review_gate_status"], "pending_feishu_confirmation")
-        self.assertFalse(payload["feishu_confirmation_observed"])
-        self.assertFalse(payload["review_gate_written"])
-        self.assertFalse(payload["review_gate_file_present"])
+        self.assertEqual(payload["review_gate_status"], "confirmed_local_private_gate")
+        self.assertTrue(payload["feishu_confirmation_observed"])
+        self.assertTrue(payload["review_gate_written"])
+        self.assertTrue(payload["review_gate_file_present"])
         self.assertTrue(payload["local_private_gitignored"])
         self.assertEqual(payload["allowed_confirmation_phrase"], "确认审核")
         self.assertEqual(payload["gate_path_public"], "local_private/review_gate.json")
@@ -75,7 +75,8 @@ class Stage2D2BLiveSmokeTest(unittest.TestCase):
         self.assertFalse(payload["rollback_executed"])
         self.assertFalse(payload["new_live_files_created"])
         self.assertEqual(payload["new_live_config_changes"], [])
-        self.assertEqual(payload["rollback_action"], "none_required_for_stage2d2b_send_smoke")
+        self.assertEqual(payload["rollback_action"], "delete_local_private_review_gate_if_needed")
+        self.assertTrue(payload["review_gate_rollback_available"])
         self.assertTrue(payload["stage2d2a_rollback_manifest_still_applies"])
 
     def test_safety_results_record_forbidden_actions_absent(self) -> None:
@@ -83,6 +84,8 @@ class Stage2D2BLiveSmokeTest(unittest.TestCase):
         self.assertEqual(payload["stage"], STAGE)
         self.assertEqual(payload["status"], "passed")
         self.assertTrue(payload["feishu_message_sent"])
+        self.assertTrue(payload["feishu_confirmation_observed"])
+        self.assertTrue(payload["review_gate_written"])
         self.assertFalse(payload["openclaw_modified"])
         self.assertFalse(payload["feishu_gateway_modified"])
         self.assertFalse(payload["services_restarted"])

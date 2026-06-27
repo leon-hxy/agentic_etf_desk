@@ -37,8 +37,26 @@ class NotificationLoopSafetyTest(unittest.TestCase):
         self.assertIn("不得修改真实 ~/.hermes", combined)
 
     def test_private_notification_state_is_not_committed(self) -> None:
-        self.assertFalse((ROOT / "local_private" / "notification_state.json").exists())
-        self.assertFalse((ROOT / "local_private" / "review_gate.json").exists())
+        import subprocess
+
+        for rel in ("local_private/notification_state.json", "local_private/review_gate.json"):
+            tracked = subprocess.run(
+                ["git", "ls-files", "--error-unmatch", rel],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertNotEqual(tracked.returncode, 0, rel)
+            if (ROOT / rel).exists():
+                ignored = subprocess.run(
+                    ["git", "check-ignore", "-q", rel],
+                    cwd=ROOT,
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                )
+                self.assertEqual(ignored.returncode, 0, rel)
 
     def test_loop_state_declares_completed_stage_with_draft_layers(self) -> None:
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())

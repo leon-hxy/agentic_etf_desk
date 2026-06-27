@@ -11,10 +11,10 @@
     "manual_fallback_available": true,
     "relay_stage": "draft_only",
     "review_gate_required": true,
-    "review_gate_seen": false,
-    "review_gate_valid": false,
+    "review_gate_seen": true,
+    "review_gate_valid": true,
     "sent_to_chatgpt": false,
-    "status_reason": "waiting_for_user_confirmation"
+    "status_reason": "gate_valid"
   },
   "handoff": "reports/codex_handoff/latest.json",
   "handoff_commit": null,

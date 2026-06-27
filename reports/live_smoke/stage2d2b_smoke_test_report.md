@@ -1,7 +1,7 @@
 # Stage 2D.2B Live Notification Smoke Report
 
-- Stage: `Stage 2D.2B live notification smoke completed; review gate pending`
-- Generated at: `2026-06-27T15:13:26Z`
+- Stage: `Stage 2D.2B review gate confirmed locally`
+- Generated at: `2026-06-27T15:31:18Z`
 - Mode: `approved_live_notification_smoke`
 - Approved live smoke: `true`
 - Hermes skill load checked: `true`
@@ -12,11 +12,13 @@
 - Gateway status public summary: status command returned successfully; raw status output was not published.
 - Feishu message sent: `true`
 - Feishu message count: `1`
-- Feishu message target public: configured Feishu default target.
 - Feishu message sensitive content: `false`
-- Feishu confirmation observed: `false`
-- Review gate written: `false`
-- Review gate status: `pending_feishu_confirmation`
+- Feishu confirmation observed: `true`
+- Exact confirmation reply-like matches: `2`
+- Review gate written: `true`
+- Review gate status: `confirmed_local_private_gate`
+- Review gate path public label: `local_private/review_gate.json`
+- Review gate committed: `false`
 - OpenClaw modified: `false`
 - Feishu gateway modified: `false`
 - Services restarted: `false`
@@ -27,6 +29,6 @@
 - Auto trading surface: `false`
 - Broker surface: `false`
 
-The smoke notification contained only a Stage 2D.2B status, the confirmation phrase request, and the manual-trading safety notice. Raw gateway status, raw logs, Feishu target identifiers, user identifiers, and secret-bearing configuration were not published.
+The smoke notification contained only a Stage 2D.2B status, the confirmation phrase request, and the manual-trading safety notice. The confirmation was observed through sanitized gateway-log counts. Raw gateway status, raw logs, Feishu target identifiers, user identifiers, and secret-bearing configuration were not published.
 
 Final trading is manually decided by the user. This system does not automatically place orders.
