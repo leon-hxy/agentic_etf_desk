@@ -60,7 +60,14 @@ class ReviewRelaySafetyTest(unittest.TestCase):
                 encoding="utf-8"
             )
         )
+        latest_review = json.loads(
+            (ROOT / "reports" / "review_requests" / "latest.json").read_text(encoding="utf-8")
+        )
         self.assertEqual(notification["mode"], "repo_only_preview")
+        self.assertEqual(
+            notification["review_target_commit"],
+            latest_review["review_target_commit"],
+        )
         self.assertFalse(notification["sent_to_feishu"])
         self.assertFalse(notification["computer_use_executed"])
 

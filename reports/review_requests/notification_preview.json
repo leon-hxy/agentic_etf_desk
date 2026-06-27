@@ -7,11 +7,12 @@
     "\u6682\u505c loop"
   ],
   "computer_use_executed": false,
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2D.1 read-only live preflight completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `a60f314c39bf73274ffb6daff5ad902bf63b9293`\u3002 Computer Use \u672a\u6267\u884c\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "loop_state_stage": "Stage 2D.1 read-only live preflight completed",
+  "message": "Codex dry-run \u9636\u6bb5 `Stage 2D.1.1 public live preflight minimization completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `9f06d6467fb0bb5194affa43d5230c4d1f8c057b`\u3002 Computer Use \u672a\u6267\u884c\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
   "mode": "repo_only_preview",
   "real_gateway_modified": false,
-  "review_stage": "Stage 2D.1 read-only live preflight completed",
-  "review_target_commit": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
+  "review_stage": "Stage 2D.1.1 public live preflight minimization completed",
+  "review_target_commit": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
   "sent_to_feishu": false,
-  "stage": "Stage 2D.1 read-only live preflight completed"
+  "stage": "Stage 2D.1.1 public live preflight minimization completed"
 }

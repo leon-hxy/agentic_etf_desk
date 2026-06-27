@@ -84,7 +84,13 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         self.assertTrue(NOTIFICATION_JSON.exists())
         self.assertTrue(NOTIFICATION_MD.exists())
         payload = read_json(NOTIFICATION_JSON)
-        self.assertEqual(payload["stage"], "Stage 2D.1 read-only live preflight completed")
+        latest_review = read_json(ROOT / "reports" / "review_requests" / "latest.json")
+        self.assertEqual(
+            payload["loop_state_stage"],
+            "Stage 2D.1 read-only live preflight completed",
+        )
+        self.assertEqual(payload["stage"], latest_review["stage"])
+        self.assertEqual(payload["review_target_commit"], latest_review["review_target_commit"])
         self.assertFalse(payload["sent_to_feishu"])
         self.assertFalse(payload["computer_use_executed"])
         self.assertEqual(payload["mode"], "repo_only_preview")

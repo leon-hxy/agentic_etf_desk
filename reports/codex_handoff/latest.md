@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-Stage 2D.1 read-only live preflight completed.
+Stage 2D.1.1 public live preflight minimization completed.
 
 ## Loop State Stage
 
@@ -10,14 +10,14 @@ Stage 2D.1 read-only live preflight completed.
 
 ## Review Target Commit
 
-`a60f314c39bf73274ffb6daff5ad902bf63b9293`
+`9f06d6467fb0bb5194affa43d5230c4d1f8c057b`
 
-This is the Stage 2D.1 approved read-only live preflight commit that ChatGPT
-should review.
+This is the Stage 2D.1.1 repo-only public live preflight minimization commit
+that ChatGPT should review.
 
 ## Current Repo Head
 
-`a60f314c39bf73274ffb6daff5ad902bf63b9293`
+`9f06d6467fb0bb5194affa43d5230c4d1f8c057b`
 
 ## Handoff Commit
 
@@ -28,7 +28,7 @@ its own final SHA in the same commit.
 
 ## Handoff Generated From Head
 
-`a60f314c39bf73274ffb6daff5ad902bf63b9293`
+`9f06d6467fb0bb5194affa43d5230c4d1f8c057b`
 
 ## Commit Binding Note
 
@@ -36,27 +36,21 @@ its own final SHA in the same commit.
 
 ## Files Changed This Round
 
-- `ops/tasks/stage2d1_read_only_live_preflight.md`
 - `reports/live_preflight/stage2d1_live_preflight_report.md`
 - `reports/live_preflight/stage2d1_live_preflight_report.json`
-- `reports/live_preflight/stage2d1_minimal_change_list.md`
-- `reports/live_preflight/stage2d1_minimal_change_list.json`
 - `reports/live_preflight/stage2d1_backup_checklist.md`
 - `reports/live_preflight/stage2d1_backup_checklist.json`
-- `reports/live_preflight/stage2d1_rollback_checklist.md`
-- `reports/live_preflight/stage2d1_rollback_checklist.json`
 - `reports/live_preflight/stage2d1_safety_test_results.md`
 - `reports/live_preflight/stage2d1_safety_test_results.json`
 - `scripts/audit/run_stage2d1_live_preflight.py`
-- `ops/state/loop_state.json`
-- `reports/review_requests/notification_preview.md`
-- `reports/review_requests/notification_preview.json`
 - `scripts/review_relay/render_notification_preview.py`
-- `tests/safety/test_stage2d1_live_preflight.py`
+- `scripts/safety/check_public_repo_hygiene.py`
+- `scripts/safety/check_handoff_commit_consistency.py`
+- `tests/safety/test_public_repo_hygiene.py`
 - `tests/safety/test_loop_automation_dry_run.py`
-- `tests/safety/test_loop_state_consistency.py`
-- `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_stage2d_preparation_plan.py`
+- `tests/safety/test_review_relay_safety.py`
+- `tests/safety/test_stage2d1_live_preflight.py`
+- `tests/safety/test_handoff_commit_consistency.py`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
@@ -66,12 +60,13 @@ its own final SHA in the same commit.
 - `reports/review_requests/manual_fallback_prompt.md`
 - `reports/review_requests/relay_status.md`
 - `reports/review_requests/relay_status.json`
-- `scripts/safety/check_handoff_commit_consistency.py`
-- `tests/safety/test_handoff_commit_consistency.py`
+- `reports/review_requests/notification_preview.md`
+- `reports/review_requests/notification_preview.json`
 
 ## Test Commands
 
 - `python3 scripts/audit/run_stage2d1_live_preflight.py --check`
+- `python3 scripts/safety/check_public_repo_hygiene.py`
 - `python3 scripts/safety/run_loop_dry_run.py --check`
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`
 - `python3 scripts/review_relay/check_review_gate.py`
@@ -83,15 +78,16 @@ its own final SHA in the same commit.
 
 ## Test Results
 
-- `python3 scripts/audit/run_stage2d1_live_preflight.py --check`: passed; sanitized live preflight outputs are present.
+- `python3 scripts/audit/run_stage2d1_live_preflight.py --check`: passed; public live preflight outputs omit detailed key-name fingerprints.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; public live preflight config fingerprint scan has no findings.
 - `python3 scripts/safety/run_loop_dry_run.py --check`: passed; Stage 2C dry-run report remains current.
 - `python3 scripts/review_relay/build_chatgpt_review_prompt.py`: passed; generated public prompt preview without sending to ChatGPT.
 - `python3 scripts/review_relay/check_review_gate.py`: passed; no real review gate present, waiting for confirmation.
 - `python3 scripts/review_relay/render_manual_fallback_prompt.py`: passed; generated manual fallback prompt.
 - `python3 scripts/review_relay/render_notification_preview.py`: passed; generated repo-only notification preview without sending to Feishu.
-- Full unittest command: passed, 63 tests OK.
+- Full unittest command: passed, 65 tests OK.
 - `git diff --check`: passed, no whitespace errors.
-- `git status --short --untracked-files=all`: changes limited to Stage 2D.1 handoff/review artifacts before handoff commit.
+- `git status --short --untracked-files=all`: changes limited to Stage 2D.1.1 handoff/review artifacts before handoff commit.
 
 ## Runtime And Safety Checklist
 

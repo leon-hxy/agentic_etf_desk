@@ -14,6 +14,8 @@ PREVIOUS_STAGE_COMMITS = {
     "acd9995" + "d7c48c24f1d381158ac72afb7579e0039",
     "3991a8c" + "083d73a42ff2879b53ad009a022d7ed02",
     "630433a" + "5cef96756811950738f4cf8dd8b4c820e",
+    "a60f314" + "c39bf73274ffb6daff5ad902bf63b9293",
+    "6db0e41" + "9622fefbcac9554900b1efb36890a959e",
 }
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
@@ -54,8 +56,14 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.review_target_commit = self.handoff.get("review_target_commit")
 
     def test_latest_json_files_declare_review_target_commit(self) -> None:
-        self.assertEqual(self.handoff["stage"], "Stage 2D.1 read-only live preflight completed")
-        self.assertEqual(self.review["stage"], "Stage 2D.1 read-only live preflight completed")
+        self.assertEqual(
+            self.handoff["stage"],
+            "Stage 2D.1.1 public live preflight minimization completed",
+        )
+        self.assertEqual(
+            self.review["stage"],
+            "Stage 2D.1.1 public live preflight minimization completed",
+        )
         self.assertEqual(self.handoff["loop_state_stage"], "Stage 2D.1 read-only live preflight completed")
         self.assertEqual(self.review["loop_state_stage"], "Stage 2D.1 read-only live preflight completed")
         self.assertTrue(self.review_target_commit)
@@ -78,7 +86,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
 
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertIn("stage2d.1", subject.stdout.lower())
+        self.assertIn("stage2d.1.1", subject.stdout.lower())
         self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_recorded_current_head_is_valid_git_commit(self) -> None:

@@ -1,33 +1,30 @@
 {
-  "stage": "Stage 2D.1 read-only live preflight completed",
+  "stage": "Stage 2D.1.1 public live preflight minimization completed",
   "loop_state_stage": "Stage 2D.1 read-only live preflight completed",
-  "review_target_commit": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
+  "review_target_commit": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
   "handoff_commit": null,
-  "handoff_generated_from_head": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
-  "current_repo_head": "a60f314c39bf73274ffb6daff5ad902bf63b9293",
+  "handoff_generated_from_head": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
+  "current_repo_head": "9f06d6467fb0bb5194affa43d5230c4d1f8c057b",
   "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "review_files": [
-    "ops/tasks/stage2d1_read_only_live_preflight.md",
     "reports/live_preflight/stage2d1_live_preflight_report.md",
     "reports/live_preflight/stage2d1_live_preflight_report.json",
-    "reports/live_preflight/stage2d1_minimal_change_list.md",
-    "reports/live_preflight/stage2d1_minimal_change_list.json",
     "reports/live_preflight/stage2d1_backup_checklist.md",
     "reports/live_preflight/stage2d1_backup_checklist.json",
-    "reports/live_preflight/stage2d1_rollback_checklist.md",
-    "reports/live_preflight/stage2d1_rollback_checklist.json",
     "reports/live_preflight/stage2d1_safety_test_results.md",
     "reports/live_preflight/stage2d1_safety_test_results.json",
     "scripts/audit/run_stage2d1_live_preflight.py",
-    "ops/state/loop_state.json",
-    "reports/review_requests/notification_preview.md",
-    "reports/review_requests/notification_preview.json",
+    "scripts/review_relay/render_notification_preview.py",
+    "scripts/safety/check_public_repo_hygiene.py",
+    "scripts/safety/check_handoff_commit_consistency.py",
+    "tests/safety/test_public_repo_hygiene.py",
+    "tests/safety/test_loop_automation_dry_run.py",
+    "tests/safety/test_review_relay_safety.py",
     "tests/safety/test_stage2d1_live_preflight.py",
-    "tests/safety/test_loop_state_consistency.py",
-    "tests/safety/test_notification_loop_safety.py"
+    "tests/safety/test_handoff_commit_consistency.py"
   ],
   "changed_files": [
-    "Stage 2D.1 review target files are listed in review_files",
+    "Stage 2D.1.1 review target files are listed in review_files",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
@@ -43,7 +40,11 @@
   "tests": [
     {
       "command": "python3 scripts/audit/run_stage2d1_live_preflight.py --check",
-      "result": "passed; sanitized live preflight outputs are present"
+      "result": "passed; public live preflight outputs omit detailed key-name fingerprints"
+    },
+    {
+      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+      "result": "passed; public live preflight config fingerprint scan has no findings"
     },
     {
       "command": "python3 scripts/safety/run_loop_dry_run.py --check",
@@ -67,7 +68,7 @@
     },
     {
       "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "passed; 63 tests OK"
+      "result": "passed; 65 tests OK"
     },
     {
       "command": "git diff --check",
@@ -75,9 +76,9 @@
     },
     {
       "command": "git status --short --untracked-files=all",
-      "result": "changes limited to Stage 2D.1 handoff/review artifacts before handoff commit"
+      "result": "changes limited to Stage 2D.1.1 handoff/review artifacts before handoff commit"
     }
   ],
-  "risk_statement": "Approved read-only live preflight for Hermes/Feishu gateway readiness; no live config change, no service restart, no dependency install, no secrets, no real Feishu send, no broker write access, no automatic trading, no Computer Use execution.",
-  "short_prompt": "请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2D.1 review_target_commit a60f314c39bf73274ffb6daff5ad902bf63b9293 是否通过。"
+  "risk_statement": "Repo-only Stage 2D.1.1 minimization of public live preflight reports; no live config change, no service restart, no dependency install, no secrets, no real Feishu send, no broker write access, no automatic trading, no Computer Use execution.",
+  "short_prompt": "请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核 Stage 2D.1.1 review_target_commit 9f06d6467fb0bb5194affa43d5230c4d1f8c057b 是否通过。"
 }

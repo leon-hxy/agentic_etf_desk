@@ -23,20 +23,23 @@ def load_json(path: Path) -> dict[str, Any]:
 def payload() -> dict[str, Any]:
     review = load_json(LATEST_REVIEW)
     loop_state = load_json(LOOP_STATE)
-    stage = str(loop_state["current_stage"])
+    loop_stage = str(loop_state["current_stage"])
     review_stage = str(review.get("stage") or "")
+    review_loop_stage = str(review.get("loop_state_stage") or "")
+    display_stage = review_stage or loop_stage
     target = (
         str(review.get("review_target_commit") or "")
-        if review_stage == stage
+        if review_stage == loop_stage or review_loop_stage == loop_stage
         else "pending_review_target_commit_for_current_stage"
     )
     message = (
-        f"Codex dry-run 阶段 `{stage}` 已生成 repo-only 预览。"
+        f"Codex dry-run 阶段 `{display_stage}` 已生成 repo-only 预览。"
         f" review_target_commit: `{target}`。"
         " Computer Use 未执行；不会自动下单，最终交易由用户手动决定。"
     )
     return {
-        "stage": stage,
+        "stage": display_stage,
+        "loop_state_stage": loop_stage,
         "review_stage": review_stage,
         "review_target_commit": target,
         "mode": "repo_only_preview",

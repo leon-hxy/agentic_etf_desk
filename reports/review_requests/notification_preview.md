@@ -1,8 +1,8 @@
 # Notification Preview
 
-- Stage: `Stage 2D.1 read-only live preflight completed`
-- Review stage: `Stage 2D.1 read-only live preflight completed`
-- review_target_commit: `a60f314c39bf73274ffb6daff5ad902bf63b9293`
+- Stage: `Stage 2D.1.1 public live preflight minimization completed`
+- Review stage: `Stage 2D.1.1 public live preflight minimization completed`
+- review_target_commit: `9f06d6467fb0bb5194affa43d5230c4d1f8c057b`
 - Mode: `repo_only_preview`
 - Sent to Feishu: `false`
 - Computer Use executed: `false`
@@ -10,7 +10,7 @@
 
 ## Preview Message
 
-Codex dry-run 阶段 `Stage 2D.1 read-only live preflight completed` 已生成 repo-only 预览。 review_target_commit: `a60f314c39bf73274ffb6daff5ad902bf63b9293`。 Computer Use 未执行；不会自动下单，最终交易由用户手动决定。
+Codex dry-run 阶段 `Stage 2D.1.1 public live preflight minimization completed` 已生成 repo-only 预览。 review_target_commit: `9f06d6467fb0bb5194affa43d5230c4d1f8c057b`。 Computer Use 未执行；不会自动下单，最终交易由用户手动决定。
 
 ## Allowed User Replies
 
