@@ -1,5 +1,5 @@
 stage: Stage 3 data and backtest evidence
-status: stage3e_major_review_package_ready
+status: stage3f_major_gate_feishu_notification_sent
 stable_branch: main
 construction_branch: stage/stage3-data-backtest
 task_branch_prefix: task/
@@ -8,14 +8,15 @@ repo_only_planning_stage: false
 runner:
   file: ops/runners/stage3_runner_state.json
   status: major_stage_ready
-  current_minor_stage: Stage 3E
-  current_task: ops/tasks/stage3_major_review_package.md
+  current_minor_stage: Stage 3F
+  current_task: ops/tasks/stage3f_major_gate_feishu_notification_fix.md
   completed_minor_stages:
     - Stage 3A
     - Stage 3B
     - Stage 3C
     - Stage 3D
     - Stage 3E
+    - Stage 3F
   remaining_minor_stages: []
 review_governance:
   small_stage_review: codex_self_review

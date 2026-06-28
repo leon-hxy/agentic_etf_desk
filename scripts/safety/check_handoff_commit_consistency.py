@@ -38,8 +38,9 @@ PREVIOUS_STAGE_COMMITS = {
     "78b6e39" + "9b041dc988208261db4d3ec55f0c74749",
     "945dc00" + "2ed39ee64e36a7ad51714dd8d48fe0903",
     "3e90368" + "d332749f731177688f532f1127206845f",
+    "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 3E major_review_package_ready"
+EXPECTED_STAGE = "Stage 3F major_gate_feishu_notification_sent"
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
@@ -144,14 +145,16 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, STATUS_JSON, "review_target_commit mismatch")
     if relay_status.get("expected_commit") != target:
         add(findings, STATUS_JSON, "expected_commit mismatch")
-    if relay_status.get("relay_stage") != "stage3e_major_review_ready_manual_only":
+    if relay_status.get("relay_stage") != "stage3f_major_gate_feishu_notified_manual_review_ready":
         add(findings, STATUS_JSON, "relay_stage mismatch")
     if relay_status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
         add(findings, STATUS_JSON, "ChatGPT Computer Use auto review must be deprecated")
     if relay_status.get("sent_to_chatgpt") is not False:
-        add(findings, STATUS_JSON, "Stage 3E package must not send to ChatGPT")
+        add(findings, STATUS_JSON, "Stage 3F notification must not send to ChatGPT")
     if relay_status.get("computer_use_executed") is not False:
-        add(findings, STATUS_JSON, "Stage 3E package must not execute Computer Use")
+        add(findings, STATUS_JSON, "Stage 3F notification must not execute Computer Use")
+    if relay_status.get("feishu_message_sent") is not True:
+        add(findings, STATUS_JSON, "Stage 3F must record the live Feishu notification")
 
     for path in TEXT_TARGET_PATHS:
         content = read_text(root, path)

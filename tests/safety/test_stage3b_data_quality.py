@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3B data quality checks completed"
-GOVERNANCE_STAGE = "Stage 3E major_review_package_ready"
+GOVERNANCE_STAGE = "Stage 3F major_gate_feishu_notification_sent"
 
 
 def read(path: str) -> str:
@@ -91,18 +91,18 @@ class Stage3BDataQualityTest(unittest.TestCase):
         self.assertEqual(handoff["loop_state_stage"], GOVERNANCE_STAGE)
         self.assertEqual(loop_state["current_stage"], GOVERNANCE_STAGE)
         self.assertEqual(review["stage"], GOVERNANCE_STAGE)
-        self.assertEqual(loop_state["status"], "stage3e_major_review_package_ready")
+        self.assertEqual(loop_state["status"], "stage3f_major_gate_feishu_notification_sent")
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3b_task_status"], "completed_internal_review")
         self.assertIsNone(loop_state["stage3_next_task"])
         self.assertIsNone(loop_state["next_minor_task"])
-        self.assertEqual(loop_state["next_minor_task_status"], "major_review_ready")
+        self.assertEqual(loop_state["next_minor_task_status"], "manual_major_review_ready")
         self.assertEqual(
             loop_state["last_internal_review"],
             "reports/internal_reviews/stage3/stage3e_major_review_package.json",
         )
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
-        self.assertFalse(loop_state["current_stage_feishu_message_sent"])
+        self.assertTrue(loop_state["current_stage_feishu_message_sent"])
         self.assertFalse(loop_state["current_stage_chatgpt_review_requested"])
 
 

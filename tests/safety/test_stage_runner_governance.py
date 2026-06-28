@@ -47,14 +47,16 @@ class StageRunnerGovernanceTest(unittest.TestCase):
         self.assertEqual(state["major_stage"], "Stage 3")
         self.assertEqual(state["branch"], "stage/stage3-data-backtest")
         self.assertEqual(state["status"], "major_stage_ready")
-        self.assertEqual(state["current_minor_stage"], "Stage 3E")
-        self.assertEqual(state["current_task"], "ops/tasks/stage3_major_review_package.md")
-        self.assertEqual(state["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C", "Stage 3D", "Stage 3E"])
+        self.assertEqual(state["current_minor_stage"], "Stage 3F")
+        self.assertEqual(state["current_task"], "ops/tasks/stage3f_major_gate_feishu_notification_fix.md")
+        self.assertEqual(state["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C", "Stage 3D", "Stage 3E", "Stage 3F"])
         self.assertEqual(state["remaining_minor_stages"], [])
         self.assertEqual(
             state["last_pushed_commit"],
-            "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
+            "9c8ad5841bf30585575b78511e30e21b661f5774",
         )
+        self.assertTrue(state["feishu_notification_sent"])
+        self.assertEqual(state["feishu_notification_status"], "sent")
         self.assertTrue(state["major_review_required"])
         self.assertEqual(state["minor_review_route"], "codex_internal_review")
         self.assertEqual(state["major_review_route"], "manual_chatgpt_review")

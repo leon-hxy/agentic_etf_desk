@@ -1,15 +1,15 @@
 # Review Relay Status
 
-- Stage: `Stage 3E major_review_package_ready`
-- Expected commit: `4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f`
-- Review target commit: `4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f`
-- Relay stage: `stage3e_major_review_ready_manual_only`
-- Review gate required: `false`
-- ChatGPT prompt generated: `true`
+- Stage: `Stage 3F major_gate_feishu_notification_sent`
+- Relay stage: `stage3f_major_gate_feishu_notified_manual_review_ready`
+- Review route: `manual_chatgpt_review_for_major_stage`
+- Expected commit: `9c8ad5841bf30585575b78511e30e21b661f5774`
+- Feishu message sent: `true`
 - Sent to ChatGPT: `false`
 - Computer Use executed: `false`
-- Feishu message sent: `false`
-- Status reason: `stage3e_major_review_package_ready_manual_chatgpt_review`
+- Automatic ChatGPT prompt send allowed: `false`
+- Live notification report: `reports/live_notifications/stage3f_major_gate_feishu_notification.md`
 
-Stage 3E is ready for user-initiated manual ChatGPT major-stage review. This
-review route不会自动下单，最终交易由用户手动决定。
+The Feishu notification only tells the user that manual ChatGPT major-stage review is ready. Codex did not open ChatGPT or submit the review prompt.
+
+Final trading is manually decided by the user.

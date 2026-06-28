@@ -90,7 +90,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
         self.assertIn("id: stage3a_data_source", manifest)
         self.assertIn("status: completed", manifest)
         self.assertIn("id: stage3b_data_quality", manifest)
-        self.assertIn("status: stage3e_major_review_package_ready", manifest)
+        self.assertIn("status: stage3f_major_gate_feishu_notification_sent", manifest)
 
         loop_state = read_json("ops/state/loop_state.json")
         self.assertIn(
@@ -102,6 +102,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
                 "Stage 3C completed_internal_review",
                 "Stage 3D completed_internal_review",
                 "Stage 3E major_review_package_ready",
+                "Stage 3F major_gate_feishu_notification_sent",
             },
         )
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
@@ -116,7 +117,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
             },
         )
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
-        self.assertFalse(loop_state["current_stage_feishu_message_sent"])
+        self.assertTrue(loop_state["current_stage_feishu_message_sent"])
         self.assertFalse(loop_state["current_stage_chatgpt_review_requested"])
         self.assertFalse(loop_state["auto_trading_surface"])
         self.assertFalse(loop_state["broker_surface"])

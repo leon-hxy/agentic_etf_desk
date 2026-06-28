@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3E major_review_package_ready"
+STAGE = "Stage 3F major_gate_feishu_notification_sent"
 STAGE_BRANCH = "stage/stage3-data-backtest"
 
 
@@ -41,6 +41,7 @@ class BranchGovernanceTest(unittest.TestCase):
             "ops/tasks/stage3c_backtest_validation.md",
             "ops/tasks/stage3d_strategy_evidence_report.md",
             "ops/tasks/stage3_major_review_package.md",
+            "ops/tasks/stage3f_major_gate_feishu_notification_fix.md",
         ]
         for path in required_paths:
             self.assertTrue((ROOT / path).exists(), path)
@@ -59,6 +60,7 @@ class BranchGovernanceTest(unittest.TestCase):
             "stage3c_backtest_validation",
             "stage3d_strategy_evidence_report",
             "stage3e_major_review_package",
+            "stage3f_major_gate_feishu_notification_fix",
         ):
             self.assertIn(fragment, manifest)
 
@@ -124,7 +126,7 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertIn("major stages", major)
         self.assertIn("Do not use Computer Use to send review requests to ChatGPT", major)
 
-    def test_latest_state_records_stage3e_major_review_ready(self) -> None:
+    def test_latest_state_records_stage3f_major_gate_notification_sent(self) -> None:
         loop_state = read_json("ops/state/loop_state.json")
         handoff = read_json("reports/codex_handoff/latest.json")
         review = read_json("reports/review_requests/latest.json")
@@ -132,7 +134,7 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertEqual(loop_state["current_stage"], STAGE)
         self.assertEqual(handoff["stage"], STAGE)
         self.assertEqual(review["stage"], STAGE)
-        self.assertEqual(loop_state["status"], "stage3e_major_review_package_ready")
+        self.assertEqual(loop_state["status"], "stage3f_major_gate_feishu_notification_sent")
         self.assertEqual(loop_state["stage2f1_task_status"], "completed_repo_only_branch_governance_stage3_plan")
         self.assertEqual(loop_state["stage3_stage_branch"], STAGE_BRANCH)
         self.assertTrue(loop_state["stage3_business_code_started"])
@@ -141,9 +143,11 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertEqual(loop_state["stage3c_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3d_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3e_task_status"], "completed_internal_review")
+        self.assertEqual(loop_state["stage3f_task_status"], "completed_live_notification")
         self.assertIsNone(loop_state["stage3_next_task"])
         self.assertTrue(loop_state["major_review_required"])
         self.assertTrue(loop_state["manual_chatgpt_review_ready"])
+        self.assertTrue(loop_state["current_stage_feishu_message_sent"])
         self.assertEqual(loop_state["small_stage_review_route"], "codex_self_review")
         self.assertEqual(loop_state["major_stage_review_route"], "manual_chatgpt_review")
         self.assertTrue(loop_state["chatgpt_computer_use_auto_review_deprecated"])

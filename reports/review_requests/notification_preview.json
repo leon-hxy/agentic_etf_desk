@@ -1,15 +1,17 @@
 {
   "chatgpt_review_requested": false,
   "computer_use_executed": false,
+  "feishu_message_sent": true,
   "final_trading_notice": "Final trading is manually decided by the user.",
   "historical_computer_use_executed": true,
-  "loop_state_stage": "Stage 3E major_review_package_ready",
+  "live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
+  "loop_state_stage": "Stage 3F major_gate_feishu_notification_sent",
   "manual_chatgpt_review_ready": true,
-  "message": "Stage 3E major review package is ready; user may request manual ChatGPT major-stage review.",
-  "mode": "repo_only_preview",
-  "review_target_commit": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
+  "message": "Stage 3 major-gate Feishu notification was sent; user may request manual ChatGPT major-stage review.",
+  "mode": "live_feishu_notification_sent",
+  "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
   "sent_to_chatgpt": false,
-  "sent_to_feishu": false,
-  "stage": "Stage 3E major_review_package_ready",
-  "status_reason": "stage3e_major_review_package_ready_user_notification_required"
+  "sent_to_feishu": true,
+  "stage": "Stage 3F major_gate_feishu_notification_sent",
+  "status_reason": "stage3f_major_gate_feishu_notification_sent"
 }

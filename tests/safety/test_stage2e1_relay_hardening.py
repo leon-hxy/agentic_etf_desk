@@ -11,6 +11,7 @@ STAGE3B = "Stage 3B completed_internal_review"
 STAGE3C = "Stage 3C completed_internal_review"
 STAGE3D = "Stage 3D completed_internal_review"
 STAGE3E = "Stage 3E major_review_package_ready"
+STAGE3F = "Stage 3F major_gate_feishu_notification_sent"
 LOCAL_TARGET_CONFIG = "local_private/chatgpt_review_target.json"
 MAX_SHORT_PROMPT_CHARS = 900
 
@@ -30,7 +31,7 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
         prompt_md = read_text(ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.md")
         prompt = prompt_json["prompt"]
 
-        self.assertIn(latest["stage"], {STAGE, STAGE2F, STAGE3B, STAGE3C, STAGE3D, STAGE3E})
+        self.assertIn(latest["stage"], {STAGE, STAGE2F, STAGE3B, STAGE3C, STAGE3D, STAGE3E, STAGE3F})
         self.assertEqual(prompt_json["stage"], latest["stage"])
         self.assertEqual(prompt_md.strip(), prompt.strip())
         self.assertLessEqual(len(prompt), MAX_SHORT_PROMPT_CHARS)
@@ -70,8 +71,9 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
             "stage3c_internal_review_no_chatgpt",
             "stage3d_internal_review_no_chatgpt",
             "stage3e_major_review_ready_manual_only",
+            "stage3f_major_gate_feishu_notified_manual_review_ready",
         }:
-            self.assertIn(status["stage"], {STAGE2F, "Stage 3A data source plan completed", STAGE3B, STAGE3C, STAGE3D, STAGE3E})
+            self.assertIn(status["stage"], {STAGE2F, "Stage 3A data source plan completed", STAGE3B, STAGE3C, STAGE3D, STAGE3E, STAGE3F})
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
             self.assertEqual(status["major_review_route"], "manual_chatgpt_review_for_major_stage")
             self.assertFalse(status["computer_use_executed"])

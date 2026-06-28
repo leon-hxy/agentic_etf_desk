@@ -65,13 +65,19 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             "stage3c_internal_review_no_chatgpt",
             "stage3d_internal_review_no_chatgpt",
             "stage3e_major_review_ready_manual_only",
+            "stage3f_major_gate_feishu_notified_manual_review_ready",
         }:
             self.assertFalse(status["review_gate_required"])
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
             self.assertTrue(status["chatgpt_review_is_manual"])
-            if status["relay_stage"] == "stage3e_major_review_ready_manual_only":
+            if status["relay_stage"] in {
+                "stage3e_major_review_ready_manual_only",
+                "stage3f_major_gate_feishu_notified_manual_review_ready",
+            }:
                 self.assertEqual(status["review_route"], "manual_chatgpt_review_for_major_stage")
                 self.assertTrue(status["manual_chatgpt_review_ready"])
+                if status["relay_stage"] == "stage3f_major_gate_feishu_notified_manual_review_ready":
+                    self.assertTrue(status["feishu_message_sent"])
             else:
                 self.assertEqual(status["review_route"], "codex_self_review_for_small_stage")
             self.assertEqual(status["major_review_route"], "manual_chatgpt_review_for_major_stage")
@@ -88,6 +94,7 @@ class ReviewRelaySafetyTest(unittest.TestCase):
                     "stage3c_completed_internal_review_no_chatgpt_request",
                     "stage3d_completed_internal_review_no_chatgpt_request",
                     "stage3e_major_review_package_ready_manual_chatgpt_review",
+                    "stage3f_major_gate_feishu_notification_sent",
                 },
             )
             self.assertIn(
@@ -145,12 +152,12 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         latest_review = json.loads(
             (ROOT / "reports" / "review_requests" / "latest.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(notification["mode"], "repo_only_preview")
+        self.assertIn(notification["mode"], {"repo_only_preview", "live_feishu_notification_sent"})
         self.assertEqual(
             notification["review_target_commit"],
             latest_review["review_target_commit"],
         )
-        self.assertFalse(notification["sent_to_feishu"])
+        self.assertEqual(notification["sent_to_feishu"], notification["mode"] == "live_feishu_notification_sent")
         if latest_review["stage"].startswith("Stage 2E.0"):
             self.assertTrue(notification["computer_use_executed"])
         else:

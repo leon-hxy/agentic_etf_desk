@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3E major_review_package_ready"
+EXPECTED_STAGE = "Stage 3F major_gate_feishu_notification_sent"
 
 
 class NotificationLoopSafetyTest(unittest.TestCase):
@@ -62,7 +62,7 @@ class NotificationLoopSafetyTest(unittest.TestCase):
     def test_loop_state_declares_completed_stage_with_draft_layers(self) -> None:
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
         self.assertEqual(payload["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(payload["status"], "stage3e_major_review_package_ready")
+        self.assertEqual(payload["status"], "stage3f_major_gate_feishu_notification_sent")
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
@@ -91,9 +91,12 @@ class NotificationLoopSafetyTest(unittest.TestCase):
         self.assertIsNone(payload["next_task"])
         self.assertEqual(
             payload["next_task_status"],
-            "major_review_ready",
+            "manual_major_review_ready",
         )
-        self.assertEqual(payload["notification_layer"], "live_smoke_sent")
+        self.assertEqual(
+            payload["notification_layer"],
+            "stage3f_live_major_gate_notification_sent",
+        )
         self.assertEqual(payload["review_gate_layer"], "confirmed_local_private_gate")
         self.assertTrue(payload["feishu_message_sent"])
         self.assertTrue(payload["review_gate_written"])
@@ -105,7 +108,8 @@ class NotificationLoopSafetyTest(unittest.TestCase):
         self.assertFalse(payload["stage2f_computer_use_executed"])
         self.assertFalse(payload["stage2f1_computer_use_executed"])
         self.assertFalse(payload["current_stage_computer_use_executed"])
-        self.assertFalse(payload["current_stage_feishu_message_sent"])
+        self.assertTrue(payload["current_stage_feishu_message_sent"])
+        self.assertEqual(payload["current_stage_feishu_message_count"], 1)
         self.assertFalse(payload["current_stage_chatgpt_review_requested"])
         self.assertTrue(payload["chatgpt_computer_use_auto_review_deprecated"])
         self.assertTrue(payload["manual_chatgpt_review_mode"])
