@@ -22,8 +22,8 @@ Only after WP3 completes and generates `reports/major_reviews/stage3_1/latest.md
 
 ## Commit Metadata
 
-- `review_target_commit`: `86b6e608b31d71b96f394a0659246675e87bc39f`
-- `current_repo_head`: `86b6e608b31d71b96f394a0659246675e87bc39f`
+- `review_target_commit`: `f8b9967c01d563fa197b6aba734364eb68d356c7`
+- `current_repo_head`: `f8b9967c01d563fa197b6aba734364eb68d356c7`
 - `handoff_commit`: `null` until a later commit can point back to this handoff.
 
 ## Monthly Panel

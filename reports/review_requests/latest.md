@@ -5,7 +5,7 @@
 - ChatGPT review requested: `false`
 - Sent to ChatGPT: `false`
 - User notification sent: `false`
-- `review_target_commit`: `86b6e608b31d71b96f394a0659246675e87bc39f`
+- `review_target_commit`: `f8b9967c01d563fa197b6aba734364eb68d356c7`
 
 Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
