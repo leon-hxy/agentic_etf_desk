@@ -4,14 +4,19 @@
   "broker_surface": false,
   "changed_files": [
     "docs/implementation_plan.md",
-    "ops/state/loop_state.json",
-    "ops/stages/stage3.yaml",
+    "docs/review_governance.md",
+    "ops/stages/stage3_1.yaml",
+    "ops/runners/stage3_1_runner_state.json",
+    "configs/codex_automation/stage3_1_runner_prompt.md",
+    "reports/internal_reviews/stage3_1/wp_internal_review_template.md",
+    "reports/internal_reviews/stage3_1/wp_internal_review_template.json",
+    "reports/major_reviews/stage3_1/template.md",
+    "reports/major_reviews/stage3_1/template.json",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/latest.md",
     "reports/review_requests/latest.json",
-    "scripts/safety/check_handoff_commit_consistency.py",
-    "tests/safety/* closeout expectation updates"
+    "tests/safety/test_stage3_1_scope_consolidation.py"
   ],
   "chatgpt_computer_use_auto_review_deprecated": true,
   "chatgpt_review_requested": false,
@@ -19,7 +24,7 @@
   "computer_use_executed": false,
   "current_branch_head": "207f5957fa2cc6b5dadd6eb535f78139225b113d",
   "current_branch_head_role": "latest_stage3_branch_head_including_finalization_fixes",
-  "current_repo_head": "78b6e399b041dc988208261db4d3ec55f0c74749",
+  "current_repo_head": "d62f301ce7d6ca993fb29bc3a545104661b29ab4",
   "current_stage_real_config_modified": false,
   "data_boundary": {
     "not_investment_basis": true,
@@ -56,7 +61,7 @@
   "finalization_status": "completed",
   "formal_investment_evidence": false,
   "handoff_commit": null,
-  "handoff_generated_from_head": "78b6e399b041dc988208261db4d3ec55f0c74749",
+  "handoff_generated_from_head": "d62f301ce7d6ca993fb29bc3a545104661b29ab4",
   "hermes_modified": false,
   "include_finalization_fixes_as_context": true,
   "internal_review": "reports/internal_reviews/stage3/stage3e_major_review_package.json",
@@ -64,16 +69,16 @@
   "latest_branch_head": "207f5957fa2cc6b5dadd6eb535f78139225b113d",
   "latest_branch_head_role": "latest_stage3_branch_head_including_finalization_fixes",
   "live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
-  "loop_state_stage": "Stage 3 sample-data pipeline validation merged to main",
+  "loop_state_stage": "Stage 3.1 Real ETF Historical Data MVP scope consolidated",
   "major_review_package": "reports/major_reviews/stage3/latest.json",
   "major_stage_review_route": "manual_chatgpt_review",
   "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 9c8ad5841bf30585575b78511e30e21b661f5774. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Finalization fixes are Codex-internal context only; do not review Stage 3F or Stage 3F.1 separately. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。",
-  "manual_chatgpt_review_ready": true,
+  "manual_chatgpt_review_ready": false,
   "manual_execution_note": "Final trading is manually decided by the user.",
-  "manual_review_user_action": "Stage 3 major review is complete. User may approve starting Stage 3.1A on real ETF historical data integration.",
+  "manual_review_user_action": "User may approve starting Stage 3.1 WP1 real data ingestion and cache.",
   "next_minor_task": null,
   "next_minor_task_status": "manual_major_review_ready",
-  "next_recommended_stage": "Stage 3.1 real ETF historical data integration",
+  "next_recommended_stage": "Stage 3.1 WP1 real data ingestion and cache",
   "no_chatgpt_review_requested": true,
   "openclaw_modified": false,
   "previous_notifications_superseded": true,
@@ -91,9 +96,9 @@
     "tests/safety/test_stage3_final_metadata_cleanup.py"
   ],
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
-  "review_level": "major_stage",
-  "review_mode": "manual_chatgpt_major_stage_review_ready",
-  "review_target": "Stage 3 major review package",
+  "review_level": "scope_consolidation",
+  "review_mode": "codex_internal_governance_update",
+  "review_target": "Stage 3.1 scope consolidation",
   "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
   "review_target_commit_role": "stage3_major_package_review_target",
   "review_target_consistency_status": "passed",
@@ -106,7 +111,7 @@
   "services_restarted": false,
   "short_prompt": "Manual ChatGPT major-stage review is ready for Stage 3; Codex did not request or send it.",
   "small_stage_review_route": "codex_self_review",
-  "stage": "Stage 3 sample-data pipeline validation merged to main",
+  "stage": "Stage 3.1 Real ETF Historical Data MVP scope consolidated",
   "stage3_business_code_started": true,
   "stage3_conclusion_scope": "sample_data_pipeline_validation_only",
   "stage3_construction_branch": "stage/stage3-data-backtest",
@@ -126,34 +131,16 @@
   "stage3f_live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
   "stage3f_safety_results": "reports/live_notifications/stage3f_safety_results.json",
   "stage3f_task_status": "finalization_fix_internal_reviewed",
-  "tests": [
-    {
-      "command": "python3 -m unittest",
-      "result": "passed; 129 tests OK"
-    },
-    {
-      "command": "python3 scripts/safety/check_forbidden_surfaces.py",
-      "result": "passed; no findings"
-    },
-    {
-      "command": "python3 scripts/safety/check_secret_leaks.py",
-      "result": "passed; no findings"
-    },
-    {
-      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
-      "result": "passed; no findings; files_checked=294"
-    },
-    {
-      "command": "python3 scripts/safety/check_universe_only.py",
-      "result": "passed; no findings"
-    },
-    {
-      "command": "git diff --check",
-      "result": "passed; no whitespace errors"
-    }
-  ],
-  "updated_at": "2026-06-28T15:11:45Z",
-  "status": "stage3_sample_data_pipeline_validation_merged_to_main",
+  "tests": {
+    "python3 -m unittest": "pass",
+    "python3 scripts/safety/check_forbidden_surfaces.py": "pass",
+    "python3 scripts/safety/check_secret_leaks.py": "pass",
+    "python3 scripts/safety/check_public_repo_hygiene.py": "pass",
+    "python3 scripts/safety/check_universe_only.py": "pass",
+    "git diff --check": "pass"
+  },
+  "updated_at": "2026-06-28T15:48:31Z",
+  "status": "stage3_1_scope_consolidated",
   "stage3_closeout": true,
   "stage3_completed_as_sample_data_pipeline_validation_only": true,
   "production_backtest": false,
@@ -181,7 +168,40 @@
   "broker_surface_added_this_closeout": false,
   "order_code_added_this_closeout": false,
   "final_trading_notice": "Final trading is manually decided by the user.",
-  "handoff_commit_note": "The merge commit is created after this handoff update and is reported in the final Codex response.",
+  "handoff_commit_note": "The Stage 3.1 scope consolidation commit is created after this handoff update and is reported in the final Codex response.",
   "closeout_review_target": "Stage 3 closeout merge to main",
-  "manual_chatgpt_review_completed": true
+  "manual_chatgpt_review_completed": true,
+  "stage3_1_stage_name": "Real ETF Historical Data MVP",
+  "stage3_1_scope_consolidated": true,
+  "stage3_1_major_stage": true,
+  "stage3_1_user_visible_substages_allowed": false,
+  "stage3_1_branch": "stage/stage3.1-real-etf-data",
+  "stage3_1_manifest": "ops/stages/stage3_1.yaml",
+  "stage3_1_runner_state": "ops/runners/stage3_1_runner_state.json",
+  "stage3_1_runner_prompt": "configs/codex_automation/stage3_1_runner_prompt.md",
+  "stage3_1_work_packages": [
+    "WP1 real data ingestion and cache",
+    "WP2 real data quality and monthly panel",
+    "WP3 formal backtest and evidence package"
+  ],
+  "wp_review_route": "codex_internal_review",
+  "wp_chatgpt_review_requested": false,
+  "wp_user_notification": false,
+  "major_review_trigger": "after WP3 completes and reports/major_reviews/stage3_1/latest.md plus reports/major_reviews/stage3_1/latest.json exist",
+  "notify_user_before_wp3_major_package": false,
+  "notify_user_after_wp3_major_package": true,
+  "base_main_head": "d62f301ce7d6ca993fb29bc3a545104661b29ab4",
+  "computer_use_executed_this_stage": false,
+  "real_config_modified_this_stage": false,
+  "hermes_modified_this_stage": false,
+  "openclaw_modified_this_stage": false,
+  "feishu_gateway_modified_this_stage": false,
+  "services_restarted_this_stage": false,
+  "dependencies_installed_this_stage": false,
+  "broker_surface_added_this_stage": false,
+  "order_code_added_this_stage": false,
+  "auto_trading_surface_added_this_stage": false,
+  "major_review_required": false,
+  "tests_status": "pass",
+  "updated_after_verification": true
 }

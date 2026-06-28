@@ -1,0 +1,78 @@
+stage: Stage 3.1 Real ETF Historical Data MVP
+status: stage3_1_scope_consolidated
+stable_branch: main
+construction_branch: stage/stage3.1-real-etf-data
+stage_type: major_stage
+user_visible_substages_allowed: false
+business_code_started: false
+scope_consolidation_only: true
+description: Real ETF Historical Data MVP for read-only ETF data ingestion, monthly panel validation, formal backtesting, and evidence packaging.
+forbidden_user_visible_substages:
+  - Stage 3.1A
+  - Stage 3.1B
+  - Stage 3.1C
+  - Stage 3.1D
+  - Stage 3.1E
+  - Stage 3.1F
+work_packages:
+  - id: wp1_real_data_ingestion_and_cache
+    label: WP1 real data ingestion and cache
+    status: ready
+    user_visible_stage: false
+    review: codex_internal_review
+    chatgpt_review_requested: false
+    user_notification: false
+    scope:
+      - Define read-only public ETF historical data ingestion.
+      - Build local cache governance and provenance records.
+      - Keep credentialed, paid, broker, and write interfaces out of scope.
+  - id: wp2_real_data_quality_and_monthly_panel
+    label: WP2 real data quality and monthly panel
+    status: planned
+    depends_on: WP1 real data ingestion and cache completed_internal_review
+    user_visible_stage: false
+    review: codex_internal_review
+    chatgpt_review_requested: false
+    user_notification: false
+    scope:
+      - Validate ETF-only symbols against the universe.
+      - Build a reviewed monthly panel from real historical ETF data.
+      - Report missing data, stale prices, adjusted price coverage, and benchmark availability.
+  - id: wp3_formal_backtest_and_evidence_package
+    label: WP3 formal backtest and evidence package
+    status: planned
+    depends_on: WP2 real data quality and monthly panel completed_internal_review
+    user_visible_stage: false
+    review: codex_internal_review
+    chatgpt_review_requested: false
+    user_notification: false
+    scope:
+      - Run formal backtest validation on the reviewed real ETF monthly panel.
+      - Generate strategy evidence with benchmark comparisons and risk limitations.
+      - Generate the Stage 3.1 major review package at reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json.
+major_review_gate:
+  route: manual_chatgpt_review
+  trigger: only after WP3 completes and reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json exist
+  notify_user_via_feishu_after_wp3_package: true
+  notify_user_before_wp3_package: false
+  chatgpt_review_for_wp1_wp2_wp3: false
+  outputs:
+    - reports/major_reviews/stage3_1/latest.md
+    - reports/major_reviews/stage3_1/latest.json
+templates:
+  runner_state: ops/runners/stage3_1_runner_state.json
+  runner_prompt: configs/codex_automation/stage3_1_runner_prompt.md
+  internal_review_template_md: reports/internal_reviews/stage3_1/wp_internal_review_template.md
+  internal_review_template_json: reports/internal_reviews/stage3_1/wp_internal_review_template.json
+  major_review_template_md: reports/major_reviews/stage3_1/template.md
+  major_review_template_json: reports/major_reviews/stage3_1/template.json
+safety_boundaries:
+  asset_scope: ETF-only
+  forbidden_assets: individual stocks, options, futures, crypto assets, leveraged ETFs, inverse ETFs unless future explicit allowlist is added
+  final_trading: manually decided by the user
+  live_runtime_changes: require explicit user approval
+  computer_use: forbidden
+  broker_capability: forbidden
+  order_placement: forbidden
+  dependency_installation: forbidden without explicit user approval
+  real_hermes_openclaw_feishu_gateway_changes: forbidden without explicit user approval

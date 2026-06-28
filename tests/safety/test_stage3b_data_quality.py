@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3B data quality checks completed"
-GOVERNANCE_STAGE = "Stage 3 sample-data pipeline validation merged to main"
+GOVERNANCE_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
 
 
 def read(path: str) -> str:
@@ -91,12 +91,12 @@ class Stage3BDataQualityTest(unittest.TestCase):
         self.assertEqual(handoff["loop_state_stage"], GOVERNANCE_STAGE)
         self.assertEqual(loop_state["current_stage"], GOVERNANCE_STAGE)
         self.assertEqual(review["stage"], GOVERNANCE_STAGE)
-        self.assertEqual(loop_state["status"], "stage3_sample_data_pipeline_validation_merged_to_main")
+        self.assertEqual(loop_state["status"], "stage3_1_scope_consolidated")
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3b_task_status"], "completed_internal_review")
         self.assertIsNone(loop_state["stage3_next_task"])
         self.assertIsNone(loop_state["next_minor_task"])
-        self.assertEqual(loop_state["next_minor_task_status"], "manual_major_review_ready")
+        self.assertEqual(loop_state["next_minor_task_status"], "not_applicable_stage3_1_uses_work_packages")
         self.assertEqual(
             loop_state["last_internal_review"],
             "reports/internal_reviews/stage3/stage3_major_gate_finalization.json",

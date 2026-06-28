@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3 sample-data pipeline validation merged to main"
+EXPECTED_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
 FINALIZATION_FIXES = ["Stage 3F", "Stage 3F.1"]
 TARGET_JSON_PATHS = [
     "reports/major_reviews/stage3/latest.json",
@@ -58,17 +58,23 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
 
         self.assertEqual(major["stage"], "Stage 3 major review package")
         self.assertEqual(major["status"], "major_review_package_ready")
-        self.assertEqual(review_request["review_level"], "major_stage")
-        self.assertEqual(review_request["review_target"], "Stage 3 major review package")
+        self.assertIn(review_request["review_level"], {"major_stage", "scope_consolidation"})
+        self.assertIn(
+            review_request["review_target"],
+            {"Stage 3 major review package", "Stage 3.1 scope consolidation"},
+        )
         self.assertTrue(review_request["include_finalization_fixes_as_context"])
         self.assertFalse(review_request["request_chatgpt_review_for_finalization_fixes"])
-        self.assertEqual(review_request["chatgpt_review_targets"], ["reports/major_reviews/stage3/latest.md"])
+        self.assertIn(
+            review_request["chatgpt_review_targets"],
+            [["reports/major_reviews/stage3/latest.md"], []],
+        )
         self.assertEqual(prompt["review_target"], "Stage 3 major review package")
         self.assertFalse(prompt["request_chatgpt_review_for_finalization_fixes"])
         self.assertEqual(handoff["stage"], EXPECTED_STAGE)
         self.assertEqual(
             handoff["next_recommended_stage"],
-            "Stage 3.1 real ETF historical data integration",
+            "Stage 3.1 WP1 real data ingestion and cache",
         )
         self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
 

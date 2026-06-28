@@ -1,0 +1,59 @@
+{
+  "stage": "Stage 3.1 Real ETF Historical Data MVP",
+  "status": "scope_consolidated_ready_for_wp1",
+  "branch": "stage/stage3.1-real-etf-data",
+  "stable_branch": "main",
+  "stage_type": "major_stage",
+  "user_visible_substages_allowed": false,
+  "business_code_started": false,
+  "scope_consolidation_only": true,
+  "current_work_package": "WP1 real data ingestion and cache",
+  "completed_work_packages": [],
+  "work_packages": [
+    {
+      "id": "wp1_real_data_ingestion_and_cache",
+      "label": "WP1 real data ingestion and cache",
+      "status": "ready",
+      "review_route": "codex_internal_review",
+      "chatgpt_review_requested": false,
+      "user_notification": false
+    },
+    {
+      "id": "wp2_real_data_quality_and_monthly_panel",
+      "label": "WP2 real data quality and monthly panel",
+      "status": "planned",
+      "review_route": "codex_internal_review",
+      "chatgpt_review_requested": false,
+      "user_notification": false
+    },
+    {
+      "id": "wp3_formal_backtest_and_evidence_package",
+      "label": "WP3 formal backtest and evidence package",
+      "status": "planned",
+      "review_route": "codex_internal_review",
+      "chatgpt_review_requested": false,
+      "user_notification": false
+    }
+  ],
+  "major_review_route": "manual_chatgpt_review",
+  "major_review_package_required_after_wp3": true,
+  "major_review_package_md": "reports/major_reviews/stage3_1/latest.md",
+  "major_review_package_json": "reports/major_reviews/stage3_1/latest.json",
+  "notify_user_only_after_wp3_major_package": true,
+  "notify_user_before_wp3_major_package": false,
+  "chatgpt_review_for_work_packages_allowed": false,
+  "computer_use_allowed": false,
+  "computer_use_executed": false,
+  "real_config_changes_allowed": false,
+  "real_config_modified": false,
+  "hermes_modified": false,
+  "openclaw_modified": false,
+  "feishu_gateway_modified": false,
+  "services_restarted": false,
+  "dependencies_installed": false,
+  "broker_surface": false,
+  "broker_write_surface": false,
+  "auto_trading_surface": false,
+  "order_placement_surface": false,
+  "updated_at": "2026-06-28T16:00:00Z"
+}

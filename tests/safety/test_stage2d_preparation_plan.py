@@ -68,7 +68,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 3E major_review_package_ready",
                 "Stage 3F major_gate_feishu_notification_sent",
                 "Stage 3F.1 review_target_commit_consistency_fixed",
-                "Stage 3 sample-data pipeline validation merged to main",
+                "Stage 3.1 Real ETF Historical Data MVP scope consolidated",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -89,7 +89,8 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "ready",
                 "planned",
                 "major_review_ready",
-                "manual_major_review_ready",
+            "manual_major_review_ready",
+            "ready_after_user_approval",
             },
         )
         if payload["current_stage"] in {
@@ -108,7 +109,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3E major_review_package_ready",
             "Stage 3F major_gate_feishu_notification_sent",
             "Stage 3F.1 review_target_commit_consistency_fixed",
-            "Stage 3 sample-data pipeline validation merged to main",
+            "Stage 3.1 Real ETF Historical Data MVP scope consolidated",
         }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
@@ -143,7 +144,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3E major_review_package_ready",
             "Stage 3F major_gate_feishu_notification_sent",
             "Stage 3F.1 review_target_commit_consistency_fixed",
-            "Stage 3 sample-data pipeline validation merged to main",
+            "Stage 3.1 Real ETF Historical Data MVP scope consolidated",
         }:
             self.assertTrue(payload["computer_use_executed"])
             self.assertTrue(payload["computer_use_live_execution"])

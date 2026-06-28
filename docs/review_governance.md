@@ -121,6 +121,25 @@ The user decides whether and when to paste that prompt into ChatGPT.
 - Codex asks the user whether to request manual ChatGPT review only after major
   package finalization has passed.
 
+## Stage 3.1 Governance
+
+Stage 3.1 is one major stage: Real ETF Historical Data MVP. It must not be split
+into user-visible Stage 3.1A, Stage 3.1B, Stage 3.1C, Stage 3.1D, Stage 3.1E,
+or Stage 3.1F stages.
+
+Stage 3.1 has exactly three internal work packages:
+
+- WP1 real data ingestion and cache.
+- WP2 real data quality and monthly panel.
+- WP3 formal backtest and evidence package.
+
+WP1, WP2, and WP3 are Codex internal review only. Codex must not request ChatGPT
+review for those work packages and must not notify the user for routine work
+package completion. Only after WP3 completes and generates
+`reports/major_reviews/stage3_1/latest.md` and
+`reports/major_reviews/stage3_1/latest.json` may Codex notify the user through
+Feishu that the user can request manual ChatGPT major-stage review.
+
 ## Deprecated automatic route
 
 The old route attempted to use ChatGPT through Computer Use as a UI relay. That

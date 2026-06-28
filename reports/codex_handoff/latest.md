@@ -2,57 +2,52 @@
 
 ## Current Stage
 
-Stage 3 sample-data pipeline validation merged to main.
+Stage 3.1 Real ETF Historical Data MVP scope consolidated.
 
-## Closeout Scope
+## Scope
 
-- Stage 3 completed as sample-data pipeline validation only.
-- Stage 3 is not production backtest.
-- Stage 3 is not investment evidence.
-- Next stage is Stage 3.1 real ETF historical data integration and formal backtesting.
-- Stage 3.1 business code has not been started.
+Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
-## Merge Inputs
+It must not be split into user-visible Stage 3.1A, Stage 3.1B, Stage 3.1C,
+Stage 3.1D, Stage 3.1E, or Stage 3.1F stages.
 
-- Stable branch: `main`
-- Stage branch: `stage/stage3-data-backtest`
-- Pre-merge main head: `78b6e399b041dc988208261db4d3ec55f0c74749`
-- Merged Stage 3 head: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
-- `latest_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
-- `current_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
+## Internal Work Packages
+
+- WP1 real data ingestion and cache.
+- WP2 real data quality and monthly panel.
+- WP3 formal backtest and evidence package.
+
+WP1, WP2, and WP3 use Codex internal review only. Codex must not request
+ChatGPT review for WP1, WP2, or WP3. Codex must not notify the user for routine
+work package completion.
+
+Only after WP3 completes and both `reports/major_reviews/stage3_1/latest.md`
+and `reports/major_reviews/stage3_1/latest.json` exist may Codex notify the
+user through Feishu that the user can request manual ChatGPT major-stage review.
+
+## Artifacts
+
+- Stage manifest: `ops/stages/stage3_1.yaml`
+- Runner state: `ops/runners/stage3_1_runner_state.json`
+- Runner prompt: `configs/codex_automation/stage3_1_runner_prompt.md`
+- Internal review template: `reports/internal_reviews/stage3_1/wp_internal_review_template.md`
+- Internal review template JSON: `reports/internal_reviews/stage3_1/wp_internal_review_template.json`
+- Major review template: `reports/major_reviews/stage3_1/template.md`
+- Major review template JSON: `reports/major_reviews/stage3_1/template.json`
+
+## Base
+
+- Base branch: `main`
+- Base main head: `d62f301ce7d6ca993fb29bc3a545104661b29ab4`
+- Historical Stage 3 package `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`
+- Historical Stage 3 `latest_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
   includes finalization fixes.
-- Prior Stage 3 package `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`
-  is the Stage 3 major package audit target.
-- Merge method: `--no-ff` merge commit after closeout verification.
-- Merge commit: created after this handoff update; final SHA is reported in the Codex closeout response.
-
-## Review Outcome
-
-- Major review route: `manual_chatgpt_review`
-- Minor review route: `codex_internal_review`
-- Stage 3 ChatGPT major review result: passed with scope limitations.
-- Valid conclusion: sample-data pipeline validation only.
-- Invalid conclusions: production backtest, investment evidence, formal investment evidence, live trading readiness, or investment recommendation evidence.
-- Stage 3 is not formal investment evidence.
-- Sample data only; not investment basis.
-
-## Next Stage
-
-- Next major stage: `Stage 3.1 real ETF historical data integration`
-- Next branch: `stage/stage3.1-real-etf-data`
-- Stage 3.1A may start only after user approval.
-
-## Updated Files
-
-- `docs/implementation_plan.md`
-- `ops/state/loop_state.json`
-- `ops/stages/stage3.yaml`
-- `reports/codex_handoff/latest.md`
-- `reports/codex_handoff/latest.json`
-- `reports/review_requests/latest.md`
-- `reports/review_requests/latest.json`
-- `scripts/safety/check_handoff_commit_consistency.py`
-- Stage closeout consistency tests under `tests/safety/`
+- Historical Stage 3 `current_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
+  includes finalization fixes.
+- Historical Stage 3 package `review_target_commit` is the Stage 3 major package audit target.
+- Stage 3 closeout remains sample-data pipeline validation only, not formal investment evidence, and not investment basis.
+- Construction branch: `stage/stage3.1-real-etf-data`
+- WP1 business code started: false.
 
 ## Safety Checklist
 
@@ -62,7 +57,7 @@ Stage 3 sample-data pipeline validation merged to main.
 - Restarted Hermes/OpenClaw: false.
 - Installed dependencies: false.
 - Ran Computer Use: false.
-- Added broker connection: false.
+- Connected broker: false.
 - Added broker write access: false.
 - Added order placement code: false.
 - Added automatic trading surface: false.
@@ -70,9 +65,9 @@ Stage 3 sample-data pipeline validation merged to main.
 
 ## Tests
 
-- `python3 -m unittest`: passed; 129 tests OK.
-- `python3 scripts/safety/check_forbidden_surfaces.py`: passed; no findings.
-- `python3 scripts/safety/check_secret_leaks.py`: passed; no findings.
-- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings; files_checked=294.
-- `python3 scripts/safety/check_universe_only.py`: passed; no findings.
-- `git diff --check`: passed; no whitespace errors.
+- `python3 -m unittest`: pass.
+- `python3 scripts/safety/check_forbidden_surfaces.py`: pass.
+- `python3 scripts/safety/check_secret_leaks.py`: pass.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: pass.
+- `python3 scripts/safety/check_universe_only.py`: pass.
+- `git diff --check`: pass.

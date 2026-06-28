@@ -77,6 +77,22 @@ Stage 3 completed as sample-data pipeline validation only.
 - Stage 3 used sample data to validate repository pipeline wiring, safety boundaries, data-quality reporting, backtest validation plumbing, and strategy-evidence report generation.
 - The next stage is Stage 3.1 real ETF historical data integration and formal backtesting.
 
+### Stage 3.1 Scope
+
+Stage 3.1 is one major stage: Real ETF Historical Data MVP.
+
+Internal work packages:
+
+- WP1 real data ingestion and cache.
+- WP2 real data quality and monthly panel.
+- WP3 formal backtest and evidence package.
+
+WP1, WP2, and WP3 use Codex internal review only. Do not request ChatGPT review
+or notify the user for routine work package completion. Only after WP3 completes
+and generates `reports/major_reviews/stage3_1/latest.md` and
+`reports/major_reviews/stage3_1/latest.json` may Codex notify the user through
+Feishu that the user can request manual ChatGPT major-stage review.
+
 ## Phase 4: Backtest Engine
 
 Goal: create a local backtest engine for ETF strategy research.

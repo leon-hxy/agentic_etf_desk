@@ -1,0 +1,21 @@
+{
+  "stage": "Stage 3.1 Real ETF Historical Data MVP",
+  "template": "major_review_package",
+  "review_route": "manual_chatgpt_review",
+  "trigger": "after WP3 completes and reports/major_reviews/stage3_1/latest.md plus reports/major_reviews/stage3_1/latest.json exist",
+  "work_package_evidence": [
+    "WP1 real data ingestion and cache internal review",
+    "WP2 real data quality and monthly panel internal review",
+    "WP3 formal backtest and evidence package internal review"
+  ],
+  "chatgpt_review_for_wp1_wp2_wp3": false,
+  "user_notification_before_wp3_package": false,
+  "required_safety_statements": [
+    "ETF-only scope",
+    "No broker write access",
+    "No order placement",
+    "No automatic trading",
+    "No secrets in reports",
+    "Final trading is manually decided by the user"
+  ]
+}

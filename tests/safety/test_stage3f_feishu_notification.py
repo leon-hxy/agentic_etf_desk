@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3F major_gate_feishu_notification_sent"
-CURRENT_STAGE = "Stage 3 sample-data pipeline validation merged to main"
+CURRENT_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
 REVIEW_TARGET_COMMIT = "9c8ad5841bf30585575b78511e30e21b661f5774"
 
 
@@ -112,7 +112,7 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
         self.assertFalse(runner["requires_user_attention"])
 
         self.assertEqual(loop_state["current_stage"], CURRENT_STAGE)
-        self.assertEqual(loop_state["status"], "stage3_sample_data_pipeline_validation_merged_to_main")
+        self.assertEqual(loop_state["status"], "stage3_1_scope_consolidated")
         self.assertEqual(loop_state["stage3f_task_status"], "finalization_fix_internal_reviewed")
         self.assertEqual(loop_state["stage3f1_task_status"], "finalization_fix_internal_reviewed")
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])
@@ -126,7 +126,7 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
             self.assertEqual(payload["stage"], CURRENT_STAGE)
             self.assertEqual(payload["loop_state_stage"], CURRENT_STAGE)
             self.assertEqual(payload["review_target_commit"], REVIEW_TARGET_COMMIT)
-            self.assertTrue(payload["manual_chatgpt_review_ready"])
+            self.assertFalse(payload["manual_chatgpt_review_ready"])
             self.assertTrue(payload["feishu_message_sent"])
             self.assertFalse(payload["chatgpt_review_requested"])
             self.assertFalse(payload["sent_to_chatgpt"])

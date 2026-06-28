@@ -39,7 +39,7 @@ PREVIOUS_STAGE_COMMITS = {
     "3e90368" + "d332749f731177688f532f1127206845f",
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 3 sample-data pipeline validation merged to main"
+EXPECTED_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
 JSON_TARGET_PATHS = [
     "reports/major_reviews/stage3/latest.json",
     "reports/review_requests/latest.json",
