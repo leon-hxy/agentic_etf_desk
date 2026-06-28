@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
+STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
 
 
 def read(path: str) -> str:

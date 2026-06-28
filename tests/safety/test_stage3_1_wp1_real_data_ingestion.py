@@ -202,14 +202,15 @@ class Stage31Wp1RealDataIngestionTest(unittest.TestCase):
         self.assertFalse(payload["requires_secret"])
         self.assertFalse(payload["broker_surface"])
 
-    def test_latest_artifacts_are_wp1_internal_review_only(self) -> None:
+    def test_wp1_internal_review_remains_internal_after_latest_moves_to_wp2(self) -> None:
         handoff = json.loads((ROOT / "reports" / "codex_handoff" / "latest.json").read_text())
         review_request = json.loads((ROOT / "reports" / "review_requests" / "latest.json").read_text())
         latest_md = (ROOT / "reports" / "codex_handoff" / "latest.md").read_text()
 
-        self.assertEqual(handoff["review_target"], "Stage 3.1 WP1 real data ingestion and cache")
-        self.assertEqual(review_request["review_target"], "Stage 3.1 WP1 real data ingestion and cache")
-        self.assertEqual(handoff["current_work_package"], "WP1 real data ingestion and cache")
+        self.assertEqual(handoff["review_target"], "Stage 3.1 WP2 real data quality and monthly panel")
+        self.assertEqual(review_request["review_target"], "Stage 3.1 WP2 real data quality and monthly panel")
+        self.assertEqual(handoff["current_work_package"], "WP2 real data quality and monthly panel")
+        self.assertEqual(handoff["stage3_1_wp1_status"], "completed_internal_review")
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(review_request["chatgpt_review_requested"])
         self.assertFalse(handoff["sent_to_chatgpt"])

@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
+EXPECTED_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
 
 
 def read_json(path: str) -> dict:
@@ -32,7 +32,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(self.loop_state["status"], "stage3_1_wp1_completed_internal_review")
+        self.assertEqual(self.loop_state["status"], "stage3_1_wp2_completed_internal_review")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
         expected_commit = self.handoff["review_target_commit"]
@@ -49,12 +49,12 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotIn(self.loop_state["review_target_commit"], stale_commits)
-        self.assertIn("WP1", self.loop_state["commit_binding_note"])
+        self.assertIn("WP2", self.loop_state["commit_binding_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
         self.assertEqual(self.loop_state["last_review_request"], "reports/review_requests/latest.json")
-        self.assertEqual(self.loop_state["next_task"], "WP2 real data quality and monthly panel")
+        self.assertEqual(self.loop_state["next_task"], "WP3 formal backtest and evidence package")
         self.assertEqual(self.loop_state["next_task_status"], "ready")
         self.assertEqual(
             self.loop_state["stage2b_task"],

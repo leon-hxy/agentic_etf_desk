@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-Stage 3.1 WP1 real data ingestion and cache completed internal review.
+Stage 3.1 WP2 real data quality and monthly panel completed internal review.
 
 ## Scope
 
@@ -13,34 +13,36 @@ It must not be split into user-visible Stage 3.1A, Stage 3.1B, Stage 3.1C, Stage
 ## Work Package Result
 
 - WP1 real data ingestion and cache: `completed_internal_review`.
-- WP2 real data quality and monthly panel: `ready`.
-- WP3 formal backtest and evidence package: `planned`.
+- WP2 real data quality and monthly panel: `completed_internal_review`.
+- WP3 formal backtest and evidence package: `ready`.
 
-WP1 used Codex internal review only. No ChatGPT review was requested and no routine user notification was sent.
+WP2 used Codex internal review only. No ChatGPT review was requested and no routine user notification was sent.
 
 Only after WP3 completes and generates `reports/major_reviews/stage3_1/latest.md` and `reports/major_reviews/stage3_1/latest.json` may Codex notify the user through Feishu that the user can request manual ChatGPT major-stage review.
 
 ## Commit Metadata
 
-- `review_target_commit`: `83d70fcb5cba364b945affdb7e053d3bec0c51e1`
-- `current_repo_head`: `83d70fcb5cba364b945affdb7e053d3bec0c51e1`
+- `review_target_commit`: `86b6e608b31d71b96f394a0659246675e87bc39f`
+- `current_repo_head`: `86b6e608b31d71b96f394a0659246675e87bc39f`
 - `handoff_commit`: `null` until a later commit can point back to this handoff.
 
-## Real Data Cache
+## Monthly Panel
 
 - Source: `yahoo_chart_public`
 - Public source: `Yahoo Chart public JSON`
-- Raw file: `data/raw/prices_yahoo_chart.csv`
-- Cache manifest: `data/cache/yahoo_chart_public/cache_manifest.json`
-- Row count: `18810`
-- Symbols: `VTI, VEA, VWO, EWJ, BND, IEF, BIL, GLD, VNQ, DBC`
+- Monthly panel: `data/processed/stage3_1_monthly_panel.csv`
+- Data quality report: `reports/data_quality/stage3_1_wp2_data_quality_report.json`
+- Benchmark symbol: `VTI`
+- Month count: `90`
+- Monthly rows: `900`
+- Symbols: `BIL, BND, DBC, EWJ, GLD, IEF, VEA, VNQ, VTI, VWO`
 
 ## Artifacts
 
 - Stage manifest: `ops/stages/stage3_1.yaml`
 - Runner state: `ops/runners/stage3_1_runner_state.json`
 - Runner prompt: `configs/codex_automation/stage3_1_runner_prompt.md`
-- Internal review: `reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.json`
+- Internal review: `reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json`
 
 ## Safety Checklist
 

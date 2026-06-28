@@ -39,16 +39,16 @@ PREVIOUS_STAGE_COMMITS = {
     "3e90368" + "d332749f731177688f532f1127206845f",
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
+EXPECTED_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
-    "reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.json",
+    "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json",
 ]
 TEXT_TARGET_PATHS = [
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
-    "reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.md",
+    "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.md",
 ]
 
 

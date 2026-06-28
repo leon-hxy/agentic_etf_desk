@@ -76,7 +76,7 @@ class Stage3FinalMetadataCleanupTest(unittest.TestCase):
         handoff = read_json("reports/codex_handoff/latest.json")
         self.assertEqual(
             handoff["stage"],
-            "Stage 3.1 WP1 real data ingestion and cache completed_internal_review",
+            "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review",
         )
         self.assertTrue(handoff["data_boundary"]["real_data_used"])
         self.assertFalse(handoff["data_boundary"]["sample_data_only"])

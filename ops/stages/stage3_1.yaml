@@ -1,5 +1,5 @@
 stage: Stage 3.1 Real ETF Historical Data MVP
-status: stage3_1_wp1_completed_internal_review
+status: stage3_1_wp2_completed_internal_review
 stable_branch: main
 construction_branch: stage/stage3.1-real-etf-data
 stage_type: major_stage
@@ -29,19 +29,20 @@ work_packages:
       - Keep credentialed, paid, broker, and write interfaces out of scope.
   - id: wp2_real_data_quality_and_monthly_panel
     label: WP2 real data quality and monthly panel
-    status: ready
+    status: completed_internal_review
     depends_on: WP1 real data ingestion and cache completed_internal_review
     user_visible_stage: false
     review: codex_internal_review
     chatgpt_review_requested: false
     user_notification: false
+    internal_review: reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json
     scope:
       - Validate ETF-only symbols against the universe.
       - Build a reviewed monthly panel from real historical ETF data.
       - Report missing data, stale prices, adjusted price coverage, and benchmark availability.
   - id: wp3_formal_backtest_and_evidence_package
     label: WP3 formal backtest and evidence package
-    status: planned
+    status: ready
     depends_on: WP2 real data quality and monthly panel completed_internal_review
     user_visible_stage: false
     review: codex_internal_review

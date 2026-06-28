@@ -6,11 +6,12 @@
   "business_code_started": true,
   "chatgpt_review_for_work_packages_allowed": false,
   "completed_work_packages": [
-    "wp1_real_data_ingestion_and_cache"
+    "wp1_real_data_ingestion_and_cache",
+    "wp2_real_data_quality_and_monthly_panel"
   ],
   "computer_use_allowed": false,
   "computer_use_executed": false,
-  "current_work_package": "WP2 real data quality and monthly panel",
+  "current_work_package": "WP3 formal backtest and evidence package",
   "dependencies_installed": false,
   "feishu_gateway_modified": false,
   "hermes_modified": false,
@@ -29,8 +30,8 @@
   "stable_branch": "main",
   "stage": "Stage 3.1 Real ETF Historical Data MVP",
   "stage_type": "major_stage",
-  "status": "wp1_completed_internal_review_ready_for_wp2",
-  "updated_at": "2026-06-28T16:45:32.916964+00:00",
+  "status": "wp2_completed_internal_review_ready_for_wp3",
+  "updated_at": "2026-06-28T16:52:40.533283+00:00",
   "user_visible_substages_allowed": false,
   "work_packages": [
     {
@@ -45,9 +46,10 @@
     {
       "chatgpt_review_requested": false,
       "id": "wp2_real_data_quality_and_monthly_panel",
+      "internal_review": "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json",
       "label": "WP2 real data quality and monthly panel",
       "review_route": "codex_internal_review",
-      "status": "ready",
+      "status": "completed_internal_review",
       "user_notification": false
     },
     {
@@ -55,7 +57,7 @@
       "id": "wp3_formal_backtest_and_evidence_package",
       "label": "WP3 formal backtest and evidence package",
       "review_route": "codex_internal_review",
-      "status": "planned",
+      "status": "ready",
       "user_notification": false
     }
   ]

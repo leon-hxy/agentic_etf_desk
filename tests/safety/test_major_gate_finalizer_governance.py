@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
+EXPECTED_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
 FINALIZATION_FIXES = ["Stage 3F", "Stage 3F.1"]
 TARGET_JSON_PATHS = [
     "reports/major_reviews/stage3/latest.json",
@@ -64,6 +64,7 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
                 "Stage 3 major review package",
                 "Stage 3.1 scope consolidation",
                 "Stage 3.1 WP1 real data ingestion and cache",
+                "Stage 3.1 WP2 real data quality and monthly panel",
             },
         )
         self.assertTrue(review_request.get("include_finalization_fixes_as_context", True))
@@ -77,7 +78,7 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
         self.assertEqual(handoff["stage"], EXPECTED_STAGE)
         self.assertEqual(
             handoff["next_recommended_stage"],
-            "Stage 3.1 WP2 real data quality and monthly panel",
+            "Stage 3.1 WP3 formal backtest and evidence package",
         )
         self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
 

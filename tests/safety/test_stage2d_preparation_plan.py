@@ -68,7 +68,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 3E major_review_package_ready",
                 "Stage 3F major_gate_feishu_notification_sent",
                 "Stage 3F.1 review_target_commit_consistency_fixed",
-                "Stage 3.1 WP1 real data ingestion and cache completed_internal_review",
+                "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -109,7 +109,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3E major_review_package_ready",
             "Stage 3F major_gate_feishu_notification_sent",
             "Stage 3F.1 review_target_commit_consistency_fixed",
-            "Stage 3.1 WP1 real data ingestion and cache completed_internal_review",
+            "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review",
         }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
@@ -144,7 +144,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3E major_review_package_ready",
             "Stage 3F major_gate_feishu_notification_sent",
             "Stage 3F.1 review_target_commit_consistency_fixed",
-            "Stage 3.1 WP1 real data ingestion and cache completed_internal_review",
+            "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review",
         }:
             self.assertTrue(payload["computer_use_executed"])
             self.assertTrue(payload["computer_use_live_execution"])

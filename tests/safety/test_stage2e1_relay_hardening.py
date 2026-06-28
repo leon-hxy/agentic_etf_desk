@@ -14,7 +14,7 @@ STAGE3E = "Stage 3E major_review_package_ready"
 STAGE3F = "Stage 3F major_gate_feishu_notification_sent"
 STAGE3F1 = "Stage 3F.1 review_target_commit_consistency_fixed"
 STAGE3_CLOSEOUT = "Stage 3 sample-data pipeline validation merged to main"
-STAGE3_READY = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
+STAGE3_READY = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
 LOCAL_TARGET_CONFIG = "local_private/chatgpt_review_target.json"
 MAX_SHORT_PROMPT_CHARS = 900
 

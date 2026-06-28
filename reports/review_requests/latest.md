@@ -1,13 +1,11 @@
-# Stage 3.1 WP1 Internal Review Request
+# Stage 3.1 WP2 Internal Review Request
 
-- Review target: `Stage 3.1 WP1 real data ingestion and cache`
+- Review target: `Stage 3.1 WP2 real data quality and monthly panel`
 - Review route: `codex_internal_review`
 - ChatGPT review requested: `false`
 - Sent to ChatGPT: `false`
 - User notification sent: `false`
-- `review_target_commit`: `83d70fcb5cba364b945affdb7e053d3bec0c51e1`
-
-This latest artifact supersedes the older Stage 3 manual ChatGPT review prompt as the current review target.
+- `review_target_commit`: `86b6e608b31d71b96f394a0659246675e87bc39f`
 
 Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
@@ -21,10 +19,10 @@ Only after WP3 completes and generates `reports/major_reviews/stage3_1/latest.md
 
 ## Files
 
-- `reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.json`
-- `data/raw/prices_yahoo_chart_metadata.json`
-- `data/cache/yahoo_chart_public/cache_manifest.json`
-- `scripts/data/download_prices.py`
-- `tests/safety/test_stage3_1_wp1_real_data_ingestion.py`
+- `reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json`
+- `data/processed/stage3_1_monthly_panel.csv`
+- `reports/data_quality/stage3_1_wp2_data_quality_report.json`
+- `scripts/data/build_stage3_1_monthly_panel.py`
+- `tests/safety/test_stage3_1_wp2_real_data_quality.py`
 
 Final trading is manually decided by the user.
