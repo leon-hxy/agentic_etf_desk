@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 2F review governance refactor completed"
+STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
 
 
 def read(path: str) -> str:
@@ -80,6 +80,10 @@ class Stage2FReviewGovernanceTest(unittest.TestCase):
         self.assertEqual(relay_status["stage"], STAGE)
         self.assertEqual(loop_state["review_governance_mode"], "small_stage_codex_self_review_major_stage_chatgpt_manual")
         self.assertEqual(loop_state["stage2f_task_status"], "completed_repo_only_review_governance_refactor")
+        self.assertEqual(
+            loop_state["stage2f1_task_status"],
+            "completed_repo_only_branch_governance_stage3_plan",
+        )
         self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
         self.assertFalse(relay_status["computer_use_executed"])
         self.assertFalse(relay_status["sent_to_chatgpt"])

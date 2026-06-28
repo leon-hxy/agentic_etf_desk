@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 2F review governance refactor completed"
+EXPECTED_STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -30,6 +30,8 @@ PREVIOUS_STAGE_COMMITS = {
     "9ac1dd8" + "b96fe98bae4bd676966293f03e0908047",
     "5a5d68e" + "2e34c6203ee2ab784dbbe3fa9a1cf1a6d",
     "f7fa73b" + "79ab1e3886c69bfd6ca5874a662acbb75",
+    "2006d60" + "f237a9b47f34236fd7dd299e9bbdb4f86",
+    "2371423" + "0ebda5bbaa16c27fac9efdf8d76663911",
 }
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
@@ -107,7 +109,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
 
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertIn("stage2f", subject.stdout.lower())
+        self.assertIn("stage2f.1", subject.stdout.lower())
         self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_recorded_current_head_is_valid_git_commit(self) -> None:
@@ -127,7 +129,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         relay_status = read_json("reports/review_requests/relay_status.json")
         self.assertEqual(relay_status["review_target_commit"], target)
         self.assertEqual(relay_status["expected_commit"], target)
-        self.assertEqual(relay_status["relay_stage"], "stage2f_review_governance_manual_only")
+        self.assertEqual(relay_status["relay_stage"], "stage2f1_branch_governance_manual_only")
         self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
 
     def test_human_readable_artifacts_include_review_target(self) -> None:

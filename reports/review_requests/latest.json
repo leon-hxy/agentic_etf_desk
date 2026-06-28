@@ -1,61 +1,51 @@
 {
-  "stage": "Stage 2F review governance refactor completed",
-  "loop_state_stage": "Stage 2F review governance refactor completed",
+  "stage": "Stage 2F.1 branch governance and Stage 3 task plan completed",
+  "loop_state_stage": "Stage 2F.1 branch governance and Stage 3 task plan completed",
   "review_level": "small_stage",
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
   "small_stage_review_route": "codex_self_review",
   "major_stage_review_route": "manual_chatgpt_review",
   "chatgpt_computer_use_auto_review_deprecated": true,
-  "review_target_commit": "2006d60f237a9b47f34236fd7dd299e9bbdb4f86",
+  "stage3_stable_branch": "main",
+  "stage3_construction_branch": "stage/stage3-data-backtest",
+  "stage3_business_code_started": false,
+  "review_target_commit": "REVIEW_TARGET_COMMIT_PENDING_STAGE2F1",
   "handoff_commit": null,
-  "handoff_generated_from_head": "2006d60f237a9b47f34236fd7dd299e9bbdb4f86",
-  "current_repo_head": "2006d60f237a9b47f34236fd7dd299e9bbdb4f86",
-  "commit_binding_note": "review_target_commit is the Stage 2F business commit to review after it is created; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
+  "handoff_generated_from_head": "23714230ebda5bbaa16c27fac9efdf8d76663911",
+  "current_repo_head": "23714230ebda5bbaa16c27fac9efdf8d76663911",
+  "commit_binding_note": "review_target_commit is the commit to review; handoff may be committed later and therefore cannot self-reference its own final SHA in the same commit.",
   "review_files": [
     "reports/review_requests/latest.md",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
-    "docs/review_governance.md",
-    "ops/tasks/stage2f_review_governance.md",
-    "ops/templates/internal_codex_self_review_template.md",
-    "ops/templates/major_chatgpt_review_template.md",
-    "ops/templates/review_governance_task_template.md",
-    "configs/codex_automation/review_governance_prompt.md",
-    "configs/codex_automation/chatgpt_review_relay_prompt.md",
-    "ops/notifications/feishu_message_templates.md",
-    "reports/review_requests/chatgpt_review_prompt.md",
-    "reports/review_requests/chatgpt_review_prompt.json",
-    "reports/review_requests/relay_status.md",
-    "reports/review_requests/relay_status.json",
-    "ops/state/loop_state.json",
-    "scripts/review_relay/relay_common.py",
-    "tests/safety/test_stage2f_review_governance.py",
-    "tests/safety/test_review_relay_safety.py",
-    "tests/safety/test_handoff_commit_consistency.py",
-    "tests/safety/test_loop_state_consistency.py",
-    "tests/safety/test_notification_loop_safety.py"
+    "docs/branching_policy.md",
+    "ops/stages/stage3.yaml",
+    "ops/tasks/stage3a_data_source.md",
+    "ops/tasks/stage3b_data_quality.md",
+    "ops/tasks/stage3c_backtest_validation.md",
+    "ops/tasks/stage3d_strategy_evidence_report.md",
+    "ops/tasks/stage3_major_review_package.md",
+    "reports/internal_reviews/README.md",
+    "reports/major_reviews/README.md",
+    "tests/safety/test_branch_governance.py"
   ],
   "changed_files": [
+    "docs/branching_policy.md",
     "docs/review_governance.md",
-    "docs/chatgpt_review_relay_design.md",
-    "docs/loop_protocol.md",
-    "ops/tasks/stage2f_review_governance.md",
-    "ops/templates/internal_codex_self_review_template.md",
-    "ops/templates/major_chatgpt_review_template.md",
-    "ops/templates/review_governance_task_template.md",
+    "ops/stages/stage3.yaml",
+    "ops/tasks/stage3a_data_source.md",
+    "ops/tasks/stage3b_data_quality.md",
+    "ops/tasks/stage3c_backtest_validation.md",
+    "ops/tasks/stage3d_strategy_evidence_report.md",
+    "ops/tasks/stage3_major_review_package.md",
+    "reports/internal_reviews/README.md",
+    "reports/major_reviews/README.md",
     "configs/codex_automation/review_governance_prompt.md",
     "configs/codex_automation/chatgpt_review_relay_prompt.md",
-    "ops/notifications/feishu_message_templates.md",
     "scripts/review_relay/relay_common.py",
-    "tests/safety/test_stage2f_review_governance.py",
-    "tests/safety/test_review_relay_safety.py",
-    "tests/safety/test_handoff_commit_consistency.py",
-    "tests/safety/test_loop_state_consistency.py",
-    "tests/safety/test_notification_loop_safety.py",
-    "tests/safety/test_loop_automation_dry_run.py",
-    "tests/safety/test_stage2d_preparation_plan.py",
-    "tests/safety/test_stage2e1_relay_hardening.py",
+    "scripts/safety/check_handoff_commit_consistency.py",
+    "scripts/safety/check_review_relay_safety.py",
     "ops/state/loop_state.json",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json",
@@ -67,36 +57,34 @@
     "reports/review_requests/notification_preview.md",
     "reports/review_requests/notification_preview.json",
     "reports/review_requests/relay_status.md",
-    "reports/review_requests/relay_status.json"
+    "reports/review_requests/relay_status.json",
+    "tests/safety/test_branch_governance.py",
+    "tests/safety/test_stage2f_review_governance.py",
+    "tests/safety/test_handoff_commit_consistency.py",
+    "tests/safety/test_loop_state_consistency.py",
+    "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_loop_automation_dry_run.py",
+    "tests/safety/test_stage2d_preparation_plan.py",
+    "tests/safety/test_stage2e0_relay_smoke.py",
+    "tests/safety/test_stage2e1_relay_hardening.py",
+    "tests/safety/test_review_relay_safety.py"
   ],
   "tests": [
     {
-      "command": "python3 -m unittest tests.safety.test_stage2f_review_governance tests.safety.test_review_relay_safety",
-      "result": "passed; Stage 2F governance and review safety tests"
+      "command": "python3 -m unittest tests.safety.test_branch_governance",
+      "result": "pending after Stage 2F.1 implementation"
     },
     {
-      "command": "python3 scripts/safety/check_review_relay_safety.py",
-      "result": "passed; no review governance safety findings"
-    },
-    {
-      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
-      "result": "passed; no local path or secret findings"
-    },
-    {
-      "command": "python3 scripts/safety/check_handoff_commit_consistency.py",
-      "result": "passed; review_target_commit binds to Stage 2F business commit"
-    },
-    {
-      "command": "python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.safety.test_stage2f_review_governance tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke",
-      "result": "passed; 91 tests OK"
+      "command": "python3 -m unittest full safety/smoke suite",
+      "result": "pending after review_target_commit is bound to the Stage 2F.1 business commit"
     },
     {
       "command": "git diff --check",
-      "result": "passed; no whitespace errors"
+      "result": "pending"
     }
   ],
-  "risk_statement": "Stage 2F is repo-only review governance refactor. It deprecates the ChatGPT Computer Use automatic review route and replaces it with small-stage Codex self-review plus manual, user-initiated major-stage ChatGPT review. It does not run Computer Use, does not send ChatGPT prompts, does not modify real Hermes/OpenClaw/Feishu gateway, does not restart services, does not install dependencies, does not touch secrets, and adds no broker or auto-trading surface.",
-  "short_prompt": "Manual major-stage ChatGPT review only: review public GitHub repo https://github.com/leon-hxy/agentic_etf_desk at review_target_commit 2006d60f237a9b47f34236fd7dd299e9bbdb4f86; read reports/review_requests/latest.md, reports/review_requests/latest.json, reports/codex_handoff/latest.md, reports/codex_handoff/latest.json.",
+  "risk_statement": "Stage 2F.1 is repo-only branch governance and Stage 3 task planning. It does not start Stage 3 business code, does not modify real Hermes/OpenClaw/Feishu gateway, does not restart services, does not install dependencies, does not run Computer Use, does not touch secrets, and adds no broker or automatic trading surface.",
+  "short_prompt": "Manual major-stage ChatGPT review only: review public GitHub repo https://github.com/leon-hxy/agentic_etf_desk at review_target_commit REVIEW_TARGET_COMMIT_PENDING_STAGE2F1; read reports/review_requests/latest.md, reports/review_requests/latest.json, reports/codex_handoff/latest.md, reports/codex_handoff/latest.json.",
   "computer_use_executed": false,
   "sent_to_chatgpt": false,
   "auto_trading_surface": false,
@@ -110,7 +98,7 @@
   "secrets_touched": false,
   "secret_values_written": false,
   "feishu_message_sent": false,
-  "next_recommended_stage": "Use Codex self-review for small stages; request user-initiated ChatGPT review only for major stages.",
+  "next_recommended_stage": "Stage 3A on stage/stage3-data-backtest",
   "requires_user_approval": [
     "Any live Computer Use action",
     "Any user-initiated major-stage ChatGPT review outside repo materials",
@@ -122,6 +110,7 @@
     "Any broker integration or trading execution surface"
   ],
   "forbidden_to_continue_automatically": [
+    "Starting Stage 3 business code on main",
     "Running ChatGPT Computer Use automatic review",
     "Opening ChatGPT automatically",
     "Sending ChatGPT prompts automatically",
@@ -131,7 +120,6 @@
     "Installing dependencies",
     "Sending secrets, local paths, tokens, auth values, Feishu credentials, provider keys, or broker credentials",
     "Accessing broker, email, GitHub admin, or Feishu admin pages",
-    "Creating execution, order, broker, auto-trading, or live-trading agents",
     "Adding automatic order placement code or broker write access"
   ]
 }

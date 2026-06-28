@@ -56,7 +56,10 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         self.assertTrue(status["chatgpt_prompt_generated"])
         self.assertTrue(status["manual_fallback_available"])
 
-        if status["relay_stage"] == "stage2f_review_governance_manual_only":
+        if status["relay_stage"] in {
+            "stage2f_review_governance_manual_only",
+            "stage2f1_branch_governance_manual_only",
+        }:
             self.assertFalse(status["review_gate_required"])
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
             self.assertTrue(status["chatgpt_review_is_manual"])

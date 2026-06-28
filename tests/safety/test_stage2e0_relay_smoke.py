@@ -71,6 +71,7 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                 {
                     "stage2e1_relay_hardening_repo_only",
                     "stage2f_review_governance_manual_only",
+                    "stage2f1_branch_governance_manual_only",
                 },
             )
             self.assertFalse(status["computer_use_executed"])

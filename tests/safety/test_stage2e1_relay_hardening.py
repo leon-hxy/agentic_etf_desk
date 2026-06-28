@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 2E.1 ChatGPT relay target and input delivery hardened"
-STAGE2F = "Stage 2F review governance refactor completed"
+STAGE2F = "Stage 2F.1 branch governance and Stage 3 task plan completed"
 LOCAL_TARGET_CONFIG = "local_private/chatgpt_review_target.json"
 MAX_SHORT_PROMPT_CHARS = 900
 
@@ -58,7 +58,7 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
 
     def test_relay_status_declares_target_modes_and_input_contract(self) -> None:
         status = read_json(ROOT / "reports" / "review_requests" / "relay_status.json")
-        if status["relay_stage"] == "stage2f_review_governance_manual_only":
+        if status["relay_stage"] == "stage2f1_branch_governance_manual_only":
             self.assertEqual(status["stage"], STAGE2F)
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
             self.assertEqual(status["major_review_route"], "manual_chatgpt_review_for_major_stage")

@@ -8,7 +8,7 @@
   "chatgpt_review_started": false,
   "codex_self_review_required_for_small_stage": true,
   "computer_use_executed": false,
-  "expected_commit": "2006d60f237a9b47f34236fd7dd299e9bbdb4f86",
+  "expected_commit": "REVIEW_TARGET_COMMIT_PENDING_STAGE2F1",
   "expected_repo": "leon-hxy/agentic_etf_desk",
   "failure_policy": "manual_review_required_for_major_stage",
   "input_delivery_contract": {
@@ -16,7 +16,7 @@
     "max_prompt_chars": 900,
     "pre_send_safety_check_required": true,
     "pre_send_safety_check_status": "pass",
-    "prompt_chars": 481,
+    "prompt_chars": 478,
     "prompt_entry_method": "user_manual_copy_only",
     "prompt_kind": "manual_major_review_prompt",
     "prompt_split_check_required": true,
@@ -30,17 +30,17 @@
   "prompt_safety_check": {
     "findings": [],
     "max_prompt_chars": 900,
-    "prompt_chars": 481,
+    "prompt_chars": 478,
     "status": "pass"
   },
-  "relay_stage": "stage2f_review_governance_manual_only",
+  "relay_stage": "stage2f1_branch_governance_manual_only",
   "review_gate_required": false,
   "review_gate_seen": false,
   "review_gate_valid": false,
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
   "review_route": "codex_self_review_for_small_stage",
-  "review_target_commit": "2006d60f237a9b47f34236fd7dd299e9bbdb4f86",
+  "review_target_commit": "REVIEW_TARGET_COMMIT_PENDING_STAGE2F1",
   "sent_to_chatgpt": false,
-  "stage": "Stage 2F review governance refactor completed",
+  "stage": "Stage 2F.1 branch governance and Stage 3 task plan completed",
   "status_reason": "chatgpt_computer_use_auto_review_deprecated"
 }

@@ -3,6 +3,10 @@
 Stage 2F replaces the previous ChatGPT Computer Use relay idea with a simpler
 review governance model.
 
+Stage 2F.1 adds branch governance for Stage 3. `main` remains the stable branch
+for major-stage reviewed states, `stage/*` branches hold major-stage
+construction, and optional `task/*` branches hold isolated small-stage work.
+
 ## Decision
 
 ChatGPT Computer Use automatic review route is deprecated.
@@ -50,6 +54,17 @@ Major-stage ChatGPT review is manual. Codex prepares:
 - A concise major-review prompt.
 
 The user decides whether and when to paste that prompt into ChatGPT.
+
+## Branch governance
+
+- `main` is stable and should only carry major-stage reviewed states plus narrow
+  repo-only governance or handoff fixes.
+- `stage/*` branches are major-stage construction branches.
+- `task/*` branches are optional small-stage construction branches.
+- Stage 3 construction branch: `stage/stage3-data-backtest`.
+- Stage 3A through Stage 3D use Codex self-review.
+- Stage 3E creates the major-stage review package and asks the user whether to
+  request manual ChatGPT review.
 
 ## Deprecated automatic route
 

@@ -1,6 +1,7 @@
 # Deprecated ChatGPT Review Relay Prompt Draft
 
-Status: deprecated by Stage 2F.
+Status: deprecated by Stage 2F and kept deprecated by Stage 2F.1 branch
+governance.
 
 ChatGPT Computer Use automatic review route is deprecated.
 
@@ -23,5 +24,8 @@ Major-stage ChatGPT review is manual and user-initiated. Codex may prepare a
 public prompt that uses only the GitHub URL, `review_target_commit`, and
 repo-relative handoff/review request paths. The user decides whether to paste it
 into ChatGPT.
+
+Stage 3 small stages use Codex self-review on the active `stage/*` branch.
+Codex does not request ChatGPT review for small stages.
 
 Final trading is manually decided by the user.

@@ -21,8 +21,8 @@ PROMPT_JSON = ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.json
 FALLBACK_MD = ROOT / "reports" / "review_requests" / "manual_fallback_prompt.md"
 STATUS_MD = ROOT / "reports" / "review_requests" / "relay_status.md"
 STATUS_JSON = ROOT / "reports" / "review_requests" / "relay_status.json"
-CURRENT_REVIEW_STAGE = "Stage 2F review governance refactor completed"
-CURRENT_RELAY_STAGE = "stage2f_review_governance_manual_only"
+CURRENT_REVIEW_STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
+CURRENT_RELAY_STAGE = "stage2f1_branch_governance_manual_only"
 REVIEW_GOVERNANCE_MODE = "small_stage_codex_self_review_major_stage_chatgpt_manual"
 MAX_SHORT_PROMPT_CHARS = 900
 
@@ -287,7 +287,7 @@ def write_status(status: dict[str, Any]) -> None:
         f"- Failure policy: `{status.get('failure_policy', '')}`",
         f"- Status reason: `{status['status_reason']}`",
         "",
-        "No Computer Use action was executed in Stage 2F. ChatGPT review is manual and user-initiated. This review route不会自动下单，最终交易由用户手动决定。",
+        "No Computer Use action was executed in Stage 2F.1. ChatGPT review is manual and user-initiated. This review route不会自动下单，最终交易由用户手动决定。",
         "",
     ]
     STATUS_MD.write_text("\n".join(lines), encoding="utf-8")

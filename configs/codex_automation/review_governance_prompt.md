@@ -34,3 +34,14 @@ ChatGPT Computer Use automatic review route is deprecated.
 
 Small-stage Codex self-review and Major-stage ChatGPT review are the only active
 review governance modes.
+
+## Branch Governance
+
+- `main` is stable after major-stage review.
+- `stage/*` branches are major-stage construction branches.
+- `task/*` branches are optional small-stage construction branches.
+- Stage 3 construction branch is `stage/stage3-data-backtest`.
+- Stage 3 small stages use Codex self-review.
+- Stage 3 major review uses manual ChatGPT review after the Stage 3E package.
+- Codex does not request ChatGPT review for small stages.
+- Codex does not use Computer Use to send review requests to ChatGPT.

@@ -105,7 +105,10 @@ def scan(root: Path) -> dict[str, object]:
     status_path = root / "reports" / "review_requests" / "relay_status.json"
     if status_path.exists():
         status = json.loads(status_path.read_text(encoding="utf-8"))
-        if status.get("relay_stage") == "stage2f_review_governance_manual_only":
+        if status.get("relay_stage") in {
+            "stage2f_review_governance_manual_only",
+            "stage2f1_branch_governance_manual_only",
+        }:
             if status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
                 add(findings, str(status_path.relative_to(root)), "Computer Use auto review must be deprecated")
             if status.get("review_route") != "codex_self_review_for_small_stage":
@@ -117,7 +120,7 @@ def scan(root: Path) -> dict[str, object]:
             if status.get("review_gate_required") is not False:
                 add(findings, str(status_path.relative_to(root)), "review gate must not be required for deprecated relay")
             if status.get("computer_use_executed") is not False or status.get("sent_to_chatgpt") is not False:
-                add(findings, str(status_path.relative_to(root)), "Stage 2F must stay repo-only")
+                add(findings, str(status_path.relative_to(root)), "Stage 2F/2F.1 must stay repo-only")
         elif status.get("relay_stage") == "stage2e1_relay_hardening_repo_only":
             if status.get("target_conversation_mode") != "dedicated_review_thread":
                 add(findings, str(status_path.relative_to(root)), "target mode must default to dedicated_review_thread")
