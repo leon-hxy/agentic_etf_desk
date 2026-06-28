@@ -12,7 +12,7 @@ Stage 2F review governance refactor completed.
 
 `review_target_commit`
 
-`5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d`
+`2006d60f237a9b47f34236fd7dd299e9bbdb4f86`
 
 This is the Stage 2F business commit that should be reviewed when review is required.
 
@@ -24,7 +24,7 @@ This is the Stage 2F business commit that should be reviewed when review is requ
 
 ## Current Repo Head
 
-`5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d`
+`2006d60f237a9b47f34236fd7dd299e9bbdb4f86`
 
 ## Handoff Commit
 
@@ -75,12 +75,12 @@ This is the Stage 2F business commit that should be reviewed when review is requ
 
 ## Test Results
 
-- pending final verification.
-- pending final verification.
-- pending final verification.
-- pending final verification.
-- pending final verification.
-- pending final verification.
+- passed; Stage 2F governance and review safety tests.
+- passed; no review governance safety findings.
+- passed; no local path or secret findings.
+- passed; review_target_commit binds to Stage 2F business commit.
+- passed; 91 tests OK.
+- passed; no whitespace errors.
 
 ## Runtime And Safety Checklist
 

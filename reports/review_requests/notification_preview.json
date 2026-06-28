@@ -9,11 +9,11 @@
   "computer_use_executed": false,
   "historical_computer_use_executed": true,
   "loop_state_stage": "Stage 2F review governance refactor completed",
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2F review governance refactor completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d`\u3002 \u672c\u9636\u6bb5\u672a\u6267\u884c Computer Use\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "message": "Codex dry-run \u9636\u6bb5 `Stage 2F review governance refactor completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `2006d60f237a9b47f34236fd7dd299e9bbdb4f86`\u3002 \u672c\u9636\u6bb5\u672a\u6267\u884c Computer Use\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
   "mode": "repo_only_preview",
   "real_gateway_modified": false,
   "review_stage": "Stage 2F review governance refactor completed",
-  "review_target_commit": "5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d",
+  "review_target_commit": "2006d60f237a9b47f34236fd7dd299e9bbdb4f86",
   "sent_to_feishu": false,
   "stage": "Stage 2F review governance refactor completed"
 }

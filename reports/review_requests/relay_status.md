@@ -2,8 +2,8 @@
 
 - Stage: `Stage 2F review governance refactor completed`
 - Expected repo: `leon-hxy/agentic_etf_desk`
-- Expected commit: `5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d`
-- Review target commit: `5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d`
+- Expected commit: `2006d60f237a9b47f34236fd7dd299e9bbdb4f86`
+- Review target commit: `2006d60f237a9b47f34236fd7dd299e9bbdb4f86`
 - Relay stage: `stage2f_review_governance_manual_only`
 - Review governance mode: `small_stage_codex_self_review_major_stage_chatgpt_manual`
 - Review route: `codex_self_review_for_small_stage`
