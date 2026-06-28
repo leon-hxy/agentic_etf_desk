@@ -126,7 +126,7 @@ class Stage3CBacktestValidationTest(unittest.TestCase):
         self.assertTrue(runner["feishu_notification_sent"])
         self.assertFalse(runner["chatgpt_review_for_minor_stages_allowed"])
 
-        self.assertEqual(loop_state["current_stage"], "Stage 3.1 Real ETF Historical Data MVP scope consolidated")
+        self.assertEqual(loop_state["current_stage"], "Stage 3.1 WP1 real data ingestion and cache completed_internal_review")
         self.assertEqual(loop_state["stage3c_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3d_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3e_task_status"], "completed_internal_review")
@@ -136,14 +136,14 @@ class Stage3CBacktestValidationTest(unittest.TestCase):
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])
 
-        self.assertEqual(handoff["stage"], "Stage 3.1 Real ETF Historical Data MVP scope consolidated")
+        self.assertEqual(handoff["stage"], "Stage 3.1 WP1 real data ingestion and cache completed_internal_review")
         self.assertEqual(handoff["stage3c_task_status"], "completed_internal_review")
         self.assertEqual(handoff["stage3d_task_status"], "completed_internal_review")
         self.assertEqual(handoff["stage3e_task_status"], "completed_internal_review")
         self.assertIsNone(handoff["stage3_runner_current_minor_stage"])
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(handoff["computer_use_executed"])
-        self.assertTrue(handoff["feishu_message_sent"])
+        self.assertFalse(handoff["feishu_message_sent"])
 
         self.assertEqual(review["minor_stage"], "Stage 3C")
         self.assertEqual(review["status"], "completed_internal_review")

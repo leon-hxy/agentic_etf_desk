@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
+STAGE = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
 STAGE_BRANCH = "stage/stage3-data-backtest"
 
 
@@ -136,7 +136,7 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertEqual(loop_state["current_stage"], STAGE)
         self.assertEqual(handoff["stage"], STAGE)
         self.assertEqual(review["stage"], STAGE)
-        self.assertEqual(loop_state["status"], "stage3_1_scope_consolidated")
+        self.assertEqual(loop_state["status"], "stage3_1_wp1_completed_internal_review")
         self.assertEqual(loop_state["stage2f1_task_status"], "completed_repo_only_branch_governance_stage3_plan")
         self.assertEqual(loop_state["stage3_stage_branch"], STAGE_BRANCH)
         self.assertTrue(loop_state["stage3_business_code_started"])

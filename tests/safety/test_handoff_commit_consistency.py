@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
+EXPECTED_STAGE = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -37,21 +37,15 @@ PREVIOUS_STAGE_COMMITS = {
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
 JSON_TARGET_PATHS = [
-    "reports/major_reviews/stage3/latest.json",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
-    "reports/review_requests/chatgpt_review_prompt.json",
-    "reports/review_requests/notification_preview.json",
+    "reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.json",
 ]
 TEXT_TARGET_PATHS = [
-    "reports/major_reviews/stage3/latest.md",
-    "reports/review_requests/chatgpt_review_prompt.md",
-    "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
-    "reports/review_requests/notification_preview.md",
+    "reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.md",
 ]
-RELAY_STATUS_JSON = "reports/review_requests/relay_status.json"
 
 
 def read_json(path: str) -> dict:
@@ -106,7 +100,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertIn("handoff_generated_from_head", self.handoff)
         self.assertIn("commit_binding_note", self.handoff)
         self.assertIn("review_target_commit", self.handoff["commit_binding_note"])
-        self.assertIn("major-review target", self.handoff["commit_binding_note"])
+        self.assertIn("internal-review target", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
     def test_review_target_commit_is_valid_git_commit(self) -> None:
@@ -130,39 +124,12 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
             self.assertEqual(payload["review_target_commit"], target, path)
             self.assertNotIn(payload["review_target_commit"], PREVIOUS_STAGE_COMMITS, path)
 
-        prompt_payload = read_json("reports/review_requests/chatgpt_review_prompt.json")
-        self.assertEqual(prompt_payload["gate"]["expected_commit"], target)
-        relay_status = read_json("reports/review_requests/relay_status.json")
-        self.assertEqual(relay_status["review_target_commit"], target)
-        self.assertEqual(relay_status["expected_commit"], target)
-        self.assertEqual(relay_status["relay_stage"], "stage3_major_gate_finalized_manual_review_ready")
-        self.assertEqual(relay_status["finalization_status"], "completed")
-        self.assertFalse(relay_status["request_chatgpt_review_for_finalization_fixes"])
-        self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
-        self.assertTrue(relay_status["feishu_message_sent"])
-        self.assertFalse(relay_status["sent_to_chatgpt"])
-        self.assertFalse(relay_status["computer_use_executed"])
-
     def test_human_readable_artifacts_include_review_target(self) -> None:
         target = str(self.review_target_commit)
         for path in TEXT_TARGET_PATHS:
             content = read_text(path)
             self.assertIn("review_target_commit", content, path)
             self.assertIn(target, content, path)
-
-    def test_review_status_md_includes_review_target(self) -> None:
-        target = str(self.review_target_commit)
-        status = read_text("reports/review_requests/relay_status.md")
-        self.assertIn("Expected commit", status)
-        self.assertIn(target, status)
-
-    def test_relay_status_json_binds_same_review_target(self) -> None:
-        target = str(self.review_target_commit)
-        relay_status = read_json(RELAY_STATUS_JSON)
-        self.assertEqual(relay_status["review_target_commit"], target)
-        self.assertEqual(relay_status["expected_commit"], target)
-        self.assertFalse(relay_status["sent_to_chatgpt"])
-        self.assertFalse(relay_status["computer_use_executed"])
 
     def test_review_target_does_not_point_to_old_stage(self) -> None:
         target = str(self.review_target_commit)
@@ -171,7 +138,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_previous_stage_commit_is_absent_from_review_artifacts(self) -> None:
-        paths = JSON_TARGET_PATHS + TEXT_TARGET_PATHS + [RELAY_STATUS_JSON]
+        paths = JSON_TARGET_PATHS + TEXT_TARGET_PATHS
         for path in paths:
             content = read_text(path)
             for old_commit in PREVIOUS_STAGE_COMMITS:

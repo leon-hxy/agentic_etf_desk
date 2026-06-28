@@ -102,7 +102,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
                 "Stage 3C completed_internal_review",
                 "Stage 3D completed_internal_review",
                 "Stage 3E major_review_package_ready",
-                "Stage 3.1 Real ETF Historical Data MVP scope consolidated",
+                "Stage 3.1 WP1 real data ingestion and cache completed_internal_review",
             },
         )
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")

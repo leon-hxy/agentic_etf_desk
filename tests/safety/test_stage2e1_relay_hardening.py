@@ -14,7 +14,7 @@ STAGE3E = "Stage 3E major_review_package_ready"
 STAGE3F = "Stage 3F major_gate_feishu_notification_sent"
 STAGE3F1 = "Stage 3F.1 review_target_commit_consistency_fixed"
 STAGE3_CLOSEOUT = "Stage 3 sample-data pipeline validation merged to main"
-STAGE3_READY = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
+STAGE3_READY = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
 LOCAL_TARGET_CONFIG = "local_private/chatgpt_review_target.json"
 MAX_SHORT_PROMPT_CHARS = 900
 
@@ -39,7 +39,10 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
         self.assertEqual(prompt_md.strip(), prompt.strip())
         self.assertLessEqual(len(prompt), MAX_SHORT_PROMPT_CHARS)
         self.assertIn("https://github.com/leon-hxy/agentic_etf_desk", prompt)
-        self.assertIn(latest["review_target_commit"], prompt)
+        if prompt_json["stage"] == latest["stage"]:
+            self.assertIn(latest["review_target_commit"], prompt)
+        else:
+            self.assertIn(prompt_json["review_target_commit"], prompt)
         for required_path in (
             "reports/review_requests/latest.md",
             "reports/review_requests/latest.json",

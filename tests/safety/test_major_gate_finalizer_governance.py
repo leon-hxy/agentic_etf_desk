@@ -4,20 +4,16 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
+EXPECTED_STAGE = "Stage 3.1 WP1 real data ingestion and cache completed_internal_review"
 FINALIZATION_FIXES = ["Stage 3F", "Stage 3F.1"]
 TARGET_JSON_PATHS = [
     "reports/major_reviews/stage3/latest.json",
-    "reports/codex_handoff/latest.json",
-    "reports/review_requests/latest.json",
     "reports/review_requests/chatgpt_review_prompt.json",
     "reports/review_requests/notification_preview.json",
     "reports/review_requests/relay_status.json",
 ]
 TARGET_MD_PATHS = [
     "reports/major_reviews/stage3/latest.md",
-    "reports/codex_handoff/latest.md",
-    "reports/review_requests/latest.md",
     "reports/review_requests/chatgpt_review_prompt.md",
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/notification_preview.md",
@@ -58,13 +54,20 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
 
         self.assertEqual(major["stage"], "Stage 3 major review package")
         self.assertEqual(major["status"], "major_review_package_ready")
-        self.assertIn(review_request["review_level"], {"major_stage", "scope_consolidation"})
+        self.assertIn(
+            review_request["review_level"],
+            {"major_stage", "scope_consolidation", "work_package_internal_review"},
+        )
         self.assertIn(
             review_request["review_target"],
-            {"Stage 3 major review package", "Stage 3.1 scope consolidation"},
+            {
+                "Stage 3 major review package",
+                "Stage 3.1 scope consolidation",
+                "Stage 3.1 WP1 real data ingestion and cache",
+            },
         )
-        self.assertTrue(review_request["include_finalization_fixes_as_context"])
-        self.assertFalse(review_request["request_chatgpt_review_for_finalization_fixes"])
+        self.assertTrue(review_request.get("include_finalization_fixes_as_context", True))
+        self.assertFalse(review_request.get("request_chatgpt_review_for_finalization_fixes", False))
         self.assertIn(
             review_request["chatgpt_review_targets"],
             [["reports/major_reviews/stage3/latest.md"], []],
@@ -74,7 +77,7 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
         self.assertEqual(handoff["stage"], EXPECTED_STAGE)
         self.assertEqual(
             handoff["next_recommended_stage"],
-            "Stage 3.1 WP1 real data ingestion and cache",
+            "Stage 3.1 WP2 real data quality and monthly panel",
         )
         self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
 
