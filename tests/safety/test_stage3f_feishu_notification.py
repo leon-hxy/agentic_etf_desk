@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3F major_gate_feishu_notification_sent"
+CURRENT_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
 REVIEW_TARGET_COMMIT = "9c8ad5841bf30585575b78511e30e21b661f5774"
 
 
@@ -88,7 +89,7 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
             self.assertNotIn(forbidden, public_text)
         self.assertIn("Final trading is manually decided by the user.", public_text)
 
-    def test_runner_loop_handoff_and_review_request_record_stage3f(self) -> None:
+    def test_runner_loop_handoff_and_review_request_record_stage3f1_after_notification(self) -> None:
         runner = read_json("ops/runners/stage3_runner_state.json")
         loop_state = read_json("ops/state/loop_state.json")
         handoff = read_json("reports/codex_handoff/latest.json")
@@ -97,9 +98,10 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
         relay = read_json("reports/review_requests/relay_status.json")
 
         self.assertEqual(runner["status"], "major_stage_ready")
-        self.assertEqual(runner["current_minor_stage"], "Stage 3F")
-        self.assertEqual(runner["current_task"], "ops/tasks/stage3f_major_gate_feishu_notification_fix.md")
+        self.assertEqual(runner["current_minor_stage"], "Stage 3F.1")
+        self.assertEqual(runner["current_task"], "ops/tasks/stage3f1_review_target_commit_consistency.md")
         self.assertIn("Stage 3F", runner["completed_minor_stages"])
+        self.assertIn("Stage 3F.1", runner["completed_minor_stages"])
         self.assertEqual(runner["remaining_minor_stages"], [])
         self.assertTrue(runner["feishu_notification_sent"])
         self.assertEqual(runner["feishu_notification_status"], "sent")
@@ -107,11 +109,11 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
         self.assertFalse(runner["computer_use_executed"])
         self.assertFalse(runner["requires_user_attention"])
 
-        self.assertEqual(loop_state["current_stage"], STAGE)
-        self.assertEqual(loop_state["status"], "stage3f_major_gate_feishu_notification_sent")
+        self.assertEqual(loop_state["current_stage"], CURRENT_STAGE)
+        self.assertEqual(loop_state["status"], "stage3f1_review_target_commit_consistency_fixed")
         self.assertEqual(loop_state["stage3f_task_status"], "completed_live_notification")
-        self.assertTrue(loop_state["current_stage_feishu_message_sent"])
-        self.assertEqual(loop_state["current_stage_feishu_message_count"], 1)
+        self.assertEqual(loop_state["stage3f1_task_status"], "completed_consistency_fix")
+        self.assertFalse(loop_state["current_stage_feishu_message_sent"])
         self.assertFalse(loop_state["current_stage_real_config_modified"])
         self.assertFalse(loop_state["current_stage_hermes_modified"])
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
@@ -119,8 +121,8 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
         self.assertEqual(loop_state["review_target_commit"], REVIEW_TARGET_COMMIT)
 
         for payload in (handoff, review):
-            self.assertEqual(payload["stage"], STAGE)
-            self.assertEqual(payload["loop_state_stage"], STAGE)
+            self.assertEqual(payload["stage"], CURRENT_STAGE)
+            self.assertEqual(payload["loop_state_stage"], CURRENT_STAGE)
             self.assertEqual(payload["review_target_commit"], REVIEW_TARGET_COMMIT)
             self.assertTrue(payload["manual_chatgpt_review_ready"])
             self.assertTrue(payload["feishu_message_sent"])
@@ -130,8 +132,9 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
 
         self.assertEqual(notification["mode"], "live_feishu_notification_sent")
         self.assertTrue(notification["sent_to_feishu"])
-        self.assertEqual(relay["relay_stage"], "stage3f_major_gate_feishu_notified_manual_review_ready")
+        self.assertEqual(relay["relay_stage"], "stage3f1_review_target_commit_consistent_manual_review_ready")
         self.assertTrue(relay["feishu_message_sent"])
+        self.assertEqual(relay["review_target_consistency_status"], "passed")
         self.assertFalse(relay["sent_to_chatgpt"])
         self.assertFalse(relay["computer_use_executed"])
 

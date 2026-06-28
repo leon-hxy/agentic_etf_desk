@@ -66,6 +66,7 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             "stage3d_internal_review_no_chatgpt",
             "stage3e_major_review_ready_manual_only",
             "stage3f_major_gate_feishu_notified_manual_review_ready",
+            "stage3f1_review_target_commit_consistent_manual_review_ready",
         }:
             self.assertFalse(status["review_gate_required"])
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
@@ -73,11 +74,14 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             if status["relay_stage"] in {
                 "stage3e_major_review_ready_manual_only",
                 "stage3f_major_gate_feishu_notified_manual_review_ready",
+                "stage3f1_review_target_commit_consistent_manual_review_ready",
             }:
                 self.assertEqual(status["review_route"], "manual_chatgpt_review_for_major_stage")
                 self.assertTrue(status["manual_chatgpt_review_ready"])
                 if status["relay_stage"] == "stage3f_major_gate_feishu_notified_manual_review_ready":
                     self.assertTrue(status["feishu_message_sent"])
+                if status["relay_stage"] == "stage3f1_review_target_commit_consistent_manual_review_ready":
+                    self.assertEqual(status["review_target_consistency_status"], "passed")
             else:
                 self.assertEqual(status["review_route"], "codex_self_review_for_small_stage")
             self.assertEqual(status["major_review_route"], "manual_chatgpt_review_for_major_stage")
@@ -95,6 +99,7 @@ class ReviewRelaySafetyTest(unittest.TestCase):
                     "stage3d_completed_internal_review_no_chatgpt_request",
                     "stage3e_major_review_package_ready_manual_chatgpt_review",
                     "stage3f_major_gate_feishu_notification_sent",
+                    "stage3f1_review_target_commit_consistency_fixed",
                 },
             )
             self.assertIn(

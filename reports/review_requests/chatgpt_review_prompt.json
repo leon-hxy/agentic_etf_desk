@@ -4,7 +4,7 @@
   "feishu_message_sent": true,
   "gate": {
     "expected_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
-    "reason": "Stage 3F live Feishu notification was sent; manual ChatGPT major-stage review remains user-initiated",
+    "reason": "Stage 3F.1 unified review_target_commit; manual ChatGPT review remains user-initiated",
     "required": false
   },
   "live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
@@ -14,6 +14,7 @@
   "review_level": "major_stage",
   "review_mode": "manual_chatgpt_review_ready_feishu_notified",
   "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_consistency_status": "passed",
   "sent_to_chatgpt": false,
-  "stage": "Stage 3F major_gate_feishu_notification_sent"
+  "stage": "Stage 3F.1 review_target_commit_consistency_fixed"
 }

@@ -17,6 +17,8 @@ REPORT_MD = REPORT_DIR / "latest.md"
 PUBLIC_REPO_URL = "https://github.com/leon-hxy/agentic_etf_desk"
 STAGE = "Stage 3E major review package"
 FINAL_TRADING_NOTICE = "Final trading is manually decided by the user."
+REVIEW_TARGET_COMMIT = "9c8ad5841bf30585575b78511e30e21b661f5774"
+STAGE3F_NOTIFICATION_REPORT = "reports/live_notifications/stage3f_major_gate_feishu_notification.json"
 
 INTERNAL_REVIEWS = {
     "Stage 3A": ROOT / "reports" / "internal_reviews" / "stage3" / "stage3a_data_source.json",
@@ -111,7 +113,7 @@ def build_payload() -> dict[str, Any]:
     quality = read_json(QUALITY_REPORT)
     validation = read_json(VALIDATION_REPORT)
     evidence = read_json(EVIDENCE_REPORT)
-    review_target_commit = git_head()
+    review_target_commit = REVIEW_TARGET_COMMIT
 
     all_internal_reviews_complete = all(
         item["status"] == "completed_internal_review" for item in summaries.values()
@@ -204,7 +206,9 @@ def build_payload() -> dict[str, Any]:
         "chatgpt_review_requested_by_codex": False,
         "sent_to_chatgpt": False,
         "computer_use_executed": False,
-        "feishu_message_sent": False,
+        "feishu_message_sent": True,
+        "feishu_notification_report": STAGE3F_NOTIFICATION_REPORT,
+        "feishu_notification_note": "Stage 3F sent one non-sensitive major-gate Feishu notification after the Stage 3E package was pushed; no ChatGPT prompt was sent.",
         "safety_flags": {
             "auto_trading_surface": False,
             "broker_surface": False,
@@ -213,7 +217,7 @@ def build_payload() -> dict[str, Any]:
             "computer_use_executed": False,
             "dependencies_installed": False,
             "feishu_gateway_modified": False,
-            "feishu_message_sent": False,
+            "feishu_message_sent": True,
             "hermes_modified": False,
             "openclaw_modified": False,
             "real_config_modified": False,
@@ -293,7 +297,7 @@ def write_markdown(payload: dict[str, Any]) -> str:
             "",
             "- No Computer Use.",
             "- No ChatGPT review requested or sent by Codex.",
-            "- No Feishu message sent by Codex.",
+            "- Stage 3F Feishu notification sent: true; message was non-sensitive and did not contain the ChatGPT prompt body.",
             "- No real Hermes, OpenClaw, or Feishu gateway modification.",
             "- No dependency installation.",
             "- No broker interface or automatic trading surface.",

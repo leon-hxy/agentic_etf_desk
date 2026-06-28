@@ -2,16 +2,16 @@
 
 ## Current Stage
 
-Stage 3F major_gate_feishu_notification_sent.
+Stage 3F.1 review_target_commit_consistency_fixed.
 
 ## Stage 3 Runner State
 
 - Status: `major_stage_ready`
 - Runner state: `ops/runners/stage3_runner_state.json`
-- Current runner minor stage: `Stage 3F`
-- Current runner task: `ops/tasks/stage3f_major_gate_feishu_notification_fix.md`
+- Current runner minor stage: `Stage 3F.1`
+- Current runner task: `ops/tasks/stage3f1_review_target_commit_consistency.md`
 - Major review package: `reports/major_reviews/stage3/latest.md`
-- Live notification report: `reports/live_notifications/stage3f_major_gate_feishu_notification.md`
+- Consistency report: `reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md`
 
 ## Latest Commit Binding
 
@@ -20,19 +20,19 @@ Stage 3F major_gate_feishu_notification_sent.
 - `handoff_generated_from_head`: `9c8ad5841bf30585575b78511e30e21b661f5774`
 - `current_repo_head`: `9c8ad5841bf30585575b78511e30e21b661f5774`
 
-review_target_commit is the pushed Stage 3E package commit and commit to review for manual ChatGPT major-stage review; the final Stage 3F notification-fix commit is reported by Codex after commit.
+review_target_commit is the unified Stage 3 major-review target used by the major package, handoff, review request, notification preview, and relay status. The final Stage 3F.1 consistency-fix commit is reported by Codex after commit.
 
-## Stage 3F Result
+## Stage 3F.1 Result
 
-- Status: `completed_live_notification`
-- Sent one Feishu notification through the existing Hermes send capability.
-- Generated `reports/live_notifications/stage3f_major_gate_feishu_notification.md`.
-- Generated `reports/live_notifications/stage3f_major_gate_feishu_notification.json`.
+- Status: `completed_consistency_fix`
+- Updated `reports/major_reviews/stage3/latest.md` and `.json` to use the same review target as handoff and review request.
+- Updated notification preview and relay status to the same review target.
 - Codex did not open ChatGPT, send ChatGPT prompts, run Computer Use, modify real config, restart services, install dependencies, connect brokers, or write order code.
 
 ## Tests
 
-- `python3 -m unittest tests.safety.test_stage3f_feishu_notification`: passed; 4 tests OK.
+- `python3 -m unittest tests.safety.test_handoff_commit_consistency`: passed; 10 tests OK.
+- `python3 -m unittest tests.safety.test_review_relay_safety tests.safety.test_stage3f_feishu_notification tests.safety.test_loop_state_consistency`: passed; 15 tests OK.
 - `python3 -m unittest`: passed; 121 tests OK.
 - `python3 scripts/safety/check_forbidden_surfaces.py`: passed; no findings.
 - `python3 scripts/safety/check_secret_leaks.py`: passed; no findings.
@@ -58,7 +58,7 @@ Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https
 - Ran Computer Use: false
 - Requested ChatGPT review: false
 - Sent ChatGPT prompt: false
-- Sent Feishu message in current stage: true
+- Sent Feishu message in current stage: false
 - Automatic trading surface: false
 - Broker surface: false
 

@@ -40,13 +40,15 @@ PREVIOUS_STAGE_COMMITS = {
     "3e90368" + "d332749f731177688f532f1127206845f",
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 3F major_gate_feishu_notification_sent"
+EXPECTED_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
 JSON_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.json",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/chatgpt_review_prompt.json",
 ]
 TEXT_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.md",
     "reports/review_requests/chatgpt_review_prompt.md",
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/latest.md",
@@ -145,7 +147,7 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, STATUS_JSON, "review_target_commit mismatch")
     if relay_status.get("expected_commit") != target:
         add(findings, STATUS_JSON, "expected_commit mismatch")
-    if relay_status.get("relay_stage") != "stage3f_major_gate_feishu_notified_manual_review_ready":
+    if relay_status.get("relay_stage") != "stage3f1_review_target_commit_consistent_manual_review_ready":
         add(findings, STATUS_JSON, "relay_stage mismatch")
     if relay_status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
         add(findings, STATUS_JSON, "ChatGPT Computer Use auto review must be deprecated")

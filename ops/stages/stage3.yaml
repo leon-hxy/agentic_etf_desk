@@ -1,5 +1,5 @@
 stage: Stage 3 data and backtest evidence
-status: stage3f_major_gate_feishu_notification_sent
+status: stage3f1_review_target_commit_consistency_fixed
 stable_branch: main
 construction_branch: stage/stage3-data-backtest
 task_branch_prefix: task/
@@ -8,8 +8,8 @@ repo_only_planning_stage: false
 runner:
   file: ops/runners/stage3_runner_state.json
   status: major_stage_ready
-  current_minor_stage: Stage 3F
-  current_task: ops/tasks/stage3f_major_gate_feishu_notification_fix.md
+  current_minor_stage: Stage 3F.1
+  current_task: ops/tasks/stage3f1_review_target_commit_consistency.md
   completed_minor_stages:
     - Stage 3A
     - Stage 3B
@@ -17,6 +17,7 @@ runner:
     - Stage 3D
     - Stage 3E
     - Stage 3F
+    - Stage 3F.1
   remaining_minor_stages: []
 review_governance:
   small_stage_review: codex_self_review
@@ -90,3 +91,33 @@ major_review:
   outputs:
     - reports/major_reviews/stage3/latest.md
     - reports/major_reviews/stage3/latest.json
+live_notification_fix:
+  id: stage3f_major_gate_feishu_notification_fix
+  file: ops/tasks/stage3f_major_gate_feishu_notification_fix.md
+  status: completed_live_notification
+  depends_on: Stage 3E major_review_package_ready
+  trigger: runner status major_stage_ready and manual_chatgpt_review_ready true
+  delivery: existing_hermes_feishu_send
+  chatgpt_review_requested: false
+  computer_use_executed: false
+  real_config_modified: false
+  outputs:
+    - reports/live_notifications/stage3f_major_gate_feishu_notification.md
+    - reports/live_notifications/stage3f_major_gate_feishu_notification.json
+    - reports/live_notifications/stage3f_safety_results.md
+    - reports/live_notifications/stage3f_safety_results.json
+review_target_consistency_fix:
+  id: stage3f1_review_target_commit_consistency
+  file: ops/tasks/stage3f1_review_target_commit_consistency.md
+  status: completed_consistency_fix
+  depends_on: Stage 3F major_gate_feishu_notification_sent
+  trigger: major review package review_target_commit differed from handoff and review request
+  unified_review_target_commit: 9c8ad5841bf30585575b78511e30e21b661f5774
+  chatgpt_review_requested: false
+  computer_use_executed: false
+  real_config_modified: false
+  outputs:
+    - reports/major_reviews/stage3/latest.md
+    - reports/major_reviews/stage3/latest.json
+    - reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md
+    - reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json

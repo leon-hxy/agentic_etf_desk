@@ -7,6 +7,7 @@
     "ops/stages/stage3.yaml",
     "ops/state/loop_state.json",
     "ops/tasks/stage3_major_review_package.md",
+    "ops/tasks/stage3f1_review_target_commit_consistency.md",
     "ops/tasks/stage3f_major_gate_feishu_notification_fix.md",
     "reports/codex_handoff/latest.json",
     "reports/codex_handoff/latest.md",
@@ -18,6 +19,8 @@
     "reports/live_notifications/stage3f_safety_results.md",
     "reports/major_reviews/stage3/latest.json",
     "reports/major_reviews/stage3/latest.md",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md",
     "reports/review_requests/chatgpt_review_prompt.json",
     "reports/review_requests/chatgpt_review_prompt.md",
     "reports/review_requests/latest.json",
@@ -39,6 +42,7 @@
   "commit_binding_note": "review_target_commit is the pushed Stage 3E package commit and commit to review for manual ChatGPT major-stage review; the final Stage 3F notification-fix commit is reported by Codex after commit.",
   "computer_use_executed": false,
   "current_repo_head": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "current_stage_real_config_modified": false,
   "dependencies_installed": false,
   "feishu_gateway_modified": false,
   "feishu_message_sent": true,
@@ -50,7 +54,7 @@
   "internal_review": "reports/internal_reviews/stage3/stage3e_major_review_package.json",
   "internal_review_only": false,
   "live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
-  "loop_state_stage": "Stage 3F major_gate_feishu_notification_sent",
+  "loop_state_stage": "Stage 3F.1 review_target_commit_consistency_fixed",
   "major_review_package": "reports/major_reviews/stage3/latest.json",
   "major_stage_review_route": "manual_chatgpt_review",
   "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 9c8ad5841bf30585575b78511e30e21b661f5774. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。",
@@ -69,6 +73,7 @@
     "ops/stages/stage3.yaml",
     "ops/state/loop_state.json",
     "ops/tasks/stage3_major_review_package.md",
+    "ops/tasks/stage3f1_review_target_commit_consistency.md",
     "ops/tasks/stage3f_major_gate_feishu_notification_fix.md",
     "reports/codex_handoff/latest.json",
     "reports/codex_handoff/latest.md",
@@ -80,6 +85,8 @@
     "reports/live_notifications/stage3f_safety_results.md",
     "reports/major_reviews/stage3/latest.json",
     "reports/major_reviews/stage3/latest.md",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md",
     "reports/review_requests/chatgpt_review_prompt.json",
     "reports/review_requests/chatgpt_review_prompt.md",
     "reports/review_requests/latest.json",
@@ -100,6 +107,7 @@
   "review_level": "major_stage",
   "review_mode": "manual_chatgpt_review_ready",
   "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_consistency_status": "passed",
   "risk_statement": "Stage 3F sends one non-sensitive Feishu notification through existing Hermes notification capability after Stage 3 entered major_stage_ready. It does not modify real Hermes/OpenClaw/Feishu gateway configuration, restart services, install dependencies, run Computer Use, send ChatGPT prompts, or add trading execution surfaces.",
   "safety_results": "reports/live_notifications/stage3f_safety_results.json",
   "secret_values_written": false,
@@ -108,12 +116,12 @@
   "services_restarted": false,
   "short_prompt": "Manual ChatGPT major-stage review is ready for Stage 3; Codex did not request or send it.",
   "small_stage_review_route": "codex_self_review",
-  "stage": "Stage 3F major_gate_feishu_notification_sent",
+  "stage": "Stage 3F.1 review_target_commit_consistency_fixed",
   "stage3_business_code_started": true,
   "stage3_construction_branch": "stage/stage3-data-backtest",
   "stage3_next_task": null,
-  "stage3_runner_current_minor_stage": "Stage 3F",
-  "stage3_runner_current_task": "ops/tasks/stage3f_major_gate_feishu_notification_fix.md",
+  "stage3_runner_current_minor_stage": "Stage 3F.1",
+  "stage3_runner_current_task": "ops/tasks/stage3f1_review_target_commit_consistency.md",
   "stage3_runner_state": "ops/runners/stage3_runner_state.json",
   "stage3_runner_status": "major_stage_ready",
   "stage3_stable_branch": "main",
@@ -122,13 +130,19 @@
   "stage3c_task_status": "completed_internal_review",
   "stage3d_task_status": "completed_internal_review",
   "stage3e_task_status": "completed_internal_review",
+  "stage3f1_review_target_consistency_report": "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json",
+  "stage3f1_task_status": "completed_consistency_fix",
   "stage3f_live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
   "stage3f_safety_results": "reports/live_notifications/stage3f_safety_results.json",
   "stage3f_task_status": "completed_live_notification",
   "tests": [
     {
-      "command": "python3 -m unittest tests.safety.test_stage3f_feishu_notification",
-      "result": "passed; 4 tests OK"
+      "command": "python3 -m unittest tests.safety.test_handoff_commit_consistency",
+      "result": "passed; 10 tests OK"
+    },
+    {
+      "command": "python3 -m unittest tests.safety.test_review_relay_safety tests.safety.test_stage3f_feishu_notification tests.safety.test_loop_state_consistency",
+      "result": "passed; 15 tests OK"
     },
     {
       "command": "python3 -m unittest",
@@ -163,5 +177,5 @@
       "result": "passed; no whitespace errors"
     }
   ],
-  "updated_at": "2026-06-28T13:08:17+00:00"
+  "updated_at": "2026-06-28T13:48:18+00:00"
 }

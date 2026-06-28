@@ -45,7 +45,7 @@ class Stage3EMajorReviewPackageTest(unittest.TestCase):
         self.assertFalse(payload["chatgpt_review_requested_by_codex"])
         self.assertFalse(payload["sent_to_chatgpt"])
         self.assertFalse(payload["computer_use_executed"])
-        self.assertFalse(payload["feishu_message_sent"])
+        self.assertTrue(payload["feishu_message_sent"])
         self.assertEqual(payload["manual_execution_note"], "Final trading is manually decided by the user.")
 
         self.assertEqual(payload["minor_stages"], REQUIRED_MINOR_STAGES)
@@ -84,7 +84,6 @@ class Stage3EMajorReviewPackageTest(unittest.TestCase):
             "broker_write_surface",
             "chatgpt_review_requested",
             "computer_use_executed",
-            "feishu_message_sent",
             "real_config_modified",
             "secret_values_written",
             "secrets_touched",
@@ -111,31 +110,31 @@ class Stage3EMajorReviewPackageTest(unittest.TestCase):
         self.assertIn("status: completed_internal_review", task)
         self.assertIn("reports/major_reviews/stage3/latest.md", task)
         self.assertEqual(runner["status"], "major_stage_ready")
-        self.assertEqual(runner["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C", "Stage 3D", "Stage 3E", "Stage 3F"])
+        self.assertEqual(runner["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C", "Stage 3D", "Stage 3E", "Stage 3F", "Stage 3F.1"])
         self.assertEqual(runner["remaining_minor_stages"], [])
         self.assertTrue(runner["major_review_required"])
         self.assertFalse(runner["computer_use_executed"])
         self.assertTrue(runner["feishu_notification_sent"])
         self.assertFalse(runner["requires_user_attention"])
 
-        self.assertEqual(loop_state["current_stage"], "Stage 3F major_gate_feishu_notification_sent")
-        self.assertEqual(loop_state["status"], "stage3f_major_gate_feishu_notification_sent")
+        self.assertEqual(loop_state["current_stage"], "Stage 3F.1 review_target_commit_consistency_fixed")
+        self.assertEqual(loop_state["status"], "stage3f1_review_target_commit_consistency_fixed")
         self.assertEqual(loop_state["stage3e_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3f_task_status"], "completed_live_notification")
         self.assertTrue(loop_state["major_review_required"])
         self.assertTrue(loop_state["manual_chatgpt_review_ready"])
         self.assertFalse(loop_state["current_stage_chatgpt_review_requested"])
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
-        self.assertTrue(loop_state["current_stage_feishu_message_sent"])
+        self.assertFalse(loop_state["current_stage_feishu_message_sent"])
 
-        self.assertEqual(handoff["stage"], "Stage 3F major_gate_feishu_notification_sent")
+        self.assertEqual(handoff["stage"], "Stage 3F.1 review_target_commit_consistency_fixed")
         self.assertEqual(handoff["stage3e_task_status"], "completed_internal_review")
         self.assertTrue(handoff["manual_chatgpt_review_ready"])
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(handoff["computer_use_executed"])
         self.assertTrue(handoff["feishu_message_sent"])
 
-        self.assertEqual(review_request["stage"], "Stage 3F major_gate_feishu_notification_sent")
+        self.assertEqual(review_request["stage"], "Stage 3F.1 review_target_commit_consistency_fixed")
         self.assertEqual(review_request["review_level"], "major_stage")
         self.assertTrue(review_request["manual_chatgpt_review_ready"])
         self.assertFalse(review_request["chatgpt_review_requested"])

@@ -8,9 +8,9 @@ manual final trading, no broker write capability, and no automatic ordering.
 
 - State file: `ops/runners/stage3_runner_state.json`
 - Current branch: `stage/stage3-data-backtest`
-- Current minor stage: `Stage 3F`
-- Current task: `ops/tasks/stage3f_major_gate_feishu_notification_fix.md`
-- Completed minor stages: `Stage 3A`, `Stage 3B`, `Stage 3C`, `Stage 3D`, `Stage 3E`, `Stage 3F`, `Stage 3F`
+- Current minor stage: `Stage 3F.1`
+- Current task: `ops/tasks/stage3f1_review_target_commit_consistency.md`
+- Completed minor stages: `Stage 3A`, `Stage 3B`, `Stage 3C`, `Stage 3D`, `Stage 3E`, `Stage 3F`, `Stage 3F.1`
 - Remaining minor stages: none
 - Runner status: `major_stage_ready`
 - Small-stage route: `codex_internal_review`
@@ -28,6 +28,7 @@ manual final trading, no broker write capability, and no automatic ordering.
 - `major_stage_ready`: Stage 3E package is ready for the user to request manual
   ChatGPT major-stage review.
 - `completed_live_notification`: Stage 3F sent the major-gate Feishu notification without changing live configuration.
+- `completed_consistency_fix`: Stage 3F.1 unified the Stage 3 major review target commit across review artifacts.
 - `blocked`: Codex cannot continue without user action or external state.
 - `skipped`: the stage was intentionally bypassed with a documented reason.
 
@@ -70,6 +71,8 @@ reviewer conclusions before it can be marked `completed_internal_review`.
 - If Stage 3E completes and the major review package is ready, notify the user
   to request manual ChatGPT major-stage review.
 - Stage 3F may send exactly one major-gate Feishu notification through existing Hermes capability when runner status is `major_stage_ready` and `manual_chatgpt_review_ready=true`.
+- Stage 3F.1 may update repo-only review artifacts so every `review_target_commit`
+  points to the same manual major-review target; it must not resend Feishu.
 - Do not request ChatGPT review for Stage 3A, Stage 3B, Stage 3C, or Stage 3D.
 
 ## Safety Rules

@@ -22,14 +22,15 @@
   "manual_chatgpt_review_ready": true,
   "manual_fallback_available": true,
   "no_chatgpt_review_requested": true,
-  "relay_stage": "stage3f_major_gate_feishu_notified_manual_review_ready",
+  "relay_stage": "stage3f1_review_target_commit_consistent_manual_review_ready",
   "review_gate_required": false,
   "review_gate_seen": false,
   "review_gate_valid": false,
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
   "review_route": "manual_chatgpt_review_for_major_stage",
   "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_consistency_status": "passed",
   "sent_to_chatgpt": false,
-  "stage": "Stage 3F major_gate_feishu_notification_sent",
-  "status_reason": "stage3f_major_gate_feishu_notification_sent"
+  "stage": "Stage 3F.1 review_target_commit_consistency_fixed",
+  "status_reason": "stage3f1_review_target_commit_consistency_fixed"
 }

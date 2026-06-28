@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3F major_gate_feishu_notification_sent"
+EXPECTED_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -38,11 +38,13 @@ PREVIOUS_STAGE_COMMITS = {
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
 JSON_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.json",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/chatgpt_review_prompt.json",
 ]
 TEXT_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.md",
     "reports/review_requests/chatgpt_review_prompt.md",
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/latest.md",
@@ -132,7 +134,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         relay_status = read_json("reports/review_requests/relay_status.json")
         self.assertEqual(relay_status["review_target_commit"], target)
         self.assertEqual(relay_status["expected_commit"], target)
-        self.assertEqual(relay_status["relay_stage"], "stage3f_major_gate_feishu_notified_manual_review_ready")
+        self.assertEqual(relay_status["relay_stage"], "stage3f1_review_target_commit_consistent_manual_review_ready")
         self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
         self.assertTrue(relay_status["feishu_message_sent"])
         self.assertFalse(relay_status["sent_to_chatgpt"])

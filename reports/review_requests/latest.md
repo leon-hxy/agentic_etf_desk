@@ -1,17 +1,16 @@
-# Stage 3F Major Gate Feishu Notification Sent
+# Stage 3F.1 Review Target Commit Consistency Fixed
 
-- Stage: `Stage 3F major_gate_feishu_notification_sent`
+- Stage: `Stage 3F.1 review_target_commit_consistency_fixed`
 - Review level: `major_stage`
 - Review mode: `manual_chatgpt_review_ready_feishu_notified`
 - `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`
 - Major review package: `reports/major_reviews/stage3/latest.md`
 - Handoff: `reports/codex_handoff/latest.md`
-- Live notification report: `reports/live_notifications/stage3f_major_gate_feishu_notification.md`
+- Consistency report: `reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md`
 - ChatGPT review requested by Codex: `false`
 - Sent to ChatGPT: `false`
-- Feishu message sent: `true`
 
-The Stage 3 major-gate notification was sent through the existing Hermes Feishu path. The user may request manual ChatGPT major-stage review; Codex did not send the ChatGPT prompt automatically.
+All Stage 3 major-review artifacts now point to the same review target commit. Manual ChatGPT major-stage review remains user-initiated.
 
 ## Manual Prompt
 

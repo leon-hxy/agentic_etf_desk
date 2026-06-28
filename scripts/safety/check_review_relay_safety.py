@@ -154,6 +154,21 @@ def scan(root: Path) -> dict[str, object]:
                 add(findings, str(status_path.relative_to(root)), "Stage 3F must record live Feishu notification")
             if status.get("computer_use_executed") is not False or status.get("sent_to_chatgpt") is not False:
                 add(findings, str(status_path.relative_to(root)), "Stage 3F notification must not auto-send review")
+        elif status.get("relay_stage") == "stage3f1_review_target_commit_consistent_manual_review_ready":
+            if status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
+                add(findings, str(status_path.relative_to(root)), "Computer Use auto review must be deprecated")
+            if status.get("review_route") != "manual_chatgpt_review_for_major_stage":
+                add(findings, str(status_path.relative_to(root)), "Stage 3F.1 must keep manual major review")
+            if status.get("automatic_chatgpt_prompt_send_allowed") is not False:
+                add(findings, str(status_path.relative_to(root)), "automatic ChatGPT prompt send must be disabled")
+            if status.get("review_gate_required") is not False:
+                add(findings, str(status_path.relative_to(root)), "manual major review must not require live relay gate")
+            if status.get("manual_chatgpt_review_ready") is not True:
+                add(findings, str(status_path.relative_to(root)), "manual ChatGPT review readiness must be true")
+            if status.get("review_target_consistency_status") != "passed":
+                add(findings, str(status_path.relative_to(root)), "Stage 3F.1 must record target consistency pass")
+            if status.get("computer_use_executed") is not False or status.get("sent_to_chatgpt") is not False:
+                add(findings, str(status_path.relative_to(root)), "Stage 3F.1 consistency fix must not auto-send review")
         elif status.get("relay_stage") == "stage2e1_relay_hardening_repo_only":
             if status.get("target_conversation_mode") != "dedicated_review_thread":
                 add(findings, str(status_path.relative_to(root)), "target mode must default to dedicated_review_thread")

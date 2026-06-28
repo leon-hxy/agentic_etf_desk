@@ -1,7 +1,15 @@
 {
+  "changed_files": [
+    "ops/tasks/stage3f1_review_target_commit_consistency.md",
+    "reports/major_reviews/stage3/latest.json",
+    "reports/major_reviews/stage3/latest.md",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md"
+  ],
   "chatgpt_review_requested": false,
   "computer_use_executed": false,
   "current_repo_head": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "current_stage_real_config_modified": false,
   "feishu_message_sent": true,
   "feishu_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
   "feishu_notification_sent": true,
@@ -10,13 +18,14 @@
   "handoff_commit": null,
   "handoff_generated_from_head": "9c8ad5841bf30585575b78511e30e21b661f5774",
   "live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
-  "loop_state_stage": "Stage 3F major_gate_feishu_notification_sent",
+  "loop_state_stage": "Stage 3F.1 review_target_commit_consistency_fixed",
   "major_review_package": "reports/major_reviews/stage3/latest.json",
   "major_stage_review_route": "manual_chatgpt_review",
   "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 9c8ad5841bf30585575b78511e30e21b661f5774. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。",
   "manual_chatgpt_review_ready": true,
   "no_chatgpt_review_requested": true,
   "review_files": [
+    "ops/tasks/stage3f1_review_target_commit_consistency.md",
     "ops/tasks/stage3f_major_gate_feishu_notification_fix.md",
     "reports/codex_handoff/latest.json",
     "reports/codex_handoff/latest.md",
@@ -25,20 +34,29 @@
     "reports/live_notifications/stage3f_safety_results.json",
     "reports/live_notifications/stage3f_safety_results.md",
     "reports/major_reviews/stage3/latest.json",
-    "reports/major_reviews/stage3/latest.md"
+    "reports/major_reviews/stage3/latest.md",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json",
+    "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md"
   ],
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
   "review_level": "major_stage",
   "review_mode": "manual_chatgpt_review_ready_feishu_notified",
   "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_consistency_status": "passed",
   "safety_results": "reports/live_notifications/stage3f_safety_results.json",
   "sent_to_chatgpt": false,
   "small_stage_review_route": "codex_self_review",
-  "stage": "Stage 3F major_gate_feishu_notification_sent",
+  "stage": "Stage 3F.1 review_target_commit_consistency_fixed",
+  "stage3f1_review_target_consistency_report": "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json",
+  "stage3f1_task_status": "completed_consistency_fix",
   "tests": [
     {
-      "command": "python3 -m unittest tests.safety.test_stage3f_feishu_notification",
-      "result": "passed; 4 tests OK"
+      "command": "python3 -m unittest tests.safety.test_handoff_commit_consistency",
+      "result": "passed; 10 tests OK"
+    },
+    {
+      "command": "python3 -m unittest tests.safety.test_review_relay_safety tests.safety.test_stage3f_feishu_notification tests.safety.test_loop_state_consistency",
+      "result": "passed; 15 tests OK"
     },
     {
       "command": "python3 -m unittest",
@@ -73,5 +91,5 @@
       "result": "passed; no whitespace errors"
     }
   ],
-  "updated_at": "2026-06-28T13:08:17+00:00"
+  "updated_at": "2026-06-28T13:48:18+00:00"
 }

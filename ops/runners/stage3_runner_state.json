@@ -10,20 +10,22 @@
     "Stage 3C",
     "Stage 3D",
     "Stage 3E",
-    "Stage 3F"
+    "Stage 3F",
+    "Stage 3F.1"
   ],
   "computer_use_allowed": false,
   "computer_use_executed": false,
-  "current_minor_stage": "Stage 3F",
-  "current_task": "ops/tasks/stage3f_major_gate_feishu_notification_fix.md",
+  "current_minor_stage": "Stage 3F.1",
+  "current_task": "ops/tasks/stage3f1_review_target_commit_consistency.md",
   "feishu_notification_method": "hermes_send_existing_feishu_target",
   "feishu_notification_sent": true,
   "feishu_notification_status": "sent",
-  "last_completed_minor_stage": "Stage 3F",
+  "last_completed_minor_stage": "Stage 3F.1",
   "last_internal_review": "reports/internal_reviews/stage3/stage3e_major_review_package.json",
   "last_live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
   "last_major_review_package": "reports/major_reviews/stage3/latest.json",
   "last_pushed_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "last_review_target_consistency_report": "reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.json",
   "last_safety_results": "reports/live_notifications/stage3f_safety_results.json",
   "last_strategy_evidence_report": "reports/strategy_evidence/stage3d_strategy_evidence_report.json",
   "last_validation_report": "reports/backtest_validation/stage3c_backtest_validation_report.json",
@@ -43,7 +45,9 @@
   "real_config_modified": false,
   "remaining_minor_stages": [],
   "requires_user_attention": false,
+  "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_consistency_status": "passed",
   "setup_review": "reports/internal_reviews/stage3/stage3_runner_setup.md",
   "status": "major_stage_ready",
-  "updated_at": "2026-06-28T13:08:17+00:00"
+  "updated_at": "2026-06-28T13:48:18+00:00"
 }
