@@ -15,10 +15,12 @@ REPORT_DIR = ROOT / "reports" / "major_reviews" / "stage3"
 REPORT_JSON = REPORT_DIR / "latest.json"
 REPORT_MD = REPORT_DIR / "latest.md"
 PUBLIC_REPO_URL = "https://github.com/leon-hxy/agentic_etf_desk"
-STAGE = "Stage 3E major review package"
+STAGE = "Stage 3 major review package"
 FINAL_TRADING_NOTICE = "Final trading is manually decided by the user."
 REVIEW_TARGET_COMMIT = "9c8ad5841bf30585575b78511e30e21b661f5774"
 STAGE3F_NOTIFICATION_REPORT = "reports/live_notifications/stage3f_major_gate_feishu_notification.json"
+FINALIZATION_REVIEW = "reports/internal_reviews/stage3/stage3_major_gate_finalization.json"
+FINALIZATION_FIXES = ["Stage 3F", "Stage 3F.1"]
 
 INTERNAL_REVIEWS = {
     "Stage 3A": ROOT / "reports" / "internal_reviews" / "stage3" / "stage3a_data_source.json",
@@ -101,6 +103,7 @@ def build_manual_prompt(review_target_commit: str) -> str:
         "Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. "
         "Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. "
         "Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. "
+        "Finalization fixes are Codex-internal context only; do not review Stage 3F or Stage 3F.1 separately. "
         "Do not treat sample evidence as investment basis. "
         "Final trading is manually decided by the user. "
         "最终交易由用户手动决定，系统不会自动下单。"
@@ -178,6 +181,7 @@ def build_payload() -> dict[str, Any]:
             "major_review_package_public_safe": status_from_bool(public_safe),
             "manual_chatgpt_review_ready": status_from_bool(manual_ready),
             "manual_trading_notice_present": status_from_bool(FINAL_TRADING_NOTICE in manual_prompt),
+            "major_gate_finalization": "completed",
         },
         "data_boundary": {
             "source": str(validation.get("data_boundary", {}).get("source", "unknown")),
@@ -208,7 +212,17 @@ def build_payload() -> dict[str, Any]:
         "computer_use_executed": False,
         "feishu_message_sent": True,
         "feishu_notification_report": STAGE3F_NOTIFICATION_REPORT,
-        "feishu_notification_note": "Stage 3F sent one non-sensitive major-gate Feishu notification after the Stage 3E package was pushed; no ChatGPT prompt was sent.",
+        "feishu_notification_note": "Stage 3F sent one non-sensitive major-gate Feishu notification before finalization governance was corrected; repo artifacts now mark the prior notification superseded.",
+        "major_gate_finalization": {
+            "status": "completed",
+            "fixes": FINALIZATION_FIXES,
+            "internal_review": FINALIZATION_REVIEW,
+            "finalization_fixes_included_as_context": True,
+            "request_chatgpt_review_for_finalization_fixes": False,
+            "previous_notifications_superseded": True,
+            "replacement_notification_sent": False,
+        },
+        "finalization_note": "Finalization fixes were internally reviewed by Codex and are context only; ChatGPT should review the Stage 3 major review package, not Stage 3F or Stage 3F.1 separately.",
         "safety_flags": {
             "auto_trading_surface": False,
             "broker_surface": False,
@@ -263,6 +277,22 @@ def write_markdown(payload: dict[str, Any]) -> str:
                 "",
             ]
         )
+    finalization = payload["major_gate_finalization"]
+    lines.extend(
+        [
+            "## Major Gate Finalization Context",
+            "",
+            "Finalization fixes were internally reviewed by Codex. They are included as context only and are not separate ChatGPT review targets.",
+            "",
+            f"- Finalization status: `{finalization['status']}`",
+            f"- Finalization review: `{finalization['internal_review'].replace('.json', '.md')}`",
+            f"- Finalization fixes: `{FINALIZATION_FIXES[0]}`, `{FINALIZATION_FIXES[1]}`",
+            f"- ChatGPT review requested for finalization fixes: `{str(finalization['request_chatgpt_review_for_finalization_fixes']).lower()}`",
+            f"- Previous Feishu notification superseded: `{str(finalization['previous_notifications_superseded']).lower()}`",
+            f"- Replacement notification sent by Codex in Stage 3G: `{str(finalization['replacement_notification_sent']).lower()}`",
+            "",
+        ]
+    )
     lines.extend(
         [
             "## Review Artifacts",
@@ -297,7 +327,8 @@ def write_markdown(payload: dict[str, Any]) -> str:
             "",
             "- No Computer Use.",
             "- No ChatGPT review requested or sent by Codex.",
-            "- Stage 3F Feishu notification sent: true; message was non-sensitive and did not contain the ChatGPT prompt body.",
+            "- Finalization fixes were internally reviewed by Codex.",
+            "- No new Feishu message sent in Stage 3G; the prior notification is marked superseded in repo artifacts.",
             "- No real Hermes, OpenClaw, or Feishu gateway modification.",
             "- No dependency installation.",
             "- No broker interface or automatic trading surface.",
@@ -312,7 +343,7 @@ def write_markdown(payload: dict[str, Any]) -> str:
 def main() -> int:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     payload = build_payload()
-    REPORT_JSON.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+    REPORT_JSON.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     REPORT_MD.write_text(write_markdown(payload), encoding="utf-8")
     print(json.dumps(payload, indent=2, sort_keys=True))
     return 0 if payload["status"] == "major_review_package_ready" else 1

@@ -90,7 +90,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
         self.assertIn("id: stage3a_data_source", manifest)
         self.assertIn("status: completed", manifest)
         self.assertIn("id: stage3b_data_quality", manifest)
-        self.assertIn("status: stage3f1_review_target_commit_consistency_fixed", manifest)
+        self.assertIn("status: stage3_major_review_package_ready_after_finalization", manifest)
 
         loop_state = read_json("ops/state/loop_state.json")
         self.assertIn(
@@ -102,7 +102,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
                 "Stage 3C completed_internal_review",
                 "Stage 3D completed_internal_review",
                 "Stage 3E major_review_package_ready",
-                "Stage 3F.1 review_target_commit_consistency_fixed",
+                "Stage 3 major review package ready",
             },
         )
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")

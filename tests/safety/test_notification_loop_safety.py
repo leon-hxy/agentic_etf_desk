@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
+EXPECTED_STAGE = "Stage 3 major review package ready"
 
 
 class NotificationLoopSafetyTest(unittest.TestCase):
@@ -62,7 +62,7 @@ class NotificationLoopSafetyTest(unittest.TestCase):
     def test_loop_state_declares_completed_stage_with_draft_layers(self) -> None:
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
         self.assertEqual(payload["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(payload["status"], "stage3f1_review_target_commit_consistency_fixed")
+        self.assertEqual(payload["status"], "stage3_major_review_package_ready_after_finalization")
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
@@ -95,7 +95,7 @@ class NotificationLoopSafetyTest(unittest.TestCase):
         )
         self.assertEqual(
             payload["notification_layer"],
-            "stage3f_live_major_gate_notification_sent",
+            "major_gate_finalization_completed_replacement_preview_ready",
         )
         self.assertEqual(payload["review_gate_layer"], "confirmed_local_private_gate")
         self.assertTrue(payload["feishu_message_sent"])

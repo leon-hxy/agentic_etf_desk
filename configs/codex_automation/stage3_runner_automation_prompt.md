@@ -39,8 +39,27 @@ Required minor-stage sequence:
 14. Commit and push before ending the wake.
 
 Stage 3C and Stage 3D use internal Codex review only. Do not request ChatGPT
-review for these small stages. Stage 3E creates the major review package. When
-Stage 3E is complete, notify the user to request manual ChatGPT major review.
+review for these small stages. Stage 3E creates the major review package.
+
+Major gate finalization is runner-internal work after Stage 3E. Notification
+fixes, handoff fixes, review target fixes, commit consistency fixes, and major
+package repairs are `major_gate_finalization`, not independent minor stages and
+not ChatGPT review targets. Stage 3F and Stage 3F.1 are finalization fixes.
+
+During major gate finalization:
+
+- Do not notify the user to request ChatGPT review.
+- Do not ask ChatGPT to review any finalization fix.
+- Run consistency checks before any major-gate notification is considered
+  current.
+- If a Feishu notification was already sent and a later finalization fix changes
+  the major package or `review_target_commit`, mark the old notification
+  superseded or generate a replacement notification preview. Do not send a
+  replacement unless the current task explicitly authorizes live sending.
+
+Only when finalization is complete, consistency checks pass, and the Stage 3
+major review package is the sole review target may Codex notify the user once
+that manual ChatGPT major-stage review is ready.
 
 Hard stops:
 

@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3F major_gate_feishu_notification_sent"
-CURRENT_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
+CURRENT_STAGE = "Stage 3 major review package ready"
 REVIEW_TARGET_COMMIT = "9c8ad5841bf30585575b78511e30e21b661f5774"
 
 
@@ -98,21 +98,23 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
         relay = read_json("reports/review_requests/relay_status.json")
 
         self.assertEqual(runner["status"], "major_stage_ready")
-        self.assertEqual(runner["current_minor_stage"], "Stage 3F.1")
-        self.assertEqual(runner["current_task"], "ops/tasks/stage3f1_review_target_commit_consistency.md")
-        self.assertIn("Stage 3F", runner["completed_minor_stages"])
-        self.assertIn("Stage 3F.1", runner["completed_minor_stages"])
+        self.assertIsNone(runner["current_minor_stage"])
+        self.assertIsNone(runner["current_task"])
+        self.assertNotIn("Stage 3F", runner["completed_minor_stages"])
+        self.assertNotIn("Stage 3F.1", runner["completed_minor_stages"])
+        self.assertEqual(runner["finalization_fixes"], ["Stage 3F", "Stage 3F.1"])
+        self.assertEqual(runner["finalization_status"], "completed")
         self.assertEqual(runner["remaining_minor_stages"], [])
         self.assertTrue(runner["feishu_notification_sent"])
-        self.assertEqual(runner["feishu_notification_status"], "sent")
+        self.assertEqual(runner["feishu_notification_status"], "previous_notification_superseded_after_finalization")
         self.assertFalse(runner["real_config_modified"])
         self.assertFalse(runner["computer_use_executed"])
         self.assertFalse(runner["requires_user_attention"])
 
         self.assertEqual(loop_state["current_stage"], CURRENT_STAGE)
-        self.assertEqual(loop_state["status"], "stage3f1_review_target_commit_consistency_fixed")
-        self.assertEqual(loop_state["stage3f_task_status"], "completed_live_notification")
-        self.assertEqual(loop_state["stage3f1_task_status"], "completed_consistency_fix")
+        self.assertEqual(loop_state["status"], "stage3_major_review_package_ready_after_finalization")
+        self.assertEqual(loop_state["stage3f_task_status"], "finalization_fix_internal_reviewed")
+        self.assertEqual(loop_state["stage3f1_task_status"], "finalization_fix_internal_reviewed")
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])
         self.assertFalse(loop_state["current_stage_real_config_modified"])
         self.assertFalse(loop_state["current_stage_hermes_modified"])
@@ -130,10 +132,12 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
             self.assertFalse(payload["sent_to_chatgpt"])
             self.assertFalse(payload["computer_use_executed"])
 
-        self.assertEqual(notification["mode"], "live_feishu_notification_sent")
-        self.assertTrue(notification["sent_to_feishu"])
-        self.assertEqual(relay["relay_stage"], "stage3f1_review_target_commit_consistent_manual_review_ready")
+        self.assertEqual(notification["mode"], "replacement_notification_preview_after_finalization")
+        self.assertFalse(notification["sent_to_feishu"])
+        self.assertTrue(notification["previous_notification_superseded"])
+        self.assertEqual(relay["relay_stage"], "stage3_major_gate_finalized_manual_review_ready")
         self.assertTrue(relay["feishu_message_sent"])
+        self.assertEqual(relay["finalization_status"], "completed")
         self.assertEqual(relay["review_target_consistency_status"], "passed")
         self.assertFalse(relay["sent_to_chatgpt"])
         self.assertFalse(relay["computer_use_executed"])

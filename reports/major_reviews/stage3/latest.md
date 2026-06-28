@@ -1,6 +1,6 @@
 # Stage 3 Major Review Package
 
-- Stage: `Stage 3E major review package`
+- Stage: `Stage 3 major review package`
 - Status: `major_review_package_ready`
 - Review route: `manual_chatgpt_review`
 - Public repo: `https://github.com/leon-hxy/agentic_etf_desk`
@@ -17,6 +17,7 @@
 - `major_review_package_public_safe`: `passed`
 - `manual_chatgpt_review_ready`: `passed`
 - `manual_trading_notice_present`: `passed`
+- `major_gate_finalization`: `completed`
 
 ## Minor Stage Evidence
 
@@ -48,6 +49,17 @@
 - Internal review: `reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json`
 - Summary: Added the Stage 3D ETF strategy evidence package for GTAA, Dual Momentum, 60/40, and Buy-and-Hold using the Stage 3C validated sample backtest report, with benchmark comparisons, risk and limitation notes, and repo-only governance advancement to Stage 3E planned.
 
+## Major Gate Finalization Context
+
+Finalization fixes were internally reviewed by Codex. They are included as context only and are not separate ChatGPT review targets.
+
+- Finalization status: `completed`
+- Finalization review: `reports/internal_reviews/stage3/stage3_major_gate_finalization.md`
+- Finalization fixes: `Stage 3F`, `Stage 3F.1`
+- ChatGPT review requested for finalization fixes: `false`
+- Previous Feishu notification superseded: `true`
+- Replacement notification sent by Codex in Stage 3G: `false`
+
 ## Review Artifacts
 
 - `data_source_plan`: `docs/stage3a_data_source_plan.md`
@@ -73,18 +85,14 @@
 
 ## Manual ChatGPT Review Prompt
 
-Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 9c8ad5841bf30585575b78511e30e21b661f5774. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。
-
-## Stage 3F.1 Consistency Fix
-
-- All Stage 3 major-review artifacts now point to `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`.
-- Consistency report: `reports/major_reviews/stage3/stage3f1_review_target_commit_consistency.md`
+Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 9c8ad5841bf30585575b78511e30e21b661f5774. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Finalization fixes are Codex-internal context only; do not review Stage 3F or Stage 3F.1 separately. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。
 
 ## Safety
 
 - No Computer Use.
 - No ChatGPT review requested or sent by Codex.
-- Stage 3F Feishu notification sent: true; message was non-sensitive and did not contain the ChatGPT prompt body.
+- Finalization fixes were internally reviewed by Codex.
+- No new Feishu message sent in Stage 3G; the prior notification is marked superseded in repo artifacts.
 - No real Hermes, OpenClaw, or Feishu gateway modification.
 - No dependency installation.
 - No broker interface or automatic trading surface.

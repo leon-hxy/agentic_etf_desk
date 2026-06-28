@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
+EXPECTED_STAGE = "Stage 3 major review package ready"
 
 
 def read_json(path: str) -> dict:
@@ -32,7 +32,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(self.loop_state["status"], "stage3f1_review_target_commit_consistency_fixed")
+        self.assertEqual(self.loop_state["status"], "stage3_major_review_package_ready_after_finalization")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
         expected_commit = self.handoff["review_target_commit"]
@@ -136,8 +136,10 @@ class LoopStateConsistencyTest(unittest.TestCase):
         )
         self.assertIsNone(self.loop_state["stage3_next_task"])
         self.assertEqual(self.loop_state["stage3e_task_status"], "completed_internal_review")
-        self.assertEqual(self.loop_state["stage3f_task_status"], "completed_live_notification")
-        self.assertEqual(self.loop_state["stage3f1_task_status"], "completed_consistency_fix")
+        self.assertEqual(self.loop_state["stage3f_task_status"], "finalization_fix_internal_reviewed")
+        self.assertEqual(self.loop_state["stage3f1_task_status"], "finalization_fix_internal_reviewed")
+        self.assertEqual(self.loop_state["stage3_major_gate_finalization_status"], "completed")
+        self.assertTrue(self.loop_state["stage3_finalization_fixes_internal_reviewed"])
         self.assertTrue(self.loop_state["major_review_required"])
         self.assertTrue(self.loop_state["manual_chatgpt_review_ready"])
         self.assertTrue(self.loop_state["feishu_message_sent"])

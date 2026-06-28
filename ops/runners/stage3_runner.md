@@ -8,12 +8,16 @@ manual final trading, no broker write capability, and no automatic ordering.
 
 - State file: `ops/runners/stage3_runner_state.json`
 - Current branch: `stage/stage3-data-backtest`
-- Current minor stage: `Stage 3F.1`
-- Current task: `ops/tasks/stage3f1_review_target_commit_consistency.md`
-- Completed minor stages: `Stage 3A`, `Stage 3B`, `Stage 3C`, `Stage 3D`, `Stage 3E`, `Stage 3F`, `Stage 3F.1`
+- Current minor stage: `Stage 3 completed`
+- Current task: none
+- Completed minor stages: `Stage 3A`, `Stage 3B`, `Stage 3C`, `Stage 3D`
+- Major package stage: `Stage 3E`
+- Major gate finalization fixes: `Stage 3F`, `Stage 3F.1`
 - Remaining minor stages: none
 - Runner status: `major_stage_ready`
+- Finalization status: `completed`
 - Small-stage route: `codex_internal_review`
+- Finalization route: `codex_internal_review`
 - Major-stage route: `manual_chatgpt_review`
 
 ## Minor-Stage Statuses
@@ -25,12 +29,57 @@ manual final trading, no broker write capability, and no automatic ordering.
 - `internal_review_in_progress`: reviewer passes are running or being written.
 - `completed_internal_review`: internal review passed, tests passed, and the
   stage was committed and pushed.
-- `major_stage_ready`: Stage 3E package is ready for the user to request manual
-  ChatGPT major-stage review.
-- `completed_live_notification`: Stage 3F sent the major-gate Feishu notification without changing live configuration.
-- `completed_consistency_fix`: Stage 3F.1 unified the Stage 3 major review target commit across review artifacts.
+- `major_package_generated`: the Stage 3 major review package exists, but
+  finalization may still be running.
+- `finalization_in_progress`: Codex is repairing handoff, notification,
+  review-target, or package consistency before the major review gate.
+- `finalization_consistency_checks`: Codex is checking that all human-readable
+  and machine-readable review artifacts point to the same target and do not
+  expose finalization fixes as independent ChatGPT review targets.
+- `finalization_internal_review`: Security, Domain, Integration, and Test
+  reviewer passes are reviewing the finalization fixes.
+- `major_gate_notification_ready`: finalization passed and a single
+  major-gate Feishu notification may be prepared or sent if allowed.
+- `major_gate_notification_sent`: a current non-sensitive major-gate Feishu
+  notification was sent after finalization passed.
+- `manual_chatgpt_review_ready`: the user may request manual ChatGPT review of
+  the Stage 3 major review package only.
+- `major_stage_ready`: finalization is complete and the Stage 3 package is
+  ready for user-initiated manual ChatGPT major-stage review.
 - `blocked`: Codex cannot continue without user action or external state.
 - `skipped`: the stage was intentionally bypassed with a documented reason.
+
+## Major Gate Finalizer State Machine
+
+Major gate finalization is internal runner work, not a user-review stage. Stage
+3F and Stage 3F.1 are recorded as finalization fixes under
+`major_gate_finalization`; they must not become ChatGPT review targets.
+
+State order:
+
+1. `major_package_generated`
+2. `finalization_in_progress`
+3. `finalization_consistency_checks`
+4. `finalization_internal_review`
+5. `major_gate_notification_ready`
+6. `major_gate_notification_sent`
+7. `manual_chatgpt_review_ready`
+
+Forbidden during finalization:
+
+- Do not notify the user to request ChatGPT review while
+  `finalization_in_progress`.
+- Do not notify the user while consistency checks are failing or incomplete.
+- Do not notify the user while `review_target_commit` is inconsistent.
+- Do not request ChatGPT review for Stage 3F, Stage 3F.1, or any other
+  finalization fix.
+- Do not expose finalization fixes as independent stages requiring user or
+  ChatGPT approval.
+
+If a Feishu notification was sent before finalization completed and a later
+finalization fix changed the major package or review target, mark the previous
+notification as superseded or prepare a replacement notification preview. Do not
+send the replacement without an explicit live-send task.
 
 ## Ordered Workflow
 
@@ -68,12 +117,16 @@ reviewer conclusions before it can be marked `completed_internal_review`.
 - Do not notify the user for routine small-stage completion.
 - If a stage is `blocked`, stop and require Hermes/Feishu notification to the
   user; do not continue to the next minor stage.
-- If Stage 3E completes and the major review package is ready, notify the user
-  to request manual ChatGPT major-stage review.
-- Stage 3F may send exactly one major-gate Feishu notification through existing Hermes capability when runner status is `major_stage_ready` and `manual_chatgpt_review_ready=true`.
-- Stage 3F.1 may update repo-only review artifacts so every `review_target_commit`
-  points to the same manual major-review target; it must not resend Feishu.
+- If Stage 3E completes, start major gate finalization before notifying the
+  user.
+- Send or mark current exactly one major-gate Feishu notification only after
+  `finalization_status=completed`, consistency checks pass, and
+  `manual_chatgpt_review_ready=true`.
+- Stage 3F and Stage 3F.1 are finalization fixes. They may update repo-only
+  review artifacts, notification previews, and consistency reports, but they
+  must not request ChatGPT review or become user-facing review stages.
 - Do not request ChatGPT review for Stage 3A, Stage 3B, Stage 3C, or Stage 3D.
+- Do not request ChatGPT review for major gate finalization fixes.
 
 ## Safety Rules
 

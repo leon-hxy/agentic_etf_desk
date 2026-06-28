@@ -40,12 +40,13 @@ PREVIOUS_STAGE_COMMITS = {
     "3e90368" + "d332749f731177688f532f1127206845f",
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
+EXPECTED_STAGE = "Stage 3 major review package ready"
 JSON_TARGET_PATHS = [
     "reports/major_reviews/stage3/latest.json",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/notification_preview.json",
 ]
 TEXT_TARGET_PATHS = [
     "reports/major_reviews/stage3/latest.md",
@@ -53,6 +54,7 @@ TEXT_TARGET_PATHS = [
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
+    "reports/review_requests/notification_preview.md",
 ]
 STATUS_JSON = "reports/review_requests/relay_status.json"
 STATUS_MD = "reports/review_requests/relay_status.md"
@@ -147,8 +149,14 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, STATUS_JSON, "review_target_commit mismatch")
     if relay_status.get("expected_commit") != target:
         add(findings, STATUS_JSON, "expected_commit mismatch")
-    if relay_status.get("relay_stage") != "stage3f1_review_target_commit_consistent_manual_review_ready":
+    if relay_status.get("relay_stage") != "stage3_major_gate_finalized_manual_review_ready":
         add(findings, STATUS_JSON, "relay_stage mismatch")
+    if relay_status.get("finalization_status") != "completed":
+        add(findings, STATUS_JSON, "finalization_status must be completed")
+    if relay_status.get("request_chatgpt_review_for_finalization_fixes") is not False:
+        add(findings, STATUS_JSON, "finalization fixes must not request ChatGPT review")
+    if relay_status.get("review_target_consistency_status") != "passed":
+        add(findings, STATUS_JSON, "review target consistency must pass")
     if relay_status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
         add(findings, STATUS_JSON, "ChatGPT Computer Use auto review must be deprecated")
     if relay_status.get("sent_to_chatgpt") is not False:
@@ -157,6 +165,14 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, STATUS_JSON, "Stage 3F notification must not execute Computer Use")
     if relay_status.get("feishu_message_sent") is not True:
         add(findings, STATUS_JSON, "Stage 3F must record the live Feishu notification")
+
+    notification_preview = load_json(root, "reports/review_requests/notification_preview.json")
+    if notification_preview.get("finalization_status") != "completed":
+        add(findings, "reports/review_requests/notification_preview.json", "notification must be after finalization")
+    if notification_preview.get("previous_notification_superseded") is not True:
+        add(findings, "reports/review_requests/notification_preview.json", "previous notification must be superseded")
+    if notification_preview.get("replacement_notification_sent") is not False:
+        add(findings, "reports/review_requests/notification_preview.json", "replacement notification must not be sent by this fix")
 
     for path in TEXT_TARGET_PATHS:
         content = read_text(root, path)

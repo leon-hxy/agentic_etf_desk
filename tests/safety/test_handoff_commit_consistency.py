@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
+EXPECTED_STAGE = "Stage 3 major review package ready"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -42,6 +42,7 @@ JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/notification_preview.json",
 ]
 TEXT_TARGET_PATHS = [
     "reports/major_reviews/stage3/latest.md",
@@ -49,6 +50,7 @@ TEXT_TARGET_PATHS = [
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
+    "reports/review_requests/notification_preview.md",
 ]
 RELAY_STATUS_JSON = "reports/review_requests/relay_status.json"
 
@@ -105,7 +107,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertIn("handoff_generated_from_head", self.handoff)
         self.assertIn("commit_binding_note", self.handoff)
         self.assertIn("review_target_commit", self.handoff["commit_binding_note"])
-        self.assertIn("commit to review", self.handoff["commit_binding_note"])
+        self.assertIn("major-review target", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
     def test_review_target_commit_is_valid_git_commit(self) -> None:
@@ -134,7 +136,9 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         relay_status = read_json("reports/review_requests/relay_status.json")
         self.assertEqual(relay_status["review_target_commit"], target)
         self.assertEqual(relay_status["expected_commit"], target)
-        self.assertEqual(relay_status["relay_stage"], "stage3f1_review_target_commit_consistent_manual_review_ready")
+        self.assertEqual(relay_status["relay_stage"], "stage3_major_gate_finalized_manual_review_ready")
+        self.assertEqual(relay_status["finalization_status"], "completed")
+        self.assertFalse(relay_status["request_chatgpt_review_for_finalization_fixes"])
         self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
         self.assertTrue(relay_status["feishu_message_sent"])
         self.assertFalse(relay_status["sent_to_chatgpt"])

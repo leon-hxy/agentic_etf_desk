@@ -80,6 +80,7 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                     "stage3e_major_review_ready_manual_only",
                     "stage3f_major_gate_feishu_notified_manual_review_ready",
                     "stage3f1_review_target_commit_consistent_manual_review_ready",
+                    "stage3_major_gate_finalized_manual_review_ready",
                 },
             )
             self.assertFalse(status["computer_use_executed"])
@@ -97,6 +98,7 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                     "stage3e_major_review_package_ready_manual_chatgpt_review",
                     "stage3f_major_gate_feishu_notification_sent",
                     "stage3f1_review_target_commit_consistency_fixed",
+                    "stage3_major_gate_finalization_completed",
                 },
             )
 

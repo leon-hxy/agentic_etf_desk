@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3F.1 review_target_commit_consistency_fixed"
+STAGE = "Stage 3 major review package ready"
 
 
 def read(path: str) -> str:
@@ -89,7 +89,7 @@ class Stage2FReviewGovernanceTest(unittest.TestCase):
         self.assertFalse(relay_status["sent_to_chatgpt"])
         if relay_status["stage"] in {
             "Stage 3E major_review_package_ready",
-            "Stage 3F.1 review_target_commit_consistency_fixed",
+            "Stage 3 major review package ready",
         }:
             self.assertEqual(relay_status["review_route"], "manual_chatgpt_review_for_major_stage")
             self.assertTrue(relay_status["manual_chatgpt_review_ready"])
