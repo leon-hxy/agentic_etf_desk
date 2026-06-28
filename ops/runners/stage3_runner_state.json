@@ -1,41 +1,42 @@
 {
-  "major_stage": "Stage 3",
+  "allow_continue_multiple_minor_stages_per_wake": false,
+  "automation_prompt": "configs/codex_automation/stage3_runner_automation_prompt.md",
   "branch": "stage/stage3-data-backtest",
-  "status": "ready",
-  "current_minor_stage": "Stage 3D",
-  "current_task": "ops/tasks/stage3d_strategy_evidence_report.md",
+  "chatgpt_review_for_minor_stages_allowed": false,
+  "checklist": "ops/runners/stage3_runner_checklist.md",
   "completed_minor_stages": [
     "Stage 3A",
     "Stage 3B",
-    "Stage 3C"
+    "Stage 3C",
+    "Stage 3D"
   ],
-  "remaining_minor_stages": [
-    "Stage 3D",
-    "Stage 3E"
-  ],
-  "last_pushed_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
+  "computer_use_allowed": false,
+  "computer_use_executed": false,
+  "current_minor_stage": "Stage 3E",
+  "current_task": "ops/tasks/stage3_major_review_package.md",
+  "feishu_notification_sent": false,
+  "last_completed_minor_stage": "Stage 3D",
+  "last_internal_review": "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json",
+  "last_pushed_commit": "3e90368d332749f731177688f532f1127206845f",
+  "last_strategy_evidence_report": "reports/strategy_evidence/stage3d_strategy_evidence_report.json",
+  "last_validation_report": "reports/backtest_validation/stage3c_backtest_validation_report.json",
   "major_review_required": false,
-  "minor_review_route": "codex_internal_review",
   "major_review_route": "manual_chatgpt_review",
+  "major_stage": "Stage 3",
+  "max_minor_stages_per_wake": 1,
+  "minor_review_route": "codex_internal_review",
   "notify_user_only_on": [
     "blocked",
     "major_stage_ready",
     "live_config_approval_required"
   ],
-  "computer_use_allowed": false,
   "real_config_changes_allowed": false,
-  "automation_prompt": "configs/codex_automation/stage3_runner_automation_prompt.md",
-  "checklist": "ops/runners/stage3_runner_checklist.md",
-  "setup_review": "reports/internal_reviews/stage3/stage3_runner_setup.md",
-  "max_minor_stages_per_wake": 1,
-  "allow_continue_multiple_minor_stages_per_wake": false,
-  "chatgpt_review_for_minor_stages_allowed": false,
-  "feishu_notification_sent": false,
-  "computer_use_executed": false,
   "real_config_modified": false,
+  "remaining_minor_stages": [
+    "Stage 3E"
+  ],
   "requires_user_attention": false,
-  "last_completed_minor_stage": "Stage 3C",
-  "last_internal_review": "reports/internal_reviews/stage3/stage3c_backtest_validation.json",
-  "last_validation_report": "reports/backtest_validation/stage3c_backtest_validation_report.json",
-  "updated_at": "2026-06-28T16:42:00+08:00"
+  "setup_review": "reports/internal_reviews/stage3/stage3_runner_setup.md",
+  "status": "ready",
+  "updated_at": "2026-06-28T17:18:00+08:00"
 }

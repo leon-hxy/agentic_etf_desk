@@ -1,5 +1,5 @@
 stage: Stage 3 data and backtest evidence
-status: stage3c_completed_internal_review_stage3d_planned
+status: stage3d_completed_internal_review_stage3e_planned
 stable_branch: main
 construction_branch: stage/stage3-data-backtest
 task_branch_prefix: task/
@@ -8,14 +8,14 @@ repo_only_planning_stage: false
 runner:
   file: ops/runners/stage3_runner_state.json
   status: ready
-  current_minor_stage: Stage 3D
-  current_task: ops/tasks/stage3d_strategy_evidence_report.md
+  current_minor_stage: Stage 3E
+  current_task: ops/tasks/stage3_major_review_package.md
   completed_minor_stages:
     - Stage 3A
     - Stage 3B
     - Stage 3C
-  remaining_minor_stages:
     - Stage 3D
+  remaining_minor_stages:
     - Stage 3E
 review_governance:
   small_stage_review: codex_self_review
@@ -68,11 +68,17 @@ small_stages:
       - reports/internal_reviews/stage3/stage3c_backtest_validation.json
   - id: stage3d_strategy_evidence_report
     file: ops/tasks/stage3d_strategy_evidence_report.md
-    status: planned
+    status: completed_internal_review
     depends_on: Stage 3C completed_internal_review
     scope: GTAA, Dual Momentum, 60/40, and Buy-and-Hold evidence package
     review: codex_self_review
     chatgpt_review_requested: false
+    outputs:
+      - scripts/reports/generate_stage3d_strategy_evidence.py
+      - reports/strategy_evidence/stage3d_strategy_evidence_report.md
+      - reports/strategy_evidence/stage3d_strategy_evidence_report.json
+      - reports/internal_reviews/stage3/stage3d_strategy_evidence_report.md
+      - reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json
 major_review:
   id: stage3e_major_review_package
   file: ops/tasks/stage3_major_review_package.md

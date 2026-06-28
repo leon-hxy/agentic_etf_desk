@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3C completed_internal_review"
+STAGE = "Stage 3D completed_internal_review"
 
 
 def read(path: str) -> str:
@@ -91,6 +91,7 @@ class Stage2FReviewGovernanceTest(unittest.TestCase):
         self.assertEqual(relay_status["major_review_route"], "manual_chatgpt_review_for_major_stage")
         self.assertEqual(loop_state["stage3b_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3c_task_status"], "completed_internal_review")
+        self.assertEqual(loop_state["stage3d_task_status"], "completed_internal_review")
 
     def test_public_review_prompt_is_manual_major_review_only(self) -> None:
         prompt = read("reports/review_requests/chatgpt_review_prompt.md")

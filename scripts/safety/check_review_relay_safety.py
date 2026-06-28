@@ -112,6 +112,7 @@ def scan(root: Path) -> dict[str, object]:
             "stage3b_codex_self_review_no_chatgpt",
             "stage3ab_internal_review_no_chatgpt",
             "stage3c_internal_review_no_chatgpt",
+            "stage3d_internal_review_no_chatgpt",
         }:
             if status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
                 add(findings, str(status_path.relative_to(root)), "Computer Use auto review must be deprecated")

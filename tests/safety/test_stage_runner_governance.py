@@ -47,13 +47,13 @@ class StageRunnerGovernanceTest(unittest.TestCase):
         self.assertEqual(state["major_stage"], "Stage 3")
         self.assertEqual(state["branch"], "stage/stage3-data-backtest")
         self.assertEqual(state["status"], "ready")
-        self.assertEqual(state["current_minor_stage"], "Stage 3D")
-        self.assertEqual(state["current_task"], "ops/tasks/stage3d_strategy_evidence_report.md")
-        self.assertEqual(state["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C"])
-        self.assertEqual(state["remaining_minor_stages"], ["Stage 3D", "Stage 3E"])
+        self.assertEqual(state["current_minor_stage"], "Stage 3E")
+        self.assertEqual(state["current_task"], "ops/tasks/stage3_major_review_package.md")
+        self.assertEqual(state["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C", "Stage 3D"])
+        self.assertEqual(state["remaining_minor_stages"], ["Stage 3E"])
         self.assertEqual(
             state["last_pushed_commit"],
-            "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
+            "3e90368d332749f731177688f532f1127206845f",
         )
         self.assertFalse(state["major_review_required"])
         self.assertEqual(state["minor_review_route"], "codex_internal_review")
@@ -127,7 +127,7 @@ class StageRunnerGovernanceTest(unittest.TestCase):
         stage3d = stage_block(stage_text, "stage3d_strategy_evidence_report")
         self.assertIn("status: completed_internal_review", stage3c)
         self.assertIn("depends_on: Stage 3B completed_internal_review", stage3c)
-        self.assertIn("status: planned", stage3d)
+        self.assertIn("status: completed_internal_review", stage3d)
         self.assertIn("depends_on: Stage 3C completed_internal_review", stage3d)
         self.assertIn("depends_on: Stage 3D completed_internal_review", stage_text)
         self.assertIn("reports/major_reviews/stage3/latest.md", stage_text)
@@ -139,7 +139,7 @@ class StageRunnerGovernanceTest(unittest.TestCase):
         task_3e_lowered = normalized_lower(task_3e)
         self.assertIn("status: completed_internal_review", task_3c)
         self.assertIn("depends_on: Stage 3B completed_internal_review", task_3c)
-        self.assertIn("status: planned", task_3d)
+        self.assertIn("status: completed_internal_review", task_3d)
         self.assertIn("depends_on: Stage 3C completed_internal_review", task_3d)
         self.assertIn("depends_on: Stage 3D completed_internal_review", task_3e)
 

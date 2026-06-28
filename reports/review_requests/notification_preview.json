@@ -1,13 +1,13 @@
 {
-  "stage": "Stage 3C completed_internal_review",
-  "loop_state_stage": "Stage 3C completed_internal_review",
-  "mode": "repo_only_preview",
-  "review_target_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
   "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "historical_computer_use_executed": true,
+  "loop_state_stage": "Stage 3D completed_internal_review",
+  "mode": "repo_only_preview",
+  "review_target_commit": "3e90368d332749f731177688f532f1127206845f",
   "sent_to_chatgpt": false,
   "sent_to_feishu": false,
-  "computer_use_executed": false,
-  "historical_computer_use_executed": true,
-  "status_reason": "stage3c_completed_internal_review_no_notification_required",
-  "final_trading_notice": "Final trading is manually decided by the user."
+  "stage": "Stage 3D completed_internal_review",
+  "status_reason": "stage3d_completed_internal_review_no_notification_required"
 }

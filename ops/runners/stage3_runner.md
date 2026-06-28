@@ -8,10 +8,10 @@ manual final trading, no broker write capability, and no automatic ordering.
 
 - State file: `ops/runners/stage3_runner_state.json`
 - Current branch: `stage/stage3-data-backtest`
-- Current minor stage: `Stage 3D`
-- Current task: `ops/tasks/stage3d_strategy_evidence_report.md`
-- Completed minor stages: `Stage 3A`, `Stage 3B`
-- Remaining minor stages: `Stage 3C`, `Stage 3D`, `Stage 3E`
+- Current minor stage: `Stage 3E`
+- Current task: `ops/tasks/stage3_major_review_package.md`
+- Completed minor stages: `Stage 3A`, `Stage 3B`, `Stage 3C`, `Stage 3D`
+- Remaining minor stages: `Stage 3E`
 - Small-stage route: `codex_internal_review`
 - Major-stage route: `manual_chatgpt_review`
 

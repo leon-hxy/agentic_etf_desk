@@ -64,6 +64,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 3B data quality checks completed",
                 "Stage 3B completed_internal_review",
                 "Stage 3C completed_internal_review",
+                "Stage 3D completed_internal_review",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -97,6 +98,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3B data quality checks completed",
             "Stage 3B completed_internal_review",
             "Stage 3C completed_internal_review",
+            "Stage 3D completed_internal_review",
         }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
@@ -127,6 +129,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3B data quality checks completed",
             "Stage 3B completed_internal_review",
             "Stage 3C completed_internal_review",
+            "Stage 3D completed_internal_review",
         }:
             self.assertTrue(payload["computer_use_executed"])
             self.assertTrue(payload["computer_use_live_execution"])

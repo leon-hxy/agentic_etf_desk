@@ -1,17 +1,17 @@
 {
-  "stage": "Stage 3C completed_internal_review",
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "gate": {
+    "expected_commit": "3e90368d332749f731177688f532f1127206845f",
+    "reason": "Stage 3D is a small stage using internal review only",
+    "required": false
+  },
+  "manual_major_review_deferred_until": "Stage 3E",
+  "no_chatgpt_review_requested": true,
+  "prompt": "No ChatGPT review requested for Stage 3D. Stage 3D is a small stage reviewed internally only. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. review_target_commit: 3e90368d332749f731177688f532f1127206845f. Audit paths: reports/review_requests/latest.md, reports/review_requests/latest.json, reports/codex_handoff/latest.md, reports/codex_handoff/latest.json, reports/internal_reviews/stage3/stage3d_strategy_evidence_report.md. Manual major-stage ChatGPT review is deferred until Stage 3E if the user requests it. manual major-stage ChatGPT review deferred. \u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
   "review_level": "small_stage",
   "review_mode": "internal_review_only",
-  "review_target_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
-  "chatgpt_review_requested": false,
+  "review_target_commit": "3e90368d332749f731177688f532f1127206845f",
   "sent_to_chatgpt": false,
-  "computer_use_executed": false,
-  "manual_major_review_deferred_until": "Stage 3E",
-  "gate": {
-    "required": false,
-    "expected_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
-    "reason": "Stage 3C is a small stage using internal review only"
-  },
-  "no_chatgpt_review_requested": true,
-  "prompt": "No ChatGPT review requested for Stage 3C. Stage 3C is a small stage reviewed internally only. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. review_target_commit: 945dc002ed39ee64e36a7ad51714dd8d48fe0903. Audit paths: reports/review_requests/latest.md, reports/review_requests/latest.json, reports/codex_handoff/latest.md, reports/codex_handoff/latest.json, reports/internal_reviews/stage3/stage3c_backtest_validation.md. Manual major-stage ChatGPT review is deferred until Stage 3E if the user requests it. manual major-stage ChatGPT review deferred. 最终交易由用户手动决定，系统不会自动下单。"
+  "stage": "Stage 3D completed_internal_review"
 }

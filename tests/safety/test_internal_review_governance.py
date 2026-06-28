@@ -91,6 +91,36 @@ class InternalReviewGovernanceTest(unittest.TestCase):
         self.assertIn("completed_internal_review", text)
         self.assertIn("Final trading is manually decided by the user", text)
 
+    def test_stage3d_internal_review_artifacts_exist_and_pass(self) -> None:
+        md_path = REVIEW_DIR / "stage3d_strategy_evidence_report.md"
+        json_path = REVIEW_DIR / "stage3d_strategy_evidence_report.json"
+        self.assertTrue(md_path.exists())
+        self.assertTrue(json_path.exists())
+
+        review = read_json(json_path)
+        self.assert_common_review_contract(
+            review,
+            minor_stage="Stage 3D",
+            task_file="ops/tasks/stage3d_strategy_evidence_report.md",
+        )
+        self.assertTrue(review["promote_to_next_minor_stage"])
+        self.assertEqual(review["next_minor_stage"], "Stage 3E major review package")
+        self.assertEqual(
+            review["evidence_report"],
+            "reports/strategy_evidence/stage3d_strategy_evidence_report.json",
+        )
+        domain = review["domain_reviewer"]
+        self.assertTrue(domain["strategy_coverage_complete"])
+        self.assertTrue(domain["benchmark_comparison_complete"])
+        self.assertTrue(domain["sample_data_boundary_clear"])
+        self.assertTrue(domain["sample_evidence_not_investment_basis"])
+        self.assertTrue(domain["manual_trading_notice_present"])
+
+        text = md_path.read_text(encoding="utf-8")
+        self.assertIn("completed_internal_review", text)
+        self.assertIn("Stage 3D Strategy Evidence Report", text)
+        self.assertIn("Final trading is manually decided by the user", text)
+
 
 if __name__ == "__main__":
     unittest.main()
