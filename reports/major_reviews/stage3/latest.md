@@ -6,7 +6,16 @@
 - Public repo: `https://github.com/leon-hxy/agentic_etf_desk`
 - Branch: `stage/stage3-data-backtest`
 - `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`
+- `latest_branch_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac`
+- `current_branch_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac`
 - ChatGPT delivery: manual ChatGPT review only; Codex did not send this to ChatGPT.
+
+## Commit Metadata
+
+- `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774` is the Stage 3 major package audit target.
+- `latest_branch_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac` includes finalization fixes.
+- `current_branch_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac` includes finalization fixes.
+- The metadata cleanup commit is reported separately after commit and push; the review target remains unchanged.
 
 ## Readiness Checks
 
@@ -72,12 +81,14 @@ Finalization fixes were internally reviewed by Codex. They are included as conte
 
 ## Data Boundary
 
+- Stage 3 conclusion: sample-data pipeline validation only; not formal investment evidence.
 - Sample data only; not investment basis.
 - Panel window: `2024-01-02` to `2024-01-08`
 - ETF-only universe scope.
 
 ## Risk And Limitations Summary
 
+- Stage 3 conclusion is sample-data pipeline validation only and is not formal investment evidence.
 - Stage 3 evidence is based on a short sample panel and is not investment basis.
 - Strategy comparisons use VTI as the benchmark reference; broader benchmark selection needs review before production use.
 - Formal use requires reviewed real data, source terms confirmation, and a separate user-directed major-stage review.

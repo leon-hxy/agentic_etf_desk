@@ -18,6 +18,9 @@ PUBLIC_REPO_URL = "https://github.com/leon-hxy/agentic_etf_desk"
 STAGE = "Stage 3 major review package"
 FINAL_TRADING_NOTICE = "Final trading is manually decided by the user."
 REVIEW_TARGET_COMMIT = "9c8ad5841bf30585575b78511e30e21b661f5774"
+REVIEW_TARGET_ROLE = "stage3_major_package_review_target"
+BRANCH_HEAD_ROLE = "latest_stage3_branch_head_including_finalization_fixes"
+CONCLUSION_SCOPE = "sample_data_pipeline_validation_only"
 STAGE3F_NOTIFICATION_REPORT = "reports/live_notifications/stage3f_major_gate_feishu_notification.json"
 FINALIZATION_REVIEW = "reports/internal_reviews/stage3/stage3_major_gate_finalization.json"
 FINALIZATION_FIXES = ["Stage 3F", "Stage 3F.1"]
@@ -117,6 +120,7 @@ def build_payload() -> dict[str, Any]:
     validation = read_json(VALIDATION_REPORT)
     evidence = read_json(EVIDENCE_REPORT)
     review_target_commit = REVIEW_TARGET_COMMIT
+    branch_head = git_head()
 
     all_internal_reviews_complete = all(
         item["status"] == "completed_internal_review" for item in summaries.values()
@@ -160,6 +164,12 @@ def build_payload() -> dict[str, Any]:
         "public_repo_url": PUBLIC_REPO_URL,
         "branch": "stage/stage3-data-backtest",
         "review_target_commit": review_target_commit,
+        "review_target_commit_role": REVIEW_TARGET_ROLE,
+        "current_branch_head": branch_head,
+        "current_branch_head_role": BRANCH_HEAD_ROLE,
+        "latest_branch_head": branch_head,
+        "latest_branch_head_role": BRANCH_HEAD_ROLE,
+        "branch_head_note": "current_branch_head and latest_branch_head are the branch metadata observed when this package metadata is generated; they include finalization fixes and are distinct from the Stage 3 major package audit target.",
         "package_commit": None,
         "package_commit_note": "The package commit is created after these files are generated, so this package cannot self-reference its own commit.",
         "minor_stages": list(INTERNAL_REVIEWS),
@@ -200,11 +210,15 @@ def build_payload() -> dict[str, Any]:
             "strategy_evidence_status": evidence.get("status"),
         },
         "risk_limitations_summary": [
+            "Stage 3 conclusion is sample-data pipeline validation only and is not formal investment evidence.",
             "Stage 3 evidence is based on a short sample panel and is not investment basis.",
             "Strategy comparisons use VTI as the benchmark reference; broader benchmark selection needs review before production use.",
             "Formal use requires reviewed real data, source terms confirmation, and a separate user-directed major-stage review.",
             "Final trading is manually decided by the user.",
         ],
+        "stage3_conclusion_scope": CONCLUSION_SCOPE,
+        "sample_data_pipeline_validation_only": True,
+        "formal_investment_evidence": False,
         "manual_chatgpt_review_ready": manual_ready,
         "manual_chatgpt_review_prompt": manual_prompt,
         "chatgpt_review_requested_by_codex": False,
@@ -256,7 +270,16 @@ def write_markdown(payload: dict[str, Any]) -> str:
         f"- Public repo: `{payload['public_repo_url']}`",
         f"- Branch: `{payload['branch']}`",
         f"- `review_target_commit`: `{payload['review_target_commit']}`",
+        f"- `latest_branch_head`: `{payload['latest_branch_head']}`",
+        f"- `current_branch_head`: `{payload['current_branch_head']}`",
         "- ChatGPT delivery: manual ChatGPT review only; Codex did not send this to ChatGPT.",
+        "",
+        "## Commit Metadata",
+        "",
+        f"- `review_target_commit`: `{payload['review_target_commit']}` is the Stage 3 major package audit target.",
+        f"- `latest_branch_head`: `{payload['latest_branch_head']}` includes finalization fixes.",
+        f"- `current_branch_head`: `{payload['current_branch_head']}` includes finalization fixes.",
+        "- The metadata cleanup commit is reported separately after commit and push; the review target remains unchanged.",
         "",
         "## Readiness Checks",
         "",
@@ -306,6 +329,7 @@ def write_markdown(payload: dict[str, Any]) -> str:
             "",
             "## Data Boundary",
             "",
+            "- Stage 3 conclusion: sample-data pipeline validation only; not formal investment evidence.",
             "- Sample data only; not investment basis.",
             f"- Panel window: `{payload['data_boundary']['panel_start_date']}` to `{payload['data_boundary']['panel_end_date']}`",
             "- ETF-only universe scope.",

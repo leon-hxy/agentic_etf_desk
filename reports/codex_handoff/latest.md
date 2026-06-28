@@ -18,11 +18,20 @@ Stage 3 major review package ready.
 ## Latest Commit Binding
 
 - `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`
+- `latest_branch_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac`
+- `current_branch_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac`
 - `handoff_commit`: `null`
-- `handoff_generated_from_head`: `9c8ad5841bf30585575b78511e30e21b661f5774`
-- `current_repo_head`: `9c8ad5841bf30585575b78511e30e21b661f5774`
+- `handoff_generated_from_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac`
+- `current_repo_head`: `f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac`
 
-`review_target_commit` is the unified Stage 3 major-review target. Finalization fixes are Codex-internal context and are not separate ChatGPT review targets.
+`review_target_commit` is the Stage 3 major package audit target. `latest_branch_head` includes finalization fixes, and `current_branch_head` includes finalization fixes; both are branch metadata observed before this metadata cleanup commit and are distinct from the review target.
+
+## Stage 3 Conclusion Scope
+
+- Stage 3 conclusion: sample-data pipeline validation only; not formal investment evidence.
+- Sample data only; not investment basis.
+- Real data used: `false`
+- Final trading is manually decided by the user.
 
 ## Major Gate Finalization
 
@@ -39,11 +48,11 @@ User may request ChatGPT major-stage review for Stage 3.
 
 ## Tests
 
-- `python3 -m unittest tests.safety.test_major_gate_finalizer_governance`: passed; 5 tests OK.
-- `python3 -m unittest`: passed; 126 tests OK.
+- `python3 -m unittest tests.safety.test_stage3_final_metadata_cleanup`: passed; 3 tests OK.
+- `python3 -m unittest`: passed; 129 tests OK.
 - `python3 scripts/safety/check_forbidden_surfaces.py`: passed; no findings.
 - `python3 scripts/safety/check_secret_leaks.py`: passed; no findings.
-- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings; files_checked=291.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings; files_checked=292.
 - `python3 scripts/safety/check_universe_only.py`: passed; no findings.
 - `python3 scripts/safety/check_handoff_commit_consistency.py --root .`: passed; no findings.
 - `python3 scripts/safety/check_review_relay_safety.py --root .`: passed; no findings.

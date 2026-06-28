@@ -9,8 +9,11 @@
     "strategy_evidence_report": "reports/strategy_evidence/stage3d_strategy_evidence_report.json"
   },
   "branch": "stage/stage3-data-backtest",
+  "branch_head_note": "current_branch_head and latest_branch_head are the branch metadata observed when this package metadata is generated; they include finalization fixes and are distinct from the Stage 3 major package audit target.",
   "chatgpt_review_requested_by_codex": false,
   "computer_use_executed": false,
+  "current_branch_head": "f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac",
+  "current_branch_head_role": "latest_stage3_branch_head_including_finalization_fixes",
   "data_boundary": {
     "not_investment_basis": true,
     "note": "Sample data only; not investment basis.",
@@ -36,7 +39,10 @@
   "feishu_notification_note": "Stage 3F sent one non-sensitive major-gate Feishu notification before finalization governance was corrected; repo artifacts now mark the prior notification superseded.",
   "feishu_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
   "finalization_note": "Finalization fixes were internally reviewed by Codex and are context only; ChatGPT should review the Stage 3 major review package, not Stage 3F or Stage 3F.1 separately.",
-  "generated_at": "2026-06-28T14:25:16.356080+00:00",
+  "formal_investment_evidence": false,
+  "generated_at": "2026-06-28T14:56:47.011762+00:00",
+  "latest_branch_head": "f16a9d47c7fdd39891d696ffb7584ac8ab2b1aac",
+  "latest_branch_head_role": "latest_stage3_branch_head_including_finalization_fixes",
   "major_gate_finalization": {
     "finalization_fixes_included_as_context": true,
     "fixes": [
@@ -119,7 +125,9 @@
   "review_level": "major_stage",
   "review_route": "manual_chatgpt_review",
   "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_commit_role": "stage3_major_package_review_target",
   "risk_limitations_summary": [
+    "Stage 3 conclusion is sample-data pipeline validation only and is not formal investment evidence.",
     "Stage 3 evidence is based on a short sample panel and is not investment basis.",
     "Strategy comparisons use VTI as the benchmark reference; broader benchmark selection needs review before production use.",
     "Formal use requires reviewed real data, source terms confirmation, and a separate user-directed major-stage review.",
@@ -142,6 +150,7 @@
     "sent_to_chatgpt": false,
     "services_restarted": false
   },
+  "sample_data_pipeline_validation_only": true,
   "sent_to_chatgpt": false,
   "source_summary": {
     "quality_status": "passed",
@@ -150,5 +159,6 @@
     "validation_status": "passed"
   },
   "stage": "Stage 3 major review package",
+  "stage3_conclusion_scope": "sample_data_pipeline_validation_only",
   "status": "major_review_package_ready"
 }
