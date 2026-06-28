@@ -1,10 +1,10 @@
 stage: Stage 3 data and backtest evidence
-status: planned
+status: stage3b_completed_internal_review_stage3c_ready
 stable_branch: main
 construction_branch: stage/stage3-data-backtest
 task_branch_prefix: task/
-business_code_started: false
-repo_only_planning_stage: true
+business_code_started: true
+repo_only_planning_stage: false
 review_governance:
   small_stage_review: codex_self_review
   major_stage_review: manual_chatgpt_review
@@ -20,15 +20,27 @@ safety_boundaries:
 small_stages:
   - id: stage3a_data_source
     file: ops/tasks/stage3a_data_source.md
-    status: planned
+    status: completed_internal_review
     scope: real ETF data source integration plan
     allowed_data: read-only public ETF data
     review: codex_self_review
+    outputs:
+      - docs/stage3a_data_source_plan.md
+      - configs/data_sources/stage3_data_sources.json
+      - reports/internal_reviews/stage3/stage3a_data_source.md
+      - reports/internal_reviews/stage3a_data_source_codex_self_review.md
+      - reports/stage3a_safety_test_results.md
   - id: stage3b_data_quality
     file: ops/tasks/stage3b_data_quality.md
-    status: planned
+    status: completed_internal_review
     scope: missing values, ETF start dates, adjusted prices, abnormal prices
     review: codex_self_review
+    outputs:
+      - scripts/data/check_data_quality.py
+      - reports/data_quality/stage3b_data_quality_report.md
+      - reports/internal_reviews/stage3/stage3b_data_quality.md
+      - reports/internal_reviews/stage3b_data_quality_codex_self_review.md
+      - reports/stage3b_safety_test_results.md
   - id: stage3c_backtest_validation
     file: ops/tasks/stage3c_backtest_validation.md
     status: planned

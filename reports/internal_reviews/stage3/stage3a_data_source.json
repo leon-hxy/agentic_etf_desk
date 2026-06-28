@@ -1,0 +1,81 @@
+{
+  "minor_stage": "Stage 3A",
+  "task_file": "ops/tasks/stage3a_data_source.md",
+  "status": "completed_internal_review",
+  "generated_at": "2026-06-28T07:34:04Z",
+  "builder_summary": "Stage 3A created the read-only public ETF data source plan, selected Stooq daily CSV as the Stage 3B primary candidate, documented Alpha Vantage, SEC EDGAR, and Yahoo Finance roles and limitations, and wired the source manifest without enabling live trading, broker access, or secret storage.",
+  "changed_files": [
+    "docs/stage3a_data_source_plan.md",
+    "configs/data_sources/stage3_data_sources.json",
+    "ops/tasks/stage3a_data_source.md",
+    "ops/stages/stage3.yaml",
+    "ops/state/loop_state.json",
+    "reports/internal_reviews/stage3/stage3a_data_source.md",
+    "reports/internal_reviews/stage3/stage3a_data_source.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "tests/safety/test_internal_review_governance.py",
+    "tests/safety/test_stage3a_data_source.py"
+  ],
+  "security_reviewer": {
+    "result": "pass",
+    "secrets_touched": false,
+    "real_config_modified": false,
+    "auto_trading_surface": false,
+    "broker_write_surface": false,
+    "public_repo_hygiene_passed": true,
+    "notes": "Repo-only docs and manifest; no secret values, real runtime config, Computer Use, Feishu send, ChatGPT request, broker access, or order-writing behavior."
+  },
+  "domain_reviewer": {
+    "result": "pass",
+    "etf_only_maintained": true,
+    "data_sources_etf_only": true,
+    "read_only_public_data": true,
+    "source_use_and_limits": {
+      "Stooq": "Primary Stage 3B candidate for read-only public daily CSV data with conservative cache and rate-limit notes.",
+      "Alpha Vantage": "Future fallback candidate only; requires local key handling before use and no key is stored in repo.",
+      "SEC": "Metadata and filing cross-check only; not a price source.",
+      "Yahoo": "Manual reference only; not enabled for automated ingestion because terms need explicit review."
+    },
+    "terms_and_license_caveat_documented": true,
+    "notes": "The plan states source terms and licensing must be confirmed before formal or redistributed use."
+  },
+  "integration_reviewer": {
+    "result": "pass",
+    "stage_branch_governance_ok": true,
+    "branch": "stage/stage3-data-backtest",
+    "chatgpt_major_review_triggered": false,
+    "feishu_notification_sent": false,
+    "loop_state_handoff_update_reasonable": true,
+    "notes": "Small-stage review stayed internal and kept Stage 3C only as the next planned task."
+  },
+  "test_reviewer": {
+    "result": "pass",
+    "commands": [
+      "python3 -m unittest tests.safety.test_stage3a_data_source",
+      "python3 -m unittest tests.safety.test_internal_review_governance",
+      "python3 -m unittest",
+      "python3 scripts/safety/check_forbidden_surfaces.py",
+      "python3 scripts/safety/check_secret_leaks.py",
+      "python3 scripts/safety/check_public_repo_hygiene.py",
+      "python3 scripts/safety/check_universe_only.py",
+      "git diff --check"
+    ],
+    "results": [
+      "Stage 3A targeted test previously passed",
+      "Governance test added red first for missing formal artifacts",
+      "Final full verification is recorded in handoff after rerun"
+    ],
+    "failed_items_and_fixes": [
+      "Initial governance test failed because formal stage3 internal review artifacts were missing; this artifact set fixes that gap."
+    ]
+  },
+  "promote_to_next_minor_stage": true,
+  "requires_user_attention": false,
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "feishu_message_sent": false,
+  "final_trading_notice": "Final trading is manually decided by the user."
+}

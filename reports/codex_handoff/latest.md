@@ -2,39 +2,44 @@
 
 ## Current Stage
 
-Stage 2F.1 branch governance and Stage 3 task plan completed.
+Stage 3B completed_internal_review.
 
 ## Latest Commit Binding
 
-- `review_target_commit`: `b6defd4376a8767b197cdcc8062238d1701a530a`
+- `review_target_commit`: `78b6e399b041dc988208261db4d3ec55f0c74749`
 - `handoff_commit`: `null`
-- `handoff_generated_from_head`: `b6defd4376a8767b197cdcc8062238d1701a530a`
-- `current_repo_head`: `b6defd4376a8767b197cdcc8062238d1701a530a`
+- `handoff_generated_from_head`: `78b6e399b041dc988208261db4d3ec55f0c74749`
+- `current_repo_head`: `78b6e399b041dc988208261db4d3ec55f0c74749`
 
-`review_target_commit` is the commit to review. The handoff may be committed
-later and therefore cannot self-reference its own final SHA in the same commit.
-This field will be refreshed after the Stage 2F.1 business commit is created.
+`review_target_commit` is the base commit for the current Stage 3A/3B worktree
+changes. Stage 3A and Stage 3B completed internal review only; no ChatGPT review
+was requested.
+The handoff may be committed later and therefore cannot self-reference its own
+final SHA in the same commit.
 
 ## This Round Changed Files
 
-- `docs/branching_policy.md`
-- `docs/review_governance.md`
-- `ops/stages/stage3.yaml`
+- `docs/stage3a_data_source_plan.md`
+- `configs/data_sources/stage3_data_sources.json`
+- `scripts/data/check_data_quality.py`
+- `reports/data_quality/stage3b_data_quality_report.md`
+- `reports/data_quality/stage3b_data_quality_report.json`
 - `ops/tasks/stage3a_data_source.md`
 - `ops/tasks/stage3b_data_quality.md`
-- `ops/tasks/stage3c_backtest_validation.md`
-- `ops/tasks/stage3d_strategy_evidence_report.md`
-- `ops/tasks/stage3_major_review_package.md`
-- `reports/internal_reviews/README.md`
-- `reports/major_reviews/README.md`
-- `configs/codex_automation/review_governance_prompt.md`
-- `configs/codex_automation/chatgpt_review_relay_prompt.md`
-- `scripts/review_relay/relay_common.py`
-- `scripts/safety/check_handoff_commit_consistency.py`
-- `scripts/safety/check_review_relay_safety.py`
+- `ops/stages/stage3.yaml`
 - `ops/state/loop_state.json`
-- `reports/codex_handoff/latest.md`
-- `reports/codex_handoff/latest.json`
+- `reports/internal_reviews/stage3a_data_source_codex_self_review.md`
+- `reports/internal_reviews/stage3a_data_source_codex_self_review.json`
+- `reports/internal_reviews/stage3b_data_quality_codex_self_review.md`
+- `reports/internal_reviews/stage3b_data_quality_codex_self_review.json`
+- `reports/internal_reviews/stage3/stage3a_data_source.md`
+- `reports/internal_reviews/stage3/stage3a_data_source.json`
+- `reports/internal_reviews/stage3/stage3b_data_quality.md`
+- `reports/internal_reviews/stage3/stage3b_data_quality.json`
+- `reports/stage3a_safety_test_results.md`
+- `reports/stage3a_safety_test_results.json`
+- `reports/stage3b_safety_test_results.md`
+- `reports/stage3b_safety_test_results.json`
 - `reports/review_requests/latest.md`
 - `reports/review_requests/latest.json`
 - `reports/review_requests/chatgpt_review_prompt.md`
@@ -44,24 +49,50 @@ This field will be refreshed after the Stage 2F.1 business commit is created.
 - `reports/review_requests/notification_preview.json`
 - `reports/review_requests/relay_status.md`
 - `reports/review_requests/relay_status.json`
+- `reports/codex_handoff/latest.md`
+- `reports/codex_handoff/latest.json`
+- `scripts/safety/check_handoff_commit_consistency.py`
+- `scripts/safety/check_review_relay_safety.py`
+- `tests/safety/test_stage3a_data_source.py`
+- `tests/safety/test_stage3b_data_quality.py`
 - `tests/safety/test_branch_governance.py`
-- `tests/safety/test_stage2f_review_governance.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_loop_automation_dry_run.py`
-- `tests/safety/test_stage2d_preparation_plan.py`
-- `tests/safety/test_stage2e0_relay_smoke.py`
-- `tests/safety/test_stage2e1_relay_hardening.py`
 - `tests/safety/test_review_relay_safety.py`
+
+## Stage 3A Result
+
+- Status: `completed_internal_review`
+- Primary Stage 3B data source candidate: Stooq daily CSV.
+- Future fallback candidate: Alpha Vantage daily adjusted API, not enabled in
+  Stage 3A because it requires a local API key.
+- Metadata-only supplement: SEC EDGAR APIs.
+- Manual reference only: Yahoo Finance.
+
+## Stage 3B Result
+
+- Status: `completed_internal_review`
+- Added `scripts/data/check_data_quality.py`.
+- Generated `reports/data_quality/stage3b_data_quality_report.md`.
+- Missing values are checked after each ETF's first available date.
+- ETF start dates and availability windows are recorded per symbol.
+- Adjusted prices must be numeric and positive.
+- Abnormal one-day adjusted-close moves above the threshold are flagged.
+- Formal backtest validation remains deferred to Stage 3C.
 
 ## Tests
 
-- `python3 -m unittest tests.safety.test_branch_governance`: passed; 4 tests OK.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.safety.test_stage2f_review_governance tests.safety.test_branch_governance tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed; 95 tests OK.
-- `python3 scripts/safety/check_review_relay_safety.py`: passed; no findings.
+- `python3 -m unittest tests.safety.test_stage3a_data_source`: passed; 4 tests OK.
+- `python3 -m unittest tests.safety.test_stage3b_data_quality`: passed; 3 tests OK.
+- `python3 -m unittest tests.safety.test_internal_review_governance`: red run failed as expected before formal Stage 3 internal review artifacts existed.
+- `python3 -m unittest`: passed; 104 tests OK.
+- `python3 scripts/safety/check_forbidden_surfaces.py`: passed; no findings.
+- `python3 scripts/safety/check_secret_leaks.py`: passed; no findings.
 - `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings.
-- `python3 scripts/safety/check_handoff_commit_consistency.py`: passed; no findings.
+- `python3 scripts/safety/check_handoff_commit_consistency.py --root .`: passed; no findings.
+- `python3 scripts/safety/check_review_relay_safety.py --root .`: passed; no findings.
+- `python3 scripts/safety/check_universe_only.py`: passed; no findings.
 - `git diff --check`: passed; no whitespace errors.
 
 ## Safety Flags
@@ -74,25 +105,16 @@ This field will be refreshed after the Stage 2F.1 business commit is created.
 - Touched secrets: false
 - Wrote secret values: false
 - Ran Computer Use: false
+- Requested ChatGPT review: false
 - Sent ChatGPT prompt: false
-- Sent Feishu message: false
+- Sent Feishu message in current stage: false
 - Automatic trading surface: false
 - Broker surface: false
-- Stage 3 business code started: false
-
-## Governance Summary
-
-- `main` is the stable branch for major-stage reviewed states.
-- `stage/stage3-data-backtest` is the Stage 3 construction branch.
-- Stage 3 small stages use Codex self-review.
-- Stage 3 major review uses manual ChatGPT review after the Stage 3E package.
-- Codex does not request ChatGPT review for small stages.
-- Codex does not use Computer Use to send review requests to ChatGPT.
-- ChatGPT Computer Use automatic review route is deprecated.
 
 ## Next Recommended Stage
 
-Start Stage 3A on `stage/stage3-data-backtest`.
+Stage 3C backtest validation is ready on `stage/stage3-data-backtest`, but was
+not executed in this handoff.
 
 ## Requires User Approval
 
@@ -104,20 +126,5 @@ Start Stage 3A on `stage/stage3-data-backtest`.
 - Any dependency installation.
 - Any secret migration or credential storage.
 - Any broker integration or trading execution surface.
-
-## Forbidden To Continue Automatically
-
-- Starting Stage 3 business code on `main`.
-- Running ChatGPT Computer Use automatic review.
-- Opening ChatGPT automatically.
-- Sending ChatGPT prompts automatically.
-- Modifying real `~/.hermes` or `~/.openclaw`.
-- Restarting Hermes or OpenClaw.
-- Modifying real Feishu gateway.
-- Installing dependencies.
-- Sending secrets, local paths, tokens, auth values, Feishu credentials,
-  provider keys, or broker credentials.
-- Accessing broker, email, GitHub admin, or Feishu admin pages.
-- Adding automatic order placement code or broker write access.
 
 Final trading is manually decided by the user.

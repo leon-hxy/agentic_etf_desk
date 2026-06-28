@@ -1,7 +1,7 @@
 # Stage 3B Data Quality Checks
 
-status: planned
-stage: Stage 3B
+status: completed_internal_review
+stage: Stage 3B completed_internal_review
 branch: stage/stage3-data-backtest
 review_level: small_stage
 repo-only
@@ -25,6 +25,29 @@ complete.
 - Check abnormal prices and document thresholds.
 - Produce repo-only quality evidence that can be audited and rerun.
 - Do not start formal backtest validation in this task.
+
+## Completion Evidence
+
+- Data quality script: `scripts/data/check_data_quality.py`.
+- Data quality report: `reports/data_quality/stage3b_data_quality_report.md`.
+- Machine-readable report: `reports/data_quality/stage3b_data_quality_report.json`.
+- Formal internal review: `reports/internal_reviews/stage3/stage3b_data_quality.md`.
+- Codex self-review: `reports/internal_reviews/stage3b_data_quality_codex_self_review.md`.
+- Test results: `reports/stage3b_safety_test_results.md`.
+- Handoff: `reports/codex_handoff/latest.md`.
+- Loop state: `ops/state/loop_state.json`.
+
+## Result
+
+- Missing values are checked after each ETF's first available date.
+- ETF start dates and availability windows are recorded per symbol.
+- Adjusted prices must be numeric and positive.
+- Abnormal one-day adjusted-close moves above the configured threshold are
+  flagged.
+- Formal backtest validation remains deferred to Stage 3C.
+- ChatGPT review was not requested for this small stage.
+- No Feishu message was sent for this small stage.
+- Internal review status: `completed_internal_review`.
 
 ## Safety
 

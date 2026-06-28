@@ -72,6 +72,9 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                     "stage2e1_relay_hardening_repo_only",
                     "stage2f_review_governance_manual_only",
                     "stage2f1_branch_governance_manual_only",
+                    "stage3a_codex_self_review_no_chatgpt",
+                    "stage3b_codex_self_review_no_chatgpt",
+                    "stage3ab_internal_review_no_chatgpt",
                 },
             )
             self.assertFalse(status["computer_use_executed"])
@@ -81,6 +84,9 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                 {
                     "repo_only_relay_hardening_ready_no_live_send",
                     "chatgpt_computer_use_auto_review_deprecated",
+                    "stage3a_passed_codex_self_review_no_chatgpt_request",
+                    "stage3b_passed_codex_self_review_no_chatgpt_request",
+                    "stage3ab_completed_internal_review_no_chatgpt_request",
                 },
             )
 

@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
+EXPECTED_STAGE = "Stage 3B completed_internal_review"
 
 
 def read_json(path: str) -> dict:
@@ -32,10 +32,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(
-            self.loop_state["status"],
-            "branch_governance_stage3_plan_repo_only_completed",
-        )
+        self.assertEqual(self.loop_state["status"], "stage3b_completed_internal_review")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
         expected_commit = self.handoff["review_target_commit"]
@@ -52,14 +49,14 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotIn(self.loop_state["review_target_commit"], stale_commits)
-        self.assertIn("Stage 2F.1", self.loop_state["review_target_commit_note"])
+        self.assertIn("Stage 3B", self.loop_state["review_target_commit_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
         self.assertEqual(self.loop_state["last_review_request"], "reports/review_requests/latest.json")
         self.assertEqual(
             self.loop_state["next_task"],
-            None,
+            "ops/tasks/stage3c_backtest_validation.md",
         )
         self.assertEqual(
             self.loop_state["stage2b_task"],
@@ -97,8 +94,11 @@ class LoopStateConsistencyTest(unittest.TestCase):
 
     def test_only_approved_live_install_flags_are_true(self) -> None:
         self.assertFalse(self.loop_state["repo_only"])
+        self.assertTrue(self.loop_state["current_stage_repo_only"])
         self.assertTrue(self.loop_state["real_config_modified"])
+        self.assertFalse(self.loop_state["current_stage_real_config_modified"])
         self.assertTrue(self.loop_state["hermes_modified"])
+        self.assertFalse(self.loop_state["current_stage_hermes_modified"])
         self.assertEqual(
             self.loop_state["stage2d2a_task_status"],
             "completed_minimal_live_install",
@@ -127,7 +127,19 @@ class LoopStateConsistencyTest(unittest.TestCase):
             self.loop_state["stage3_stage_branch"],
             "stage/stage3-data-backtest",
         )
-        self.assertFalse(self.loop_state["stage3_business_code_started"])
+        self.assertTrue(self.loop_state["stage3_business_code_started"])
+        self.assertEqual(
+            self.loop_state["stage3a_task_status"],
+            "completed_internal_review",
+        )
+        self.assertEqual(
+            self.loop_state["stage3b_task_status"],
+            "completed_internal_review",
+        )
+        self.assertEqual(
+            self.loop_state["stage3_next_task"],
+            "ops/tasks/stage3c_backtest_validation.md",
+        )
         self.assertTrue(self.loop_state["feishu_message_sent"])
         self.assertTrue(self.loop_state["review_gate_written"])
         self.assertTrue(self.loop_state["feishu_confirmation_observed"])
@@ -137,6 +149,9 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertFalse(self.loop_state["stage2e1_computer_use_executed"])
         self.assertFalse(self.loop_state["stage2f_computer_use_executed"])
         self.assertFalse(self.loop_state["stage2f1_computer_use_executed"])
+        self.assertFalse(self.loop_state["current_stage_computer_use_executed"])
+        self.assertFalse(self.loop_state["current_stage_feishu_message_sent"])
+        self.assertFalse(self.loop_state["current_stage_chatgpt_review_requested"])
         self.assertEqual(
             self.loop_state["chatgpt_review_relay"],
             "deprecated_by_stage2f1",

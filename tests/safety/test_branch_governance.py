@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
+STAGE = "Stage 3B completed_internal_review"
 STAGE_BRANCH = "stage/stage3-data-backtest"
 
 
@@ -50,7 +50,7 @@ class BranchGovernanceTest(unittest.TestCase):
             "stage: Stage 3 data and backtest evidence",
             f"construction_branch: {STAGE_BRANCH}",
             "stable_branch: main",
-            "business_code_started: false",
+            "business_code_started: true",
             "small_stage_review: codex_self_review",
             "major_stage_review: manual_chatgpt_review",
             "chatgpt_computer_use_auto_review: deprecated",
@@ -124,7 +124,7 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertIn("major stages", major)
         self.assertIn("Do not use Computer Use to send review requests to ChatGPT", major)
 
-    def test_latest_state_records_stage2f1_branch_governance(self) -> None:
+    def test_latest_state_records_stage3b_data_quality(self) -> None:
         loop_state = read_json("ops/state/loop_state.json")
         handoff = read_json("reports/codex_handoff/latest.json")
         review = read_json("reports/review_requests/latest.json")
@@ -132,14 +132,18 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertEqual(loop_state["current_stage"], STAGE)
         self.assertEqual(handoff["stage"], STAGE)
         self.assertEqual(review["stage"], STAGE)
-        self.assertEqual(loop_state["status"], "branch_governance_stage3_plan_repo_only_completed")
+        self.assertEqual(loop_state["status"], "stage3b_completed_internal_review")
         self.assertEqual(loop_state["stage2f1_task_status"], "completed_repo_only_branch_governance_stage3_plan")
         self.assertEqual(loop_state["stage3_stage_branch"], STAGE_BRANCH)
-        self.assertFalse(loop_state["stage3_business_code_started"])
+        self.assertTrue(loop_state["stage3_business_code_started"])
+        self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
+        self.assertEqual(loop_state["stage3b_task_status"], "completed_internal_review")
+        self.assertEqual(loop_state["stage3_next_task"], "ops/tasks/stage3c_backtest_validation.md")
         self.assertEqual(loop_state["small_stage_review_route"], "codex_self_review")
         self.assertEqual(loop_state["major_stage_review_route"], "manual_chatgpt_review")
         self.assertTrue(loop_state["chatgpt_computer_use_auto_review_deprecated"])
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
+        self.assertFalse(loop_state["current_stage_chatgpt_review_requested"])
 
 
 if __name__ == "__main__":

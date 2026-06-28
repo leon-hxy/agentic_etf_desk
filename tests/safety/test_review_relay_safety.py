@@ -59,6 +59,9 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         if status["relay_stage"] in {
             "stage2f_review_governance_manual_only",
             "stage2f1_branch_governance_manual_only",
+            "stage3a_codex_self_review_no_chatgpt",
+            "stage3b_codex_self_review_no_chatgpt",
+            "stage3ab_internal_review_no_chatgpt",
         }:
             self.assertFalse(status["review_gate_required"])
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
@@ -68,10 +71,18 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             self.assertFalse(status["automatic_chatgpt_prompt_send_allowed"])
             self.assertFalse(status["computer_use_executed"])
             self.assertFalse(status["sent_to_chatgpt"])
-            self.assertEqual(status["status_reason"], "chatgpt_computer_use_auto_review_deprecated")
-            self.assertEqual(
+            self.assertIn(
+                status["status_reason"],
+                {
+                    "chatgpt_computer_use_auto_review_deprecated",
+                    "stage3a_passed_codex_self_review_no_chatgpt_request",
+                    "stage3b_passed_codex_self_review_no_chatgpt_request",
+                    "stage3ab_completed_internal_review_no_chatgpt_request",
+                },
+            )
+            self.assertIn(
                 status["input_delivery_contract"]["prompt_entry_method"],
-                "user_manual_copy_only",
+                {"user_manual_copy_only", "not_applicable_small_stage_self_review"},
             )
         elif status["relay_stage"] == "stage2e1_relay_hardening_repo_only":
             self.assertTrue(status["review_gate_required"])
@@ -148,9 +159,9 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         for term in forbidden:
             self.assertNotIn(term, prompt)
         self.assertIn("https://github.com/leon-hxy/agentic_etf_desk", prompt)
-        self.assertIn("repo 是 public，不需要 GitHub connector", prompt)
         self.assertIn("最终交易由用户手动决定", prompt)
-        self.assertIn("manual major-stage ChatGPT review", prompt)
+        self.assertIn("No ChatGPT review requested", prompt)
+        self.assertIn("Manual major-stage ChatGPT review is deferred", prompt)
         self.assertLessEqual(len(prompt), 900)
         self.assertNotIn("local_private", prompt)
         self.assertNotIn("reports/relay_smoke", prompt)

@@ -1,6 +1,1 @@
-Request manual major-stage ChatGPT review for public GitHub repo https://github.com/leon-hxy/agentic_etf_desk.
-Review `review_target_commit`: `b6defd4376a8767b197cdcc8062238d1701a530a`.
-请只读取这些公开路径：`reports/review_requests/latest.md`, `reports/review_requests/latest.json`, `reports/codex_handoff/latest.md`, `reports/codex_handoff/latest.json`。
-重点检查 ETF-only、安全边界、无自动下单/券商写接口、无敏感信息泄漏、测试是否足够。
-请输出 pass/fail、高风险问题、必须修复项、下一步建议。
-repo 是 public，不需要 GitHub connector。最终交易由用户手动决定，系统不会自动下单。
+No ChatGPT review requested for Stage 3A/3B. Stage 3A and Stage 3B are small stages reviewed internally only. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. review_target_commit: 78b6e399b041dc988208261db4d3ec55f0c74749. Audit paths: reports/review_requests/latest.md, reports/review_requests/latest.json, reports/codex_handoff/latest.md, reports/codex_handoff/latest.json, reports/internal_reviews/stage3/stage3a_data_source.md, reports/internal_reviews/stage3/stage3b_data_quality.md. Manual major-stage ChatGPT review is deferred until Stage 3E if the user requests it. manual major-stage ChatGPT review deferred. 最终交易由用户手动决定，系统不会自动下单。

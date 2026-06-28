@@ -1,25 +1,18 @@
 # Review Relay Status
 
-- Stage: `Stage 2F.1 branch governance and Stage 3 task plan completed`
+- Stage: `Stage 3B completed_internal_review`
 - Expected repo: `leon-hxy/agentic_etf_desk`
-- Expected commit: `b6defd4376a8767b197cdcc8062238d1701a530a`
-- Review target commit: `b6defd4376a8767b197cdcc8062238d1701a530a`
-- Relay stage: `stage2f1_branch_governance_manual_only`
+- Expected commit: `78b6e399b041dc988208261db4d3ec55f0c74749`
+- Review target commit: `78b6e399b041dc988208261db4d3ec55f0c74749`
+- Relay stage: `stage3ab_internal_review_no_chatgpt`
 - Review governance mode: `small_stage_codex_self_review_major_stage_chatgpt_manual`
 - Review route: `codex_self_review_for_small_stage`
 - Major review route: `manual_chatgpt_review_for_major_stage`
-- ChatGPT Computer Use automatic review deprecated: `true`
-- Computer Use executed: `false`
 - ChatGPT prompt generated: `true`
 - Manual fallback available: `true`
 - Review gate required: `false`
-- Review gate seen: `false`
-- Review gate valid: `false`
 - Sent to ChatGPT: `false`
-- Input delivery method: `user_manual_copy_only`
-- Long prompt typing forbidden: `true`
-- Pre-send safety check: `pass`
-- Failure policy: `manual_review_required_for_major_stage`
-- Status reason: `chatgpt_computer_use_auto_review_deprecated`
+- Feishu message sent: `false`
+- Status reason: `stage3ab_completed_internal_review_no_chatgpt_request`
 
-No Computer Use action was executed in Stage 2F.1. ChatGPT review is manual and user-initiated. This review route不会自动下单，最终交易由用户手动决定。
+Stage 3A and Stage 3B used internal review only. This review route不会自动下单，最终交易由用户手动决定。

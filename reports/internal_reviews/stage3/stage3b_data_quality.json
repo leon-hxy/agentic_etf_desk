@@ -1,0 +1,79 @@
+{
+  "minor_stage": "Stage 3B",
+  "task_file": "ops/tasks/stage3b_data_quality.md",
+  "status": "completed_internal_review",
+  "generated_at": "2026-06-28T07:34:04Z",
+  "builder_summary": "Stage 3B added a repo-only ETF data quality checker and generated auditable reports covering missing values, ETF start dates, adjusted prices, abnormal prices, and safety flags while keeping sample smoke data separate from investment evidence.",
+  "changed_files": [
+    "scripts/data/check_data_quality.py",
+    "reports/data_quality/stage3b_data_quality_report.md",
+    "reports/data_quality/stage3b_data_quality_report.json",
+    "ops/tasks/stage3b_data_quality.md",
+    "ops/stages/stage3.yaml",
+    "ops/state/loop_state.json",
+    "reports/internal_reviews/stage3/stage3b_data_quality.md",
+    "reports/internal_reviews/stage3/stage3b_data_quality.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "tests/safety/test_internal_review_governance.py",
+    "tests/safety/test_stage3b_data_quality.py"
+  ],
+  "security_reviewer": {
+    "result": "pass",
+    "secrets_touched": false,
+    "real_config_modified": false,
+    "auto_trading_surface": false,
+    "broker_write_surface": false,
+    "public_repo_hygiene_passed": true,
+    "notes": "The checker reads repo data and manifests only; no secret values, real runtime config, Computer Use, Feishu send, ChatGPT request, broker access, or order-writing behavior."
+  },
+  "domain_reviewer": {
+    "result": "pass",
+    "missing_values_covered": true,
+    "etf_start_dates_covered": true,
+    "adjusted_prices_covered": true,
+    "abnormal_prices_covered": true,
+    "sample_real_data_boundary_clear": true,
+    "sample_smoke_not_investment_basis": true,
+    "notes": "The report records that the current run validates quality logic on repo sample input and does not treat sample smoke output as investment evidence."
+  },
+  "integration_reviewer": {
+    "result": "pass",
+    "stage_branch_governance_ok": true,
+    "branch": "stage/stage3-data-backtest",
+    "chatgpt_major_review_triggered": false,
+    "feishu_notification_sent": false,
+    "loop_state_handoff_update_reasonable": true,
+    "notes": "Stage 3B remains a small internal-review stage and sets Stage 3C as the next planned minor task without executing it."
+  },
+  "test_reviewer": {
+    "result": "pass",
+    "commands": [
+      "python3 -m unittest tests.safety.test_stage3b_data_quality",
+      "python3 -m unittest tests.safety.test_internal_review_governance",
+      "python3 -m unittest",
+      "python3 scripts/safety/check_forbidden_surfaces.py",
+      "python3 scripts/safety/check_secret_leaks.py",
+      "python3 scripts/safety/check_public_repo_hygiene.py",
+      "python3 scripts/safety/check_universe_only.py",
+      "git diff --check"
+    ],
+    "results": [
+      "Stage 3B targeted test previously passed",
+      "Governance test added red first for missing formal artifacts",
+      "Final full verification is recorded in handoff after rerun"
+    ],
+    "failed_items_and_fixes": [
+      "An intermediate data quality run initially treated pre-start sample availability gaps as missing values; the checker now records ETF first available dates and evaluates missing values after that date."
+    ]
+  },
+  "promote_to_next_minor_stage": true,
+  "next_minor_stage": "Stage 3C backtest validation",
+  "requires_user_attention": false,
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "feishu_message_sent": false,
+  "final_trading_notice": "Final trading is manually decided by the user."
+}

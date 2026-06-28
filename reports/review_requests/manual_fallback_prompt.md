@@ -1,14 +1,12 @@
-# Manual ChatGPT Review Fallback Prompt
+# Manual Review Fallback
 
-Computer Use relay is optional and draft-only. If relay is unavailable, copy the prompt below into ChatGPT.
+No manual ChatGPT fallback prompt is required for Stage 3A/3B.
 
-This fallback不会自动下单，最终交易由用户手动决定。
+`review_target_commit`: `78b6e399b041dc988208261db4d3ec55f0c74749`
 
-```text
-Request manual major-stage ChatGPT review for public GitHub repo https://github.com/leon-hxy/agentic_etf_desk.
-Review `review_target_commit`: `b6defd4376a8767b197cdcc8062238d1701a530a`.
-请只读取这些公开路径：`reports/review_requests/latest.md`, `reports/review_requests/latest.json`, `reports/codex_handoff/latest.md`, `reports/codex_handoff/latest.json`。
-重点检查 ETF-only、安全边界、无自动下单/券商写接口、无敏感信息泄漏、测试是否足够。
-请输出 pass/fail、高风险问题、必须修复项、下一步建议。
-repo 是 public，不需要 GitHub connector。最终交易由用户手动决定，系统不会自动下单。
-```
+Stage 3A and Stage 3B are small stages using internal review only. If a later Stage 3E
+major-review package is prepared, the user decides whether to request manual
+ChatGPT review.
+
+Final trading is manually decided by the user. The system does not
+automatically place orders.

@@ -60,6 +60,9 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 2E.1 ChatGPT relay target and input delivery hardened",
                 "Stage 2F review governance refactor completed",
                 "Stage 2F.1 branch governance and Stage 3 task plan completed",
+                "Stage 3A data source plan completed",
+                "Stage 3B data quality checks completed",
+                "Stage 3B completed_internal_review",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -75,6 +78,9 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "requires_user_review_before_any_followup_relay",
                 "requires_user_approval_for_live_relay_retry",
                 "use_codex_self_review_for_small_stages_major_chatgpt_manual_only",
+                "stage3b_ready_after_stage3a_pass",
+                "stage3c_ready_after_stage3b_pass",
+                "ready",
             },
         )
         if payload["current_stage"] in {
@@ -85,6 +91,9 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 2E.1 ChatGPT relay target and input delivery hardened",
             "Stage 2F review governance refactor completed",
             "Stage 2F.1 branch governance and Stage 3 task plan completed",
+            "Stage 3A data source plan completed",
+            "Stage 3B data quality checks completed",
+            "Stage 3B completed_internal_review",
         }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
@@ -111,6 +120,9 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
         elif payload["current_stage"] in {
             "Stage 2F review governance refactor completed",
             "Stage 2F.1 branch governance and Stage 3 task plan completed",
+            "Stage 3A data source plan completed",
+            "Stage 3B data quality checks completed",
+            "Stage 3B completed_internal_review",
         }:
             self.assertTrue(payload["computer_use_executed"])
             self.assertTrue(payload["computer_use_live_execution"])

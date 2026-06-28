@@ -1,21 +1,16 @@
 # Notification Preview
 
-- Stage: `Stage 2F.1 branch governance and Stage 3 task plan completed`
-- Review stage: `Stage 2F.1 branch governance and Stage 3 task plan completed`
-- review_target_commit: `b6defd4376a8767b197cdcc8062238d1701a530a`
+- Stage: `Stage 3B completed_internal_review`
 - Mode: `repo_only_preview`
 - Sent to Feishu: `false`
-- Computer Use executed: `false`
-- Real gateway modified: `false`
+- ChatGPT review requested: `false`
+- Review target commit: `78b6e399b041dc988208261db4d3ec55f0c74749`
+- Computer Use 未执行。
 
-## Preview Message
+No Feishu notification is required because Stage 3A and Stage 3B completed
+internal review without blockers.
+Feishu notification is reserved for blocker reporting or the Stage 3E
+major-review package prompt, if the user requests it.
 
-Codex dry-run 阶段 `Stage 2F.1 branch governance and Stage 3 task plan completed` 已生成 repo-only 预览。 review_target_commit: `b6defd4376a8767b197cdcc8062238d1701a530a`。 本阶段未执行 Computer Use；不会自动下单，最终交易由用户手动决定。
-
-## Allowed User Replies
-
-- 确认审核
-- 暂不审核
-- 只看状态
-- 开始下一阶段
-- 暂停 loop
+Final trading is manually decided by the user.
+不会自动下单，最终交易由用户手动决定。
