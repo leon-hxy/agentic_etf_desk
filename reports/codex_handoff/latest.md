@@ -6,10 +6,10 @@ Stage 2F.1 branch governance and Stage 3 task plan completed.
 
 ## Latest Commit Binding
 
-- `review_target_commit`: `REVIEW_TARGET_COMMIT_PENDING_STAGE2F1`
+- `review_target_commit`: `b6defd4376a8767b197cdcc8062238d1701a530a`
 - `handoff_commit`: `null`
-- `handoff_generated_from_head`: `23714230ebda5bbaa16c27fac9efdf8d76663911`
-- `current_repo_head`: `23714230ebda5bbaa16c27fac9efdf8d76663911`
+- `handoff_generated_from_head`: `b6defd4376a8767b197cdcc8062238d1701a530a`
+- `current_repo_head`: `b6defd4376a8767b197cdcc8062238d1701a530a`
 
 `review_target_commit` is the commit to review. The handoff may be committed
 later and therefore cannot self-reference its own final SHA in the same commit.
@@ -57,9 +57,12 @@ This field will be refreshed after the Stage 2F.1 business commit is created.
 
 ## Tests
 
-- `python3 -m unittest tests.safety.test_branch_governance`: pending after Stage 2F.1 implementation.
-- `python3 -m unittest full safety/smoke suite`: pending after `review_target_commit` is bound to the Stage 2F.1 business commit.
-- `git diff --check`: pending.
+- `python3 -m unittest tests.safety.test_branch_governance`: passed; 4 tests OK.
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.safety.test_stage2f_review_governance tests.safety.test_branch_governance tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed; 95 tests OK.
+- `python3 scripts/safety/check_review_relay_safety.py`: passed; no findings.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings.
+- `python3 scripts/safety/check_handoff_commit_consistency.py`: passed; no findings.
+- `git diff --check`: passed; no whitespace errors.
 
 ## Safety Flags
 

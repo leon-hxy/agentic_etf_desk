@@ -9,11 +9,11 @@
   "computer_use_executed": false,
   "historical_computer_use_executed": true,
   "loop_state_stage": "Stage 2F.1 branch governance and Stage 3 task plan completed",
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2F.1 branch governance and Stage 3 task plan completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `REVIEW_TARGET_COMMIT_PENDING_STAGE2F1`\u3002 \u672c\u9636\u6bb5\u672a\u6267\u884c Computer Use\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
+  "message": "Codex dry-run \u9636\u6bb5 `Stage 2F.1 branch governance and Stage 3 task plan completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `b6defd4376a8767b197cdcc8062238d1701a530a`\u3002 \u672c\u9636\u6bb5\u672a\u6267\u884c Computer Use\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
   "mode": "repo_only_preview",
   "real_gateway_modified": false,
   "review_stage": "Stage 2F.1 branch governance and Stage 3 task plan completed",
-  "review_target_commit": "REVIEW_TARGET_COMMIT_PENDING_STAGE2F1",
+  "review_target_commit": "b6defd4376a8767b197cdcc8062238d1701a530a",
   "sent_to_feishu": false,
   "stage": "Stage 2F.1 branch governance and Stage 3 task plan completed"
 }
