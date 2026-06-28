@@ -1,0 +1,89 @@
+{
+  "minor_stage": "Stage 3 Runner Setup",
+  "task_file": "attached Stage 3 Runner Setup request",
+  "status": "completed_internal_runner_setup",
+  "branch": "stage/stage3-data-backtest",
+  "builder_summary": "Created a repo-only Stage 3 runner state machine, checklist, and Codex App automation prompt so future wakes can resume Stage 3C, Stage 3D, and Stage 3E in order.",
+  "changed_files": [
+    "ops/runners/stage3_runner.md",
+    "ops/runners/stage3_runner_state.json",
+    "ops/runners/stage3_runner_checklist.md",
+    "configs/codex_automation/stage3_runner_automation_prompt.md",
+    "ops/stages/stage3.yaml",
+    "ops/tasks/stage3c_backtest_validation.md",
+    "ops/tasks/stage3d_strategy_evidence_report.md",
+    "ops/tasks/stage3_major_review_package.md",
+    "tests/safety/test_stage_runner_governance.py",
+    "reports/internal_reviews/stage3/stage3_runner_setup.md",
+    "reports/internal_reviews/stage3/stage3_runner_setup.json"
+  ],
+  "security_reviewer": {
+    "result": "pass",
+    "reviewer_mode": "setup_internal_pass",
+    "secrets_touched": false,
+    "real_config_modified": false,
+    "computer_use_executed": false,
+    "auto_trading_surface": false,
+    "broker_write_surface": false,
+    "public_repo_hygiene_expected": true
+  },
+  "domain_reviewer": {
+    "result": "pass",
+    "etf_only_maintained": true,
+    "runner_changes_research_logic": false,
+    "final_trading_manual": true,
+    "forbidden_assets_introduced": false
+  },
+  "integration_reviewer": {
+    "result": "pass",
+    "branch_governance_passed": true,
+    "stage3c_ready": true,
+    "stage3d_depends_on_stage3c_internal_review": true,
+    "stage3e_depends_on_stage3d_internal_review": true,
+    "small_stage_chatgpt_review_requested": false,
+    "stage3e_major_review_package_only": true
+  },
+  "test_reviewer": {
+    "result": "pass",
+    "new_test": "tests/safety/test_stage_runner_governance.py",
+    "tests": [
+      {
+        "command": "python3 -m unittest tests.safety.test_stage_runner_governance",
+        "result": "red run failed as expected before runner artifacts existed; green run passed, 4 tests OK"
+      },
+      {
+        "command": "python3 -m unittest",
+        "result": "passed; 108 tests OK"
+      },
+      {
+        "command": "python3 scripts/safety/check_forbidden_surfaces.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_secret_leaks.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_universe_only.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "git diff --check",
+        "result": "passed; no whitespace errors"
+      }
+    ],
+    "full_test_results_recorded_in_handoff_after_execution": true
+  },
+  "automation_prompt": "configs/codex_automation/stage3_runner_automation_prompt.md",
+  "codex_app_automation_creation": "after_commit_push",
+  "runner_ready": true,
+  "stage3c_can_start_after_push": true,
+  "requires_user_attention": false,
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "feishu_message_sent": false
+}

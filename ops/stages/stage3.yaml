@@ -1,10 +1,22 @@
 stage: Stage 3 data and backtest evidence
-status: stage3b_completed_internal_review_stage3c_ready
+status: stage3_runner_ready_stage3c_ready
 stable_branch: main
 construction_branch: stage/stage3-data-backtest
 task_branch_prefix: task/
 business_code_started: true
 repo_only_planning_stage: false
+runner:
+  file: ops/runners/stage3_runner_state.json
+  status: ready
+  current_minor_stage: Stage 3C
+  current_task: ops/tasks/stage3c_backtest_validation.md
+  completed_minor_stages:
+    - Stage 3A
+    - Stage 3B
+  remaining_minor_stages:
+    - Stage 3C
+    - Stage 3D
+    - Stage 3E
 review_governance:
   small_stage_review: codex_self_review
   major_stage_review: manual_chatgpt_review
@@ -43,18 +55,26 @@ small_stages:
       - reports/stage3b_safety_test_results.md
   - id: stage3c_backtest_validation
     file: ops/tasks/stage3c_backtest_validation.md
-    status: planned
+    status: ready
+    depends_on: Stage 3B completed_internal_review
     scope: formal backtest validation replacing sample-only reports
     review: codex_self_review
+    chatgpt_review_requested: false
   - id: stage3d_strategy_evidence_report
     file: ops/tasks/stage3d_strategy_evidence_report.md
     status: planned
+    depends_on: Stage 3C completed_internal_review
     scope: GTAA, Dual Momentum, 60/40, and Buy-and-Hold evidence package
     review: codex_self_review
+    chatgpt_review_requested: false
 major_review:
   id: stage3e_major_review_package
   file: ops/tasks/stage3_major_review_package.md
   status: planned
+  depends_on: Stage 3D completed_internal_review
   trigger: after Stage 3A through Stage 3D are complete
   review: manual_chatgpt_review
   feishu_notification: ask the user whether to request ChatGPT review
+  outputs:
+    - reports/major_reviews/stage3/latest.md
+    - reports/major_reviews/stage3/latest.json

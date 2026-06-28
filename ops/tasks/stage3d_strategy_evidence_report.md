@@ -4,6 +4,7 @@ status: planned
 stage: Stage 3D
 branch: stage/stage3-data-backtest
 review_level: small_stage
+depends_on: Stage 3C completed_internal_review
 repo-only
 
 ## Objective
@@ -15,8 +16,23 @@ Buy-and-Hold using the validated Stage 3 data and backtest path.
 
 Small-stage review: Codex self-review.
 
+Do not request ChatGPT review for this small stage.
+
 Major-stage review: manual ChatGPT review only after the Stage 3E package is
 complete.
+
+## Runner
+
+- Runner state: `ops/runners/stage3_runner_state.json`
+- Stage 3D remains `planned` until Stage 3C is
+  `completed_internal_review`.
+- Internal review artifacts must be written to
+  `reports/internal_reviews/stage3/stage3d_strategy_evidence_report.md` and
+  `reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json`.
+- Completion requires reviewer passes, rerun tests, task status update, runner
+  state update, commit, and push.
+- Do not execute Stage 3E from this task unless the runner state explicitly
+  allows continuing in the same wake.
 
 ## Scope
 

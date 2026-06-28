@@ -12,6 +12,17 @@
   "stage3_business_code_started": true,
   "stage3a_task_status": "completed_internal_review",
   "stage3b_task_status": "completed_internal_review",
+  "stage3_runner_status": "ready",
+  "stage3_runner_state": "ops/runners/stage3_runner_state.json",
+  "stage3_runner_current_minor_stage": "Stage 3C",
+  "stage3_runner_current_task": "ops/tasks/stage3c_backtest_validation.md",
+  "stage3_runner_automation_prompt": "configs/codex_automation/stage3_runner_automation_prompt.md",
+  "stage3_runner_setup_review": "reports/internal_reviews/stage3/stage3_runner_setup.json",
+  "stage3_runner_automation_creation": "after_commit_push",
+  "stage3_runner_can_start_stage3c": true,
+  "stage3c_task_status": "ready",
+  "stage3d_task_status": "planned",
+  "stage3e_task_status": "planned",
   "stage3_next_task": "ops/tasks/stage3c_backtest_validation.md",
   "next_minor_task": "ops/tasks/stage3c_backtest_validation.md",
   "next_minor_task_status": "ready",
@@ -46,8 +57,18 @@
     "ops/stages/stage3.yaml",
     "ops/tasks/stage3a_data_source.md",
     "ops/tasks/stage3b_data_quality.md",
+    "ops/tasks/stage3c_backtest_validation.md",
+    "ops/tasks/stage3d_strategy_evidence_report.md",
+    "ops/tasks/stage3_major_review_package.md",
+    "ops/runners/stage3_runner.md",
+    "ops/runners/stage3_runner_state.json",
+    "ops/runners/stage3_runner_checklist.md",
+    "configs/codex_automation/stage3_runner_automation_prompt.md",
+    "reports/internal_reviews/stage3/stage3_runner_setup.md",
+    "reports/internal_reviews/stage3/stage3_runner_setup.json",
     "tests/safety/test_stage3a_data_source.py",
-    "tests/safety/test_stage3b_data_quality.py"
+    "tests/safety/test_stage3b_data_quality.py",
+    "tests/safety/test_stage_runner_governance.py"
   ],
   "changed_files": [
     "docs/stage3a_data_source_plan.md",
@@ -91,7 +112,17 @@
     "tests/safety/test_handoff_commit_consistency.py",
     "tests/safety/test_loop_state_consistency.py",
     "tests/safety/test_notification_loop_safety.py",
-    "tests/safety/test_review_relay_safety.py"
+    "tests/safety/test_review_relay_safety.py",
+    "ops/runners/stage3_runner.md",
+    "ops/runners/stage3_runner_state.json",
+    "ops/runners/stage3_runner_checklist.md",
+    "configs/codex_automation/stage3_runner_automation_prompt.md",
+    "ops/tasks/stage3c_backtest_validation.md",
+    "ops/tasks/stage3d_strategy_evidence_report.md",
+    "ops/tasks/stage3_major_review_package.md",
+    "reports/internal_reviews/stage3/stage3_runner_setup.md",
+    "reports/internal_reviews/stage3/stage3_runner_setup.json",
+    "tests/safety/test_stage_runner_governance.py"
   ],
   "tests": [
     {
@@ -128,6 +159,34 @@
     },
     {
       "command": "python3 scripts/safety/check_review_relay_safety.py --root .",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_universe_only.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed; no whitespace errors"
+    },
+    {
+      "command": "python3 -m unittest tests.safety.test_stage_runner_governance",
+      "result": "red run failed as expected before runner artifacts existed; green run passed, 4 tests OK"
+    },
+    {
+      "command": "python3 -m unittest",
+      "result": "passed; 108 tests OK"
+    },
+    {
+      "command": "python3 scripts/safety/check_forbidden_surfaces.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_secret_leaks.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
       "result": "passed; no findings"
     },
     {
