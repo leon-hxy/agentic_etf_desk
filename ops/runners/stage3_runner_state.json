@@ -2,18 +2,18 @@
   "major_stage": "Stage 3",
   "branch": "stage/stage3-data-backtest",
   "status": "ready",
-  "current_minor_stage": "Stage 3C",
-  "current_task": "ops/tasks/stage3c_backtest_validation.md",
+  "current_minor_stage": "Stage 3D",
+  "current_task": "ops/tasks/stage3d_strategy_evidence_report.md",
   "completed_minor_stages": [
     "Stage 3A",
-    "Stage 3B"
+    "Stage 3B",
+    "Stage 3C"
   ],
   "remaining_minor_stages": [
-    "Stage 3C",
     "Stage 3D",
     "Stage 3E"
   ],
-  "last_pushed_commit": "5025ee54763a8c88797f9357317b755df3a9607c",
+  "last_pushed_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
   "major_review_required": false,
   "minor_review_route": "codex_internal_review",
   "major_review_route": "manual_chatgpt_review",
@@ -34,5 +34,8 @@
   "computer_use_executed": false,
   "real_config_modified": false,
   "requires_user_attention": false,
-  "updated_at": "2026-06-28T00:00:00+08:00"
+  "last_completed_minor_stage": "Stage 3C",
+  "last_internal_review": "reports/internal_reviews/stage3/stage3c_backtest_validation.json",
+  "last_validation_report": "reports/backtest_validation/stage3c_backtest_validation_report.json",
+  "updated_at": "2026-06-28T16:42:00+08:00"
 }

@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3B data quality checks completed"
-GOVERNANCE_STAGE = "Stage 3B completed_internal_review"
+GOVERNANCE_STAGE = "Stage 3C completed_internal_review"
 
 
 def read(path: str) -> str:
@@ -91,15 +91,15 @@ class Stage3BDataQualityTest(unittest.TestCase):
         self.assertEqual(handoff["loop_state_stage"], GOVERNANCE_STAGE)
         self.assertEqual(loop_state["current_stage"], GOVERNANCE_STAGE)
         self.assertEqual(review["stage"], GOVERNANCE_STAGE)
-        self.assertEqual(loop_state["status"], "stage3b_completed_internal_review")
+        self.assertEqual(loop_state["status"], "stage3c_completed_internal_review")
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3b_task_status"], "completed_internal_review")
-        self.assertEqual(loop_state["stage3_next_task"], "ops/tasks/stage3c_backtest_validation.md")
-        self.assertEqual(loop_state["next_minor_task"], "ops/tasks/stage3c_backtest_validation.md")
-        self.assertEqual(loop_state["next_minor_task_status"], "ready")
+        self.assertEqual(loop_state["stage3_next_task"], "ops/tasks/stage3d_strategy_evidence_report.md")
+        self.assertEqual(loop_state["next_minor_task"], "ops/tasks/stage3d_strategy_evidence_report.md")
+        self.assertEqual(loop_state["next_minor_task_status"], "planned")
         self.assertEqual(
             loop_state["last_internal_review"],
-            "reports/internal_reviews/stage3/stage3b_data_quality.json",
+            "reports/internal_reviews/stage3/stage3c_backtest_validation.json",
         )
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])

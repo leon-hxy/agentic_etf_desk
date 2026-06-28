@@ -1,5 +1,5 @@
 stage: Stage 3 data and backtest evidence
-status: stage3_runner_ready_stage3c_ready
+status: stage3c_completed_internal_review_stage3d_planned
 stable_branch: main
 construction_branch: stage/stage3-data-backtest
 task_branch_prefix: task/
@@ -8,13 +8,13 @@ repo_only_planning_stage: false
 runner:
   file: ops/runners/stage3_runner_state.json
   status: ready
-  current_minor_stage: Stage 3C
-  current_task: ops/tasks/stage3c_backtest_validation.md
+  current_minor_stage: Stage 3D
+  current_task: ops/tasks/stage3d_strategy_evidence_report.md
   completed_minor_stages:
     - Stage 3A
     - Stage 3B
-  remaining_minor_stages:
     - Stage 3C
+  remaining_minor_stages:
     - Stage 3D
     - Stage 3E
 review_governance:
@@ -55,11 +55,17 @@ small_stages:
       - reports/stage3b_safety_test_results.md
   - id: stage3c_backtest_validation
     file: ops/tasks/stage3c_backtest_validation.md
-    status: ready
+    status: completed_internal_review
     depends_on: Stage 3B completed_internal_review
     scope: formal backtest validation replacing sample-only reports
     review: codex_self_review
     chatgpt_review_requested: false
+    outputs:
+      - scripts/backtest/validate_stage3c_backtest.py
+      - reports/backtest_validation/stage3c_backtest_validation_report.md
+      - reports/backtest_validation/stage3c_backtest_validation_report.json
+      - reports/internal_reviews/stage3/stage3c_backtest_validation.md
+      - reports/internal_reviews/stage3/stage3c_backtest_validation.json
   - id: stage3d_strategy_evidence_report
     file: ops/tasks/stage3d_strategy_evidence_report.md
     status: planned

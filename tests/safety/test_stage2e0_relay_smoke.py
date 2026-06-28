@@ -75,6 +75,7 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                     "stage3a_codex_self_review_no_chatgpt",
                     "stage3b_codex_self_review_no_chatgpt",
                     "stage3ab_internal_review_no_chatgpt",
+                    "stage3c_internal_review_no_chatgpt",
                 },
             )
             self.assertFalse(status["computer_use_executed"])
@@ -87,6 +88,7 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                     "stage3a_passed_codex_self_review_no_chatgpt_request",
                     "stage3b_passed_codex_self_review_no_chatgpt_request",
                     "stage3ab_completed_internal_review_no_chatgpt_request",
+                    "stage3c_completed_internal_review_no_chatgpt_request",
                 },
             )
 

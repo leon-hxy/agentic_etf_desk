@@ -1,9 +1,9 @@
 {
-  "stage": "Stage 3B completed_internal_review",
+  "stage": "Stage 3C completed_internal_review",
   "expected_repo": "leon-hxy/agentic_etf_desk",
-  "expected_commit": "78b6e399b041dc988208261db4d3ec55f0c74749",
-  "review_target_commit": "78b6e399b041dc988208261db4d3ec55f0c74749",
-  "relay_stage": "stage3ab_internal_review_no_chatgpt",
+  "expected_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
+  "review_target_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
+  "relay_stage": "stage3c_internal_review_no_chatgpt",
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
   "review_route": "codex_self_review_for_small_stage",
   "major_review_route": "manual_chatgpt_review_for_major_stage",
@@ -24,7 +24,7 @@
     "pre_send_safety_check_status": "pass"
   },
   "failure_policy": "notify_user_on_blocker_only",
-  "status_reason": "stage3ab_completed_internal_review_no_chatgpt_request",
+  "status_reason": "stage3c_completed_internal_review_no_chatgpt_request",
   "no_chatgpt_review_requested": true,
   "internal_review_only": true,
   "auto_trading_surface": false,

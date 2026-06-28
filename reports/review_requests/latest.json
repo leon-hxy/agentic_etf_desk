@@ -1,16 +1,17 @@
 {
-  "stage": "Stage 3B completed_internal_review",
-  "loop_state_stage": "Stage 3B completed_internal_review",
+  "stage": "Stage 3C completed_internal_review",
+  "loop_state_stage": "Stage 3C completed_internal_review",
   "review_level": "small_stage",
   "review_mode": "internal_review_only",
-  "review_target_commit": "78b6e399b041dc988208261db4d3ec55f0c74749",
+  "review_target_commit": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
   "handoff_commit": null,
-  "handoff_generated_from_head": "78b6e399b041dc988208261db4d3ec55f0c74749",
-  "current_repo_head": "78b6e399b041dc988208261db4d3ec55f0c74749",
-  "internal_review": "reports/internal_reviews/stage3/stage3b_data_quality.json",
+  "handoff_generated_from_head": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
+  "current_repo_head": "945dc002ed39ee64e36a7ad51714dd8d48fe0903",
+  "internal_review": "reports/internal_reviews/stage3/stage3c_backtest_validation.json",
   "internal_reviews": [
     "reports/internal_reviews/stage3/stage3a_data_source.json",
-    "reports/internal_reviews/stage3/stage3b_data_quality.json"
+    "reports/internal_reviews/stage3/stage3b_data_quality.json",
+    "reports/internal_reviews/stage3/stage3c_backtest_validation.json"
   ],
   "no_chatgpt_review_requested": true,
   "chatgpt_review_requested": false,
@@ -22,10 +23,12 @@
   "major_stage_review_route": "manual_chatgpt_review",
   "manual_major_review_deferred_until": "Stage 3E",
   "review_files": [
-    "scripts/data/check_data_quality.py",
-    "reports/data_quality/stage3b_data_quality_report.md",
+    "scripts/backtest/validate_stage3c_backtest.py",
+    "reports/backtest_validation/stage3c_backtest_validation_report.md",
+    "reports/backtest_validation/stage3c_backtest_validation_report.json",
     "reports/internal_reviews/stage3/stage3a_data_source.md",
     "reports/internal_reviews/stage3/stage3b_data_quality.md",
+    "reports/internal_reviews/stage3/stage3c_backtest_validation.md",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json"
   ],

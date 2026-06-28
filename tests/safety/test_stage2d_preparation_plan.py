@@ -63,6 +63,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 3A data source plan completed",
                 "Stage 3B data quality checks completed",
                 "Stage 3B completed_internal_review",
+                "Stage 3C completed_internal_review",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -81,6 +82,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "stage3b_ready_after_stage3a_pass",
                 "stage3c_ready_after_stage3b_pass",
                 "ready",
+                "planned",
             },
         )
         if payload["current_stage"] in {
@@ -94,6 +96,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3A data source plan completed",
             "Stage 3B data quality checks completed",
             "Stage 3B completed_internal_review",
+            "Stage 3C completed_internal_review",
         }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
@@ -123,6 +126,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 3A data source plan completed",
             "Stage 3B data quality checks completed",
             "Stage 3B completed_internal_review",
+            "Stage 3C completed_internal_review",
         }:
             self.assertTrue(payload["computer_use_executed"])
             self.assertTrue(payload["computer_use_live_execution"])

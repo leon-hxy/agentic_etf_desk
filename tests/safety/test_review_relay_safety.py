@@ -62,6 +62,7 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             "stage3a_codex_self_review_no_chatgpt",
             "stage3b_codex_self_review_no_chatgpt",
             "stage3ab_internal_review_no_chatgpt",
+            "stage3c_internal_review_no_chatgpt",
         }:
             self.assertFalse(status["review_gate_required"])
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
@@ -78,6 +79,7 @@ class ReviewRelaySafetyTest(unittest.TestCase):
                     "stage3a_passed_codex_self_review_no_chatgpt_request",
                     "stage3b_passed_codex_self_review_no_chatgpt_request",
                     "stage3ab_completed_internal_review_no_chatgpt_request",
+                    "stage3c_completed_internal_review_no_chatgpt_request",
                 },
             )
             self.assertIn(

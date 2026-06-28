@@ -95,12 +95,21 @@ class Stage3ADataSourceTest(unittest.TestCase):
         loop_state = read_json("ops/state/loop_state.json")
         self.assertIn(
             loop_state["current_stage"],
-            {STAGE, "Stage 3B data quality checks completed", "Stage 3B completed_internal_review"},
+            {
+                STAGE,
+                "Stage 3B data quality checks completed",
+                "Stage 3B completed_internal_review",
+                "Stage 3C completed_internal_review",
+            },
         )
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
         self.assertIn(
             loop_state["stage3_next_task"],
-            {"ops/tasks/stage3b_data_quality.md", "ops/tasks/stage3c_backtest_validation.md"},
+            {
+                "ops/tasks/stage3b_data_quality.md",
+                "ops/tasks/stage3c_backtest_validation.md",
+                "ops/tasks/stage3d_strategy_evidence_report.md",
+            },
         )
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])

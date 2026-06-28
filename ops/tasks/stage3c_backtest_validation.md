@@ -1,6 +1,6 @@
 # Stage 3C Backtest Validation
 
-status: ready
+status: completed_internal_review
 stage: Stage 3C
 branch: stage/stage3-data-backtest
 review_level: small_stage
@@ -24,7 +24,7 @@ complete.
 ## Runner
 
 - Runner state: `ops/runners/stage3_runner_state.json`
-- Current runner status before execution: `ready`
+- Current runner status after execution: `completed_internal_review`
 - Internal review artifacts must be written to
   `reports/internal_reviews/stage3/stage3c_backtest_validation.md` and
   `reports/internal_reviews/stage3/stage3c_backtest_validation.json`.
@@ -32,6 +32,18 @@ complete.
   state update, commit, and push.
 - Do not execute Stage 3D from this task unless the runner state explicitly
   allows continuing in the same wake.
+
+## Result
+
+- Formal validation script:
+  `scripts/backtest/validate_stage3c_backtest.py`.
+- Validation report:
+  `reports/backtest_validation/stage3c_backtest_validation_report.md`.
+- Validation payload:
+  `reports/backtest_validation/stage3c_backtest_validation_report.json`.
+- Internal review:
+  `reports/internal_reviews/stage3/stage3c_backtest_validation.md`.
+- Stage 3D remains planned and is the next runner task.
 
 ## Scope
 

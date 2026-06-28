@@ -35,8 +35,9 @@ PREVIOUS_STAGE_COMMITS = {
     "f7fa73b" + "79ab1e3886c69bfd6ca5874a662acbb75",
     "2006d60" + "f237a9b47f34236fd7dd299e9bbdb4f86",
     "2371423" + "0ebda5bbaa16c27fac9efdf8d76663911",
+    "78b6e39" + "9b041dc988208261db4d3ec55f0c74749",
 }
-EXPECTED_STAGE = "Stage 3B completed_internal_review"
+EXPECTED_STAGE = "Stage 3C completed_internal_review"
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
@@ -141,14 +142,14 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, STATUS_JSON, "review_target_commit mismatch")
     if relay_status.get("expected_commit") != target:
         add(findings, STATUS_JSON, "expected_commit mismatch")
-    if relay_status.get("relay_stage") != "stage3ab_internal_review_no_chatgpt":
+    if relay_status.get("relay_stage") != "stage3c_internal_review_no_chatgpt":
         add(findings, STATUS_JSON, "relay_stage mismatch")
     if relay_status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
         add(findings, STATUS_JSON, "ChatGPT Computer Use auto review must be deprecated")
     if relay_status.get("sent_to_chatgpt") is not False:
-        add(findings, STATUS_JSON, "Stage 3B must not send to ChatGPT")
+        add(findings, STATUS_JSON, "Stage 3C must not send to ChatGPT")
     if relay_status.get("computer_use_executed") is not False:
-        add(findings, STATUS_JSON, "Stage 3B must not execute Computer Use")
+        add(findings, STATUS_JSON, "Stage 3C must not execute Computer Use")
 
     for path in TEXT_TARGET_PATHS:
         content = read_text(root, path)

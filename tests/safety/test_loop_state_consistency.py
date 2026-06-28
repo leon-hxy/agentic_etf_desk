@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3B completed_internal_review"
+EXPECTED_STAGE = "Stage 3C completed_internal_review"
 
 
 def read_json(path: str) -> dict:
@@ -32,7 +32,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(self.loop_state["status"], "stage3b_completed_internal_review")
+        self.assertEqual(self.loop_state["status"], "stage3c_completed_internal_review")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
         expected_commit = self.handoff["review_target_commit"]
@@ -49,14 +49,14 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotIn(self.loop_state["review_target_commit"], stale_commits)
-        self.assertIn("Stage 3B", self.loop_state["review_target_commit_note"])
+        self.assertIn("Stage 3C", self.loop_state["review_target_commit_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
         self.assertEqual(self.loop_state["last_review_request"], "reports/review_requests/latest.json")
         self.assertEqual(
             self.loop_state["next_task"],
-            "ops/tasks/stage3c_backtest_validation.md",
+            "ops/tasks/stage3d_strategy_evidence_report.md",
         )
         self.assertEqual(
             self.loop_state["stage2b_task"],
@@ -138,7 +138,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         )
         self.assertEqual(
             self.loop_state["stage3_next_task"],
-            "ops/tasks/stage3c_backtest_validation.md",
+            "ops/tasks/stage3d_strategy_evidence_report.md",
         )
         self.assertTrue(self.loop_state["feishu_message_sent"])
         self.assertTrue(self.loop_state["review_gate_written"])

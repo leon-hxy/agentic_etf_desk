@@ -2,31 +2,29 @@
 
 ## Current Stage
 
-Stage 3B completed_internal_review.
+Stage 3C completed_internal_review.
 
-## Stage 3 Runner Setup
+## Stage 3 Runner State
 
 - Status: `ready`
 - Runner state: `ops/runners/stage3_runner_state.json`
-- Current runner minor stage: `Stage 3C`
-- Current runner task: `ops/tasks/stage3c_backtest_validation.md`
+- Current runner minor stage: `Stage 3D`
+- Current runner task: `ops/tasks/stage3d_strategy_evidence_report.md`
 - Automation prompt: `configs/codex_automation/stage3_runner_automation_prompt.md`
-- Setup review: `reports/internal_reviews/stage3/stage3_runner_setup.md`
-- Codex App automation creation is expected after this runner setup commit is
-  pushed.
-- Stage 3C can start after the runner setup is committed, pushed, and the
-  automation wake begins.
+- Latest internal review:
+  `reports/internal_reviews/stage3/stage3c_backtest_validation.md`
+- Stage 3D remains planned for a later automation wake.
 
 ## Latest Commit Binding
 
-- `review_target_commit`: `78b6e399b041dc988208261db4d3ec55f0c74749`
+- `review_target_commit`: `945dc002ed39ee64e36a7ad51714dd8d48fe0903`
 - `handoff_commit`: `null`
-- `handoff_generated_from_head`: `78b6e399b041dc988208261db4d3ec55f0c74749`
-- `current_repo_head`: `78b6e399b041dc988208261db4d3ec55f0c74749`
+- `handoff_generated_from_head`: `945dc002ed39ee64e36a7ad51714dd8d48fe0903`
+- `current_repo_head`: `945dc002ed39ee64e36a7ad51714dd8d48fe0903`
 
-`review_target_commit` is the base commit for the current Stage 3A/3B worktree
-changes. Stage 3A and Stage 3B completed internal review only; no ChatGPT review
-was requested.
+`review_target_commit` is the pre-commit HEAD for the current Stage 3C worktree
+changes. Stage 3C completed internal review only; no ChatGPT review was
+requested.
 The handoff may be committed later and therefore cannot self-reference its own
 final SHA in the same commit.
 
@@ -92,7 +90,18 @@ final SHA in the same commit.
 - ETF start dates and availability windows are recorded per symbol.
 - Adjusted prices must be numeric and positive.
 - Abnormal one-day adjusted-close moves above the threshold are flagged.
-- Formal backtest validation remains deferred to Stage 3C.
+- Formal backtest validation was completed in Stage 3C.
+
+## Stage 3C Result
+
+- Status: `completed_internal_review`
+- Added `scripts/backtest/validate_stage3c_backtest.py`.
+- Generated `reports/backtest_validation/stage3c_backtest_validation_report.md`.
+- Validated all configured strategy templates against benchmark metrics.
+- Loaded the persisted Stage 2B smoke report for provenance without rewriting
+  Stage 2B artifacts.
+- Documented that current sample data is not investment basis.
+- Stage 3D strategy evidence report remains planned.
 
 ## Stage 3 Runner Setup Changed Files
 
@@ -110,6 +119,12 @@ final SHA in the same commit.
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `tests/safety/test_stage_runner_governance.py`
+- `scripts/backtest/validate_stage3c_backtest.py`
+- `reports/backtest_validation/stage3c_backtest_validation_report.md`
+- `reports/backtest_validation/stage3c_backtest_validation_report.json`
+- `reports/internal_reviews/stage3/stage3c_backtest_validation.md`
+- `reports/internal_reviews/stage3/stage3c_backtest_validation.json`
+- `tests/safety/test_stage3c_backtest_validation.py`
 
 ## Tests
 
@@ -126,6 +141,13 @@ final SHA in the same commit.
 - `git diff --check`: passed; no whitespace errors.
 - `python3 -m unittest tests.safety.test_stage_runner_governance`: red run failed as expected before runner artifacts existed; green run passed, 4 tests OK.
 - `python3 -m unittest`: passed; 108 tests OK.
+- `python3 scripts/safety/check_forbidden_surfaces.py`: passed; no findings.
+- `python3 scripts/safety/check_secret_leaks.py`: passed; no findings.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings.
+- `python3 scripts/safety/check_universe_only.py`: passed; no findings.
+- `git diff --check`: passed; no whitespace errors.
+- `python3 -m unittest tests.safety.test_stage3c_backtest_validation`: red run failed as expected before Stage 3C validation and internal review existed; green run passed, 3 tests OK.
+- `python3 -m unittest`: passed; 111 tests OK.
 - `python3 scripts/safety/check_forbidden_surfaces.py`: passed; no findings.
 - `python3 scripts/safety/check_secret_leaks.py`: passed; no findings.
 - `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings.
@@ -150,8 +172,8 @@ final SHA in the same commit.
 
 ## Next Recommended Stage
 
-Stage 3C backtest validation is ready on `stage/stage3-data-backtest`, but was
-not executed in this handoff.
+Stage 3D strategy evidence report is planned on `stage/stage3-data-backtest`,
+but was not executed in this handoff.
 
 ## Requires User Approval
 
