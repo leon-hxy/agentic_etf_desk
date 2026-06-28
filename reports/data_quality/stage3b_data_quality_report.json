@@ -1,0 +1,126 @@
+{
+  "abnormal_price_points": [],
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "first_available_dates": {
+    "BIL": "2024-01-02",
+    "BND": "2024-01-03",
+    "DBC": "2024-01-02",
+    "EWJ": "2024-01-02",
+    "GLD": "2024-01-03",
+    "IEF": "2024-01-04",
+    "VEA": "2024-01-03",
+    "VNQ": "2024-01-04",
+    "VTI": "2024-01-02",
+    "VWO": "2024-01-04"
+  },
+  "generated_at": "2026-06-28T07:09:25.795447+00:00",
+  "input_file": "data/raw/prices_sample.csv",
+  "last_available_dates": {
+    "BIL": "2024-01-08",
+    "BND": "2024-01-08",
+    "DBC": "2024-01-08",
+    "EWJ": "2024-01-08",
+    "GLD": "2024-01-08",
+    "IEF": "2024-01-08",
+    "VEA": "2024-01-08",
+    "VNQ": "2024-01-08",
+    "VTI": "2024-01-08",
+    "VWO": "2024-01-08"
+  },
+  "missing_values_by_symbol": {
+    "BIL": 0,
+    "BND": 0,
+    "DBC": 0,
+    "EWJ": 0,
+    "GLD": 0,
+    "IEF": 0,
+    "VEA": 0,
+    "VNQ": 0,
+    "VTI": 0,
+    "VWO": 0
+  },
+  "non_positive_prices": [],
+  "panel_end_date": "2024-01-08",
+  "panel_start_date": "2024-01-02",
+  "parse_errors": [],
+  "pre_start_gaps_by_symbol": {
+    "BIL": 0,
+    "BND": 1,
+    "DBC": 0,
+    "EWJ": 0,
+    "GLD": 1,
+    "IEF": 2,
+    "VEA": 1,
+    "VNQ": 2,
+    "VTI": 0,
+    "VWO": 2
+  },
+  "quality_checks": {
+    "abnormal_prices": {
+      "description": "Flag absolute one-day adjusted-close moves above the configured threshold.",
+      "passed": true,
+      "threshold": 0.8
+    },
+    "adjusted_prices": {
+      "assumption": "Input adjusted_close is treated as the adjusted price field and must be numeric and positive.",
+      "passed": true
+    },
+    "missing_values": {
+      "description": "Every symbol has values for each observed panel date after its first available date.",
+      "passed": true
+    },
+    "start_dates": {
+      "description": "Every symbol has a first and last available date recorded.",
+      "passed": true
+    }
+  },
+  "row_count": 41,
+  "row_counts_by_symbol": {
+    "BIL": 5,
+    "BND": 4,
+    "DBC": 5,
+    "EWJ": 5,
+    "GLD": 4,
+    "IEF": 3,
+    "VEA": 4,
+    "VNQ": 3,
+    "VTI": 5,
+    "VWO": 3
+  },
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "chatgpt_review_requested": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "feishu_gateway_modified": false,
+    "feishu_message_sent": false,
+    "hermes_modified": false,
+    "openclaw_modified": false,
+    "real_config_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "sent_to_chatgpt": false,
+    "services_restarted": false
+  },
+  "source_plan": {
+    "selected_primary_source": "stooq_daily_csv",
+    "selected_stage3b_source_note": "Stage 3B validates quality logic on the current repo raw input; public source fetch is not required for this test run."
+  },
+  "source_plan_file": "configs/data_sources/stage3_data_sources.json",
+  "stage": "Stage 3B data quality checks completed",
+  "status": "passed",
+  "symbols": [
+    "BIL",
+    "BND",
+    "DBC",
+    "EWJ",
+    "GLD",
+    "IEF",
+    "VEA",
+    "VNQ",
+    "VTI",
+    "VWO"
+  ],
+  "unknown_symbols": []
+}

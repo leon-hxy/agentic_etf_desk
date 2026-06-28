@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
+EXPECTED_STAGE = "Stage 3 sample-data pipeline validation merged to main"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -32,17 +32,24 @@ PREVIOUS_STAGE_COMMITS = {
     "f7fa73b" + "79ab1e3886c69bfd6ca5874a662acbb75",
     "2006d60" + "f237a9b47f34236fd7dd299e9bbdb4f86",
     "2371423" + "0ebda5bbaa16c27fac9efdf8d76663911",
+    "945dc00" + "2ed39ee64e36a7ad51714dd8d48fe0903",
+    "3e90368" + "d332749f731177688f532f1127206845f",
+    "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
 JSON_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.json",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/notification_preview.json",
 ]
 TEXT_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.md",
     "reports/review_requests/chatgpt_review_prompt.md",
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
+    "reports/review_requests/notification_preview.md",
 ]
 RELAY_STATUS_JSON = "reports/review_requests/relay_status.json"
 
@@ -99,17 +106,16 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertIn("handoff_generated_from_head", self.handoff)
         self.assertIn("commit_binding_note", self.handoff)
         self.assertIn("review_target_commit", self.handoff["commit_binding_note"])
-        self.assertIn("commit to review", self.handoff["commit_binding_note"])
+        self.assertIn("major-review target", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
-    def test_review_target_commit_is_valid_stage2f_commit(self) -> None:
+    def test_review_target_commit_is_valid_git_commit(self) -> None:
         target = str(self.review_target_commit)
         result = git("cat-file", "-e", f"{target}^{{commit}}")
         self.assertEqual(result.returncode, 0, msg=result.stderr)
 
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertIn("stage2f.1", subject.stdout.lower())
         self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_recorded_current_head_is_valid_git_commit(self) -> None:
@@ -129,8 +135,13 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         relay_status = read_json("reports/review_requests/relay_status.json")
         self.assertEqual(relay_status["review_target_commit"], target)
         self.assertEqual(relay_status["expected_commit"], target)
-        self.assertEqual(relay_status["relay_stage"], "stage2f1_branch_governance_manual_only")
+        self.assertEqual(relay_status["relay_stage"], "stage3_major_gate_finalized_manual_review_ready")
+        self.assertEqual(relay_status["finalization_status"], "completed")
+        self.assertFalse(relay_status["request_chatgpt_review_for_finalization_fixes"])
         self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
+        self.assertTrue(relay_status["feishu_message_sent"])
+        self.assertFalse(relay_status["sent_to_chatgpt"])
+        self.assertFalse(relay_status["computer_use_executed"])
 
     def test_human_readable_artifacts_include_review_target(self) -> None:
         target = str(self.review_target_commit)

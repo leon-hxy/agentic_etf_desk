@@ -2,122 +2,77 @@
 
 ## Current Stage
 
-Stage 2F.1 branch governance and Stage 3 task plan completed.
+Stage 3 sample-data pipeline validation merged to main.
 
-## Latest Commit Binding
+## Closeout Scope
 
-- `review_target_commit`: `b6defd4376a8767b197cdcc8062238d1701a530a`
-- `handoff_commit`: `null`
-- `handoff_generated_from_head`: `b6defd4376a8767b197cdcc8062238d1701a530a`
-- `current_repo_head`: `b6defd4376a8767b197cdcc8062238d1701a530a`
+- Stage 3 completed as sample-data pipeline validation only.
+- Stage 3 is not production backtest.
+- Stage 3 is not investment evidence.
+- Next stage is Stage 3.1 real ETF historical data integration and formal backtesting.
+- Stage 3.1 business code has not been started.
 
-`review_target_commit` is the commit to review. The handoff may be committed
-later and therefore cannot self-reference its own final SHA in the same commit.
-This field will be refreshed after the Stage 2F.1 business commit is created.
+## Merge Inputs
 
-## This Round Changed Files
+- Stable branch: `main`
+- Stage branch: `stage/stage3-data-backtest`
+- Pre-merge main head: `78b6e399b041dc988208261db4d3ec55f0c74749`
+- Merged Stage 3 head: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
+- `latest_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
+- `current_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
+  includes finalization fixes.
+- Prior Stage 3 package `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`
+  is the Stage 3 major package audit target.
+- Merge method: `--no-ff` merge commit after closeout verification.
+- Merge commit: created after this handoff update; final SHA is reported in the Codex closeout response.
 
-- `docs/branching_policy.md`
-- `docs/review_governance.md`
-- `ops/stages/stage3.yaml`
-- `ops/tasks/stage3a_data_source.md`
-- `ops/tasks/stage3b_data_quality.md`
-- `ops/tasks/stage3c_backtest_validation.md`
-- `ops/tasks/stage3d_strategy_evidence_report.md`
-- `ops/tasks/stage3_major_review_package.md`
-- `reports/internal_reviews/README.md`
-- `reports/major_reviews/README.md`
-- `configs/codex_automation/review_governance_prompt.md`
-- `configs/codex_automation/chatgpt_review_relay_prompt.md`
-- `scripts/review_relay/relay_common.py`
-- `scripts/safety/check_handoff_commit_consistency.py`
-- `scripts/safety/check_review_relay_safety.py`
+## Review Outcome
+
+- Major review route: `manual_chatgpt_review`
+- Minor review route: `codex_internal_review`
+- Stage 3 ChatGPT major review result: passed with scope limitations.
+- Valid conclusion: sample-data pipeline validation only.
+- Invalid conclusions: production backtest, investment evidence, formal investment evidence, live trading readiness, or investment recommendation evidence.
+- Stage 3 is not formal investment evidence.
+- Sample data only; not investment basis.
+
+## Next Stage
+
+- Next major stage: `Stage 3.1 real ETF historical data integration`
+- Next branch: `stage/stage3.1-real-etf-data`
+- Stage 3.1A may start only after user approval.
+
+## Updated Files
+
+- `docs/implementation_plan.md`
 - `ops/state/loop_state.json`
+- `ops/stages/stage3.yaml`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
 - `reports/review_requests/latest.md`
 - `reports/review_requests/latest.json`
-- `reports/review_requests/chatgpt_review_prompt.md`
-- `reports/review_requests/chatgpt_review_prompt.json`
-- `reports/review_requests/manual_fallback_prompt.md`
-- `reports/review_requests/notification_preview.md`
-- `reports/review_requests/notification_preview.json`
-- `reports/review_requests/relay_status.md`
-- `reports/review_requests/relay_status.json`
-- `tests/safety/test_branch_governance.py`
-- `tests/safety/test_stage2f_review_governance.py`
-- `tests/safety/test_handoff_commit_consistency.py`
-- `tests/safety/test_loop_state_consistency.py`
-- `tests/safety/test_notification_loop_safety.py`
-- `tests/safety/test_loop_automation_dry_run.py`
-- `tests/safety/test_stage2d_preparation_plan.py`
-- `tests/safety/test_stage2e0_relay_smoke.py`
-- `tests/safety/test_stage2e1_relay_hardening.py`
-- `tests/safety/test_review_relay_safety.py`
+- `scripts/safety/check_handoff_commit_consistency.py`
+- Stage closeout consistency tests under `tests/safety/`
+
+## Safety Checklist
+
+- Modified real `~/.hermes`: false.
+- Modified real `~/.openclaw`: false.
+- Modified real Feishu gateway: false.
+- Restarted Hermes/OpenClaw: false.
+- Installed dependencies: false.
+- Ran Computer Use: false.
+- Added broker connection: false.
+- Added broker write access: false.
+- Added order placement code: false.
+- Added automatic trading surface: false.
+- Final trading is manually decided by the user.
 
 ## Tests
 
-- `python3 -m unittest tests.safety.test_branch_governance`: passed; 4 tests OK.
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.safety.test_stage2f_review_governance tests.safety.test_branch_governance tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`: passed; 95 tests OK.
-- `python3 scripts/safety/check_review_relay_safety.py`: passed; no findings.
-- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings.
-- `python3 scripts/safety/check_handoff_commit_consistency.py`: passed; no findings.
+- `python3 -m unittest`: passed; 129 tests OK.
+- `python3 scripts/safety/check_forbidden_surfaces.py`: passed; no findings.
+- `python3 scripts/safety/check_secret_leaks.py`: passed; no findings.
+- `python3 scripts/safety/check_public_repo_hygiene.py`: passed; no findings; files_checked=294.
+- `python3 scripts/safety/check_universe_only.py`: passed; no findings.
 - `git diff --check`: passed; no whitespace errors.
-
-## Safety Flags
-
-- Modified real `~/.hermes`: false
-- Modified real `~/.openclaw`: false
-- Modified real Feishu gateway: false
-- Restarted Hermes/OpenClaw: false
-- Installed dependencies: false
-- Touched secrets: false
-- Wrote secret values: false
-- Ran Computer Use: false
-- Sent ChatGPT prompt: false
-- Sent Feishu message: false
-- Automatic trading surface: false
-- Broker surface: false
-- Stage 3 business code started: false
-
-## Governance Summary
-
-- `main` is the stable branch for major-stage reviewed states.
-- `stage/stage3-data-backtest` is the Stage 3 construction branch.
-- Stage 3 small stages use Codex self-review.
-- Stage 3 major review uses manual ChatGPT review after the Stage 3E package.
-- Codex does not request ChatGPT review for small stages.
-- Codex does not use Computer Use to send review requests to ChatGPT.
-- ChatGPT Computer Use automatic review route is deprecated.
-
-## Next Recommended Stage
-
-Start Stage 3A on `stage/stage3-data-backtest`.
-
-## Requires User Approval
-
-- Any live Computer Use action.
-- Any user-initiated major-stage ChatGPT review outside repo materials.
-- Any Hermes/OpenClaw restart.
-- Any real Feishu gateway or router change.
-- Any live Hermes or OpenClaw config change.
-- Any dependency installation.
-- Any secret migration or credential storage.
-- Any broker integration or trading execution surface.
-
-## Forbidden To Continue Automatically
-
-- Starting Stage 3 business code on `main`.
-- Running ChatGPT Computer Use automatic review.
-- Opening ChatGPT automatically.
-- Sending ChatGPT prompts automatically.
-- Modifying real `~/.hermes` or `~/.openclaw`.
-- Restarting Hermes or OpenClaw.
-- Modifying real Feishu gateway.
-- Installing dependencies.
-- Sending secrets, local paths, tokens, auth values, Feishu credentials,
-  provider keys, or broker credentials.
-- Accessing broker, email, GitHub admin, or Feishu admin pages.
-- Adding automatic order placement code or broker write access.
-
-Final trading is manually decided by the user.

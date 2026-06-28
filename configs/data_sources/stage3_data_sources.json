@@ -1,0 +1,94 @@
+{
+  "stage": "Stage 3A data source plan completed",
+  "status": "completed",
+  "generated_at": "2026-06-28T07:00:55Z",
+  "selected_primary_source": "stooq_daily_csv",
+  "broker_access_write_allowed": false,
+  "automatic_trading_allowed": false,
+  "stores_secret_values": false,
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "etf_only_symbol_policy": {
+    "allowlist_file": "configs/universe/etf_universe.yaml",
+    "allowed_asset_class": "ETF",
+    "reject_symbols_outside_allowlist": true,
+    "reject_individual_stocks": true,
+    "reject_options": true,
+    "reject_futures": true,
+    "reject_crypto_assets": true,
+    "reject_leveraged_etfs": true,
+    "reject_inverse_etfs": true
+  },
+  "source_selection_criteria": [
+    "read-only public ETF data",
+    "no broker login or write capability",
+    "no repo-stored secret values",
+    "cache raw responses for reproducibility",
+    "document rate-limit assumptions",
+    "document licensing caveat before reports use the data"
+  ],
+  "sources": [
+    {
+      "id": "stooq_daily_csv",
+      "name": "Stooq daily CSV",
+      "role": "primary_stage3b_candidate",
+      "selected_for_stage3b": true,
+      "read_only": true,
+      "public_data": true,
+      "requires_secret": false,
+      "access_method": "https_csv",
+      "url_template": "https://stooq.com/q/d/l/?s={symbol}.us&i=d",
+      "rate_limit_note": "No project-specific quota is stored in repo; Stage 3B must use conservative throttling and local cache files.",
+      "reproducibility_note": "Cache raw CSV by source, symbol, and request date before producing quality reports.",
+      "licensing_caveat": "Confirm permitted use before publication, redistribution, or commercial use.",
+      "stage3b_required_checks": [
+        "missing values",
+        "first available date",
+        "last available date",
+        "adjustment assumption",
+        "abnormal price threshold"
+      ]
+    },
+    {
+      "id": "alpha_vantage_daily_adjusted",
+      "name": "Alpha Vantage daily adjusted API",
+      "role": "future_fallback_candidate",
+      "selected_for_stage3b": false,
+      "read_only": true,
+      "public_data": true,
+      "requires_secret": true,
+      "access_method": "https_api",
+      "url_template": "https://www.alphavantage.co/documentation/",
+      "rate_limit_note": "Free/premium limits must be checked before enabling; no API key may be committed.",
+      "reproducibility_note": "If enabled later, cache raw JSON and record API function, adjusted field, and request date.",
+      "licensing_caveat": "Use only after explicit key handling and usage rights are approved."
+    },
+    {
+      "id": "sec_edgar_metadata",
+      "name": "SEC EDGAR APIs",
+      "role": "metadata_cross_check",
+      "selected_for_stage3b": false,
+      "read_only": true,
+      "public_data": true,
+      "requires_secret": false,
+      "access_method": "https_api",
+      "url_template": "https://data.sec.gov/",
+      "rate_limit_note": "Use only for issuer/fund filing metadata cross-checks with documented polite request behavior.",
+      "reproducibility_note": "Record accession numbers or filing identifiers when used.",
+      "licensing_caveat": "Not a price source; cite SEC source and report metadata limitations."
+    },
+    {
+      "id": "yahoo_finance_manual_reference",
+      "name": "Yahoo Finance",
+      "role": "manual_reference_only",
+      "selected_for_stage3b": false,
+      "read_only": true,
+      "public_data": true,
+      "requires_secret": false,
+      "access_method": "manual_reference",
+      "url_template": "https://finance.yahoo.com/",
+      "rate_limit_note": "Not enabled for automated ingestion in Stage 3A.",
+      "reproducibility_note": "Manual spot-checks must be documented separately and cannot replace raw cached source data.",
+      "licensing_caveat": "Terms require explicit review before any automated use."
+    }
+  ]
+}

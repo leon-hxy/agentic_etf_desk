@@ -1,25 +1,20 @@
 # Review Relay Status
 
-- Stage: `Stage 2F.1 branch governance and Stage 3 task plan completed`
-- Expected repo: `leon-hxy/agentic_etf_desk`
-- Expected commit: `b6defd4376a8767b197cdcc8062238d1701a530a`
-- Review target commit: `b6defd4376a8767b197cdcc8062238d1701a530a`
-- Relay stage: `stage2f1_branch_governance_manual_only`
-- Review governance mode: `small_stage_codex_self_review_major_stage_chatgpt_manual`
-- Review route: `codex_self_review_for_small_stage`
-- Major review route: `manual_chatgpt_review_for_major_stage`
-- ChatGPT Computer Use automatic review deprecated: `true`
-- Computer Use executed: `false`
-- ChatGPT prompt generated: `true`
-- Manual fallback available: `true`
-- Review gate required: `false`
-- Review gate seen: `false`
-- Review gate valid: `false`
+- Stage: `Stage 3 sample-data pipeline validation merged to main`
+- Relay stage: `stage3_major_gate_finalized_manual_review_ready`
+- Review route: `manual_chatgpt_review_for_major_stage`
+- Review target: `Stage 3 major review package`
+- Expected commit: `9c8ad5841bf30585575b78511e30e21b661f5774`
+- Finalization status: `completed`
+- Review target consistency status: `passed`
+- Request ChatGPT review for finalization fixes: `false`
+- Previous notification superseded: `true`
+- Feishu message sent historically: `true`
+- Replacement notification sent in Stage 3G: `false`
 - Sent to ChatGPT: `false`
-- Input delivery method: `user_manual_copy_only`
-- Long prompt typing forbidden: `true`
-- Pre-send safety check: `pass`
-- Failure policy: `manual_review_required_for_major_stage`
-- Status reason: `chatgpt_computer_use_auto_review_deprecated`
+- Computer Use executed: `false`
+- Automatic ChatGPT prompt send allowed: `false`
 
-No Computer Use action was executed in Stage 2F.1. ChatGPT review is manual and user-initiated. This review route不会自动下单，最终交易由用户手动决定。
+The Stage 3 major review package is the only ChatGPT review target. Finalization fixes are Codex-internal context and were not sent to ChatGPT.
+
+Final trading is manually decided by the user.

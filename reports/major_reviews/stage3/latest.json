@@ -1,0 +1,164 @@
+{
+  "artifacts": {
+    "backtest_validation_report": "reports/backtest_validation/stage3c_backtest_validation_report.json",
+    "data_quality_report": "reports/data_quality/stage3b_data_quality_report.json",
+    "data_source_manifest": "configs/data_sources/stage3_data_sources.json",
+    "data_source_plan": "docs/stage3a_data_source_plan.md",
+    "handoff": "reports/codex_handoff/latest.md",
+    "review_request": "reports/review_requests/latest.md",
+    "strategy_evidence_report": "reports/strategy_evidence/stage3d_strategy_evidence_report.json"
+  },
+  "branch": "stage/stage3-data-backtest",
+  "branch_head_note": "latest_branch_head and current_branch_head include finalization fixes and identify the Stage 3 branch head merged to main during closeout.",
+  "chatgpt_review_requested_by_codex": false,
+  "computer_use_executed": false,
+  "current_branch_head": "207f5957fa2cc6b5dadd6eb535f78139225b113d",
+  "current_branch_head_role": "latest_stage3_branch_head_including_finalization_fixes",
+  "data_boundary": {
+    "not_investment_basis": true,
+    "note": "Sample data only; not investment basis.",
+    "panel_end_date": "2024-01-08",
+    "panel_start_date": "2024-01-02",
+    "real_data_used": false,
+    "sample_data_only": true,
+    "source": "sample",
+    "symbols": [
+      "BIL",
+      "BND",
+      "DBC",
+      "EWJ",
+      "GLD",
+      "IEF",
+      "VEA",
+      "VNQ",
+      "VTI",
+      "VWO"
+    ]
+  },
+  "feishu_message_sent": true,
+  "feishu_notification_note": "Stage 3F sent one non-sensitive major-gate Feishu notification before finalization governance was corrected; repo artifacts now mark the prior notification superseded.",
+  "feishu_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
+  "finalization_note": "Finalization fixes were internally reviewed by Codex and are context only; ChatGPT should review the Stage 3 major review package, not Stage 3F or Stage 3F.1 separately.",
+  "formal_investment_evidence": false,
+  "generated_at": "2026-06-28T14:56:47.011762+00:00",
+  "latest_branch_head": "207f5957fa2cc6b5dadd6eb535f78139225b113d",
+  "latest_branch_head_role": "latest_stage3_branch_head_including_finalization_fixes",
+  "major_gate_finalization": {
+    "finalization_fixes_included_as_context": true,
+    "fixes": [
+      "Stage 3F",
+      "Stage 3F.1"
+    ],
+    "internal_review": "reports/internal_reviews/stage3/stage3_major_gate_finalization.json",
+    "previous_notifications_superseded": true,
+    "replacement_notification_sent": false,
+    "request_chatgpt_review_for_finalization_fixes": false,
+    "status": "completed"
+  },
+  "major_stage": "Stage 3",
+  "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 9c8ad5841bf30585575b78511e30e21b661f5774. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Finalization fixes are Codex-internal context only; do not review Stage 3F or Stage 3F.1 separately. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。",
+  "manual_chatgpt_review_ready": true,
+  "manual_execution_note": "Final trading is manually decided by the user.",
+  "minor_stage_summaries": {
+    "Stage 3A": {
+      "builder_summary": "Stage 3A created the read-only public ETF data source plan, selected Stooq daily CSV as the Stage 3B primary candidate, documented Alpha Vantage, SEC EDGAR, and Yahoo Finance roles and limitations, and wired the source manifest without enabling live trading, broker access, or secret storage.",
+      "chatgpt_review_requested": false,
+      "computer_use_executed": false,
+      "feishu_message_sent": false,
+      "internal_review": "reports/internal_reviews/stage3/stage3a_data_source.json",
+      "requires_user_attention": false,
+      "status": "completed_internal_review",
+      "task_file": "ops/tasks/stage3a_data_source.md"
+    },
+    "Stage 3B": {
+      "builder_summary": "Stage 3B added a repo-only ETF data quality checker and generated auditable reports covering missing values, ETF start dates, adjusted prices, abnormal prices, and safety flags while keeping sample smoke data separate from investment evidence.",
+      "chatgpt_review_requested": false,
+      "computer_use_executed": false,
+      "feishu_message_sent": false,
+      "internal_review": "reports/internal_reviews/stage3/stage3b_data_quality.json",
+      "requires_user_attention": false,
+      "status": "completed_internal_review",
+      "task_file": "ops/tasks/stage3b_data_quality.md"
+    },
+    "Stage 3C": {
+      "builder_summary": "Added formal Stage 3C backtest validation across all configured ETF strategy templates, benchmark comparisons, sample-data boundary checks, and repo-only governance state advancement.",
+      "chatgpt_review_requested": false,
+      "computer_use_executed": false,
+      "feishu_message_sent": false,
+      "internal_review": "reports/internal_reviews/stage3/stage3c_backtest_validation.json",
+      "requires_user_attention": false,
+      "status": "completed_internal_review",
+      "task_file": "ops/tasks/stage3c_backtest_validation.md"
+    },
+    "Stage 3D": {
+      "builder_summary": "Added the Stage 3D ETF strategy evidence package for GTAA, Dual Momentum, 60/40, and Buy-and-Hold using the Stage 3C validated sample backtest report, with benchmark comparisons, risk and limitation notes, and repo-only governance advancement to Stage 3E planned.",
+      "chatgpt_review_requested": false,
+      "computer_use_executed": false,
+      "feishu_message_sent": false,
+      "internal_review": "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json",
+      "requires_user_attention": false,
+      "status": "completed_internal_review",
+      "task_file": "ops/tasks/stage3d_strategy_evidence_report.md"
+    }
+  },
+  "minor_stages": [
+    "Stage 3A",
+    "Stage 3B",
+    "Stage 3C",
+    "Stage 3D"
+  ],
+  "package_commit": null,
+  "package_commit_note": "The package commit is created after these files are generated, so this package cannot self-reference its own commit.",
+  "public_repo_url": "https://github.com/leon-hxy/agentic_etf_desk",
+  "readiness_checks": {
+    "major_gate_finalization": "completed",
+    "major_review_package_public_safe": "passed",
+    "manual_chatgpt_review_ready": "passed",
+    "manual_trading_notice_present": "passed",
+    "stage3a_internal_review_complete": "passed",
+    "stage3b_internal_review_complete": "passed",
+    "stage3c_internal_review_complete": "passed",
+    "stage3d_internal_review_complete": "passed"
+  },
+  "report_json": "reports/major_reviews/stage3/latest.json",
+  "report_md": "reports/major_reviews/stage3/latest.md",
+  "review_level": "major_stage",
+  "review_route": "manual_chatgpt_review",
+  "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_commit_role": "stage3_major_package_review_target",
+  "risk_limitations_summary": [
+    "Stage 3 conclusion is sample-data pipeline validation only and is not formal investment evidence.",
+    "Stage 3 evidence is based on a short sample panel and is not investment basis.",
+    "Strategy comparisons use VTI as the benchmark reference; broader benchmark selection needs review before production use.",
+    "Formal use requires reviewed real data, source terms confirmation, and a separate user-directed major-stage review.",
+    "Final trading is manually decided by the user."
+  ],
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "broker_write_surface": false,
+    "chatgpt_review_requested": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "feishu_gateway_modified": false,
+    "feishu_message_sent": true,
+    "hermes_modified": false,
+    "openclaw_modified": false,
+    "real_config_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "sent_to_chatgpt": false,
+    "services_restarted": false
+  },
+  "sample_data_pipeline_validation_only": true,
+  "sent_to_chatgpt": false,
+  "source_summary": {
+    "quality_status": "passed",
+    "selected_primary_source": "stooq_daily_csv",
+    "strategy_evidence_status": "passed",
+    "validation_status": "passed"
+  },
+  "stage": "Stage 3 major review package",
+  "stage3_conclusion_scope": "sample_data_pipeline_validation_only",
+  "status": "major_review_package_ready"
+}

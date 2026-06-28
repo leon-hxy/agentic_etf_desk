@@ -1,0 +1,79 @@
+{
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "generated_at": "2026-06-28T13:48:18+00:00",
+  "previous_inconsistent_review_target_removed_from_review_artifacts": true,
+  "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "chatgpt_review_requested_by_codex": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "real_feishu_gateway_modified": false,
+    "real_hermes_config_modified": false,
+    "real_openclaw_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "sent_to_chatgpt": false,
+    "services_restarted": false
+  },
+  "stage": "Stage 3F.1 review_target_commit_consistency_fixed",
+  "status": "completed_consistency_fix",
+  "tests": [
+    {
+      "command": "python3 -m unittest tests.safety.test_handoff_commit_consistency",
+      "result": "passed; 10 tests OK"
+    },
+    {
+      "command": "python3 -m unittest tests.safety.test_review_relay_safety tests.safety.test_stage3f_feishu_notification tests.safety.test_loop_state_consistency",
+      "result": "passed; 15 tests OK"
+    },
+    {
+      "command": "python3 -m unittest",
+      "result": "passed; 121 tests OK"
+    },
+    {
+      "command": "python3 scripts/safety/check_forbidden_surfaces.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_secret_leaks.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_universe_only.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_handoff_commit_consistency.py --root .",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_review_relay_safety.py --root .",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed; no whitespace errors"
+    }
+  ],
+  "updated_artifacts": [
+    "reports/major_reviews/stage3/latest.md",
+    "reports/major_reviews/stage3/latest.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/manual_fallback_prompt.md",
+    "reports/review_requests/notification_preview.md",
+    "reports/review_requests/notification_preview.json",
+    "reports/review_requests/relay_status.md",
+    "reports/review_requests/relay_status.json"
+  ]
+}

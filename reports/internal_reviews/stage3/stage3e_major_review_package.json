@@ -1,0 +1,154 @@
+{
+  "builder_summary": "Generated the Stage 3E public major review package for Stage 3A through Stage 3D ETF-only evidence, prepared a manual ChatGPT major-stage review prompt, updated runner/loop/handoff/review-request state to major_stage_ready, and did not send the prompt or run Computer Use.",
+  "changed_files": [
+    "scripts/reports/generate_stage3e_major_review_package.py",
+    "reports/major_reviews/stage3/latest.md",
+    "reports/major_reviews/stage3/latest.json",
+    "tests/safety/test_stage3e_major_review_package.py",
+    "ops/tasks/stage3_major_review_package.md",
+    "ops/stages/stage3.yaml",
+    "ops/runners/stage3_runner.md",
+    "ops/runners/stage3_runner_state.json",
+    "ops/state/loop_state.json",
+    "reports/internal_reviews/stage3/stage3e_major_review_package.md",
+    "reports/internal_reviews/stage3/stage3e_major_review_package.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/manual_fallback_prompt.md",
+    "reports/review_requests/notification_preview.md",
+    "reports/review_requests/notification_preview.json",
+    "reports/review_requests/relay_status.md",
+    "reports/review_requests/relay_status.json",
+    "scripts/safety/check_handoff_commit_consistency.py",
+    "scripts/safety/check_review_relay_safety.py",
+    "tests/safety/test_branch_governance.py",
+    "tests/safety/test_handoff_commit_consistency.py",
+    "tests/safety/test_internal_review_governance.py",
+    "tests/safety/test_loop_automation_dry_run.py",
+    "tests/safety/test_loop_state_consistency.py",
+    "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_review_relay_safety.py",
+    "tests/safety/test_stage2d_preparation_plan.py",
+    "tests/safety/test_stage2e0_relay_smoke.py",
+    "tests/safety/test_stage2e1_relay_hardening.py",
+    "tests/safety/test_stage2f_review_governance.py",
+    "tests/safety/test_stage3a_data_source.py",
+    "tests/safety/test_stage3b_data_quality.py",
+    "tests/safety/test_stage3c_backtest_validation.py",
+    "tests/safety/test_stage3d_strategy_evidence_report.py",
+    "tests/safety/test_stage_runner_governance.py"
+  ],
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "domain_reviewer": {
+    "agent_id": "019f0d94-f4cd-73d2-b706-30345dd71c8b",
+    "etf_only_maintained": true,
+    "findings_resolved": [
+      "Added internal review artifacts and risk-limitations summary to the Stage 3 major review package."
+    ],
+    "initial_findings": [
+      "Stage 3E internal review artifacts were missing, handoff results were pending, and major package needed concise risk-limitations bullets."
+    ],
+    "manual_chatgpt_review_ready_without_auto_send": true,
+    "manual_trading_notice_present": true,
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "risk_limitations_summary_present": true,
+    "sample_data_boundary_clear": true,
+    "sample_evidence_not_investment_basis": true,
+    "stage3a_through_stage3d_summarized": true
+  },
+  "feishu_message_sent": false,
+  "integration_reviewer": {
+    "agent_id": "019f0d95-1b6d-7671-86a1-499896e08565",
+    "branch_governance_passed": true,
+    "chatgpt_review_requested_by_codex": false,
+    "feishu_message_sent": false,
+    "findings_resolved": [
+      "Created Stage 3E internal review artifacts; final verification results will be recorded after rerun."
+    ],
+    "handoff_updated": true,
+    "initial_findings": [
+      "Stage 3E completion state referenced missing internal review artifacts and pending verification."
+    ],
+    "loop_state_updated": true,
+    "major_review_package_generated": true,
+    "manual_chatgpt_review_ready": true,
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "runner_state_updated": true,
+    "task_status_updated": true
+  },
+  "major_review_package": "reports/major_reviews/stage3/latest.json",
+  "major_review_ready": true,
+  "minor_stage": "Stage 3E",
+  "promote_to_next_minor_stage": false,
+  "requires_user_attention": false,
+  "review_route": "codex_internal_review",
+  "security_reviewer": {
+    "agent_id": "019f0d94-d5a6-7102-9d82-6a6f1f640255",
+    "auto_trading_surface": false,
+    "broker_write_surface": false,
+    "computer_use_executed": false,
+    "findings_resolved": [
+      "Created Stage 3E internal review artifacts and will record final verification results after rerun."
+    ],
+    "initial_findings": [
+      "Stage 3E internal review artifacts were missing and handoff test results were pending during first review."
+    ],
+    "public_repo_hygiene_passed": true,
+    "real_config_modified": false,
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "secrets_touched": false
+  },
+  "status": "completed_internal_review",
+  "task_file": "ops/tasks/stage3_major_review_package.md",
+  "test_reviewer": {
+    "agent_id": "019f0d95-3f2a-79e2-a966-3d188636c7a2",
+    "findings_resolved": [
+      "Updated stale Stage 2F and Stage 3 governance tests and added Stage 3E internal review artifacts."
+    ],
+    "full_unittest": "passed; 117 tests OK",
+    "initial_findings": [
+      "Full unittest failed while Stage 3E internal review artifact and stale tests were missing."
+    ],
+    "required_safety_scripts": [
+      {
+        "command": "python3 scripts/safety/check_forbidden_surfaces.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_secret_leaks.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_universe_only.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_handoff_commit_consistency.py --root .",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_review_relay_safety.py --root .",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "git diff --check",
+        "result": "passed; no whitespace errors"
+      }
+    ],
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "stage3e_focused_test": "passed; 2 tests OK"
+  }
+}

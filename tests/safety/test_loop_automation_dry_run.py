@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
+EXPECTED_STAGE = "Stage 3 sample-data pipeline validation merged to main"
 REPORT_JSON = ROOT / "reports" / "loop_dry_run" / "stage2c_loop_dry_run.json"
 REPORT_MD = ROOT / "reports" / "loop_dry_run" / "stage2c_loop_dry_run.md"
 NOTIFICATION_JSON = ROOT / "reports" / "review_requests" / "notification_preview.json"
@@ -67,14 +67,14 @@ class LoopAutomationDryRunTest(unittest.TestCase):
     def test_loop_state_and_task_mark_stage2c_completed(self) -> None:
         loop_state = read_json(ROOT / "ops" / "state" / "loop_state.json")
         self.assertEqual(loop_state["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(loop_state["status"], "branch_governance_stage3_plan_repo_only_completed")
+        self.assertEqual(loop_state["status"], "stage3_sample_data_pipeline_validation_merged_to_main")
         self.assertEqual(loop_state["stage2c_task"], "ops/tasks/stage2c_loop_automation_dry_run.md")
         self.assertEqual(loop_state["stage2c_task_status"], "completed")
         self.assertEqual(loop_state["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
         self.assertEqual(loop_state["stage2d1_task"], "ops/tasks/stage2d1_read_only_live_preflight.md")
         self.assertEqual(
             loop_state["next_task_status"],
-            "use_codex_self_review_for_small_stages_major_chatgpt_manual_only",
+            "manual_major_review_ready",
         )
 
         task = (ROOT / "ops" / "tasks" / "stage2c_loop_automation_dry_run.md").read_text(
@@ -96,7 +96,8 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         self.assertEqual(payload["stage"], latest_review["stage"])
         self.assertEqual(payload["review_target_commit"], latest_review["review_target_commit"])
         self.assertFalse(payload["sent_to_feishu"])
-        self.assertEqual(payload["mode"], "repo_only_preview")
+        self.assertEqual(payload["mode"], "replacement_notification_preview_after_finalization")
+        self.assertTrue(payload["previous_notification_superseded"])
 
         preview = NOTIFICATION_MD.read_text(encoding="utf-8")
         self.assertIn("不会自动下单", preview)

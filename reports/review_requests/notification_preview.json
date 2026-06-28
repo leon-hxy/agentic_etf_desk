@@ -1,19 +1,24 @@
 {
-  "allowed_user_replies": [
-    "\u786e\u8ba4\u5ba1\u6838",
-    "\u6682\u4e0d\u5ba1\u6838",
-    "\u53ea\u770b\u72b6\u6001",
-    "\u5f00\u59cb\u4e0b\u4e00\u9636\u6bb5",
-    "\u6682\u505c loop"
-  ],
+  "chatgpt_review_requested": false,
   "computer_use_executed": false,
+  "feishu_message_sent": true,
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "finalization_status": "completed",
   "historical_computer_use_executed": true,
-  "loop_state_stage": "Stage 2F.1 branch governance and Stage 3 task plan completed",
-  "message": "Codex dry-run \u9636\u6bb5 `Stage 2F.1 branch governance and Stage 3 task plan completed` \u5df2\u751f\u6210 repo-only \u9884\u89c8\u3002 review_target_commit: `b6defd4376a8767b197cdcc8062238d1701a530a`\u3002 \u672c\u9636\u6bb5\u672a\u6267\u884c Computer Use\uff1b\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\uff0c\u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\u3002",
-  "mode": "repo_only_preview",
-  "real_gateway_modified": false,
-  "review_stage": "Stage 2F.1 branch governance and Stage 3 task plan completed",
-  "review_target_commit": "b6defd4376a8767b197cdcc8062238d1701a530a",
+  "historical_feishu_message_sent": true,
+  "live_notification_report": "reports/live_notifications/stage3f_major_gate_feishu_notification.json",
+  "loop_state_stage": "Stage 3 sample-data pipeline validation merged to main",
+  "manual_chatgpt_review_ready": true,
+  "message": "Stage 3 major review package is finalized and ready for user-initiated manual ChatGPT review. Prior major-gate notification is superseded by this repo-only preview.",
+  "mode": "replacement_notification_preview_after_finalization",
+  "notification_after_finalization": true,
+  "previous_notification_superseded": true,
+  "replacement_notification_preview_generated": true,
+  "replacement_notification_sent": false,
+  "review_target_commit": "9c8ad5841bf30585575b78511e30e21b661f5774",
+  "review_target_consistency_status": "passed",
+  "sent_to_chatgpt": false,
   "sent_to_feishu": false,
-  "stage": "Stage 2F.1 branch governance and Stage 3 task plan completed"
+  "stage": "Stage 3 sample-data pipeline validation merged to main",
+  "status_reason": "stage3_major_gate_finalization_completed"
 }

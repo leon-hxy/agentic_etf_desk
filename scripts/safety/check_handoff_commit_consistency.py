@@ -35,18 +35,25 @@ PREVIOUS_STAGE_COMMITS = {
     "f7fa73b" + "79ab1e3886c69bfd6ca5874a662acbb75",
     "2006d60" + "f237a9b47f34236fd7dd299e9bbdb4f86",
     "2371423" + "0ebda5bbaa16c27fac9efdf8d76663911",
+    "945dc00" + "2ed39ee64e36a7ad51714dd8d48fe0903",
+    "3e90368" + "d332749f731177688f532f1127206845f",
+    "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
+EXPECTED_STAGE = "Stage 3 sample-data pipeline validation merged to main"
 JSON_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.json",
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
     "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/notification_preview.json",
 ]
 TEXT_TARGET_PATHS = [
+    "reports/major_reviews/stage3/latest.md",
     "reports/review_requests/chatgpt_review_prompt.md",
     "reports/review_requests/manual_fallback_prompt.md",
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
+    "reports/review_requests/notification_preview.md",
 ]
 STATUS_JSON = "reports/review_requests/relay_status.json"
 STATUS_MD = "reports/review_requests/relay_status.md"
@@ -86,8 +93,6 @@ def validate_git_commit(root: Path, commit: str, findings: list[dict[str, str]],
         return
 
     lowered = subject.stdout.lower()
-    if "stage2f.1" not in lowered:
-        add(findings, label, "review target subject does not contain stage2f.1")
     if "stage2a" in lowered:
         add(findings, label, "review target points to an old stage")
 
@@ -143,14 +148,30 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, STATUS_JSON, "review_target_commit mismatch")
     if relay_status.get("expected_commit") != target:
         add(findings, STATUS_JSON, "expected_commit mismatch")
-    if relay_status.get("relay_stage") != "stage2f1_branch_governance_manual_only":
+    if relay_status.get("relay_stage") != "stage3_major_gate_finalized_manual_review_ready":
         add(findings, STATUS_JSON, "relay_stage mismatch")
+    if relay_status.get("finalization_status") != "completed":
+        add(findings, STATUS_JSON, "finalization_status must be completed")
+    if relay_status.get("request_chatgpt_review_for_finalization_fixes") is not False:
+        add(findings, STATUS_JSON, "finalization fixes must not request ChatGPT review")
+    if relay_status.get("review_target_consistency_status") != "passed":
+        add(findings, STATUS_JSON, "review target consistency must pass")
     if relay_status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
         add(findings, STATUS_JSON, "ChatGPT Computer Use auto review must be deprecated")
     if relay_status.get("sent_to_chatgpt") is not False:
-        add(findings, STATUS_JSON, "Stage 2F.1 must not send to ChatGPT")
+        add(findings, STATUS_JSON, "Stage 3F notification must not send to ChatGPT")
     if relay_status.get("computer_use_executed") is not False:
-        add(findings, STATUS_JSON, "Stage 2F.1 must not execute Computer Use")
+        add(findings, STATUS_JSON, "Stage 3F notification must not execute Computer Use")
+    if relay_status.get("feishu_message_sent") is not True:
+        add(findings, STATUS_JSON, "Stage 3F must record the live Feishu notification")
+
+    notification_preview = load_json(root, "reports/review_requests/notification_preview.json")
+    if notification_preview.get("finalization_status") != "completed":
+        add(findings, "reports/review_requests/notification_preview.json", "notification must be after finalization")
+    if notification_preview.get("previous_notification_superseded") is not True:
+        add(findings, "reports/review_requests/notification_preview.json", "previous notification must be superseded")
+    if notification_preview.get("replacement_notification_sent") is not False:
+        add(findings, "reports/review_requests/notification_preview.json", "replacement notification must not be sent by this fix")
 
     for path in TEXT_TARGET_PATHS:
         content = read_text(root, path)

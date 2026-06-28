@@ -72,6 +72,15 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                     "stage2e1_relay_hardening_repo_only",
                     "stage2f_review_governance_manual_only",
                     "stage2f1_branch_governance_manual_only",
+                    "stage3a_codex_self_review_no_chatgpt",
+                    "stage3b_codex_self_review_no_chatgpt",
+                    "stage3ab_internal_review_no_chatgpt",
+                    "stage3c_internal_review_no_chatgpt",
+                    "stage3d_internal_review_no_chatgpt",
+                    "stage3e_major_review_ready_manual_only",
+                    "stage3f_major_gate_feishu_notified_manual_review_ready",
+                    "stage3f1_review_target_commit_consistent_manual_review_ready",
+                    "stage3_major_gate_finalized_manual_review_ready",
                 },
             )
             self.assertFalse(status["computer_use_executed"])
@@ -81,6 +90,15 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
                 {
                     "repo_only_relay_hardening_ready_no_live_send",
                     "chatgpt_computer_use_auto_review_deprecated",
+                    "stage3a_passed_codex_self_review_no_chatgpt_request",
+                    "stage3b_passed_codex_self_review_no_chatgpt_request",
+                    "stage3ab_completed_internal_review_no_chatgpt_request",
+                    "stage3c_completed_internal_review_no_chatgpt_request",
+                    "stage3d_completed_internal_review_no_chatgpt_request",
+                    "stage3e_major_review_package_ready_manual_chatgpt_review",
+                    "stage3f_major_gate_feishu_notification_sent",
+                    "stage3f1_review_target_commit_consistency_fixed",
+                    "stage3_major_gate_finalization_completed",
                 },
             )
 

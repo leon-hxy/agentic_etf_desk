@@ -1,0 +1,109 @@
+{
+  "minor_stage": "Stage 3C",
+  "task_file": "ops/tasks/stage3c_backtest_validation.md",
+  "status": "completed_internal_review",
+  "review_route": "codex_internal_review",
+  "builder_summary": "Added formal Stage 3C backtest validation across all configured ETF strategy templates, benchmark comparisons, sample-data boundary checks, and repo-only governance state advancement.",
+  "changed_files": [
+    "scripts/backtest/validate_stage3c_backtest.py",
+    "reports/backtest_validation/stage3c_backtest_validation_report.md",
+    "reports/backtest_validation/stage3c_backtest_validation_report.json",
+    "tests/safety/test_stage3c_backtest_validation.py",
+    "ops/tasks/stage3c_backtest_validation.md",
+    "ops/stages/stage3.yaml",
+    "ops/runners/stage3_runner_state.json",
+    "ops/state/loop_state.json",
+    "reports/internal_reviews/stage3/stage3c_backtest_validation.md",
+    "reports/internal_reviews/stage3/stage3c_backtest_validation.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/relay_status.md",
+    "reports/review_requests/relay_status.json",
+    "reports/review_requests/notification_preview.md",
+    "reports/review_requests/notification_preview.json"
+  ],
+  "security_reviewer": {
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "agent_id": "019f0d5f-4e3b-71d2-bf3d-5686d4534ee9",
+    "secrets_touched": false,
+    "real_config_modified": false,
+    "computer_use_executed": false,
+    "auto_trading_surface": false,
+    "broker_write_surface": false,
+    "public_repo_hygiene_passed": true,
+    "findings_resolved": [
+      "Added missing Stage 3C internal review artifacts.",
+      "Advanced governance state from Stage 3C ready to Stage 3C completed internal review."
+    ]
+  },
+  "domain_reviewer": {
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "agent_id": "019f0d5f-4e9c-7781-a077-f3f35aeef0a3",
+    "etf_only_maintained": true,
+    "all_configured_strategy_templates_covered": true,
+    "benchmark_comparison_for_every_strategy": true,
+    "sample_real_data_boundary_clear": true,
+    "sample_smoke_not_investment_basis": true,
+    "final_trading_manual": true,
+    "findings_resolved": [
+      "Expanded validation from four default smoke strategies to every configured strategy template."
+    ]
+  },
+  "integration_reviewer": {
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "agent_id": "019f0d5f-4ef8-7781-a7be-d8a3730999f9",
+    "branch_governance_passed": true,
+    "task_status_updated": true,
+    "runner_state_updated": true,
+    "loop_state_updated": true,
+    "handoff_updated": true,
+    "small_stage_chatgpt_review_requested": false,
+    "feishu_message_sent": false,
+    "next_minor_stage": "Stage 3D strategy evidence report"
+  },
+  "test_reviewer": {
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "agent_id": "019f0d5f-4f9e-7570-9e49-1db6a2527edb",
+    "stage3c_focused_test": "passed; 3 tests OK",
+    "full_unittest": "passed; 111 tests OK",
+    "required_safety_scripts": [
+      {
+        "command": "python3 scripts/safety/check_forbidden_surfaces.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_secret_leaks.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_universe_only.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "git diff --check",
+        "result": "passed; no whitespace errors"
+      }
+    ],
+    "negative_tests_added": true,
+    "stage2b_artifacts_rewritten_by_validator": false
+  },
+  "validation_report": "reports/backtest_validation/stage3c_backtest_validation_report.json",
+  "promote_to_next_minor_stage": true,
+  "next_minor_stage": "Stage 3D strategy evidence report",
+  "requires_user_attention": false,
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "feishu_message_sent": false
+}

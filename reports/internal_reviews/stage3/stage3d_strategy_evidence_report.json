@@ -1,0 +1,149 @@
+{
+  "builder_summary": "Added the Stage 3D ETF strategy evidence package for GTAA, Dual Momentum, 60/40, and Buy-and-Hold using the Stage 3C validated sample backtest report, with benchmark comparisons, risk and limitation notes, and repo-only governance advancement to Stage 3E planned.",
+  "changed_files": [
+    "scripts/reports/generate_stage3d_strategy_evidence.py",
+    "reports/strategy_evidence/stage3d_strategy_evidence_report.md",
+    "reports/strategy_evidence/stage3d_strategy_evidence_report.json",
+    "tests/safety/test_stage3d_strategy_evidence_report.py",
+    "ops/tasks/stage3d_strategy_evidence_report.md",
+    "ops/stages/stage3.yaml",
+    "ops/runners/stage3_runner.md",
+    "ops/runners/stage3_runner_state.json",
+    "ops/state/loop_state.json",
+    "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.md",
+    "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json",
+    "reports/codex_handoff/latest.md",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.md",
+    "reports/review_requests/latest.json",
+    "reports/review_requests/chatgpt_review_prompt.md",
+    "reports/review_requests/chatgpt_review_prompt.json",
+    "reports/review_requests/manual_fallback_prompt.md",
+    "reports/review_requests/notification_preview.md",
+    "reports/review_requests/notification_preview.json",
+    "reports/review_requests/relay_status.md",
+    "reports/review_requests/relay_status.json",
+    "scripts/safety/check_handoff_commit_consistency.py",
+    "scripts/safety/check_review_relay_safety.py",
+    "tests/safety/test_branch_governance.py",
+    "tests/safety/test_handoff_commit_consistency.py",
+    "tests/safety/test_internal_review_governance.py",
+    "tests/safety/test_loop_automation_dry_run.py",
+    "tests/safety/test_loop_state_consistency.py",
+    "tests/safety/test_notification_loop_safety.py",
+    "tests/safety/test_review_relay_safety.py",
+    "tests/safety/test_stage2e0_relay_smoke.py",
+    "tests/safety/test_stage2e1_relay_hardening.py",
+    "tests/safety/test_stage2f_review_governance.py",
+    "tests/safety/test_stage3a_data_source.py",
+    "tests/safety/test_stage3b_data_quality.py",
+    "tests/safety/test_stage3c_backtest_validation.py",
+    "tests/safety/test_stage_runner_governance.py"
+  ],
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "domain_reviewer": {
+    "agent_id": "019f0d78-6831-7461-b53c-276d036334a6",
+    "benchmark_comparison_complete": true,
+    "etf_only_maintained": true,
+    "findings_resolved": [],
+    "manual_trading_notice_present": true,
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "risk_and_limitations_documented": true,
+    "sample_data_boundary_clear": true,
+    "sample_evidence_not_investment_basis": true,
+    "strategy_coverage_complete": true
+  },
+  "evidence_report": "reports/strategy_evidence/stage3d_strategy_evidence_report.json",
+  "feishu_message_sent": false,
+  "integration_reviewer": {
+    "agent_id": "019f0d78-8336-7ce1-b0fc-773a0282bfd2",
+    "branch_governance_passed": true,
+    "feishu_message_sent": false,
+    "findings_resolved": [
+      "Created Stage 3D internal review artifacts and advanced runner, loop_state, handoff, and task state to Stage 3D completed with Stage 3E planned."
+    ],
+    "handoff_updated": true,
+    "initial_findings": [
+      "Stage 3D governance state and internal review artifacts were missing during the first read-only review."
+    ],
+    "loop_state_updated": true,
+    "next_minor_stage": "Stage 3E major review package",
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "runner_state_updated": true,
+    "small_stage_chatgpt_review_requested": false,
+    "task_status_updated": true
+  },
+  "minor_stage": "Stage 3D",
+  "next_minor_stage": "Stage 3E major review package",
+  "promote_to_next_minor_stage": true,
+  "requires_user_attention": false,
+  "review_route": "codex_internal_review",
+  "security_reviewer": {
+    "agent_id": "019f0d78-4d7a-71b0-bfdf-1a7f8d9e50db",
+    "auto_trading_surface": false,
+    "broker_write_surface": false,
+    "computer_use_executed": false,
+    "findings_resolved": [
+      "Finished Stage 3D governance edits before final verification.",
+      "Reran safety scanners after stabilizing the worktree."
+    ],
+    "initial_findings": [
+      "Initial subagent result failed only because the worktree changed during review, not because a forbidden security surface was found."
+    ],
+    "public_repo_hygiene_passed": true,
+    "real_config_modified": false,
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "secrets_touched": false
+  },
+  "status": "completed_internal_review",
+  "task_file": "ops/tasks/stage3d_strategy_evidence_report.md",
+  "test_reviewer": {
+    "agent_id": "019f0d78-9dc5-7171-a62e-e3678f0a4f2a",
+    "findings_resolved": [
+      "Stage 3D governance files and tests were advanced together before final rerun.",
+      "Recorded handoff commit consistency and review relay safety checks after final Test Reviewer finding."
+    ],
+    "full_unittest": "passed; 114 tests OK",
+    "initial_findings": [
+      "Full unittest failed while Stage 3D governance files were still being updated."
+    ],
+    "required_safety_scripts": [
+      {
+        "command": "python3 scripts/safety/check_forbidden_surfaces.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_secret_leaks.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_universe_only.py",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "git diff --check",
+        "result": "passed; no whitespace errors"
+      },
+      {
+        "command": "python3 scripts/safety/check_handoff_commit_consistency.py --root .",
+        "result": "passed; no findings"
+      },
+      {
+        "command": "python3 scripts/safety/check_review_relay_safety.py --root .",
+        "result": "passed; no findings"
+      }
+    ],
+    "result": "pass",
+    "reviewer_mode": "subagent_read_only",
+    "stage3d_focused_test": "passed; 2 tests OK"
+  },
+  "validation_report": "reports/backtest_validation/stage3c_backtest_validation_report.json"
+}

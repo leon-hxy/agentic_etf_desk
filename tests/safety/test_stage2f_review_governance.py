@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 2F.1 branch governance and Stage 3 task plan completed"
+STAGE = "Stage 3 sample-data pipeline validation merged to main"
 
 
 def read(path: str) -> str:
@@ -68,7 +68,7 @@ class Stage2FReviewGovernanceTest(unittest.TestCase):
             self.assertIn("Small-stage Codex self-review", text)
             self.assertIn("Major-stage ChatGPT review", text)
 
-    def test_latest_state_records_stage2f_governance(self) -> None:
+    def test_latest_state_records_stage3_small_stage_governance(self) -> None:
         loop_state = read_json("ops/state/loop_state.json")
         handoff = read_json("reports/codex_handoff/latest.json")
         review = read_json("reports/review_requests/latest.json")
@@ -87,13 +87,24 @@ class Stage2FReviewGovernanceTest(unittest.TestCase):
         self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
         self.assertFalse(relay_status["computer_use_executed"])
         self.assertFalse(relay_status["sent_to_chatgpt"])
-        self.assertEqual(relay_status["review_route"], "codex_self_review_for_small_stage")
+        if relay_status["stage"] in {
+            "Stage 3E major_review_package_ready",
+            "Stage 3 sample-data pipeline validation merged to main",
+        }:
+            self.assertEqual(relay_status["review_route"], "manual_chatgpt_review_for_major_stage")
+            self.assertTrue(relay_status["manual_chatgpt_review_ready"])
+        else:
+            self.assertEqual(relay_status["review_route"], "codex_self_review_for_small_stage")
         self.assertEqual(relay_status["major_review_route"], "manual_chatgpt_review_for_major_stage")
+        self.assertEqual(loop_state["stage3b_task_status"], "completed_internal_review")
+        self.assertEqual(loop_state["stage3c_task_status"], "completed_internal_review")
+        self.assertEqual(loop_state["stage3d_task_status"], "completed_internal_review")
+        self.assertEqual(loop_state["stage3e_task_status"], "completed_internal_review")
 
     def test_public_review_prompt_is_manual_major_review_only(self) -> None:
         prompt = read("reports/review_requests/chatgpt_review_prompt.md")
-        self.assertIn("manual major-stage ChatGPT review", prompt)
-        self.assertIn("public GitHub repo", prompt)
+        self.assertIn("major-stage review", prompt)
+        self.assertIn("Public GitHub repo", prompt)
         self.assertIn("reports/review_requests/latest.md", prompt)
         self.assertIn("reports/codex_handoff/latest.md", prompt)
         forbidden = [

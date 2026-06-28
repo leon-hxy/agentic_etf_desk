@@ -1,7 +1,7 @@
 # Stage 3A Data Source Plan
 
-status: planned
-stage: Stage 3A
+status: completed_internal_review
+stage: Stage 3A completed_internal_review
 branch: stage/stage3-data-backtest
 review_level: small_stage
 repo-only
@@ -27,6 +27,27 @@ complete.
 - Keep data access read-only and public.
 - Preserve ETF-only constraints.
 - Do not implement Stage 3B, 3C, or 3D work in this task.
+
+## Completion Evidence
+
+- Data source plan: `docs/stage3a_data_source_plan.md`.
+- Machine-readable source manifest: `configs/data_sources/stage3_data_sources.json`.
+- Formal internal review: `reports/internal_reviews/stage3/stage3a_data_source.md`.
+- Codex self-review: `reports/internal_reviews/stage3a_data_source_codex_self_review.md`.
+- Test results: `reports/stage3a_safety_test_results.md`.
+- Handoff: `reports/codex_handoff/latest.md`.
+- Loop state: `ops/state/loop_state.json`.
+
+## Result
+
+- Primary Stage 3B source candidate: Stooq daily CSV.
+- Future fallback candidate: Alpha Vantage daily adjusted API, not enabled in
+  this stage because it requires a local API key.
+- Metadata-only supplement: SEC EDGAR APIs.
+- Manual reference only: Yahoo Finance.
+- ChatGPT review was not requested for this small stage.
+- No Feishu message was sent for this small stage.
+- Internal review status: `completed_internal_review`.
 
 ## Safety
 

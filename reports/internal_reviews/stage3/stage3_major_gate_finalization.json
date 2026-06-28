@@ -1,0 +1,113 @@
+{
+  "chatgpt_review_requested_for_finalization_fixes": false,
+  "domain_reviewer": {
+    "etf_only_scope_preserved": true,
+    "final_manual_trading_notice_preserved": true,
+    "finalization_fixes_context_only": true,
+    "result": "pass",
+    "reviewer_mode": "simulated_separate_pass",
+    "sample_evidence_caveat_preserved": true
+  },
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "finalization_fixes": [
+    "Stage 3F",
+    "Stage 3F.1"
+  ],
+  "finalization_fixes_summary": "Stage 3F notification repair and Stage 3F.1 review_target_commit consistency repair are classified as major_gate_finalization, internally reviewed by Codex, and not separate ChatGPT review targets.",
+  "finalization_review_route": "codex_internal_review",
+  "finalization_status": "completed",
+  "generated_at": "2026-06-28T14:13:12+00:00",
+  "integration_reviewer": {
+    "finalization_status": "completed",
+    "major_package_is_only_chatgpt_review_target": true,
+    "previous_notifications_superseded": true,
+    "replacement_notification_sent": false,
+    "request_chatgpt_review_for_finalization_fixes": false,
+    "result": "pass",
+    "reviewer_mode": "simulated_separate_pass"
+  },
+  "manual_chatgpt_review_scope": "Stage 3 major review package only",
+  "no_chatgpt_review_requested_for_finalization_fixes": true,
+  "requires_user_attention": false,
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "chatgpt_review_requested_for_finalization_fixes": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "real_config_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "services_restarted": false
+  },
+  "security_reviewer": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "computer_use_executed": false,
+    "real_config_modified": false,
+    "result": "pass",
+    "reviewer_mode": "simulated_separate_pass",
+    "secret_values_written": false,
+    "secrets_touched": false
+  },
+  "stage": "Stage 3 major gate finalization",
+  "stage3f1_commit_consistency_fix": {
+    "request_chatgpt_review_for_fix": false,
+    "review_target_consistency_status": "passed",
+    "status": "finalization_fix_internal_reviewed"
+  },
+  "stage3f_notification_fix": {
+    "feishu_notification_sent": true,
+    "previous_notification_superseded": true,
+    "real_config_modified": false,
+    "replacement_notification_sent": false,
+    "status": "finalization_fix_internal_reviewed"
+  },
+  "status": "completed_internal_review",
+  "test_reviewer": {
+    "added_tests": [
+      "tests/safety/test_major_gate_finalizer_governance.py"
+    ],
+    "result": "pass",
+    "reviewer_mode": "simulated_separate_pass",
+    "test_results": "passed; Stage 3G finalizer governance test, full unittest, safety scripts, and git diff check all passed"
+  },
+  "tests": [
+    {
+      "command": "python3 -m unittest tests.safety.test_major_gate_finalizer_governance",
+      "result": "passed; 5 tests OK"
+    },
+    {
+      "command": "python3 -m unittest",
+      "result": "passed; 126 tests OK"
+    },
+    {
+      "command": "python3 scripts/safety/check_forbidden_surfaces.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_secret_leaks.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_public_repo_hygiene.py",
+      "result": "passed; no findings; files_checked=291"
+    },
+    {
+      "command": "python3 scripts/safety/check_universe_only.py",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_handoff_commit_consistency.py --root .",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "python3 scripts/safety/check_review_relay_safety.py --root .",
+      "result": "passed; no findings"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed; no whitespace errors"
+    }
+  ]
+}

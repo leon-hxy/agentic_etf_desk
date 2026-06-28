@@ -68,6 +68,15 @@ Requirements:
 - Every strategy must expose assumptions, universe, rebalance cadence, and risk limits.
 - No strategy may call execution, broker write, or order-placement APIs.
 
+### Stage 3 Closeout
+
+Stage 3 completed as sample-data pipeline validation only.
+
+- Stage 3 is not production backtest.
+- Stage 3 is not investment evidence.
+- Stage 3 used sample data to validate repository pipeline wiring, safety boundaries, data-quality reporting, backtest validation plumbing, and strategy-evidence report generation.
+- The next stage is Stage 3.1 real ETF historical data integration and formal backtesting.
+
 ## Phase 4: Backtest Engine
 
 Goal: create a local backtest engine for ETF strategy research.
@@ -157,4 +166,3 @@ Needs user approval before:
 - Creation of execution/order/broker/auto-trader agents.
 - Writing secrets into logs or reports.
 - Modifying `~/.hermes` or `~/.openclaw` without explicit user confirmation.
-
