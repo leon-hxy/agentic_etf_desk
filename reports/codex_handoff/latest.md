@@ -2,23 +2,29 @@
 
 ## Current Stage
 
-Stage 2E.1 ChatGPT relay target and input delivery hardened.
+Stage 2F review governance refactor completed.
 
 ## Loop State Stage
 
-Stage 2E.1 ChatGPT relay target and input delivery hardened.
+Stage 2F review governance refactor completed.
 
 ## Review Target Commit
 
 `review_target_commit`
 
-`9ac1dd8b96fe98bae4bd676966293f03e0908047`
+`5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d`
 
-This is the Stage 2E.1 business commit that ChatGPT should review.
+This is the Stage 2F business commit that should be reviewed when review is required.
+
+## Review Governance
+
+- Small-stage Codex self-review: active.
+- Major-stage ChatGPT review: manual and user-initiated.
+- ChatGPT Computer Use automatic review route is deprecated.
 
 ## Current Repo Head
 
-`9ac1dd8b96fe98bae4bd676966293f03e0908047`
+`5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d`
 
 ## Handoff Commit
 
@@ -26,21 +32,25 @@ This is the Stage 2E.1 business commit that ChatGPT should review.
 
 ## Files Changed This Round
 
+- `docs/review_governance.md`
+- `docs/chatgpt_review_relay_design.md`
+- `docs/loop_protocol.md`
+- `ops/tasks/stage2f_review_governance.md`
+- `ops/templates/internal_codex_self_review_template.md`
+- `ops/templates/major_chatgpt_review_template.md`
+- `ops/templates/review_governance_task_template.md`
+- `configs/codex_automation/review_governance_prompt.md`
+- `configs/codex_automation/chatgpt_review_relay_prompt.md`
+- `ops/notifications/feishu_message_templates.md`
 - `scripts/review_relay/relay_common.py`
-- `scripts/review_relay/build_chatgpt_review_prompt.py`
-- `scripts/review_relay/render_manual_fallback_prompt.py`
-- `scripts/review_relay/render_notification_preview.py`
-- `scripts/safety/check_review_relay_safety.py`
-- `scripts/safety/check_handoff_commit_consistency.py`
-- `tests/safety/test_stage2e1_relay_hardening.py`
-- `tests/safety/test_stage2e0_relay_smoke.py`
+- `tests/safety/test_stage2f_review_governance.py`
 - `tests/safety/test_review_relay_safety.py`
 - `tests/safety/test_handoff_commit_consistency.py`
 - `tests/safety/test_loop_state_consistency.py`
 - `tests/safety/test_notification_loop_safety.py`
 - `tests/safety/test_loop_automation_dry_run.py`
 - `tests/safety/test_stage2d_preparation_plan.py`
-- `configs/codex_automation/chatgpt_review_relay_prompt.md`
+- `tests/safety/test_stage2e1_relay_hardening.py`
 - `ops/state/loop_state.json`
 - `reports/codex_handoff/latest.md`
 - `reports/codex_handoff/latest.json`
@@ -53,26 +63,24 @@ This is the Stage 2E.1 business commit that ChatGPT should review.
 - `reports/review_requests/notification_preview.json`
 - `reports/review_requests/relay_status.md`
 - `reports/review_requests/relay_status.json`
-- `reports/relay_smoke/stage2e1_relay_hardening_report.md`
-- `reports/relay_smoke/stage2e1_relay_hardening_report.json`
 
 ## Test Commands
 
-- `python3 -m unittest tests.safety.test_stage2e1_relay_hardening tests.safety.test_review_relay_safety`
+- `python3 -m unittest tests.safety.test_stage2f_review_governance tests.safety.test_review_relay_safety`
 - `python3 scripts/safety/check_review_relay_safety.py`
 - `python3 scripts/safety/check_public_repo_hygiene.py`
 - `python3 scripts/safety/check_handoff_commit_consistency.py`
-- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
+- `python3 -m unittest tests.safety.test_safety tests.safety.test_public_repo_hygiene tests.safety.test_notification_loop_safety tests.safety.test_review_relay_safety tests.safety.test_handoff_commit_consistency tests.safety.test_strategy_templates_safety tests.safety.test_backtest_safety tests.safety.test_openclaw_agents_safety tests.safety.test_hermes_router_safety tests.safety.test_loop_state_consistency tests.safety.test_loop_automation_dry_run tests.safety.test_stage2d_preparation_plan tests.safety.test_stage2d1_live_preflight tests.safety.test_stage2d2a_live_install tests.safety.test_stage2d2b_live_smoke tests.safety.test_stage2e0_relay_smoke tests.safety.test_stage2e1_relay_hardening tests.safety.test_stage2f_review_governance tests.smoke.test_universe_and_data tests.smoke.test_backtest_smoke tests.smoke.test_reports_smoke`
 - `git diff --check`
 
 ## Test Results
 
-- passed; Stage 2E.1 hardening and review relay safety tests.
-- passed; no relay safety findings.
-- passed; no local path or secret findings.
-- passed; review_target_commit binds to Stage 2E.1 business commit.
-- passed; 86 tests OK.
-- passed; no whitespace errors.
+- pending final verification.
+- pending final verification.
+- pending final verification.
+- pending final verification.
+- pending final verification.
+- pending final verification.
 
 ## Runtime And Safety Checklist
 
@@ -86,25 +94,16 @@ This is the Stage 2E.1 business commit that ChatGPT should review.
 - Used Computer Use in this stage: false.
 - Sent to ChatGPT in this stage: false.
 - Automatic trading surface present: false.
-- Existing conversation URL values published: false.
-
-## Target Conversation And Input Delivery
-
-- Recommended mode: `dedicated_review_thread`.
-- Supported modes: `dedicated_review_thread`, `existing_conversation_url`.
-- Existing conversation URL source: `local_private/chatgpt_review_target.json`.
-- Long prompt typed input is forbidden.
-- Short prompt must pass pre-send safety checks before any future send.
-- If target conversation mismatches, input box contains residual draft, prompt is split, or sent message cannot be confirmed, mark failed and stop.
+- Broker write surface present: false.
 
 ## Next Recommended Stage
 
-Request explicit user approval before any live Computer Use relay retry. Use `dedicated_review_thread` by default.
+Use Codex self-review for small stages; request user-initiated ChatGPT review only for major stages.
 
 ## Requires User Approval
 
-- Any live Computer Use relay retry
-- Using existing_conversation_url mode with a local_private target file
+- Any live Computer Use action
+- Any user-initiated major-stage ChatGPT review outside repo materials
 - Any Hermes/OpenClaw restart
 - Any real Feishu gateway or router change
 - Any live Hermes or OpenClaw config change
@@ -114,6 +113,9 @@ Request explicit user approval before any live Computer Use relay retry. Use `de
 
 ## Forbidden To Continue Automatically
 
+- Running ChatGPT Computer Use automatic review
+- Opening ChatGPT automatically
+- Sending ChatGPT prompts automatically
 - Modifying real ~/.hermes or ~/.openclaw
 - Restarting Hermes or OpenClaw
 - Modifying real Feishu gateway
@@ -122,6 +124,5 @@ Request explicit user approval before any live Computer Use relay retry. Use `de
 - Accessing broker, email, GitHub admin, or Feishu admin pages
 - Creating execution, order, broker, auto-trading, or live-trading agents
 - Adding automatic order placement code or broker write access
-- Running live Computer Use relay without separate explicit user approval
 
 Final trading is manually decided by the user.

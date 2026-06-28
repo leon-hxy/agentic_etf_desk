@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 2E.1 ChatGPT relay target and input delivery hardened"
+EXPECTED_STAGE = "Stage 2F review governance refactor completed"
 
 
 def read_json(path: str) -> dict:
@@ -34,7 +34,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
         self.assertEqual(
             self.loop_state["status"],
-            "relay_hardening_repo_only_completed",
+            "review_governance_refactor_repo_only_completed",
         )
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
@@ -43,12 +43,14 @@ class LoopStateConsistencyTest(unittest.TestCase):
             "d30169e512f260dd5b29eb328d0f41c73cc927a9",
             "74215dd69814c07fd5c3fd3937ccee15f9be8e8f",
             "23cebebed1d07f0b35e66b284ec0891b427d8716",
+            "9ac1dd8b96fe98bae4bd676966293f03e0908047",
+            "5a5d68e2e34c6203ee2ab784dbbe3fa9a1cf1a6d",
         }
         self.assertEqual(self.handoff["review_target_commit"], expected_commit)
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotIn(self.loop_state["review_target_commit"], stale_commits)
-        self.assertIn("Stage 2E.1", self.loop_state["review_target_commit_note"])
+        self.assertIn("Stage 2F", self.loop_state["review_target_commit_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
@@ -111,6 +113,10 @@ class LoopStateConsistencyTest(unittest.TestCase):
             self.loop_state["stage2e1_task_status"],
             "completed_repo_only_relay_hardening",
         )
+        self.assertEqual(
+            self.loop_state["stage2f_task_status"],
+            "completed_repo_only_review_governance_refactor",
+        )
         self.assertTrue(self.loop_state["feishu_message_sent"])
         self.assertTrue(self.loop_state["review_gate_written"])
         self.assertTrue(self.loop_state["feishu_confirmation_observed"])
@@ -118,9 +124,15 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertTrue(self.loop_state["computer_use_live_execution"])
         self.assertFalse(self.loop_state["current_stage_computer_use_executed"])
         self.assertFalse(self.loop_state["stage2e1_computer_use_executed"])
+        self.assertFalse(self.loop_state["stage2f_computer_use_executed"])
         self.assertEqual(
             self.loop_state["chatgpt_review_relay"],
-            "repo_only_hardened_not_sent",
+            "deprecated_by_stage2f",
+        )
+        self.assertTrue(self.loop_state["chatgpt_computer_use_auto_review_deprecated"])
+        self.assertEqual(
+            self.loop_state["review_governance_mode"],
+            "small_stage_codex_self_review_major_stage_chatgpt_manual",
         )
         for field in (
             "openclaw_modified",

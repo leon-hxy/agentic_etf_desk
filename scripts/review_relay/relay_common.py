@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared helpers for repo-only ChatGPT review relay previews."""
+"""Shared helpers for repo-only manual ChatGPT review prompts."""
 
 from __future__ import annotations
 
@@ -16,23 +16,15 @@ REPO = "leon-hxy/agentic_etf_desk"
 PUBLIC_REPO_URL = "https://github.com/leon-hxy/agentic_etf_desk"
 LATEST_REVIEW = ROOT / "reports" / "review_requests" / "latest.json"
 GATE_PATH = ROOT / "local_private" / "review_gate.json"
-CHATGPT_TARGET_PATH = ROOT / "local_private" / "chatgpt_review_target.json"
 PROMPT_MD = ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.md"
 PROMPT_JSON = ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.json"
 FALLBACK_MD = ROOT / "reports" / "review_requests" / "manual_fallback_prompt.md"
 STATUS_MD = ROOT / "reports" / "review_requests" / "relay_status.md"
 STATUS_JSON = ROOT / "reports" / "review_requests" / "relay_status.json"
-STAGE2E1_STAGE = "Stage 2E.1 ChatGPT relay target and input delivery hardened"
-STAGE2E1_RELAY_STAGE = "stage2e1_relay_hardening_repo_only"
-SUPPORTED_TARGET_MODES = ["dedicated_review_thread", "existing_conversation_url"]
-DEFAULT_TARGET_MODE = "dedicated_review_thread"
+CURRENT_REVIEW_STAGE = "Stage 2F review governance refactor completed"
+CURRENT_RELAY_STAGE = "stage2f_review_governance_manual_only"
+REVIEW_GOVERNANCE_MODE = "small_stage_codex_self_review_major_stage_chatgpt_manual"
 MAX_SHORT_PROMPT_CHARS = 900
-FAILURE_STOP_CONDITIONS = [
-    "target_conversation_mismatch",
-    "input_box_residual_draft_detected",
-    "prompt_split_detected",
-    "sent_message_not_confirmed",
-]
 
 PUBLIC_REVIEW_FILES = [
     "reports/review_requests/latest.md",
@@ -118,51 +110,6 @@ def default_status() -> dict[str, Any]:
     }
 
 
-def target_conversation_status() -> dict[str, Any]:
-    status: dict[str, Any] = {
-        "target_conversation_mode": DEFAULT_TARGET_MODE,
-        "recommended_target_mode": DEFAULT_TARGET_MODE,
-        "supported_target_modes": SUPPORTED_TARGET_MODES,
-        "existing_conversation_url_source": "local_private/chatgpt_review_target.json",
-        "existing_conversation_url_public_value": None,
-        "existing_conversation_url_present": False,
-        "target_config_seen": CHATGPT_TARGET_PATH.exists(),
-        "target_selection_status": "pass",
-        "target_selection_reason": "dedicated_review_thread_default",
-    }
-
-    if not CHATGPT_TARGET_PATH.exists():
-        return status
-
-    try:
-        payload = load_json(CHATGPT_TARGET_PATH)
-    except json.JSONDecodeError:
-        status["target_selection_status"] = "fail"
-        status["target_selection_reason"] = "target_config_json_invalid"
-        return status
-
-    mode = str(payload.get("mode") or DEFAULT_TARGET_MODE)
-    if mode not in SUPPORTED_TARGET_MODES:
-        status["target_selection_status"] = "fail"
-        status["target_selection_reason"] = "unsupported_target_conversation_mode"
-        return status
-
-    status["target_conversation_mode"] = mode
-    if mode == DEFAULT_TARGET_MODE:
-        status["target_selection_reason"] = "dedicated_review_thread_selected"
-        return status
-
-    url = str(payload.get("existing_conversation_url") or "")
-    status["existing_conversation_url_present"] = bool(url)
-    if not url.startswith("https://chatgpt.com/c/"):
-        status["target_selection_status"] = "fail"
-        status["target_selection_reason"] = "existing_conversation_url_missing_or_invalid"
-        return status
-
-    status["target_selection_reason"] = "existing_conversation_url_loaded_from_local_private"
-    return status
-
-
 def check_gate(review: dict[str, Any] | None = None) -> dict[str, Any]:
     review_payload = review or latest_review()
     target_commit = review_target_commit(review_payload)
@@ -224,7 +171,8 @@ def render_prompt(review: dict[str, Any]) -> str:
     target_commit = review_target_commit(review)
     return "\n".join(
         [
-            f"请审核公开 repo {PUBLIC_REPO_URL} 的 `review_target_commit`: `{target_commit}`。",
+            f"Request manual major-stage ChatGPT review for public GitHub repo {PUBLIC_REPO_URL}.",
+            f"Review `review_target_commit`: `{target_commit}`.",
             f"请只读取这些公开路径：{public_files}。",
             "重点检查 ETF-only、安全边界、无自动下单/券商写接口、无敏感信息泄漏、测试是否足够。",
             "请输出 pass/fail、高风险问题、必须修复项、下一步建议。",
@@ -254,8 +202,8 @@ def validate_public_prompt(prompt: str) -> dict[str, Any]:
 
 def input_delivery_contract(prompt_check: dict[str, Any]) -> dict[str, Any]:
     return {
-        "prompt_kind": "short_review_prompt",
-        "prompt_entry_method": "paste_or_clipboard_insert",
+        "prompt_kind": "manual_major_review_prompt",
+        "prompt_entry_method": "user_manual_copy_only",
         "long_prompt_typing_forbidden": True,
         "pre_send_safety_check_required": True,
         "pre_send_safety_check_status": prompt_check["status"],
@@ -273,35 +221,42 @@ def relay_status_for_review(
     gate_status: dict[str, Any],
 ) -> dict[str, Any]:
     prompt_check = validate_public_prompt(prompt)
-    target_status = target_conversation_status()
     status = dict(gate_status)
-    status.update(target_status)
+    status.pop("gate_path", None)
     status.update(
         {
-            "stage": STAGE2E1_STAGE,
-            "relay_stage": STAGE2E1_RELAY_STAGE,
+            "stage": CURRENT_REVIEW_STAGE,
+            "relay_stage": CURRENT_RELAY_STAGE,
             "expected_repo": REPO,
             "expected_commit": review_target_commit(review),
             "review_target_commit": review_target_commit(review),
+            "review_governance_mode": REVIEW_GOVERNANCE_MODE,
+            "review_route": "codex_self_review_for_small_stage",
+            "major_review_route": "manual_chatgpt_review_for_major_stage",
+            "chatgpt_computer_use_auto_review_deprecated": True,
+            "chatgpt_review_is_manual": True,
+            "codex_self_review_required_for_small_stage": True,
+            "major_chatgpt_review_required_for_major_stage": True,
+            "automatic_chatgpt_prompt_send_allowed": False,
             "chatgpt_prompt_generated": True,
             "manual_fallback_available": True,
+            "review_gate_required": False,
+            "review_gate_seen": False,
+            "review_gate_valid": False,
             "sent_to_chatgpt": False,
             "computer_use_executed": False,
             "chatgpt_repo_access_observed": False,
             "chatgpt_review_started": False,
             "chatgpt_review_completed": False,
-            "input_delivery_quality": "not_sent_repo_only_hardened",
+            "input_delivery_quality": "not_sent_manual_major_review_only",
             "input_delivery_contract": input_delivery_contract(prompt_check),
             "prompt_safety_check": prompt_check,
-            "failure_stop_conditions": FAILURE_STOP_CONDITIONS,
-            "failure_policy": "mark_failed_and_stop",
-            "status_reason": "repo_only_relay_hardening_ready_no_live_send",
+            "failure_policy": "manual_review_required_for_major_stage",
+            "status_reason": "chatgpt_computer_use_auto_review_deprecated",
         }
     )
     if prompt_check["status"] != "pass":
         status["status_reason"] = "prompt_safety_check_failed"
-    elif target_status["target_selection_status"] != "pass":
-        status["status_reason"] = "target_selection_failed"
     return status
 
 
@@ -315,10 +270,10 @@ def write_status(status: dict[str, Any]) -> None:
         f"- Expected commit: `{status.get('expected_commit', '')}`",
         f"- Review target commit: `{status.get('review_target_commit', status.get('expected_commit', ''))}`",
         f"- Relay stage: `{status['relay_stage']}`",
-        f"- Target conversation mode: `{status.get('target_conversation_mode', '')}`",
-        f"- Recommended target mode: `{status.get('recommended_target_mode', '')}`",
-        f"- Existing conversation URL source: `{status.get('existing_conversation_url_source', '')}`",
-        f"- Existing conversation URL public value: `{status.get('existing_conversation_url_public_value')}`",
+        f"- Review governance mode: `{status.get('review_governance_mode', '')}`",
+        f"- Review route: `{status.get('review_route', '')}`",
+        f"- Major review route: `{status.get('major_review_route', '')}`",
+        f"- ChatGPT Computer Use automatic review deprecated: `{str(status.get('chatgpt_computer_use_auto_review_deprecated', False)).lower()}`",
         f"- Computer Use executed: `{str(status['computer_use_executed']).lower()}`",
         f"- ChatGPT prompt generated: `{str(status['chatgpt_prompt_generated']).lower()}`",
         f"- Manual fallback available: `{str(status['manual_fallback_available']).lower()}`",
@@ -332,7 +287,7 @@ def write_status(status: dict[str, Any]) -> None:
         f"- Failure policy: `{status.get('failure_policy', '')}`",
         f"- Status reason: `{status['status_reason']}`",
         "",
-        "No Computer Use action was executed in Stage 2E.1. This relay不会自动下单，最终交易由用户手动决定。",
+        "No Computer Use action was executed in Stage 2F. ChatGPT review is manual and user-initiated. This review route不会自动下单，最终交易由用户手动决定。",
         "",
     ]
     STATUS_MD.write_text("\n".join(lines), encoding="utf-8")
@@ -353,9 +308,13 @@ def public_payload(review: dict[str, Any], prompt: str, gate_status: dict[str, A
         "public_files": PUBLIC_REVIEW_FILES,
         "prompt": prompt,
         "gate": gate_status,
-        "stage": STAGE2E1_STAGE,
-        "relay_stage": STAGE2E1_RELAY_STAGE,
-        "target_conversation": target_conversation_status(),
+        "stage": CURRENT_REVIEW_STAGE,
+        "relay_stage": CURRENT_RELAY_STAGE,
+        "review_governance_mode": REVIEW_GOVERNANCE_MODE,
+        "review_route": "codex_self_review_for_small_stage",
+        "major_review_route": "manual_chatgpt_review_for_major_stage",
+        "chatgpt_computer_use_auto_review_deprecated": True,
+        "automatic_chatgpt_prompt_send_allowed": False,
         "input_delivery_contract": input_delivery_contract(validate_public_prompt(prompt)),
         "prompt_safety_check": validate_public_prompt(prompt),
         "sent_to_chatgpt": False,

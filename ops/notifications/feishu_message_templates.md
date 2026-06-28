@@ -18,7 +18,7 @@ Codex 已完成任务，测试结果为 `{test_result}`，是否审核？
 
 ## Review Confirmed
 
-已确认，Codex 将尝试通过 Computer Use 向 ChatGPT 发送审核请求。不会自动下单，最终交易由用户手动决定。
+已确认。Stage 2F 后，ChatGPT Computer Use 自动审核路线已废弃。小阶段由 Codex 自审；大阶段只生成手动 ChatGPT 审核材料，由用户决定是否粘贴到 ChatGPT。不会自动下单，最终交易由用户手动决定。
 
 ## Review Declined
 
@@ -36,6 +36,6 @@ Codex 已完成任务，测试结果为 `{test_result}`，是否审核？
 
 ## Relay Failed Fallback
 
-Computer Use relay 未完成。请手动复制：
+ChatGPT Computer Use 自动审核路线已废弃。大阶段请手动复制：
 
 `请读取 leon-hxy/agentic_etf_desk 的 reports/review_requests/latest.md 和 reports/codex_handoff/latest.json，审核最新阶段是否通过。`

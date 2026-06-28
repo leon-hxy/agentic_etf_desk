@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 2E.1 ChatGPT relay target and input delivery hardened"
+EXPECTED_STAGE = "Stage 2F review governance refactor completed"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -27,6 +27,8 @@ PREVIOUS_STAGE_COMMITS = {
     "d30169e" + "512f260dd5b29eb328d0f41c73cc927a9",
     "74215dd" + "69814c07fd5c3fd3937ccee15f9be8e8f",
     "23cebeb" + "ed1d07f0b35e66b284ec0891b427d8716",
+    "9ac1dd8" + "b96fe98bae4bd676966293f03e0908047",
+    "5a5d68e" + "2e34c6203ee2ab784dbbe3fa9a1cf1a6d",
     "f7fa73b" + "79ab1e3886c69bfd6ca5874a662acbb75",
 }
 JSON_TARGET_PATHS = [
@@ -98,14 +100,14 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertIn("commit to review", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
-    def test_review_target_commit_is_valid_stage2e1_commit(self) -> None:
+    def test_review_target_commit_is_valid_stage2f_commit(self) -> None:
         target = str(self.review_target_commit)
         result = git("cat-file", "-e", f"{target}^{{commit}}")
         self.assertEqual(result.returncode, 0, msg=result.stderr)
 
         subject = git("show", "-s", "--format=%s", target)
         self.assertEqual(subject.returncode, 0, msg=subject.stderr)
-        self.assertIn("stage2e.1", subject.stdout.lower())
+        self.assertIn("stage2f", subject.stdout.lower())
         self.assertNotIn("stage2a", subject.stdout.lower())
 
     def test_recorded_current_head_is_valid_git_commit(self) -> None:
@@ -125,7 +127,8 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         relay_status = read_json("reports/review_requests/relay_status.json")
         self.assertEqual(relay_status["review_target_commit"], target)
         self.assertEqual(relay_status["expected_commit"], target)
-        self.assertEqual(relay_status["relay_stage"], "stage2e1_relay_hardening_repo_only")
+        self.assertEqual(relay_status["relay_stage"], "stage2f_review_governance_manual_only")
+        self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
 
     def test_human_readable_artifacts_include_review_target(self) -> None:
         target = str(self.review_target_commit)

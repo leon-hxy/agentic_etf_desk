@@ -31,14 +31,14 @@ The expanded review loop remains repo-only and draft-only:
    - `只看状态`
    - `开始下一阶段`
    - `暂停 loop`
-7. If the user replies `确认审核`, a future approved Hermes skill writes `local_private/review_gate.json`.
-8. Codex ChatGPT Review Relay automation reads the gate file.
-9. If the gate is valid and not expired, Codex may use Computer Use or Chrome to open ChatGPT and paste the generated public review prompt.
-10. If Computer Use fails, Hermes sends the user the one-line manual fallback prompt from `reports/review_requests/manual_fallback_prompt.md`.
+7. Stage 2F deprecates ChatGPT Computer Use automatic review.
+8. Small stages use Codex self-review recorded in the repo.
+9. Major stages generate a manual ChatGPT review prompt.
+10. The user decides whether to paste the major-stage prompt into ChatGPT.
 
-The current ChatGPT conversation cannot be awakened directly by an external API. Computer Use is a UI relay, not an API integration.
+The current ChatGPT conversation cannot be awakened directly by an external API. Computer Use is no longer part of the active review governance loop.
 
-The relay is best-effort. It depends on the local Chrome/ChatGPT login state and Codex Computer Use permissions. All real review evidence remains the public GitHub repo, the review request files, and the handoff files.
+All real review evidence remains the public GitHub repo, the review request files, and the handoff files.
 
 ## Hard Boundaries
 
@@ -51,10 +51,10 @@ The relay is best-effort. It depends on the local Chrome/ChatGPT login state and
 - No service restarts.
 - No dependency installation unless the user explicitly approves.
 - No secret, token, auth value, provider key, Feishu App Secret value, or broker credential in repo files.
-- The relay must not execute trades.
-- The relay must not modify real Hermes/OpenClaw configuration.
-- The relay must not connect broker systems.
-- The relay must send only public GitHub URLs, public repo-relative paths, commit SHAs, and review request/handoff paths to ChatGPT.
+- The review loop must not execute trades.
+- The review loop must not modify real Hermes/OpenClaw configuration.
+- The review loop must not connect broker systems.
+- Major-stage ChatGPT prompts must use only public GitHub URLs, public repo-relative paths, commit SHAs, and review request/handoff paths.
 
 ## Live Integration Boundary
 

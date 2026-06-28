@@ -58,6 +58,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "Stage 2D.2B review gate confirmed locally",
                 "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
                 "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+                "Stage 2F review governance refactor completed",
             },
         )
         self.assertEqual(payload["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
@@ -72,6 +73,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
                 "requires_user_approval_for_computer_use_relay",
                 "requires_user_review_before_any_followup_relay",
                 "requires_user_approval_for_live_relay_retry",
+                "use_codex_self_review_for_small_stages_major_chatgpt_manual_only",
             },
         )
         if payload["current_stage"] in {
@@ -80,6 +82,7 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             "Stage 2D.2B review gate confirmed locally",
             "Stage 2E.0 Computer Use ChatGPT relay smoke completed with degraded input delivery",
             "Stage 2E.1 ChatGPT relay target and input delivery hardened",
+            "Stage 2F review governance refactor completed",
         }:
             self.assertTrue(payload["real_config_modified"])
             self.assertTrue(payload["hermes_modified"])
@@ -103,6 +106,12 @@ class Stage2DPreparationPlanTest(unittest.TestCase):
             self.assertTrue(payload["computer_use_live_execution"])
             self.assertFalse(payload["current_stage_computer_use_executed"])
             self.assertFalse(payload["stage2e1_computer_use_executed"])
+        elif payload["current_stage"] == "Stage 2F review governance refactor completed":
+            self.assertTrue(payload["computer_use_executed"])
+            self.assertTrue(payload["computer_use_live_execution"])
+            self.assertFalse(payload["current_stage_computer_use_executed"])
+            self.assertFalse(payload["stage2f_computer_use_executed"])
+            self.assertTrue(payload["chatgpt_computer_use_auto_review_deprecated"])
         else:
             self.assertFalse(payload["computer_use_executed"])
             self.assertFalse(payload["computer_use_live_execution"])

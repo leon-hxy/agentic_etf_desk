@@ -66,10 +66,22 @@ class Stage2E0RelaySmokeTest(unittest.TestCase):
             self.assertFalse(status["auto_trading_surface"])
             self.assertFalse(status["broker_or_trading_site_accessed"])
         else:
-            self.assertEqual(status["relay_stage"], "stage2e1_relay_hardening_repo_only")
+            self.assertIn(
+                status["relay_stage"],
+                {
+                    "stage2e1_relay_hardening_repo_only",
+                    "stage2f_review_governance_manual_only",
+                },
+            )
             self.assertFalse(status["computer_use_executed"])
             self.assertFalse(status["sent_to_chatgpt"])
-            self.assertEqual(status["status_reason"], "repo_only_relay_hardening_ready_no_live_send")
+            self.assertIn(
+                status["status_reason"],
+                {
+                    "repo_only_relay_hardening_ready_no_live_send",
+                    "chatgpt_computer_use_auto_review_deprecated",
+                },
+            )
 
     def test_safety_results_record_forbidden_actions_absent(self) -> None:
         payload = read_json(JSON_FILES["safety"])

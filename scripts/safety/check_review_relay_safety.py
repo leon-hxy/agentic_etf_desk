@@ -105,7 +105,20 @@ def scan(root: Path) -> dict[str, object]:
     status_path = root / "reports" / "review_requests" / "relay_status.json"
     if status_path.exists():
         status = json.loads(status_path.read_text(encoding="utf-8"))
-        if status.get("relay_stage") == "stage2e1_relay_hardening_repo_only":
+        if status.get("relay_stage") == "stage2f_review_governance_manual_only":
+            if status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
+                add(findings, str(status_path.relative_to(root)), "Computer Use auto review must be deprecated")
+            if status.get("review_route") != "codex_self_review_for_small_stage":
+                add(findings, str(status_path.relative_to(root)), "small stages must use Codex self-review")
+            if status.get("major_review_route") != "manual_chatgpt_review_for_major_stage":
+                add(findings, str(status_path.relative_to(root)), "major stages must use manual ChatGPT review")
+            if status.get("automatic_chatgpt_prompt_send_allowed") is not False:
+                add(findings, str(status_path.relative_to(root)), "automatic ChatGPT prompt send must be disabled")
+            if status.get("review_gate_required") is not False:
+                add(findings, str(status_path.relative_to(root)), "review gate must not be required for deprecated relay")
+            if status.get("computer_use_executed") is not False or status.get("sent_to_chatgpt") is not False:
+                add(findings, str(status_path.relative_to(root)), "Stage 2F must stay repo-only")
+        elif status.get("relay_stage") == "stage2e1_relay_hardening_repo_only":
             if status.get("target_conversation_mode") != "dedicated_review_thread":
                 add(findings, str(status_path.relative_to(root)), "target mode must default to dedicated_review_thread")
             if status.get("existing_conversation_url_source") != "local_private/chatgpt_review_target.json":
@@ -162,10 +175,17 @@ def scan(root: Path) -> dict[str, object]:
     automation_prompt = root / "configs" / "codex_automation" / "chatgpt_review_relay_prompt.md"
     if automation_prompt.exists():
         prompt = text(automation_prompt)
-        allowed_hosts = ["chatgpt.com", "github.com", "raw.githubusercontent.com"]
-        for host in allowed_hosts:
-            if host not in prompt:
-                add(findings, str(automation_prompt.relative_to(root)), f"missing allowed host {host}")
+        if "ChatGPT Computer Use automatic review route is deprecated" not in prompt:
+            add(findings, str(automation_prompt.relative_to(root)), "missing deprecated relay notice")
+        for required in (
+            "Do not run Computer Use",
+            "Do not open ChatGPT automatically",
+            "Do not send ChatGPT prompts automatically",
+            "Small-stage Codex self-review",
+            "Major-stage ChatGPT review",
+        ):
+            if required not in prompt:
+                add(findings, str(automation_prompt.relative_to(root)), f"missing governance rule {required}")
 
     return {"status": "pass" if not findings else "fail", "findings": findings}
 

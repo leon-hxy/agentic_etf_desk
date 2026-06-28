@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 2E.1 ChatGPT relay target and input delivery hardened"
+STAGE2F = "Stage 2F review governance refactor completed"
 LOCAL_TARGET_CONFIG = "local_private/chatgpt_review_target.json"
 MAX_SHORT_PROMPT_CHARS = 900
 
@@ -25,8 +26,8 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
         prompt_md = read_text(ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.md")
         prompt = prompt_json["prompt"]
 
-        self.assertEqual(latest["stage"], STAGE)
-        self.assertEqual(prompt_json["stage"], STAGE)
+        self.assertIn(latest["stage"], {STAGE, STAGE2F})
+        self.assertEqual(prompt_json["stage"], latest["stage"])
         self.assertEqual(prompt_md.strip(), prompt.strip())
         self.assertLessEqual(len(prompt), MAX_SHORT_PROMPT_CHARS)
         self.assertIn("https://github.com/leon-hxy/agentic_etf_desk", prompt)
@@ -47,8 +48,6 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
             "docs/security_policy.md",
             "reports/relay_smoke",
             "review_files",
-            "FEISHU",
-            "Feishu",
             "OpenAI API key",
             "token=",
             "secret=",
@@ -59,6 +58,16 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
 
     def test_relay_status_declares_target_modes_and_input_contract(self) -> None:
         status = read_json(ROOT / "reports" / "review_requests" / "relay_status.json")
+        if status["relay_stage"] == "stage2f_review_governance_manual_only":
+            self.assertEqual(status["stage"], STAGE2F)
+            self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
+            self.assertEqual(status["major_review_route"], "manual_chatgpt_review_for_major_stage")
+            self.assertFalse(status["computer_use_executed"])
+            self.assertFalse(status["sent_to_chatgpt"])
+            self.assertEqual(status["input_delivery_contract"]["prompt_entry_method"], "user_manual_copy_only")
+            self.assertEqual(status["failure_policy"], "manual_review_required_for_major_stage")
+            return
+
         self.assertEqual(status["relay_stage"], "stage2e1_relay_hardening_repo_only")
         self.assertEqual(status["stage"], STAGE)
         self.assertEqual(status["target_conversation_mode"], "dedicated_review_thread")

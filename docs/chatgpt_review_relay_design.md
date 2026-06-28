@@ -1,4 +1,11 @@
-# ChatGPT Review Relay Design
+# Deprecated ChatGPT Review Relay Design
+
+Status: deprecated by Stage 2F. See `docs/review_governance.md`.
+
+ChatGPT Computer Use automatic review route is deprecated.
+
+The active review model is Small-stage Codex self-review and Major-stage
+ChatGPT review. ChatGPT review is manual and user-initiated.
 
 This is a repo-only design draft. It does not use Computer Use, open Chrome, or send anything to ChatGPT in Stage 2A.6.
 

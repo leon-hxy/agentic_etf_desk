@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 2E.1 ChatGPT relay target and input delivery hardened"
+EXPECTED_STAGE = "Stage 2F review governance refactor completed"
 
 
 class NotificationLoopSafetyTest(unittest.TestCase):
@@ -62,7 +62,7 @@ class NotificationLoopSafetyTest(unittest.TestCase):
     def test_loop_state_declares_completed_stage_with_draft_layers(self) -> None:
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
         self.assertEqual(payload["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(payload["status"], "relay_hardening_repo_only_completed")
+        self.assertEqual(payload["status"], "review_governance_refactor_repo_only_completed")
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
@@ -80,20 +80,26 @@ class NotificationLoopSafetyTest(unittest.TestCase):
             payload["stage2e1_task_status"],
             "completed_repo_only_relay_hardening",
         )
+        self.assertEqual(
+            payload["stage2f_task_status"],
+            "completed_repo_only_review_governance_refactor",
+        )
         self.assertIsNone(payload["next_task"])
         self.assertEqual(
             payload["next_task_status"],
-            "requires_user_approval_for_live_relay_retry",
+            "use_codex_self_review_for_small_stages_major_chatgpt_manual_only",
         )
         self.assertEqual(payload["notification_layer"], "live_smoke_sent")
         self.assertEqual(payload["review_gate_layer"], "confirmed_local_private_gate")
         self.assertTrue(payload["feishu_message_sent"])
         self.assertTrue(payload["review_gate_written"])
         self.assertTrue(payload["feishu_confirmation_observed"])
-        self.assertEqual(payload["chatgpt_review_relay"], "repo_only_hardened_not_sent")
+        self.assertEqual(payload["chatgpt_review_relay"], "deprecated_by_stage2f")
         self.assertTrue(payload["computer_use_live_execution"])
         self.assertFalse(payload["current_stage_computer_use_executed"])
         self.assertFalse(payload["stage2e1_computer_use_executed"])
+        self.assertFalse(payload["stage2f_computer_use_executed"])
+        self.assertTrue(payload["chatgpt_computer_use_auto_review_deprecated"])
         self.assertTrue(payload["manual_chatgpt_review_mode"])
         self.assertTrue(payload["public_repo_review_mode"])
 

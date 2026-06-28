@@ -55,9 +55,23 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         status = json.loads((ROOT / "reports" / "review_requests" / "relay_status.json").read_text())
         self.assertTrue(status["chatgpt_prompt_generated"])
         self.assertTrue(status["manual_fallback_available"])
-        self.assertTrue(status["review_gate_required"])
 
-        if status["relay_stage"] == "stage2e1_relay_hardening_repo_only":
+        if status["relay_stage"] == "stage2f_review_governance_manual_only":
+            self.assertFalse(status["review_gate_required"])
+            self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
+            self.assertTrue(status["chatgpt_review_is_manual"])
+            self.assertEqual(status["review_route"], "codex_self_review_for_small_stage")
+            self.assertEqual(status["major_review_route"], "manual_chatgpt_review_for_major_stage")
+            self.assertFalse(status["automatic_chatgpt_prompt_send_allowed"])
+            self.assertFalse(status["computer_use_executed"])
+            self.assertFalse(status["sent_to_chatgpt"])
+            self.assertEqual(status["status_reason"], "chatgpt_computer_use_auto_review_deprecated")
+            self.assertEqual(
+                status["input_delivery_contract"]["prompt_entry_method"],
+                "user_manual_copy_only",
+            )
+        elif status["relay_stage"] == "stage2e1_relay_hardening_repo_only":
+            self.assertTrue(status["review_gate_required"])
             self.assertFalse(status["computer_use_executed"])
             self.assertFalse(status["sent_to_chatgpt"])
             self.assertEqual(status["status_reason"], "repo_only_relay_hardening_ready_no_live_send")
@@ -81,12 +95,14 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             self.assertEqual(status["failure_policy"], "mark_failed_and_stop")
             self.assertFalse(status["auto_trading_surface"] if "auto_trading_surface" in status else False)
         elif status["relay_stage"] == "stage2e0_chatgpt_relay_smoke":
+            self.assertTrue(status["review_gate_required"])
             self.assertTrue(status["computer_use_executed"])
             self.assertTrue(status["sent_to_chatgpt"])
             self.assertEqual(status["status_reason"], "sent_with_degraded_split_prompt")
             self.assertFalse(status["auto_trading_surface"])
             self.assertFalse(status["broker_or_trading_site_accessed"])
         else:
+            self.assertTrue(status["review_gate_required"])
             self.assertEqual(status["relay_stage"], "draft_only")
             self.assertFalse(status["computer_use_executed"])
             if (ROOT / "local_private" / "review_gate.json").exists():
@@ -131,10 +147,12 @@ class ReviewRelaySafetyTest(unittest.TestCase):
         self.assertIn("https://github.com/leon-hxy/agentic_etf_desk", prompt)
         self.assertIn("repo 是 public，不需要 GitHub connector", prompt)
         self.assertIn("最终交易由用户手动决定", prompt)
+        self.assertIn("manual major-stage ChatGPT review", prompt)
         self.assertLessEqual(len(prompt), 900)
         self.assertNotIn("local_private", prompt)
         self.assertNotIn("reports/relay_smoke", prompt)
         self.assertNotIn("review_files", prompt)
+        self.assertNotIn("Computer Use", prompt)
 
     def test_review_relay_safety_script_passes(self) -> None:
         result = self.run_cmd(["scripts/safety/check_review_relay_safety.py", "--root", str(ROOT)])
