@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3D completed_internal_review"
+EXPECTED_STAGE = "Stage 3E major_review_package_ready"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -34,6 +34,7 @@ PREVIOUS_STAGE_COMMITS = {
     "2371423" + "0ebda5bbaa16c27fac9efdf8d76663911",
     "78b6e39" + "9b041dc988208261db4d3ec55f0c74749",
     "945dc00" + "2ed39ee64e36a7ad51714dd8d48fe0903",
+    "3e90368" + "d332749f731177688f532f1127206845f",
 }
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
@@ -130,7 +131,7 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         relay_status = read_json("reports/review_requests/relay_status.json")
         self.assertEqual(relay_status["review_target_commit"], target)
         self.assertEqual(relay_status["expected_commit"], target)
-        self.assertEqual(relay_status["relay_stage"], "stage3d_internal_review_no_chatgpt")
+        self.assertEqual(relay_status["relay_stage"], "stage3e_major_review_ready_manual_only")
         self.assertTrue(relay_status["chatgpt_computer_use_auto_review_deprecated"])
         self.assertFalse(relay_status["sent_to_chatgpt"])
         self.assertFalse(relay_status["computer_use_executed"])

@@ -64,11 +64,16 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             "stage3ab_internal_review_no_chatgpt",
             "stage3c_internal_review_no_chatgpt",
             "stage3d_internal_review_no_chatgpt",
+            "stage3e_major_review_ready_manual_only",
         }:
             self.assertFalse(status["review_gate_required"])
             self.assertTrue(status["chatgpt_computer_use_auto_review_deprecated"])
             self.assertTrue(status["chatgpt_review_is_manual"])
-            self.assertEqual(status["review_route"], "codex_self_review_for_small_stage")
+            if status["relay_stage"] == "stage3e_major_review_ready_manual_only":
+                self.assertEqual(status["review_route"], "manual_chatgpt_review_for_major_stage")
+                self.assertTrue(status["manual_chatgpt_review_ready"])
+            else:
+                self.assertEqual(status["review_route"], "codex_self_review_for_small_stage")
             self.assertEqual(status["major_review_route"], "manual_chatgpt_review_for_major_stage")
             self.assertFalse(status["automatic_chatgpt_prompt_send_allowed"])
             self.assertFalse(status["computer_use_executed"])
@@ -82,6 +87,7 @@ class ReviewRelaySafetyTest(unittest.TestCase):
                     "stage3ab_completed_internal_review_no_chatgpt_request",
                     "stage3c_completed_internal_review_no_chatgpt_request",
                     "stage3d_completed_internal_review_no_chatgpt_request",
+                    "stage3e_major_review_package_ready_manual_chatgpt_review",
                 },
             )
             self.assertIn(
@@ -164,8 +170,12 @@ class ReviewRelaySafetyTest(unittest.TestCase):
             self.assertNotIn(term, prompt)
         self.assertIn("https://github.com/leon-hxy/agentic_etf_desk", prompt)
         self.assertIn("最终交易由用户手动决定", prompt)
-        self.assertIn("No ChatGPT review requested", prompt)
-        self.assertIn("Manual major-stage ChatGPT review is deferred", prompt)
+        if "Stage 3" in prompt and "major-stage review request" in prompt:
+            self.assertIn("Manual ChatGPT major-stage review request", prompt)
+            self.assertIn("reports/major_reviews/stage3/latest.md", prompt)
+        else:
+            self.assertIn("No ChatGPT review requested", prompt)
+            self.assertIn("Manual major-stage ChatGPT review is deferred", prompt)
         self.assertLessEqual(len(prompt), 900)
         self.assertNotIn("local_private", prompt)
         self.assertNotIn("reports/relay_smoke", prompt)

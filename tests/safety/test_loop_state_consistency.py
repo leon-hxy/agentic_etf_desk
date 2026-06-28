@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3D completed_internal_review"
+EXPECTED_STAGE = "Stage 3E major_review_package_ready"
 
 
 def read_json(path: str) -> dict:
@@ -32,7 +32,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(self.loop_state["status"], "stage3d_completed_internal_review")
+        self.assertEqual(self.loop_state["status"], "stage3e_major_review_package_ready")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
         expected_commit = self.handoff["review_target_commit"]
@@ -49,15 +49,12 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotIn(self.loop_state["review_target_commit"], stale_commits)
-        self.assertIn("Stage 3D", self.loop_state["review_target_commit_note"])
+        self.assertIn("Stage 3E", self.loop_state["review_target_commit_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
         self.assertEqual(self.loop_state["last_review_request"], "reports/review_requests/latest.json")
-        self.assertEqual(
-            self.loop_state["next_task"],
-            "ops/tasks/stage3_major_review_package.md",
-        )
+        self.assertIsNone(self.loop_state["next_task"])
         self.assertEqual(
             self.loop_state["stage2b_task"],
             "ops/tasks/stage2b_repo_only.md",
@@ -136,10 +133,10 @@ class LoopStateConsistencyTest(unittest.TestCase):
             self.loop_state["stage3b_task_status"],
             "completed_internal_review",
         )
-        self.assertEqual(
-            self.loop_state["stage3_next_task"],
-            "ops/tasks/stage3_major_review_package.md",
-        )
+        self.assertIsNone(self.loop_state["stage3_next_task"])
+        self.assertEqual(self.loop_state["stage3e_task_status"], "completed_internal_review")
+        self.assertTrue(self.loop_state["major_review_required"])
+        self.assertTrue(self.loop_state["manual_chatgpt_review_ready"])
         self.assertTrue(self.loop_state["feishu_message_sent"])
         self.assertTrue(self.loop_state["review_gate_written"])
         self.assertTrue(self.loop_state["feishu_confirmation_observed"])

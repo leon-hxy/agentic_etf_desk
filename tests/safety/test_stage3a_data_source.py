@@ -90,7 +90,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
         self.assertIn("id: stage3a_data_source", manifest)
         self.assertIn("status: completed", manifest)
         self.assertIn("id: stage3b_data_quality", manifest)
-        self.assertIn("status: planned", manifest)
+        self.assertIn("status: stage3e_major_review_package_ready", manifest)
 
         loop_state = read_json("ops/state/loop_state.json")
         self.assertIn(
@@ -101,6 +101,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
                 "Stage 3B completed_internal_review",
                 "Stage 3C completed_internal_review",
                 "Stage 3D completed_internal_review",
+                "Stage 3E major_review_package_ready",
             },
         )
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
@@ -111,6 +112,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
                 "ops/tasks/stage3c_backtest_validation.md",
                 "ops/tasks/stage3d_strategy_evidence_report.md",
                 "ops/tasks/stage3_major_review_package.md",
+                None,
             },
         )
         self.assertFalse(loop_state["current_stage_computer_use_executed"])

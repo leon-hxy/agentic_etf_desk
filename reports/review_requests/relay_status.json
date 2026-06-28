@@ -6,28 +6,29 @@
   "chatgpt_prompt_generated": true,
   "chatgpt_review_is_manual": true,
   "computer_use_executed": false,
-  "expected_commit": "3e90368d332749f731177688f532f1127206845f",
+  "expected_commit": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
   "expected_repo": "leon-hxy/agentic_etf_desk",
-  "failure_policy": "notify_user_on_blocker_only",
+  "failure_policy": "manual_review_required_for_major_stage",
   "feishu_message_sent": false,
   "final_trading_notice": "Final trading is manually decided by the user.",
   "input_delivery_contract": {
     "long_prompt_typing_forbidden": true,
     "pre_send_safety_check_status": "pass",
-    "prompt_entry_method": "not_applicable_small_stage_self_review"
+    "prompt_entry_method": "user_manual_copy_only"
   },
-  "internal_review_only": true,
+  "internal_review_only": false,
   "major_review_route": "manual_chatgpt_review_for_major_stage",
+  "manual_chatgpt_review_ready": true,
   "manual_fallback_available": true,
   "no_chatgpt_review_requested": true,
-  "relay_stage": "stage3d_internal_review_no_chatgpt",
+  "relay_stage": "stage3e_major_review_ready_manual_only",
   "review_gate_required": false,
   "review_gate_seen": false,
   "review_gate_valid": false,
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
-  "review_route": "codex_self_review_for_small_stage",
-  "review_target_commit": "3e90368d332749f731177688f532f1127206845f",
+  "review_route": "manual_chatgpt_review_for_major_stage",
+  "review_target_commit": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
   "sent_to_chatgpt": false,
-  "stage": "Stage 3D completed_internal_review",
-  "status_reason": "stage3d_completed_internal_review_no_chatgpt_request"
+  "stage": "Stage 3E major_review_package_ready",
+  "status_reason": "stage3e_major_review_package_ready_manual_chatgpt_review"
 }

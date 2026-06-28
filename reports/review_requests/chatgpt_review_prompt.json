@@ -2,16 +2,16 @@
   "chatgpt_review_requested": false,
   "computer_use_executed": false,
   "gate": {
-    "expected_commit": "3e90368d332749f731177688f532f1127206845f",
-    "reason": "Stage 3D is a small stage using internal review only",
+    "expected_commit": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
+    "reason": "Stage 3E package is ready for user-initiated manual ChatGPT major-stage review",
     "required": false
   },
-  "manual_major_review_deferred_until": "Stage 3E",
-  "no_chatgpt_review_requested": true,
-  "prompt": "No ChatGPT review requested for Stage 3D. Stage 3D is a small stage reviewed internally only. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. review_target_commit: 3e90368d332749f731177688f532f1127206845f. Audit paths: reports/review_requests/latest.md, reports/review_requests/latest.json, reports/codex_handoff/latest.md, reports/codex_handoff/latest.json, reports/internal_reviews/stage3/stage3d_strategy_evidence_report.md. Manual major-stage ChatGPT review is deferred until Stage 3E if the user requests it. manual major-stage ChatGPT review deferred. \u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
-  "review_level": "small_stage",
-  "review_mode": "internal_review_only",
-  "review_target_commit": "3e90368d332749f731177688f532f1127206845f",
+  "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. \u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
+  "manual_chatgpt_review_ready": true,
+  "prompt": "Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. \u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
+  "review_level": "major_stage",
+  "review_mode": "manual_chatgpt_review_ready",
+  "review_target_commit": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
   "sent_to_chatgpt": false,
-  "stage": "Stage 3D completed_internal_review"
+  "stage": "Stage 3E major_review_package_ready"
 }

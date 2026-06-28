@@ -46,16 +46,16 @@ class StageRunnerGovernanceTest(unittest.TestCase):
         state = read_json(runner_state)
         self.assertEqual(state["major_stage"], "Stage 3")
         self.assertEqual(state["branch"], "stage/stage3-data-backtest")
-        self.assertEqual(state["status"], "ready")
+        self.assertEqual(state["status"], "major_stage_ready")
         self.assertEqual(state["current_minor_stage"], "Stage 3E")
         self.assertEqual(state["current_task"], "ops/tasks/stage3_major_review_package.md")
-        self.assertEqual(state["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C", "Stage 3D"])
-        self.assertEqual(state["remaining_minor_stages"], ["Stage 3E"])
+        self.assertEqual(state["completed_minor_stages"], ["Stage 3A", "Stage 3B", "Stage 3C", "Stage 3D", "Stage 3E"])
+        self.assertEqual(state["remaining_minor_stages"], [])
         self.assertEqual(
             state["last_pushed_commit"],
-            "3e90368d332749f731177688f532f1127206845f",
+            "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
         )
-        self.assertFalse(state["major_review_required"])
+        self.assertTrue(state["major_review_required"])
         self.assertEqual(state["minor_review_route"], "codex_internal_review")
         self.assertEqual(state["major_review_route"], "manual_chatgpt_review")
         self.assertEqual(
@@ -129,6 +129,7 @@ class StageRunnerGovernanceTest(unittest.TestCase):
         self.assertIn("depends_on: Stage 3B completed_internal_review", stage3c)
         self.assertIn("status: completed_internal_review", stage3d)
         self.assertIn("depends_on: Stage 3C completed_internal_review", stage3d)
+        self.assertIn("status: major_review_package_ready", stage_text)
         self.assertIn("depends_on: Stage 3D completed_internal_review", stage_text)
         self.assertIn("reports/major_reviews/stage3/latest.md", stage_text)
         self.assertIn("reports/major_reviews/stage3/latest.json", stage_text)
@@ -141,6 +142,7 @@ class StageRunnerGovernanceTest(unittest.TestCase):
         self.assertIn("depends_on: Stage 3B completed_internal_review", task_3c)
         self.assertIn("status: completed_internal_review", task_3d)
         self.assertIn("depends_on: Stage 3C completed_internal_review", task_3d)
+        self.assertIn("status: completed_internal_review", task_3e)
         self.assertIn("depends_on: Stage 3D completed_internal_review", task_3e)
 
         for small_task in (task_3c, task_3d):

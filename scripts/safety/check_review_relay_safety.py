@@ -126,6 +126,19 @@ def scan(root: Path) -> dict[str, object]:
                 add(findings, str(status_path.relative_to(root)), "review gate must not be required for deprecated relay")
             if status.get("computer_use_executed") is not False or status.get("sent_to_chatgpt") is not False:
                 add(findings, str(status_path.relative_to(root)), "small-stage self-review must stay repo-only")
+        elif status.get("relay_stage") == "stage3e_major_review_ready_manual_only":
+            if status.get("chatgpt_computer_use_auto_review_deprecated") is not True:
+                add(findings, str(status_path.relative_to(root)), "Computer Use auto review must be deprecated")
+            if status.get("review_route") != "manual_chatgpt_review_for_major_stage":
+                add(findings, str(status_path.relative_to(root)), "Stage 3E must use manual major review")
+            if status.get("automatic_chatgpt_prompt_send_allowed") is not False:
+                add(findings, str(status_path.relative_to(root)), "automatic ChatGPT prompt send must be disabled")
+            if status.get("review_gate_required") is not False:
+                add(findings, str(status_path.relative_to(root)), "manual major review package must not require live relay gate")
+            if status.get("manual_chatgpt_review_ready") is not True:
+                add(findings, str(status_path.relative_to(root)), "manual ChatGPT review readiness must be true")
+            if status.get("computer_use_executed") is not False or status.get("sent_to_chatgpt") is not False:
+                add(findings, str(status_path.relative_to(root)), "Stage 3E package must not auto-send review")
         elif status.get("relay_stage") == "stage2e1_relay_hardening_repo_only":
             if status.get("target_conversation_mode") != "dedicated_review_thread":
                 add(findings, str(status_path.relative_to(root)), "target mode must default to dedicated_review_thread")

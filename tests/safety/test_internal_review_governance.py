@@ -121,6 +121,34 @@ class InternalReviewGovernanceTest(unittest.TestCase):
         self.assertIn("Stage 3D Strategy Evidence Report", text)
         self.assertIn("Final trading is manually decided by the user", text)
 
+    def test_stage3e_internal_review_artifacts_exist_and_pass(self) -> None:
+        md_path = REVIEW_DIR / "stage3e_major_review_package.md"
+        json_path = REVIEW_DIR / "stage3e_major_review_package.json"
+        self.assertTrue(md_path.exists())
+        self.assertTrue(json_path.exists())
+
+        review = read_json(json_path)
+        self.assert_common_review_contract(
+            review,
+            minor_stage="Stage 3E",
+            task_file="ops/tasks/stage3_major_review_package.md",
+        )
+        self.assertFalse(review["promote_to_next_minor_stage"])
+        self.assertTrue(review["major_review_ready"])
+        self.assertEqual(
+            review["major_review_package"],
+            "reports/major_reviews/stage3/latest.json",
+        )
+        integration = review["integration_reviewer"]
+        self.assertTrue(integration["major_review_package_generated"])
+        self.assertTrue(integration["manual_chatgpt_review_ready"])
+        self.assertFalse(integration["chatgpt_review_requested_by_codex"])
+
+        text = md_path.read_text(encoding="utf-8")
+        self.assertIn("completed_internal_review", text)
+        self.assertIn("Stage 3 Major Review Package", text)
+        self.assertIn("Final trading is manually decided by the user", text)
+
 
 if __name__ == "__main__":
     unittest.main()

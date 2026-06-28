@@ -10,8 +10,9 @@ manual final trading, no broker write capability, and no automatic ordering.
 - Current branch: `stage/stage3-data-backtest`
 - Current minor stage: `Stage 3E`
 - Current task: `ops/tasks/stage3_major_review_package.md`
-- Completed minor stages: `Stage 3A`, `Stage 3B`, `Stage 3C`, `Stage 3D`
-- Remaining minor stages: `Stage 3E`
+- Completed minor stages: `Stage 3A`, `Stage 3B`, `Stage 3C`, `Stage 3D`, `Stage 3E`
+- Remaining minor stages: none
+- Runner status: `major_stage_ready`
 - Small-stage route: `codex_internal_review`
 - Major-stage route: `manual_chatgpt_review`
 
@@ -24,6 +25,8 @@ manual final trading, no broker write capability, and no automatic ordering.
 - `internal_review_in_progress`: reviewer passes are running or being written.
 - `completed_internal_review`: internal review passed, tests passed, and the
   stage was committed and pushed.
+- `major_stage_ready`: Stage 3E package is ready for the user to request manual
+  ChatGPT major-stage review.
 - `blocked`: Codex cannot continue without user action or external state.
 - `skipped`: the stage was intentionally bypassed with a documented reason.
 

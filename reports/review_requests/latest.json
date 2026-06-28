@@ -1,35 +1,28 @@
 {
   "chatgpt_review_requested": false,
   "computer_use_executed": false,
-  "current_repo_head": "3e90368d332749f731177688f532f1127206845f",
+  "current_repo_head": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
   "feishu_message_sent": false,
   "final_trading_notice": "Final trading is manually decided by the user.",
   "handoff_commit": null,
-  "handoff_generated_from_head": "3e90368d332749f731177688f532f1127206845f",
-  "internal_review": "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json",
-  "internal_reviews": [
-    "reports/internal_reviews/stage3/stage3a_data_source.json",
-    "reports/internal_reviews/stage3/stage3b_data_quality.json",
-    "reports/internal_reviews/stage3/stage3c_backtest_validation.json",
-    "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json"
-  ],
-  "loop_state_stage": "Stage 3D completed_internal_review",
+  "handoff_generated_from_head": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
+  "loop_state_stage": "Stage 3E major_review_package_ready",
+  "major_review_package": "reports/major_reviews/stage3/latest.json",
   "major_stage_review_route": "manual_chatgpt_review",
-  "manual_major_review_deferred_until": "Stage 3E",
+  "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3-data-backtest. review_target_commit: 4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f. Review package: reports/major_reviews/stage3/latest.md and reports/major_reviews/stage3/latest.json. Review request: reports/review_requests/latest.md and reports/review_requests/latest.json. Handoff: reports/codex_handoff/latest.md and reports/codex_handoff/latest.json. Scope: ETF-only Stage 3 data source, data quality, backtest validation, and strategy evidence. Do not treat sample evidence as investment basis. Final trading is manually decided by the user. \u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
+  "manual_chatgpt_review_ready": true,
   "no_chatgpt_review_requested": true,
   "review_files": [
-    "reports/strategy_evidence/stage3d_strategy_evidence_report.md",
-    "reports/strategy_evidence/stage3d_strategy_evidence_report.json",
-    "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.md",
-    "reports/internal_reviews/stage3/stage3d_strategy_evidence_report.json",
+    "reports/major_reviews/stage3/latest.md",
+    "reports/major_reviews/stage3/latest.json",
     "reports/codex_handoff/latest.md",
     "reports/codex_handoff/latest.json"
   ],
   "review_governance_mode": "small_stage_codex_self_review_major_stage_chatgpt_manual",
-  "review_level": "small_stage",
-  "review_mode": "internal_review_only",
-  "review_target_commit": "3e90368d332749f731177688f532f1127206845f",
+  "review_level": "major_stage",
+  "review_mode": "manual_chatgpt_review_ready",
+  "review_target_commit": "4bdf83bc37d9a43d4535e5750617a1d13a9b5b4f",
   "sent_to_chatgpt": false,
   "small_stage_review_route": "codex_self_review",
-  "stage": "Stage 3D completed_internal_review"
+  "stage": "Stage 3E major_review_package_ready"
 }
