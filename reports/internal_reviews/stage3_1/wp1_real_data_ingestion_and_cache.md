@@ -5,7 +5,7 @@
 - Review route: `codex_internal_review`
 - ChatGPT review requested: `false`
 - User notification sent: `false`
-- `review_target_commit`: `e5a2a603b4cdb2d8b439f705f84331ad297edb88`
+- `review_target_commit`: `83d70fcb5cba364b945affdb7e053d3bec0c51e1`
 - Decision: `passed`
 
 ## Reviewer Conclusions

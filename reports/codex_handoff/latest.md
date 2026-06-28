@@ -22,8 +22,8 @@ Only after WP3 completes and generates `reports/major_reviews/stage3_1/latest.md
 
 ## Commit Metadata
 
-- `review_target_commit`: `e5a2a603b4cdb2d8b439f705f84331ad297edb88`
-- `current_repo_head`: `e5a2a603b4cdb2d8b439f705f84331ad297edb88`
+- `review_target_commit`: `83d70fcb5cba364b945affdb7e053d3bec0c51e1`
+- `current_repo_head`: `83d70fcb5cba364b945affdb7e053d3bec0c51e1`
 - `handoff_commit`: `null` until a later commit can point back to this handoff.
 
 ## Real Data Cache

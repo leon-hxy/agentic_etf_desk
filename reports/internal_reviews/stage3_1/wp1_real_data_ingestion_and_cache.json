@@ -65,7 +65,7 @@
   "required_follow_up": "Proceed to WP2 real data quality and monthly panel after WP1 commit/push verification.",
   "review_route": "codex_internal_review",
   "review_target": "Stage 3.1 WP1 real data ingestion and cache",
-  "review_target_commit": "e5a2a603b4cdb2d8b439f705f84331ad297edb88",
+  "review_target_commit": "83d70fcb5cba364b945affdb7e053d3bec0c51e1",
   "reviewed_files": [
     "scripts/data/download_prices.py",
     "tests/safety/test_stage3_1_wp1_real_data_ingestion.py",
@@ -97,7 +97,7 @@
   "sent_to_chatgpt": false,
   "services_restarted": false,
   "stage": "Stage 3.1 Real ETF Historical Data MVP",
-  "updated_at": "2026-06-28T16:38:35.159371+00:00",
+  "updated_at": "2026-06-28T16:45:32.916964+00:00",
   "user_notification_sent": false,
   "work_package": "WP1 real data ingestion and cache",
   "work_package_id": "wp1_real_data_ingestion_and_cache"
