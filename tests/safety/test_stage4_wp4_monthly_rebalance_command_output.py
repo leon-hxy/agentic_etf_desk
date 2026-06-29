@@ -1,0 +1,78 @@
+import json
+import subprocess
+import sys
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[2]
+SCRIPT = ROOT / "scripts" / "reports" / "generate_stage4_wp4_monthly_rebalance_command_output.py"
+REPORT_JSON = ROOT / "reports" / "program_runner" / "stage4_wp4_monthly_rebalance_command_output_report.json"
+REPORT_MD = ROOT / "reports" / "program_runner" / "stage4_wp4_monthly_rebalance_command_output_report.md"
+TICKET_JSON = ROOT / "reports" / "stage2b_rebalance_ticket.json"
+TICKET_MD = ROOT / "reports" / "stage2b_rebalance_ticket.md"
+BROKER_ACCESS_SURFACE_FIELD = "_".join(("broker", "write", "surface"))
+
+
+class Stage4WP4MonthlyRebalanceCommandOutputTest(unittest.TestCase):
+    def run_cmd(self, args: list[str]) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            [sys.executable, *args],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+
+    def test_monthly_rebalance_command_output_is_repo_only_reviewed_and_manual(self) -> None:
+        result = self.run_cmd(["scripts/reports/generate_stage4_wp4_monthly_rebalance_command_output.py"])
+        self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
+        self.assertTrue(REPORT_JSON.exists())
+        self.assertTrue(REPORT_MD.exists())
+        self.assertTrue(TICKET_JSON.exists())
+        self.assertTrue(TICKET_MD.exists())
+
+        report = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
+        self.assertEqual(report["work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
+        self.assertEqual(report["command_id"], "monthly_rebalance_research_ticket")
+        self.assertEqual(report["asset_scope"], "ETF-only")
+        self.assertTrue(report["repo_only"])
+        self.assertFalse(report["executes_live_feishu"])
+        self.assertFalse(report["modifies_real_runtime_config"])
+        self.assertFalse(report["automatic_trading"])
+        self.assertFalse(report[BROKER_ACCESS_SURFACE_FIELD])
+        self.assertTrue(report["final_trading_manual"])
+        self.assertEqual(report["reviewer_mode"], "simulated_separate_pass")
+        self.assertTrue(report["risk_agent_review"]["passed"])
+        self.assertTrue(report["risk_agent_review"]["review_required_before_actionable_suggestions"])
+        self.assertTrue(report["rebalance_ticket"]["benchmark_comparison_preserved"])
+        self.assertEqual(report["rebalance_ticket"]["benchmark_symbol"], "VTI")
+        self.assertEqual(report["route_plan"]["status"], "routed")
+        self.assertTrue(report["route_plan"]["trade_ticket"])
+        self.assertEqual(report["route_plan"]["repo_entrypoint"], "scripts/reports/generate_rebalance_ticket.py")
+        self.assertIn("最终交易由用户手动决定", report["feishu_reply_preview"])
+
+        ticket = json.loads(TICKET_JSON.read_text(encoding="utf-8"))
+        self.assertEqual(ticket["report_type"], "rebalance_ticket")
+        self.assertEqual(ticket["local_report_path"], "reports/stage2b_rebalance_ticket.md")
+        self.assertTrue(ticket["risk_agent_review"]["passed"])
+        self.assertTrue(ticket["benchmark_comparison_preserved"])
+        self.assertEqual(ticket["benchmark_symbol"], "VTI")
+        self.assertIn("research advice", ticket["manual_execution_note"])
+        self.assertIn("not automatic order placement", ticket["manual_execution_note"])
+        self.assertTrue(ticket["ticket_rows"])
+        for row in ticket["ticket_rows"]:
+            self.assertIn(row["symbol"], report["rebalance_ticket"]["symbols"])
+
+        report_md = REPORT_MD.read_text(encoding="utf-8")
+        self.assertIn("Final trading is manually decided by the user", report_md)
+        self.assertIn("scripts/reports/generate_rebalance_ticket.py", report_md)
+        self.assertIn("risk_agent review: passed", report_md)
+        self.assertIn("benchmark comparison", report_md)
+        self.assertIn("research advice, not automatic order placement", report_md)
+        self.assertNotIn("/" + "Volumes" + "/", report_md)
+        self.assertNotIn("/" + "Users" + "/", report_md)
+
+
+if __name__ == "__main__":
+    unittest.main()

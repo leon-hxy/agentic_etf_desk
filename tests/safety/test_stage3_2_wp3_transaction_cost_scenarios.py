@@ -107,19 +107,19 @@ class Stage32Wp3TransactionCostScenariosTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
         self.assertEqual(state["current_major_stage"], "Stage 4")
-        self.assertEqual(state["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
+        self.assertEqual(state["current_work_package"], "Stage 4 WP5 ETF universe health check command output")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP3 weekly report command output")
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage4_wp3_weekly_report_command_output.json",
+            "reports/internal_reviews/program/stage4_wp4_monthly_rebalance_command_output.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/program_runner/stage4_wp3_weekly_report_command_output_report.json",
+            "reports/program_runner/stage4_wp4_monthly_rebalance_command_output_report.json",
         )
         self.assertIn("stage3_2_wp3_transaction_cost_scenarios", state["stage3_2"]["completed_work_packages"])
-        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
+        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP5 ETF universe health check command output")
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
 

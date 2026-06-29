@@ -64,6 +64,17 @@ def git_head() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
+def existing_json_value(path: Path, key: str, fallback: str) -> str:
+    if not path.exists():
+        return fallback
+    try:
+        payload = read_json(path)
+    except json.JSONDecodeError:
+        return fallback
+    value = payload.get(key)
+    return str(value) if value else fallback
+
+
 def default_review_target_commit() -> str:
     if LIVE_NOTIFICATION_JSON.exists():
         try:
@@ -121,14 +132,18 @@ def program_runner_context() -> dict[str, Any]:
     recovery = state.get("recovery")
     if not isinstance(recovery, dict) or recovery.get("status") != "completed":
         return {}
+    current_work_package = state.get("current_work_package")
+    next_safe_action = recovery.get("next_safe_action")
+    if state.get("status") != "blocked" and isinstance(current_work_package, str):
+        next_safe_action = f"resume {current_work_package}"
     return {
         "status": state.get("status"),
         "current_major_stage": state.get("current_major_stage"),
-        "current_work_package": state.get("current_work_package"),
+        "current_work_package": current_work_package,
         "stage3_1_prerequisite_recovered": state.get("stage3_1_prerequisite", {}).get("satisfied"),
         "stage3_1_reconciliation_report": recovery.get("report_json"),
         "notification_preview": recovery.get("notification_preview_json"),
-        "next_safe_action": recovery.get("next_safe_action"),
+        "next_safe_action": next_safe_action,
     }
 
 
@@ -376,7 +391,7 @@ def major_review_payload(backtest: dict[str, Any], evidence: dict[str, Any], rev
         "branch": "stage/stage3.1-real-etf-data",
         "review_target_commit": review_target_commit,
         "current_repo_head": review_target_commit,
-        "current_branch_head": git_head(),
+        "current_branch_head": existing_json_value(MAJOR_REVIEW_JSON, "current_branch_head", git_head()),
         "package_commit": None,
         "package_commit_note": "The package commit is created after these files are generated, so this package cannot self-reference its own commit.",
         "work_packages": WORK_PACKAGES,
@@ -765,7 +780,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--review-target-commit", default=None)
     args = parser.parse_args()
-    updated_at = datetime.now(timezone.utc).isoformat()
+    updated_at = existing_json_value(
+        RUNNER_STATE,
+        "updated_at",
+        datetime.now(timezone.utc).isoformat(),
+    )
     review_target_commit = args.review_target_commit or default_review_target_commit()
     ensure_wp3_backtest_outputs()
     backtest = read_json(BACKTEST_REPORT)

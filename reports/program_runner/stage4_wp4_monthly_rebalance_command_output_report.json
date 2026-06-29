@@ -1,0 +1,77 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "command_id": "monthly_rebalance_research_ticket",
+  "command_text": "生成本月 ETF 再平衡建议",
+  "executes_live_feishu": false,
+  "feishu_reply_preview": "摘要：生成 ETF 再平衡研究票据，展示前必须通过 risk_agent review。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_rebalance_ticket.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+  "final_trading_manual": true,
+  "major_stage": "Stage 4",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "modifies_real_runtime_config": false,
+  "rebalance_ticket": {
+    "benchmark_comparison_preserved": true,
+    "benchmark_symbol": "VTI",
+    "local_report_path": "reports/stage2b_rebalance_ticket.md",
+    "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user. 这是研究建议，不是自动下单，最终交易由用户手动决定。",
+    "risk_level": "medium",
+    "strategy_id": "static_6040",
+    "symbols": [
+      "VTI",
+      "BND",
+      "BIL"
+    ],
+    "ticket_row_count": 3,
+    "ticket_rows": [
+      {
+        "current_weight": 0.55,
+        "direction": "increase",
+        "symbol": "VTI",
+        "target_weight": 0.6
+      },
+      {
+        "current_weight": 0.35,
+        "direction": "decrease",
+        "symbol": "BND",
+        "target_weight": 0.3
+      },
+      {
+        "current_weight": 0.1,
+        "direction": "hold",
+        "symbol": "BIL",
+        "target_weight": 0.1
+      }
+    ]
+  },
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "mode": "repo-only",
+    "passed": true,
+    "review_required_before_actionable_suggestions": true,
+    "reviewer": "risk_agent",
+    "trade_ticket_outputs_require_review_before_actionable_suggestions": true
+  },
+  "route_plan": {
+    "asset_scope": "ETF-only",
+    "automatic_trading": false,
+    "command_id": "monthly_rebalance_research_ticket",
+    "executes_live_feishu": false,
+    "feishu_reply_preview": "摘要：生成 ETF 再平衡研究票据，展示前必须通过 risk_agent review。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_rebalance_ticket.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+    "local_report_path": "reports/stage2b_rebalance_ticket.md",
+    "manual_trading_note": "最终交易由用户手动决定。",
+    "modifies_real_runtime_config": false,
+    "repo_args": [],
+    "repo_entrypoint": "scripts/reports/generate_rebalance_ticket.py",
+    "repo_only": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "risk_level": "medium",
+    "status": "routed",
+    "summary": "生成 ETF 再平衡研究票据，展示前必须通过 risk_agent review。",
+    "trade_ticket": true
+  },
+  "status": "completed_internal_review",
+  "work_package": "Stage 4 WP4 monthly rebalance research ticket command output"
+}
