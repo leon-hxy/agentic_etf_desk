@@ -39,16 +39,18 @@ PREVIOUS_STAGE_COMMITS = {
     "3e90368" + "d332749f731177688f532f1127206845f",
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
+EXPECTED_STAGE = "Stage 3.1 major review package ready"
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
-    "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json",
+    "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json",
+    "reports/major_reviews/stage3_1/latest.json",
 ]
 TEXT_TARGET_PATHS = [
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
-    "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.md",
+    "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.md",
+    "reports/major_reviews/stage3_1/latest.md",
 ]
 
 

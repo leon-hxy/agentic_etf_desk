@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
+STAGE = "Stage 3.1 major review package ready"
 STAGE_BRANCH = "stage/stage3-data-backtest"
 
 
@@ -136,7 +136,7 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertEqual(loop_state["current_stage"], STAGE)
         self.assertEqual(handoff["stage"], STAGE)
         self.assertEqual(review["stage"], STAGE)
-        self.assertEqual(loop_state["status"], "stage3_1_wp2_completed_internal_review")
+        self.assertEqual(loop_state["status"], "stage3_1_major_review_package_ready")
         self.assertEqual(loop_state["stage2f1_task_status"], "completed_repo_only_branch_governance_stage3_plan")
         self.assertEqual(loop_state["stage3_stage_branch"], STAGE_BRANCH)
         self.assertTrue(loop_state["stage3_business_code_started"])
@@ -150,8 +150,8 @@ class BranchGovernanceTest(unittest.TestCase):
         self.assertEqual(loop_state["stage3_major_gate_finalization_status"], "completed")
         self.assertTrue(loop_state["stage3_finalization_fixes_internal_reviewed"])
         self.assertIsNone(loop_state["stage3_next_task"])
-        self.assertFalse(loop_state["major_review_required"])
-        self.assertFalse(loop_state["manual_chatgpt_review_ready"])
+        self.assertTrue(loop_state["major_review_required"])
+        self.assertTrue(loop_state["manual_chatgpt_review_ready"])
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])
         self.assertEqual(loop_state["small_stage_review_route"], "codex_self_review")
         self.assertEqual(loop_state["major_stage_review_route"], "manual_chatgpt_review")

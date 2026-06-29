@@ -4,8 +4,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
-STATUS = "stage3_1_wp2_completed_internal_review"
+STAGE = "Stage 3.1 major review package ready"
+STATUS = "stage3_1_major_review_package_ready"
 BRANCH = "stage/stage3.1-real-etf-data"
 WORK_PACKAGES = [
     "WP1 real data ingestion and cache",
@@ -42,7 +42,7 @@ class Stage31ScopeConsolidationTest(unittest.TestCase):
         self.assertIn("business_code_started: true", manifest)
         self.assertIn("scope_consolidation_only: false", manifest)
         self.assertIn("status: completed_internal_review", manifest)
-        self.assertIn("status: ready", manifest)
+        self.assertNotIn("status: ready", manifest)
 
         for work_package in WORK_PACKAGES:
             self.assertIn(work_package, manifest)
@@ -62,14 +62,18 @@ class Stage31ScopeConsolidationTest(unittest.TestCase):
         state = read_json("ops/runners/stage3_1_runner_state.json")
 
         self.assertEqual(state["stage"], "Stage 3.1 Real ETF Historical Data MVP")
-        self.assertEqual(state["status"], "wp2_completed_internal_review_ready_for_wp3")
+        self.assertEqual(state["status"], "wp3_completed_major_review_package_ready")
         self.assertEqual(state["branch"], BRANCH)
         self.assertFalse(state["user_visible_substages_allowed"])
         self.assertTrue(state["business_code_started"])
-        self.assertEqual(state["current_work_package"], WORK_PACKAGES[2])
+        self.assertEqual(state["current_work_package"], "Stage 3.1 major review package ready")
         self.assertEqual(
             state["completed_work_packages"],
-            ["wp1_real_data_ingestion_and_cache", "wp2_real_data_quality_and_monthly_panel"],
+            [
+                "wp1_real_data_ingestion_and_cache",
+                "wp2_real_data_quality_and_monthly_panel",
+                "wp3_formal_backtest_and_evidence_package",
+            ],
         )
         self.assertEqual(len(state["work_packages"]), 3)
 
@@ -99,6 +103,8 @@ class Stage31ScopeConsolidationTest(unittest.TestCase):
             self.assertTrue(payload["stage3_1_scope_consolidated"])
             self.assertTrue(payload["stage3_1_wp1_completed_internal_review"])
             self.assertTrue(payload["stage3_1_wp2_completed_internal_review"])
+            self.assertTrue(payload["stage3_1_wp3_completed_internal_review"])
+            self.assertTrue(payload["stage3_1_major_review_package_ready"])
             self.assertTrue(payload["stage3_1_major_stage"])
             self.assertFalse(payload["stage3_1_user_visible_substages_allowed"])
             self.assertTrue(payload["stage3_1_business_code_started"])

@@ -102,7 +102,7 @@ class Stage3ADataSourceTest(unittest.TestCase):
                 "Stage 3C completed_internal_review",
                 "Stage 3D completed_internal_review",
                 "Stage 3E major_review_package_ready",
-                "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review",
+                "Stage 3.1 major review package ready",
             },
         )
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")

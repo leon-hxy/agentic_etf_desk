@@ -132,7 +132,7 @@ class Stage3DStrategyEvidenceReportTest(unittest.TestCase):
         self.assertFalse(runner["chatgpt_review_for_minor_stages_allowed"])
         self.assertFalse(runner["requires_user_attention"])
 
-        self.assertEqual(loop_state["current_stage"], "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review")
+        self.assertEqual(loop_state["current_stage"], "Stage 3.1 major review package ready")
         self.assertEqual(loop_state["stage3d_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3e_task_status"], "completed_internal_review")
         self.assertIsNone(loop_state["stage3_runner_current_minor_stage"])
@@ -143,7 +143,7 @@ class Stage3DStrategyEvidenceReportTest(unittest.TestCase):
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])
 
-        self.assertEqual(handoff["stage"], "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review")
+        self.assertEqual(handoff["stage"], "Stage 3.1 major review package ready")
         self.assertEqual(handoff["stage3d_task_status"], "completed_internal_review")
         self.assertEqual(handoff["stage3e_task_status"], "completed_internal_review")
         self.assertIsNone(handoff["stage3_runner_current_minor_stage"])

@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3B data quality checks completed"
-GOVERNANCE_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
+GOVERNANCE_STAGE = "Stage 3.1 major review package ready"
 
 
 def read(path: str) -> str:
@@ -91,7 +91,7 @@ class Stage3BDataQualityTest(unittest.TestCase):
         self.assertEqual(handoff["loop_state_stage"], GOVERNANCE_STAGE)
         self.assertEqual(loop_state["current_stage"], GOVERNANCE_STAGE)
         self.assertEqual(review["stage"], GOVERNANCE_STAGE)
-        self.assertEqual(loop_state["status"], "stage3_1_wp2_completed_internal_review")
+        self.assertEqual(loop_state["status"], "stage3_1_major_review_package_ready")
         self.assertEqual(loop_state["stage3a_task_status"], "completed_internal_review")
         self.assertEqual(loop_state["stage3b_task_status"], "completed_internal_review")
         self.assertIsNone(loop_state["stage3_next_task"])
@@ -99,7 +99,7 @@ class Stage3BDataQualityTest(unittest.TestCase):
         self.assertEqual(loop_state["next_minor_task_status"], "not_applicable_stage3_1_uses_work_packages")
         self.assertEqual(
             loop_state["last_internal_review"],
-            "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json",
+            "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json",
         )
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
         self.assertFalse(loop_state["current_stage_feishu_message_sent"])

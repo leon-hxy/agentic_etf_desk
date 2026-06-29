@@ -207,16 +207,16 @@ class Stage31Wp1RealDataIngestionTest(unittest.TestCase):
         review_request = json.loads((ROOT / "reports" / "review_requests" / "latest.json").read_text())
         latest_md = (ROOT / "reports" / "codex_handoff" / "latest.md").read_text()
 
-        self.assertEqual(handoff["review_target"], "Stage 3.1 WP2 real data quality and monthly panel")
-        self.assertEqual(review_request["review_target"], "Stage 3.1 WP2 real data quality and monthly panel")
-        self.assertEqual(handoff["current_work_package"], "WP2 real data quality and monthly panel")
+        self.assertEqual(handoff["review_target"], "Stage 3.1 major review package")
+        self.assertEqual(review_request["review_target"], "Stage 3.1 major review package")
+        self.assertEqual(handoff["current_work_package"], "Stage 3.1 major review package ready")
         self.assertEqual(handoff["stage3_1_wp1_status"], "completed_internal_review")
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(review_request["chatgpt_review_requested"])
         self.assertFalse(handoff["sent_to_chatgpt"])
         self.assertFalse(review_request["sent_to_chatgpt"])
         self.assertNotIn("manual_chatgpt_review_prompt", handoff)
-        self.assertNotIn("manual_chatgpt_review_prompt", review_request)
+        self.assertIn("manual_chatgpt_review_prompt", review_request)
         self.assertNotIn("stage/stage3-data-backtest", latest_md)
 
     def test_wp1_internal_review_has_required_reviewer_conclusions(self) -> None:

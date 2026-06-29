@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
+EXPECTED_STAGE = "Stage 3.1 major review package ready"
 
 
 class NotificationLoopSafetyTest(unittest.TestCase):
@@ -62,7 +62,7 @@ class NotificationLoopSafetyTest(unittest.TestCase):
     def test_loop_state_declares_completed_stage_with_draft_layers(self) -> None:
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
         self.assertEqual(payload["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(payload["status"], "stage3_1_wp2_completed_internal_review")
+        self.assertEqual(payload["status"], "stage3_1_major_review_package_ready")
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
@@ -88,10 +88,10 @@ class NotificationLoopSafetyTest(unittest.TestCase):
             payload["stage2f1_task_status"],
             "completed_repo_only_branch_governance_stage3_plan",
         )
-        self.assertEqual(payload["next_task"], "WP3 formal backtest and evidence package")
+        self.assertEqual(payload["next_task"], "Manual ChatGPT major-stage review by user")
         self.assertEqual(
             payload["next_task_status"],
-            "ready",
+            "ready_for_user",
         )
         self.assertEqual(
             payload["notification_layer"],

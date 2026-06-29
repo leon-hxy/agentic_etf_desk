@@ -7,11 +7,12 @@
   "chatgpt_review_for_work_packages_allowed": false,
   "completed_work_packages": [
     "wp1_real_data_ingestion_and_cache",
-    "wp2_real_data_quality_and_monthly_panel"
+    "wp2_real_data_quality_and_monthly_panel",
+    "wp3_formal_backtest_and_evidence_package"
   ],
   "computer_use_allowed": false,
   "computer_use_executed": false,
-  "current_work_package": "WP3 formal backtest and evidence package",
+  "current_work_package": "Stage 3.1 major review package ready",
   "dependencies_installed": false,
   "feishu_gateway_modified": false,
   "hermes_modified": false,
@@ -30,8 +31,8 @@
   "stable_branch": "main",
   "stage": "Stage 3.1 Real ETF Historical Data MVP",
   "stage_type": "major_stage",
-  "status": "wp2_completed_internal_review_ready_for_wp3",
-  "updated_at": "2026-06-28T16:53:35.424520+00:00",
+  "status": "wp3_completed_major_review_package_ready",
+  "updated_at": "2026-06-29T01:20:10.551921+00:00",
   "user_visible_substages_allowed": false,
   "work_packages": [
     {
@@ -55,9 +56,10 @@
     {
       "chatgpt_review_requested": false,
       "id": "wp3_formal_backtest_and_evidence_package",
+      "internal_review": "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json",
       "label": "WP3 formal backtest and evidence package",
       "review_route": "codex_internal_review",
-      "status": "ready",
+      "status": "completed_internal_review",
       "user_notification": false
     }
   ]

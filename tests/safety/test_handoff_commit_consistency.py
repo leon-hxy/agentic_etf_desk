@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
+EXPECTED_STAGE = "Stage 3.1 major review package ready"
 PREVIOUS_STAGE_COMMITS = {
     "8a1b03f" + "8078c9593f4730cf87785b4663ed05855",
     "c837110" + "53e6570bb447315e603c0a0701b9086b2",
@@ -39,12 +39,14 @@ PREVIOUS_STAGE_COMMITS = {
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
-    "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json",
+    "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json",
+    "reports/major_reviews/stage3_1/latest.json",
 ]
 TEXT_TARGET_PATHS = [
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
-    "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.md",
+    "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.md",
+    "reports/major_reviews/stage3_1/latest.md",
 ]
 
 

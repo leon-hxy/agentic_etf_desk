@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 WP2 real data quality and monthly panel completed_internal_review"
+EXPECTED_STAGE = "Stage 3.1 major review package ready"
 FINALIZATION_FIXES = ["Stage 3F", "Stage 3F.1"]
 TARGET_JSON_PATHS = [
     "reports/major_reviews/stage3/latest.json",
@@ -65,20 +65,25 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
                 "Stage 3.1 scope consolidation",
                 "Stage 3.1 WP1 real data ingestion and cache",
                 "Stage 3.1 WP2 real data quality and monthly panel",
+                "Stage 3.1 major review package",
             },
         )
         self.assertTrue(review_request.get("include_finalization_fixes_as_context", True))
         self.assertFalse(review_request.get("request_chatgpt_review_for_finalization_fixes", False))
         self.assertIn(
             review_request["chatgpt_review_targets"],
-            [["reports/major_reviews/stage3/latest.md"], []],
+            [
+                ["reports/major_reviews/stage3/latest.md"],
+                ["reports/major_reviews/stage3_1/latest.md", "reports/major_reviews/stage3_1/latest.json"],
+                [],
+            ],
         )
         self.assertEqual(prompt["review_target"], "Stage 3 major review package")
         self.assertFalse(prompt["request_chatgpt_review_for_finalization_fixes"])
         self.assertEqual(handoff["stage"], EXPECTED_STAGE)
         self.assertEqual(
             handoff["next_recommended_stage"],
-            "Stage 3.1 WP3 formal backtest and evidence package",
+            "Manual ChatGPT major-stage review by user",
         )
         self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
 
