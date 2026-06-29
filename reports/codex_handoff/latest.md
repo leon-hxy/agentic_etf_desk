@@ -26,16 +26,10 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 ## Program Runner
 
 - Program Runner status: `next_work_package_ready`.
-- Current major stage: `Stage 5`.
-- Current work package: `Stage 5 WP6 adoption and rejection journal`.
-- Last completed work package: `Stage 5 WP5 rebalance research ticket`.
-- Next safe action: resume Stage 5 WP6 adoption and rejection journal.
-
-## Stage 5 WP5 Result
-
-- Rebalance research ticket: `reports/portfolio/stage5_wp5_rebalance_research_ticket.json`.
-- Work package report: `reports/program_runner/stage5_wp5_rebalance_research_ticket_report.json`.
-- Internal review: `reports/internal_reviews/program/stage5_wp5_rebalance_research_ticket.json`.
+- Current major stage: `Stage 6`.
+- Current work package: `Stage 6 WP1 schedule dry-runs`.
+- Last completed work package: `Stage 5 WP6 adoption and rejection journal`.
+- Next safe action: resume Stage 6 WP1 schedule dry-runs.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -46,7 +40,16 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Stage 5 WP3 portfolio weight calculation: `completed_internal_review`.
 - Stage 5 WP4 drift checks: `completed_internal_review`.
 - Stage 5 WP5 rebalance research ticket: `completed_internal_review`.
-- Next work package: Stage 5 WP6 adoption and rejection journal.
+- Stage 5 WP6 adoption and rejection journal: `completed_internal_review`.
+- Next work package: Stage 6 WP1 schedule dry-runs.
+
+## Stage 5 WP6 Result
+
+- Adoption/rejection journal: `reports/portfolio/stage5_wp6_adoption_rejection_journal.json`.
+- Work package report: `reports/program_runner/stage5_wp6_adoption_rejection_journal_report.json`.
+- Internal review: `reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json`.
+- New actionable trade ticket generated: false.
+- risk_agent review: passed.
 
 ## Safety Checklist
 
@@ -60,6 +63,5 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Added broker write surface: false.
 - Added order placement code: false.
 - Added automatic trading surface: false.
-- Generated actionable trade ticket: true, after risk_agent review.
 
 This is research advice, not automatic order placement. Final trading is manually decided by the user.

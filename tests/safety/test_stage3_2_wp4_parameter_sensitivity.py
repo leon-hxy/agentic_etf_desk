@@ -101,17 +101,17 @@ class Stage32Wp4ParameterSensitivityTest(unittest.TestCase):
         self.assertFalse(review["requires_user_attention"])
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
-        self.assertEqual(state["current_major_stage"], "Stage 5")
-        self.assertEqual(state["current_work_package"], "Stage 5 WP6 adoption and rejection journal")
+        self.assertEqual(state["current_major_stage"], "Stage 6")
+        self.assertEqual(state["current_work_package"], "Stage 6 WP1 schedule dry-runs")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP5 rebalance research ticket")
+        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP6 adoption and rejection journal")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage5_wp5_rebalance_research_ticket.json",
+            "reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/program_runner/stage5_wp5_rebalance_research_ticket_report.json",
+            "reports/program_runner/stage5_wp6_adoption_rejection_journal_report.json",
         )
         self.assertIn("stage3_2_wp4_parameter_sensitivity", state["stage3_2"]["completed_work_packages"])
         self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")

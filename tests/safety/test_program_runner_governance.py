@@ -155,8 +155,8 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         expected_required = {
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
-            "current_major_stage": "Stage 5",
-            "current_work_package": "Stage 5 WP6 adoption and rejection journal",
+            "current_major_stage": "Stage 6",
+            "current_work_package": "Stage 6 WP1 schedule dry-runs",
             "status": "next_work_package_ready",
             "final_review_only": True,
             "notify_user_only_on": [
@@ -188,9 +188,9 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP5 rebalance research ticket")
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage5_wp5_rebalance_research_ticket.json")
-        self.assertEqual(state["last_report"], "reports/program_runner/stage5_wp5_rebalance_research_ticket_report.json")
+        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP6 adoption and rejection journal")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json")
+        self.assertEqual(state["last_report"], "reports/program_runner/stage5_wp6_adoption_rejection_journal_report.json")
         self.assertEqual(state["stage3_2"]["status"], "completed_internal_review")
         self.assertEqual(
             state["stage3_2"]["completed_work_packages"],
@@ -226,8 +226,8 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertEqual(state["stage4"]["next_work_package"], "Stage 5 WP1 manual holdings CSV import")
         self.assertFalse(state["stage4"]["user_notification_sent"])
         self.assertFalse(state["stage4"]["chatgpt_review_requested"])
-        self.assertEqual(state["stage5"]["status"], "next_work_package_ready")
-        self.assertEqual(state["stage5"]["current_work_package"], "Stage 5 WP5 rebalance research ticket")
+        self.assertEqual(state["stage5"]["status"], "completed_internal_review")
+        self.assertEqual(state["stage5"]["current_work_package"], "Stage 5 WP6 adoption and rejection journal")
         self.assertEqual(
             state["stage5"]["completed_work_packages"],
             [
@@ -236,15 +236,22 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
                 "stage5_wp3_portfolio_weights",
                 "stage5_wp4_drift_checks",
                 "stage5_wp5_rebalance_research_ticket",
+                "stage5_wp6_adoption_rejection_journal",
             ],
         )
-        self.assertEqual(state["stage5"]["last_completed_work_package"], "Stage 5 WP5 rebalance research ticket")
-        self.assertEqual(state["stage5"]["last_internal_review"], "reports/internal_reviews/program/stage5_wp5_rebalance_research_ticket.json")
-        self.assertEqual(state["stage5"]["last_report"], "reports/program_runner/stage5_wp5_rebalance_research_ticket_report.json")
-        self.assertEqual(state["stage5"]["next_work_package"], "Stage 5 WP6 adoption and rejection journal")
+        self.assertEqual(state["stage5"]["last_completed_work_package"], "Stage 5 WP6 adoption and rejection journal")
+        self.assertEqual(state["stage5"]["last_internal_review"], "reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json")
+        self.assertEqual(state["stage5"]["last_report"], "reports/program_runner/stage5_wp6_adoption_rejection_journal_report.json")
+        self.assertEqual(state["stage5"]["next_work_package"], "Stage 6 WP1 schedule dry-runs")
         self.assertEqual(state["stage5"]["reviewer_mode"], "simulated_separate_pass")
         self.assertFalse(state["stage5"]["user_notification_sent"])
         self.assertFalse(state["stage5"]["chatgpt_review_requested"])
+        self.assertEqual(state["stage6"]["status"], "next_work_package_ready")
+        self.assertEqual(state["stage6"]["current_work_package"], "Stage 6 WP1 schedule dry-runs")
+        self.assertEqual(state["stage6"]["completed_work_packages"], [])
+        self.assertEqual(state["stage6"]["next_work_package"], "Stage 6 WP1 schedule dry-runs")
+        self.assertFalse(state["stage6"]["user_notification_sent"])
+        self.assertFalse(state["stage6"]["chatgpt_review_requested"])
         self.assertIn("Current status: not blocked", blocked_reason)
         self.assertIn("Stage 3.1 prerequisite recovered", blocked_reason)
         self.assertIn("next safe action: resume Stage 3.2", blocked_reason)
@@ -467,7 +474,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(handoff["program_runner"]["stage3_1_prerequisite_recovered"])
         self.assertEqual(
             handoff["program_runner"]["next_safe_action"],
-            "resume Stage 5 WP6 adoption and rejection journal",
+            "resume Stage 6 WP1 schedule dry-runs",
         )
         self.assertEqual(
             handoff["program_runner"]["stage3_1_reconciliation_report"],
@@ -479,6 +486,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertIn("Stage 5 WP3 portfolio weight calculation", handoff_md)
         self.assertIn("Stage 5 WP4 drift checks", handoff_md)
         self.assertIn("Stage 5 WP5 rebalance research ticket", handoff_md)
+        self.assertIn("Stage 5 WP6 adoption and rejection journal", handoff_md)
 
         combined = "\n".join(
             [report_md, preview_md, handoff_md, json.dumps(preview, sort_keys=True)]
