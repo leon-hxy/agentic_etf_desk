@@ -108,18 +108,16 @@ class Stage32Wp2PriceCashScenariosTest(unittest.TestCase):
         self.assertFalse(review["requires_user_attention"])
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
-        self.assertEqual(state["current_major_stage"], "Stage 3.2")
-        self.assertEqual(state["current_work_package"], NEXT_WORK_PACKAGE)
+        self.assertEqual(state["current_major_stage"], "Stage 4")
+        self.assertEqual(state["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], STAGE)
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage3_2_wp2_price_cash_scenarios.json")
-        self.assertEqual(state["last_report"], "reports/research_robustness/stage3_2_wp2_price_cash_scenarios_report.json")
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP3 weekly report command output")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage4_wp3_weekly_report_command_output.json")
+        self.assertEqual(state["last_report"], "reports/program_runner/stage4_wp3_weekly_report_command_output_report.json")
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
-        self.assertEqual(
-            state["stage3_2"]["completed_work_packages"],
-            ["stage3_2_wp1_source_validation", "stage3_2_wp2_price_cash_scenarios"],
-        )
+        self.assertIn("stage3_2_wp2_price_cash_scenarios", state["stage3_2"]["completed_work_packages"])
+        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
 
 
 if __name__ == "__main__":

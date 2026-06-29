@@ -76,7 +76,7 @@ class Stage32Wp7StrategyConclusionGradingTest(unittest.TestCase):
         self.assertIn("Final trading is manually decided by the user.", report_md)
         self.assertIn("not automatic order placement", report_md)
 
-    def test_wp7_internal_review_and_runner_state_advance_to_stage4_without_user_notification(self) -> None:
+    def test_wp7_internal_review_does_not_regress_stage4_runner_progress(self) -> None:
         result = self.run_cmd(["scripts/reports/generate_stage3_2_wp7_strategy_conclusion_grading.py"])
         self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
 
@@ -103,16 +103,16 @@ class Stage32Wp7StrategyConclusionGradingTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
         self.assertEqual(state["current_major_stage"], NEXT_MAJOR_STAGE)
-        self.assertEqual(state["current_work_package"], NEXT_WORK_PACKAGE)
+        self.assertEqual(state["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], STAGE)
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP3 weekly report command output")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage3_2_wp7_strategy_conclusion_grading.json",
+            "reports/internal_reviews/program/stage4_wp3_weekly_report_command_output.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/research_robustness/stage3_2_wp7_strategy_conclusion_grading_report.json",
+            "reports/program_runner/stage4_wp3_weekly_report_command_output_report.json",
         )
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
@@ -129,6 +129,16 @@ class Stage32Wp7StrategyConclusionGradingTest(unittest.TestCase):
                 "stage3_2_wp7_strategy_conclusion_grading",
             ],
         )
+        self.assertEqual(
+            state["stage4"]["completed_work_packages"],
+            [
+                "stage4_wp1_feishu_command_routing",
+                "stage4_wp2_market_brief_command_output",
+                "stage4_wp3_weekly_report_command_output",
+            ],
+        )
+        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
+        self.assertEqual(state["stage4"]["next_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
 
 
 if __name__ == "__main__":

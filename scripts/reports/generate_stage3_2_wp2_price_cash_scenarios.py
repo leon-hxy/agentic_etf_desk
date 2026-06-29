@@ -514,6 +514,9 @@ def write_internal_review(payload: dict[str, Any]) -> None:
 
 def update_runner_state() -> None:
     state = read_json(RUNNER_STATE)
+    if state.get("stage4", {}).get("completed_work_packages"):
+        return
+
     already_completed = state.get("last_completed_work_package") == WORK_PACKAGE
     timestamp = state.get("last_checked_at_utc") if already_completed else datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     state.update(

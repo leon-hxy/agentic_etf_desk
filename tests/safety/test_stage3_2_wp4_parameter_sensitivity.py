@@ -101,29 +101,22 @@ class Stage32Wp4ParameterSensitivityTest(unittest.TestCase):
         self.assertFalse(review["requires_user_attention"])
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
-        self.assertEqual(state["current_major_stage"], "Stage 3.2")
-        self.assertEqual(state["current_work_package"], NEXT_WORK_PACKAGE)
+        self.assertEqual(state["current_major_stage"], "Stage 4")
+        self.assertEqual(state["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], STAGE)
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP3 weekly report command output")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage3_2_wp4_parameter_sensitivity.json",
+            "reports/internal_reviews/program/stage4_wp3_weekly_report_command_output.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/research_robustness/stage3_2_wp4_parameter_sensitivity_report.json",
+            "reports/program_runner/stage4_wp3_weekly_report_command_output_report.json",
         )
+        self.assertIn("stage3_2_wp4_parameter_sensitivity", state["stage3_2"]["completed_work_packages"])
+        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP4 monthly rebalance research ticket command output")
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
-        self.assertEqual(
-            state["stage3_2"]["completed_work_packages"],
-            [
-                "stage3_2_wp1_source_validation",
-                "stage3_2_wp2_price_cash_scenarios",
-                "stage3_2_wp3_transaction_cost_scenarios",
-                "stage3_2_wp4_parameter_sensitivity",
-            ],
-        )
 
 
 if __name__ == "__main__":

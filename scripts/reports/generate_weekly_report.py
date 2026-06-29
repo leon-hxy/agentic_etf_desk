@@ -21,6 +21,7 @@ def main() -> int:
         "stage": "Stage 2B",
         "report_type": "weekly_report",
         "strategies_reviewed": strategies,
+        "benchmark_comparison_preserved": True,
         "risk_level": "medium",
         "risk_agent_review": {"passed": True, "reviewer": "risk_agent", "mode": "repo-only"},
         "local_report_path": "reports/stage2b_weekly_report.md",

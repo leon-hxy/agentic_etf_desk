@@ -438,6 +438,17 @@ def write_internal_review(payload: dict[str, Any]) -> None:
 
 def update_runner_state() -> None:
     state = read_json(RUNNER_STATE)
+    stage3_2_state = state.get("stage3_2", {})
+    stage4_completed = state.get("stage4", {}).get("completed_work_packages", [])
+    runner_beyond_wp7 = (
+        state.get("current_major_stage") == NEXT_MAJOR_STAGE
+        and (state.get("current_work_package") != NEXT_WORK_PACKAGE or bool(stage4_completed))
+        and state.get("last_completed_work_package") != WORK_PACKAGE
+        and stage3_2_state.get("last_completed_work_package") == WORK_PACKAGE
+    )
+    if runner_beyond_wp7:
+        return
+
     already_completed = state.get("last_completed_work_package") == WORK_PACKAGE
     timestamp = state.get("last_checked_at_utc") if already_completed else datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     state.update(
