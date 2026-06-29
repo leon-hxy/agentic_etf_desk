@@ -10,11 +10,11 @@ Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 4`.
-- Current work package: `Stage 4 WP5 ETF universe health check command output`.
+- Current work package: `Stage 4 WP6 backtest command output`.
 - Stage 3.1 prerequisite recovered: true.
 - Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.json`.
 - Notification preview: `reports/program_runner/notification_preview.json`.
-- Next safe action: resume Stage 4 WP5 ETF universe health check command output.
+- Next safe action: resume Stage 4 WP6 backtest command output.
 
 ## Work Package Result
 

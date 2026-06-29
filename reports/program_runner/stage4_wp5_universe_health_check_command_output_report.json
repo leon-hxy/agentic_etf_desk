@@ -1,0 +1,54 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "command_id": "universe_health_check",
+  "command_text": "检查 ETF universe 有没有异常",
+  "executes_live_feishu": false,
+  "feishu_reply_preview": "摘要：检查 ETF universe allowlist 是否可加载且仍为 ETF-only。\n风险等级：low\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`configs/universe/etf_universe.yaml`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+  "final_trading_manual": true,
+  "major_stage": "Stage 4",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "modifies_real_runtime_config": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "not_applicable_reason": "Universe health check is not a trade ticket and produces no actionable trade suggestion.",
+    "review_required_before_trade_tickets": true,
+    "trade_ticket_output": false
+  },
+  "route_plan": {
+    "asset_scope": "ETF-only",
+    "automatic_trading": false,
+    "command_id": "universe_health_check",
+    "executes_live_feishu": false,
+    "feishu_reply_preview": "摘要：检查 ETF universe allowlist 是否可加载且仍为 ETF-only。\n风险等级：low\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`configs/universe/etf_universe.yaml`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+    "local_report_path": "configs/universe/etf_universe.yaml",
+    "manual_trading_note": "最终交易由用户手动决定。",
+    "modifies_real_runtime_config": false,
+    "repo_args": [],
+    "repo_entrypoint": "scripts/data/validate_universe.py",
+    "repo_only": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "risk_level": "low",
+    "status": "routed",
+    "summary": "检查 ETF universe allowlist 是否可加载且仍为 ETF-only。",
+    "trade_ticket": false
+  },
+  "status": "completed_internal_review",
+  "universe_health_check": {
+    "allowed_count": 10,
+    "disallowed_leveraged_or_inverse": 0,
+    "errors": [],
+    "status": "pass",
+    "total_count": 10,
+    "universe_file": "configs/universe/etf_universe.yaml"
+  },
+  "validation_checks": {
+    "manual_trading_disclaimer_present": true,
+    "route_is_repo_only": true,
+    "universe_health_check_passed": true
+  },
+  "work_package": "Stage 4 WP5 ETF universe health check command output"
+}
