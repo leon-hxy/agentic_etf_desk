@@ -150,6 +150,40 @@ class Stage31Wp3FormalBacktestTest(unittest.TestCase):
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
         self.assertFalse(loop_state["current_stage_chatgpt_review_requested"])
 
+    def test_stage31_live_notification_is_recorded_without_changing_wp_notification_semantics(self) -> None:
+        report = read_json("reports/live_notifications/stage3_1_major_gate_feishu_notification.json")
+        runner = read_json("ops/runners/stage3_1_runner_state.json")
+        handoff = read_json("reports/codex_handoff/latest.json")
+        review_request = read_json("reports/review_requests/latest.json")
+
+        self.assertEqual(report["stage"], "Stage 3.1 major_gate_feishu_notification_sent")
+        self.assertEqual(report["status"], "completed_live_notification")
+        self.assertEqual(report["delivery_command_public"], "hermes send --to feishu --quiet --file -")
+        self.assertTrue(report["feishu_message_sent"])
+        self.assertFalse(report["sent_to_chatgpt"])
+        self.assertFalse(report["chatgpt_review_requested_by_codex"])
+        self.assertFalse(report["computer_use_executed"])
+        self.assertFalse(report["real_hermes_config_modified"])
+        self.assertFalse(report["real_openclaw_modified"])
+        self.assertFalse(report["real_feishu_gateway_modified"])
+        self.assertFalse(report["services_restarted"])
+        self.assertFalse(report["dependencies_installed"])
+        self.assertFalse(report["broker_write_surface"])
+        self.assertFalse(report["order_placement_surface"])
+        self.assertFalse(report["auto_trading_surface"])
+
+        self.assertTrue(runner["stage3_1_major_gate_feishu_notification_sent"])
+        self.assertEqual(
+            runner["stage3_1_live_notification_report"],
+            "reports/live_notifications/stage3_1_major_gate_feishu_notification.json",
+        )
+        for payload in (handoff, review_request):
+            self.assertTrue(payload["stage3_1_major_gate_feishu_notification_sent"])
+            self.assertFalse(payload["wp_user_notification"])
+            self.assertFalse(payload["feishu_message_sent"])
+            self.assertFalse(payload["feishu_notification_sent"])
+            self.assertFalse(payload["sent_to_chatgpt"])
+
 
 if __name__ == "__main__":
     unittest.main()

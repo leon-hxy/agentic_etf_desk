@@ -3,9 +3,10 @@
 - Review target: `Stage 3.1 major review package`
 - Review route: `manual_chatgpt_review`
 - Manual ChatGPT review ready: `true`
+- User notified through Feishu after package: `true`
 - ChatGPT review requested by Codex: `false`
 - Sent to ChatGPT: `false`
-- `review_target_commit`: `fa4ebcb0d139d8c3e2a4023eea52876198024245`
+- `review_target_commit`: `dce731a19fbc21ace5372f5c119224d385c01105`
 
 Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
@@ -21,6 +22,6 @@ Only after WP3 completes and generates `reports/major_reviews/stage3_1/latest.md
 
 ## Manual Prompt
 
-Manual ChatGPT major-stage review request for Stage 3.1 Real ETF Historical Data MVP. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3.1-real-etf-data. review_target_commit: fa4ebcb0d139d8c3e2a4023eea52876198024245. Review package: reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json. Scope: ETF-only real public historical data ingestion, reviewed monthly panel, formal backtest validation, and strategy evidence package. Do not treat this as automatic trading or order placement. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。
+Manual ChatGPT major-stage review request for Stage 3.1 Real ETF Historical Data MVP. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3.1-real-etf-data. review_target_commit: dce731a19fbc21ace5372f5c119224d385c01105. Review package: reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json. Scope: ETF-only real public historical data ingestion, reviewed monthly panel, formal backtest validation, and strategy evidence package. Do not treat this as automatic trading or order placement. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。
 
 Final trading is manually decided by the user.

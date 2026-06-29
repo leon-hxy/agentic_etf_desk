@@ -20,14 +20,16 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 
 ## Commit Metadata
 
-- `review_target_commit`: `fa4ebcb0d139d8c3e2a4023eea52876198024245`
-- `current_repo_head`: `fa4ebcb0d139d8c3e2a4023eea52876198024245`
+- `review_target_commit`: `dce731a19fbc21ace5372f5c119224d385c01105`
+- `current_repo_head`: `dce731a19fbc21ace5372f5c119224d385c01105`
 
 ## Major Review Package
 
 - Markdown: `reports/major_reviews/stage3_1/latest.md`
 - JSON: `reports/major_reviews/stage3_1/latest.json`
 - Internal review: `reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json`
+- Feishu notification sent after package: `true`
+- Feishu notification report: `reports/live_notifications/stage3_1_major_gate_feishu_notification.json`
 
 ## Safety Checklist
 

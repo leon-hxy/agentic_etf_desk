@@ -31,6 +31,7 @@ INTERNAL_REVIEW_JSON = (
 MAJOR_REVIEW_DIR = ROOT / "reports" / "major_reviews" / "stage3_1"
 MAJOR_REVIEW_MD = MAJOR_REVIEW_DIR / "latest.md"
 MAJOR_REVIEW_JSON = MAJOR_REVIEW_DIR / "latest.json"
+LIVE_NOTIFICATION_JSON = ROOT / "reports" / "live_notifications" / "stage3_1_major_gate_feishu_notification.json"
 BACKTEST_REPORT = ROOT / "reports" / "backtest_validation" / "stage3_1_wp3_backtest_validation_report.json"
 EVIDENCE_REPORT = ROOT / "reports" / "strategy_evidence" / "stage3_1_wp3_strategy_evidence_report.json"
 FORMAL_BACKTEST_SCRIPT = ROOT / "scripts" / "backtest" / "run_stage3_1_formal_backtest.py"
@@ -72,8 +73,35 @@ def status_from_bool(value: bool) -> str:
     return "passed" if value else "failed"
 
 
+def stage31_notification_status() -> dict[str, Any]:
+    if not LIVE_NOTIFICATION_JSON.exists():
+        return {
+            "sent": False,
+            "report": None,
+            "method": None,
+            "status": "not_sent",
+        }
+    try:
+        payload = read_json(LIVE_NOTIFICATION_JSON)
+    except json.JSONDecodeError:
+        return {
+            "sent": False,
+            "report": rel(LIVE_NOTIFICATION_JSON),
+            "method": None,
+            "status": "invalid_report",
+        }
+    sent = bool(payload.get("feishu_message_sent"))
+    return {
+        "sent": sent,
+        "report": rel(LIVE_NOTIFICATION_JSON),
+        "method": payload.get("delivery_method"),
+        "status": payload.get("status") if sent else "not_sent",
+    }
+
+
 def update_runner_state(updated_at: str) -> None:
     payload = read_json(RUNNER_STATE)
+    notification = stage31_notification_status()
     payload.update(
         {
             "status": "wp3_completed_major_review_package_ready",
@@ -85,6 +113,9 @@ def update_runner_state(updated_at: str) -> None:
                 "wp2_real_data_quality_and_monthly_panel",
                 "wp3_formal_backtest_and_evidence_package",
             ],
+            "stage3_1_major_gate_feishu_notification_sent": notification["sent"],
+            "stage3_1_live_notification_report": notification["report"],
+            "feishu_notification_sent": notification["sent"],
             "updated_at": updated_at,
         }
     )
@@ -281,6 +312,7 @@ def major_review_payload(backtest: dict[str, Any], evidence: dict[str, Any], rev
         "WP3 formal backtest and evidence package": "completed_internal_review",
     }
     manual_prompt = build_manual_prompt(review_target_commit)
+    notification = stage31_notification_status()
     public_safe = all(fragment not in manual_prompt for fragment in ["/" + "Volumes" + "/", "/" + "Users" + "/", "local_private"])
     readiness_checks = {
         "wp1_internal_review_complete": status_from_bool(WP1_REVIEW.exists()),
@@ -343,7 +375,10 @@ def major_review_payload(backtest: dict[str, Any], evidence: dict[str, Any], rev
         "sent_to_chatgpt": False,
         "computer_use_executed": False,
         "feishu_notification_allowed_after_package": True,
-        "feishu_message_sent": False,
+        "feishu_message_sent": notification["sent"],
+        "stage3_1_major_gate_feishu_notification_sent": notification["sent"],
+        "stage3_1_live_notification_report": notification["report"],
+        "stage3_1_feishu_notification_status": notification["status"],
         "safety_flags": {
             "auto_trading_surface": False,
             "broker_surface": False,
@@ -352,7 +387,7 @@ def major_review_payload(backtest: dict[str, Any], evidence: dict[str, Any], rev
             "computer_use_executed": False,
             "dependencies_installed": False,
             "feishu_gateway_modified": False,
-            "feishu_message_sent": False,
+            "feishu_message_sent": notification["sent"],
             "hermes_modified": False,
             "openclaw_modified": False,
             "order_placement_surface": False,
@@ -409,12 +444,22 @@ def write_major_review(payload: dict[str, Any]) -> None:
     )
     for note in payload["risk_limitations_summary"]:
         lines.append(f"- {note}")
+    lines.extend(
+        [
+            "",
+            "## Feishu Notification",
+            "",
+            f"- User notified after WP3 major package: `{str(payload['stage3_1_major_gate_feishu_notification_sent']).lower()}`",
+            f"- Notification report: `{payload['stage3_1_live_notification_report']}`",
+        ]
+    )
     lines.extend(["", "## Manual ChatGPT Review Prompt", "", payload["manual_chatgpt_review_prompt"], "", "## Safety", "", "- No Computer Use.", "- No ChatGPT review requested or sent by Codex.", "- No real Hermes, OpenClaw, or Feishu gateway modification.", "- No dependency installation.", "- No broker interface, broker write access, order placement, or automatic trading surface.", "", FINAL_TRADING_NOTICE, ""])
     MAJOR_REVIEW_MD.write_text("\n".join(lines), encoding="utf-8")
 
 
 def common_payload(major: dict[str, Any], review_target_commit: str, updated_at: str) -> dict[str, Any]:
     head = git_head()
+    notification = stage31_notification_status()
     return {
         "stage": MAJOR_READY_STAGE,
         "status": "stage3_1_major_review_package_ready",
@@ -470,6 +515,10 @@ def common_payload(major: dict[str, Any], review_target_commit: str, updated_at:
         "user_notification_sent": False,
         "feishu_message_sent": False,
         "feishu_notification_sent": False,
+        "stage3_1_major_gate_feishu_notification_sent": notification["sent"],
+        "stage3_1_live_notification_report": notification["report"],
+        "stage3_1_feishu_notification_method": notification["method"],
+        "stage3_1_feishu_notification_status": notification["status"],
         "notify_user_before_wp3_major_package": False,
         "notify_user_after_wp3_major_package": True,
         "computer_use_executed": False,
@@ -540,6 +589,8 @@ def write_handoff(payload: dict[str, Any]) -> None:
         f"- Markdown: `{payload['major_review_package_md']}`",
         f"- JSON: `{payload['major_review_package_json']}`",
         f"- Internal review: `{payload['internal_review']}`",
+        f"- Feishu notification sent after package: `{str(payload['stage3_1_major_gate_feishu_notification_sent']).lower()}`",
+        f"- Feishu notification report: `{payload['stage3_1_live_notification_report']}`",
         "",
         "## Safety Checklist",
         "",
@@ -580,6 +631,7 @@ def write_review_request(payload: dict[str, Any], major: dict[str, Any]) -> None
         "- Review target: `Stage 3.1 major review package`",
         "- Review route: `manual_chatgpt_review`",
         "- Manual ChatGPT review ready: `true`",
+        f"- User notified through Feishu after package: `{str(payload['stage3_1_major_gate_feishu_notification_sent']).lower()}`",
         "- ChatGPT review requested by Codex: `false`",
         "- Sent to ChatGPT: `false`",
         f"- `review_target_commit`: `{payload['review_target_commit']}`",
@@ -641,6 +693,8 @@ def update_loop_state(payload: dict[str, Any]) -> None:
             "last_internal_review": rel(INTERNAL_REVIEW_JSON),
             "last_review_request": rel(REVIEW_JSON),
             "last_handoff": rel(HANDOFF_JSON),
+            "last_live_notification_report": payload["stage3_1_live_notification_report"],
+            "last_stage3_1_live_notification_report": payload["stage3_1_live_notification_report"],
             "handoff_update_pending": False,
             "requires_user_attention": True,
         }

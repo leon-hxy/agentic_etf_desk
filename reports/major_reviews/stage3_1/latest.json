@@ -11,7 +11,7 @@
   "branch": "stage/stage3.1-real-etf-data",
   "chatgpt_review_requested_by_codex": false,
   "computer_use_executed": false,
-  "current_branch_head": "fa4ebcb0d139d8c3e2a4023eea52876198024245",
+  "current_branch_head": "dce731a19fbc21ace5372f5c119224d385c01105",
   "data_boundary": {
     "backtest_month_count": 89,
     "backtest_validation_report": "reports/backtest_validation/stage3_1_wp3_backtest_validation_report.json",
@@ -43,10 +43,10 @@
       "VWO"
     ]
   },
-  "feishu_message_sent": false,
+  "feishu_message_sent": true,
   "feishu_notification_allowed_after_package": true,
   "major_stage": "Stage 3.1 Real ETF Historical Data MVP",
-  "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3.1 Real ETF Historical Data MVP. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3.1-real-etf-data. review_target_commit: fa4ebcb0d139d8c3e2a4023eea52876198024245. Review package: reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json. Scope: ETF-only real public historical data ingestion, reviewed monthly panel, formal backtest validation, and strategy evidence package. Do not treat this as automatic trading or order placement. Final trading is manually decided by the user. \u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
+  "manual_chatgpt_review_prompt": "Manual ChatGPT major-stage review request for Stage 3.1 Real ETF Historical Data MVP. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3.1-real-etf-data. review_target_commit: dce731a19fbc21ace5372f5c119224d385c01105. Review package: reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json. Scope: ETF-only real public historical data ingestion, reviewed monthly panel, formal backtest validation, and strategy evidence package. Do not treat this as automatic trading or order placement. Final trading is manually decided by the user. \u6700\u7ec8\u4ea4\u6613\u7531\u7528\u6237\u624b\u52a8\u51b3\u5b9a\uff0c\u7cfb\u7edf\u4e0d\u4f1a\u81ea\u52a8\u4e0b\u5355\u3002",
   "manual_chatgpt_review_ready": true,
   "manual_execution_note": "Final trading is manually decided by the user.",
   "package_commit": null,
@@ -66,7 +66,7 @@
   "report_md": "reports/major_reviews/stage3_1/latest.md",
   "review_level": "major_stage",
   "review_route": "manual_chatgpt_review",
-  "review_target_commit": "fa4ebcb0d139d8c3e2a4023eea52876198024245",
+  "review_target_commit": "dce731a19fbc21ace5372f5c119224d385c01105",
   "risk_limitations_summary": [
     "Stage 3.1 evidence uses public historical ETF data and remains research only.",
     "Backtests are sensitive to public data revisions, transaction-cost assumptions, and manual execution timing.",
@@ -82,7 +82,7 @@
     "computer_use_executed": false,
     "dependencies_installed": false,
     "feishu_gateway_modified": false,
-    "feishu_message_sent": false,
+    "feishu_message_sent": true,
     "hermes_modified": false,
     "openclaw_modified": false,
     "order_placement_surface": false,
@@ -100,8 +100,11 @@
     "strategy_evidence_status": "passed"
   },
   "stage": "Stage 3.1 major review package",
+  "stage3_1_feishu_notification_status": "completed_live_notification",
+  "stage3_1_live_notification_report": "reports/live_notifications/stage3_1_major_gate_feishu_notification.json",
+  "stage3_1_major_gate_feishu_notification_sent": true,
   "status": "major_review_package_ready",
-  "updated_at": "2026-06-29T01:22:34.933627+00:00",
+  "updated_at": "2026-06-29T01:28:44.964142+00:00",
   "work_package_internal_reviews": {
     "WP1 real data ingestion and cache": "reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.json",
     "WP2 real data quality and monthly panel": "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json",
