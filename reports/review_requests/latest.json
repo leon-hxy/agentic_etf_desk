@@ -82,9 +82,9 @@
   "order_placement_surface": false,
   "program_runner": {
     "current_major_stage": "Stage 5",
-    "current_work_package": "Stage 5 WP1 manual holdings CSV import",
-    "last_completed_work_package": "Stage 4 WP7 OpenClaw agents draft or safe integration plan",
-    "next_safe_action": "resume Stage 5 WP1 manual holdings CSV import",
+    "current_work_package": "Stage 5 WP2 manual trades CSV import",
+    "last_completed_work_package": "Stage 5 WP1 manual holdings CSV import",
+    "next_safe_action": "resume Stage 5 WP2 manual trades CSV import",
     "status": "next_work_package_ready"
   },
   "real_config_modified": false,

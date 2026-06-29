@@ -10,11 +10,11 @@ Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 5`.
-- Current work package: `Stage 5 WP1 manual holdings CSV import`.
-- Last completed work package: `Stage 4 WP7 OpenClaw agents draft or safe integration plan`.
+- Current work package: `Stage 5 WP2 manual trades CSV import`.
+- Last completed work package: `Stage 5 WP1 manual holdings CSV import`.
 - Stage 3.1 prerequisite recovered: true.
 - Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.json`.
-- Next safe action: resume Stage 5 WP1 manual holdings CSV import.
+- Next safe action: resume Stage 5 WP2 manual trades CSV import.
 
 ## Work Package Result
 
@@ -33,19 +33,12 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
 - `current_repo_head`: `35348bc8c38df09562190f3c049142a252cbc85d`
 
-## Major Review Package
+## Stage 5 WP1 Result
 
-- Markdown: `reports/major_reviews/stage3_1/latest.md`
-- JSON: `reports/major_reviews/stage3_1/latest.json`
-- Internal review: `reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json`
-- Feishu notification sent after package: `true`
-- Feishu notification report: `reports/live_notifications/stage3_1_major_gate_feishu_notification.json`
-
-## Stage 4 WP7 Result
-
-- OpenClaw safe integration plan: `configs/openclaw/stage4_safe_integration_plan.json`.
-- Work package report: `reports/program_runner/stage4_wp7_openclaw_agents_integration_plan_report.json`.
-- Internal review: `reports/internal_reviews/program/stage4_wp7_openclaw_agents_integration_plan.json`.
+- Manual holdings importer: `scripts/portfolio/import_manual_holdings.py`.
+- Normalized holdings: `data/portfolio/manual_holdings_latest.json`.
+- Work package report: `reports/program_runner/stage5_wp1_manual_holdings_import_report.json`.
+- Internal review: `reports/internal_reviews/program/stage5_wp1_manual_holdings_import.json`.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -58,7 +51,7 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Installed dependencies: false.
 - Ran Computer Use: false.
 - Connected broker: false.
-- Added broker write access: false.
+- Added broker write surface: false.
 - Added order placement code: false.
 - Added automatic trading surface: false.
 

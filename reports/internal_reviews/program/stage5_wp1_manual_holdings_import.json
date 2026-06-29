@@ -1,0 +1,99 @@
+{
+  "changed_files": [
+    "data/portfolio/manual_holdings_latest.csv",
+    "data/portfolio/manual_holdings_latest.json",
+    "data/portfolio/manual_holdings_sample.csv",
+    "ops/program_runner/heartbeat_log.md",
+    "ops/program_runner/program_runner_state.json",
+    "ops/state/loop_state.json",
+    "reports/codex_handoff/latest.json",
+    "reports/codex_handoff/latest.md",
+    "reports/internal_reviews/program/stage5_wp1_manual_holdings_import.json",
+    "reports/internal_reviews/program/stage5_wp1_manual_holdings_import.md",
+    "reports/program_runner/stage5_wp1_manual_holdings_import_report.json",
+    "reports/program_runner/stage5_wp1_manual_holdings_import_report.md",
+    "reports/review_requests/latest.json",
+    "scripts/portfolio/import_manual_holdings.py",
+    "scripts/reports/generate_stage5_wp1_manual_holdings_import.py",
+    "tests/safety/test_program_runner_governance.py",
+    "tests/safety/test_stage3_2_wp1_source_validation.py",
+    "tests/safety/test_stage3_2_wp2_price_cash_scenarios.py",
+    "tests/safety/test_stage3_2_wp3_transaction_cost_scenarios.py",
+    "tests/safety/test_stage3_2_wp4_parameter_sensitivity.py",
+    "tests/safety/test_stage3_2_wp5_start_window_robustness.py",
+    "tests/safety/test_stage3_2_wp6_in_sample_out_of_sample.py",
+    "tests/safety/test_stage3_2_wp7_strategy_conclusion_grading.py",
+    "tests/safety/test_stage5_wp1_manual_holdings_import.py"
+  ],
+  "commit": null,
+  "domain_quant_reviewer": {
+    "benchmark_comparison_present": true,
+    "etf_only_maintained": true,
+    "findings": [],
+    "research_limitations_clear": true,
+    "result": "pass",
+    "risk_agent_review_required_for_trade_tickets": true,
+    "trade_tickets_actionable_without_risk_agent_review": false
+  },
+  "findings": [],
+  "fixes_applied": [],
+  "integration_reviewer": {
+    "findings": [],
+    "hermes_feishu_boundary_respected": true,
+    "openclaw_boundary_respected": true,
+    "real_runtime_modified": false,
+    "result": "pass"
+  },
+  "major_stage": "Stage 5",
+  "pass_fail": "pass",
+  "promote_to_next_work_package": true,
+  "public_repo_hygiene_reviewer": {
+    "findings": [],
+    "local_private_paths": false,
+    "public_repo_safe": true,
+    "result": "pass",
+    "secret_values": false
+  },
+  "requires_user_attention": false,
+  "reviewer_mode": "simulated_separate_pass",
+  "security_reviewer": {
+    "automatic_trading_surface": false,
+    "broker_write_surface": false,
+    "findings": [],
+    "live_configs_modified": false,
+    "result": "pass",
+    "secrets_touched": false
+  },
+  "test_reproducibility_reviewer": {
+    "findings": [],
+    "reproducible_outputs": true,
+    "result": "pass",
+    "tests_run": [
+      "python3 -m unittest tests.safety.test_stage5_wp1_manual_holdings_import",
+      "python3 -m unittest tests.safety.test_program_runner_governance",
+      "python3 -m unittest tests.safety.test_safety",
+      "python3 -m unittest discover tests/safety",
+      "python3 -m unittest discover tests/smoke",
+      "python3 -m json.tool ops/program_runner/program_runner_state.json",
+      "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+      "python3 scripts/safety/check_secret_leaks.py --root .",
+      "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+      "python3 scripts/safety/check_universe_only.py",
+      "git diff --check"
+    ]
+  },
+  "tests": [
+    "python3 -m unittest tests.safety.test_stage5_wp1_manual_holdings_import",
+    "python3 -m unittest tests.safety.test_program_runner_governance",
+    "python3 -m unittest tests.safety.test_safety",
+    "python3 -m unittest discover tests/safety",
+    "python3 -m unittest discover tests/smoke",
+    "python3 -m json.tool ops/program_runner/program_runner_state.json",
+    "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+    "python3 scripts/safety/check_secret_leaks.py --root .",
+    "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+    "python3 scripts/safety/check_universe_only.py",
+    "git diff --check"
+  ],
+  "work_package": "Stage 5 WP1 manual holdings CSV import"
+}

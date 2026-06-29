@@ -1,0 +1,32 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "holdings": [
+    {
+      "market_value": 2500.5,
+      "portfolio_weight": 0.5670068027210884,
+      "quantity": 10.0,
+      "symbol": "VTI"
+    },
+    {
+      "market_value": 1450.0,
+      "portfolio_weight": 0.3287981859410431,
+      "quantity": 20.0,
+      "symbol": "BND"
+    },
+    {
+      "market_value": 459.5,
+      "portfolio_weight": 0.10419501133786849,
+      "quantity": 5.0,
+      "symbol": "BIL"
+    }
+  ],
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "source": "manual_csv_import",
+  "symbol_count": 3,
+  "total_market_value": 4410.0,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true
+}

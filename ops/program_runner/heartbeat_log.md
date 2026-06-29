@@ -237,11 +237,19 @@ Each heartbeat entry should record:
 - whether user attention is required
 
 Do not include secrets, tokens, auth values, local-private paths, or private runtime identifiers.
-## 2026-06-29T14:59:34Z Stage 4 WP7
+## 2026-06-29T15:10:20Z Stage 4 WP7
 
 - status: next_work_package_ready
 - completed_work_package: Stage 4 WP7 OpenClaw agents draft or safe integration plan
 - next_safe_action: resume Stage 5 WP1 manual holdings CSV import
 - reviewer_mode: simulated_separate_pass
 - live_openclaw_modified: false
+- final_trading_manual: true
+## 2026-06-29T15:10:20Z Stage 5 WP1
+
+- status: next_work_package_ready
+- completed_work_package: Stage 5 WP1 manual holdings CSV import
+- next_safe_action: resume Stage 5 WP2 manual trades CSV import
+- reviewer_mode: simulated_separate_pass
+- universe_allowlist_enforced: true
 - final_trading_manual: true
