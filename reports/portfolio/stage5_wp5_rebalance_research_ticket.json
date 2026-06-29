@@ -1,0 +1,73 @@
+{
+  "actionable_suggestion": true,
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_preserved": true,
+  "benchmark_symbol": "VTI",
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T16:09:28Z",
+  "data_sources": {
+    "drift": "data/portfolio/portfolio_drift_latest.json",
+    "strategy": "strategies/static_6040/strategy.yaml",
+    "weights": "data/portfolio/portfolio_weights_latest.json"
+  },
+  "drift_status": "within_threshold",
+  "drift_threshold": 0.05,
+  "final_trading_manual": true,
+  "local_report_path": "reports/portfolio/stage5_wp5_rebalance_research_ticket.md",
+  "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user.",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "max_absolute_drift": 0.03299319727891159,
+  "max_drift_symbol": "VTI",
+  "next_work_package": "Stage 5 WP6 adoption and rejection journal",
+  "order_placement": false,
+  "recommended_actions": [
+    {
+      "absolute_drift": 0.004195011337868482,
+      "action": "decrease",
+      "current_weight": 0.10419501133786849,
+      "drift": 0.004195011337868482,
+      "estimated_trade_value": 18.5,
+      "execution_note": "Manual review required before any user-decided trade.",
+      "symbol": "BIL",
+      "target_weight": 0.1
+    },
+    {
+      "absolute_drift": 0.02879818594104311,
+      "action": "decrease",
+      "current_weight": 0.3287981859410431,
+      "drift": 0.02879818594104311,
+      "estimated_trade_value": 127.0,
+      "execution_note": "Manual review required before any user-decided trade.",
+      "symbol": "BND",
+      "target_weight": 0.3
+    },
+    {
+      "absolute_drift": 0.03299319727891159,
+      "action": "increase",
+      "current_weight": 0.5670068027210884,
+      "drift": -0.03299319727891159,
+      "estimated_trade_value": 145.5,
+      "execution_note": "Manual review required before any user-decided trade.",
+      "symbol": "VTI",
+      "target_weight": 0.6
+    }
+  ],
+  "report_type": "rebalance_research_ticket",
+  "risk_agent_review": {
+    "findings": [],
+    "required_before_actionable_suggestion": true,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "manual ETF rebalance research ticket; no automatic order placement",
+    "trade_ticket_actionable_without_review": false
+  },
+  "target_strategy_id": "static_6040",
+  "transaction_cost_assumption": {
+    "cost_bps": 1.0,
+    "slippage_bps": 1.0
+  },
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "work_package": "Stage 5 WP5 rebalance research ticket"
+}

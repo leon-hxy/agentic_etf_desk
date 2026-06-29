@@ -102,16 +102,16 @@ class Stage32Wp4ParameterSensitivityTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
         self.assertEqual(state["current_major_stage"], "Stage 5")
-        self.assertEqual(state["current_work_package"], "Stage 5 WP5 rebalance research ticket")
+        self.assertEqual(state["current_work_package"], "Stage 5 WP6 adoption and rejection journal")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP4 drift checks")
+        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP5 rebalance research ticket")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage5_wp4_drift_checks.json",
+            "reports/internal_reviews/program/stage5_wp5_rebalance_research_ticket.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/program_runner/stage5_wp4_drift_checks_report.json",
+            "reports/program_runner/stage5_wp5_rebalance_research_ticket_report.json",
         )
         self.assertIn("stage3_2_wp4_parameter_sensitivity", state["stage3_2"]["completed_work_packages"])
         self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")

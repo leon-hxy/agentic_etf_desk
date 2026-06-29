@@ -1,0 +1,42 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_preserved": true,
+  "benchmark_symbol": "VTI",
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "major_stage": "Stage 5",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 5 WP6 adoption and rejection journal",
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "findings": [],
+    "required_before_actionable_suggestion": true,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "manual ETF rebalance research ticket; no automatic order placement",
+    "trade_ticket_actionable_without_review": false
+  },
+  "status": "completed_internal_review",
+  "target_strategy_id": "static_6040",
+  "ticket_artifacts": {
+    "json": "reports/portfolio/stage5_wp5_rebalance_research_ticket.json",
+    "markdown": "reports/portfolio/stage5_wp5_rebalance_research_ticket.md"
+  },
+  "trade_ticket_generated": true,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "validation_checks": {
+    "allowlist_source_recorded": true,
+    "benchmark_comparison_preserved": true,
+    "manual_trading_disclaimer_present": true,
+    "risk_agent_review_passed": true,
+    "source_drift_exists": true,
+    "source_weights_exist": true,
+    "ticket_artifact_written": true,
+    "universe_allowlist_enforced": true
+  },
+  "work_package": "Stage 5 WP5 rebalance research ticket"
+}
