@@ -127,10 +127,11 @@ class Stage3FFeishuNotificationTest(unittest.TestCase):
             self.assertEqual(payload["loop_state_stage"], CURRENT_STAGE)
             self.assertEqual(payload["review_target_commit"], loop_state["review_target_commit"])
             self.assertTrue(payload["manual_chatgpt_review_ready"])
-            self.assertFalse(payload["feishu_message_sent"])
+            self.assertTrue(payload["feishu_message_sent"])
             self.assertFalse(payload["chatgpt_review_requested"])
             self.assertFalse(payload["sent_to_chatgpt"])
             self.assertFalse(payload["computer_use_executed"])
+            self.assertEqual(payload["tests_status"], "passed")
 
         self.assertEqual(notification["mode"], "replacement_notification_preview_after_finalization")
         self.assertFalse(notification["sent_to_feishu"])

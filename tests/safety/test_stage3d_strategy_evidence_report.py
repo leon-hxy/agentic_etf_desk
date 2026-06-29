@@ -150,7 +150,8 @@ class Stage3DStrategyEvidenceReportTest(unittest.TestCase):
         self.assertIsNone(handoff["stage3_runner_current_task"])
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(handoff["computer_use_executed"])
-        self.assertFalse(handoff["feishu_message_sent"])
+        self.assertTrue(handoff["feishu_message_sent"])
+        self.assertEqual(handoff["tests_status"], "passed")
 
         self.assertEqual(review["minor_stage"], "Stage 3D")
         self.assertEqual(review["status"], "completed_internal_review")

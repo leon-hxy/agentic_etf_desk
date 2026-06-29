@@ -5,7 +5,7 @@
 - Review route: `manual_chatgpt_review`
 - Public repo: `https://github.com/leon-hxy/agentic_etf_desk`
 - Branch: `stage/stage3.1-real-etf-data`
-- `review_target_commit`: `dce731a19fbc21ace5372f5c119224d385c01105`
+- `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
 - ChatGPT delivery: manual ChatGPT review only; Codex did not send this to ChatGPT.
 
 ## Readiness Checks
@@ -60,7 +60,7 @@
 
 ## Manual ChatGPT Review Prompt
 
-Manual ChatGPT major-stage review request for Stage 3.1 Real ETF Historical Data MVP. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3.1-real-etf-data. review_target_commit: dce731a19fbc21ace5372f5c119224d385c01105. Review package: reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json. Scope: ETF-only real public historical data ingestion, reviewed monthly panel, formal backtest validation, and strategy evidence package. Do not treat this as automatic trading or order placement. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。
+Manual ChatGPT major-stage review request for Stage 3.1 Real ETF Historical Data MVP. Public GitHub repo: https://github.com/leon-hxy/agentic_etf_desk. Branch: stage/stage3.1-real-etf-data. review_target_commit: 35348bc8c38df09562190f3c049142a252cbc85d. Review package: reports/major_reviews/stage3_1/latest.md and reports/major_reviews/stage3_1/latest.json. Scope: ETF-only real public historical data ingestion, reviewed monthly panel, formal backtest validation, and strategy evidence package. Do not treat this as automatic trading or order placement. Final trading is manually decided by the user. 最终交易由用户手动决定，系统不会自动下单。
 
 ## Safety
 

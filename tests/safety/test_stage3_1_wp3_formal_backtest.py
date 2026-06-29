@@ -155,6 +155,7 @@ class Stage31Wp3FormalBacktestTest(unittest.TestCase):
         runner = read_json("ops/runners/stage3_1_runner_state.json")
         handoff = read_json("reports/codex_handoff/latest.json")
         review_request = read_json("reports/review_requests/latest.json")
+        major = read_json("reports/major_reviews/stage3_1/latest.json")
 
         self.assertEqual(report["stage"], "Stage 3.1 major_gate_feishu_notification_sent")
         self.assertEqual(report["status"], "completed_live_notification")
@@ -177,12 +178,17 @@ class Stage31Wp3FormalBacktestTest(unittest.TestCase):
             runner["stage3_1_live_notification_report"],
             "reports/live_notifications/stage3_1_major_gate_feishu_notification.json",
         )
-        for payload in (handoff, review_request):
+        for payload in (handoff, review_request, major):
             self.assertTrue(payload["stage3_1_major_gate_feishu_notification_sent"])
-            self.assertFalse(payload["wp_user_notification"])
-            self.assertFalse(payload["feishu_message_sent"])
-            self.assertFalse(payload["feishu_notification_sent"])
+            self.assertTrue(payload["feishu_message_sent"])
+            self.assertTrue(payload["feishu_notification_sent"])
+            self.assertEqual(payload["tests_status"], "passed")
             self.assertFalse(payload["sent_to_chatgpt"])
+            self.assertEqual(payload["review_target_commit"], report["review_target_commit"])
+            self.assertEqual(payload["current_repo_head"], report["review_target_commit"])
+        self.assertFalse(handoff["wp_user_notification"])
+        self.assertFalse(review_request["wp_user_notification"])
+        self.assertEqual(major["current_repo_head"], report["review_target_commit"])
 
 
 if __name__ == "__main__":

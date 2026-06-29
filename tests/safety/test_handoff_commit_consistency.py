@@ -39,8 +39,15 @@ PREVIOUS_STAGE_COMMITS = {
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
+    "reports/major_reviews/stage3_1/latest.json",
+    "ops/runners/stage3_1_runner_state.json",
+]
+REVIEW_TARGET_PATHS = [
+    "reports/review_requests/latest.json",
+    "reports/codex_handoff/latest.json",
     "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json",
     "reports/major_reviews/stage3_1/latest.json",
+    "ops/runners/stage3_1_runner_state.json",
 ]
 TEXT_TARGET_PATHS = [
     "reports/review_requests/latest.md",
@@ -121,10 +128,20 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
 
     def test_all_json_artifacts_bind_same_review_target(self) -> None:
         target = str(self.review_target_commit)
-        for path in JSON_TARGET_PATHS:
+        for path in REVIEW_TARGET_PATHS:
             payload = read_json(path)
             self.assertEqual(payload["review_target_commit"], target, path)
             self.assertNotIn(payload["review_target_commit"], PREVIOUS_STAGE_COMMITS, path)
+
+    def test_pre_merge_metadata_fields_are_consistent(self) -> None:
+        target = str(self.review_target_commit)
+        expected_tests_status = "passed"
+        for path in JSON_TARGET_PATHS:
+            payload = read_json(path)
+            self.assertTrue(payload["stage3_1_major_gate_feishu_notification_sent"], path)
+            self.assertTrue(payload["feishu_message_sent"], path)
+            self.assertEqual(payload["tests_status"], expected_tests_status, path)
+            self.assertEqual(payload["current_repo_head"], target, path)
 
     def test_human_readable_artifacts_include_review_target(self) -> None:
         target = str(self.review_target_commit)

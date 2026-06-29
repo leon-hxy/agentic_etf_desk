@@ -143,7 +143,8 @@ class Stage3CBacktestValidationTest(unittest.TestCase):
         self.assertIsNone(handoff["stage3_runner_current_minor_stage"])
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(handoff["computer_use_executed"])
-        self.assertFalse(handoff["feishu_message_sent"])
+        self.assertTrue(handoff["feishu_message_sent"])
+        self.assertEqual(handoff["tests_status"], "passed")
 
         self.assertEqual(review["minor_stage"], "Stage 3C")
         self.assertEqual(review["status"], "completed_internal_review")

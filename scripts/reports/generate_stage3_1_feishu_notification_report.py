@@ -45,37 +45,26 @@ def update_json_payload(path: Path, report: dict[str, Any], updated_at: str) -> 
     payload = read_json(path)
     payload.update(
         {
+            "review_target_commit": report["review_target_commit"],
+            "current_repo_head": report["review_target_commit"],
             "stage3_1_major_gate_feishu_notification_sent": True,
             "stage3_1_live_notification_report": rel(REPORT_JSON),
             "stage3_1_feishu_notification_method": "hermes_send_existing_feishu_target",
             "stage3_1_feishu_notification_status": "sent_after_wp3_major_review_package_ready",
+            "feishu_message_sent": True,
+            "feishu_notification_sent": True,
+            "user_notification_sent": True,
+            "tests_status": "passed",
             "updated_at": updated_at,
         }
     )
-    if path in (RUNNER_STATE, LOOP_STATE):
-        payload.update(
-            {
-                "feishu_message_sent": True,
-                "feishu_notification_sent": True,
-                "user_notification_sent": True,
-            }
-        )
-    if path in (HANDOFF_JSON, REVIEW_JSON):
-        payload.update(
-            {
-                "feishu_message_sent": False,
-                "feishu_notification_sent": False,
-                "user_notification_sent": False,
-            }
-        )
     if path == MAJOR_JSON:
         payload["stage3_1_feishu_notification_status"] = report["status"]
-        payload["feishu_message_sent"] = True
-        payload["feishu_notification_sent"] = True
-        payload["user_notification_sent"] = True
         payload["feishu_notification_allowed_after_package"] = True
         if isinstance(payload.get("safety_flags"), dict):
             payload["safety_flags"]["feishu_message_sent"] = True
+    if path in (HANDOFF_JSON, REVIEW_JSON):
+        payload["handoff_generated_from_head"] = report["review_target_commit"]
     if path == LOOP_STATE:
         payload.update(
             {

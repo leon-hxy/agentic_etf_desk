@@ -137,7 +137,8 @@ class Stage3EMajorReviewPackageTest(unittest.TestCase):
         self.assertTrue(handoff["manual_chatgpt_review_ready"])
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(handoff["computer_use_executed"])
-        self.assertFalse(handoff["feishu_message_sent"])
+        self.assertTrue(handoff["feishu_message_sent"])
+        self.assertEqual(handoff["tests_status"], "passed")
 
         self.assertEqual(review_request["stage"], "Stage 3.1 major review package ready")
         self.assertEqual(review_request["review_target"], "Stage 3.1 major review package")
@@ -146,6 +147,8 @@ class Stage3EMajorReviewPackageTest(unittest.TestCase):
         self.assertTrue(review_request["manual_chatgpt_review_ready"])
         self.assertFalse(review_request["chatgpt_review_requested"])
         self.assertFalse(review_request["sent_to_chatgpt"])
+        self.assertTrue(review_request["feishu_message_sent"])
+        self.assertEqual(review_request["tests_status"], "passed")
 
         self.assertEqual(review["minor_stage"], "Stage 3E")
         self.assertEqual(review["status"], "completed_internal_review")

@@ -2,12 +2,12 @@
 
 - Stage: `Stage 3.1 major_gate_feishu_notification_sent`
 - Status: `completed_live_notification`
-- Generated at: `2026-06-29T01:27:50.516010+00:00`
+- Generated at: `2026-06-29T07:48:49.784821+00:00`
 - Branch: `stage/stage3.1-real-etf-data`
 - Precondition status: `wp3_completed_major_review_package_ready`
 - Manual ChatGPT review ready: `true`
-- `review_target_commit`: `dce731a19fbc21ace5372f5c119224d385c01105`
-- Pushed head at notification: `dce731a19fbc21ace5372f5c119224d385c01105`
+- `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
+- Pushed head at notification: `35348bc8c38df09562190f3c049142a252cbc85d`
 - Delivery method: existing Hermes send capability
 - Delivery command public form: `hermes send --to feishu --quiet --file -`
 - Feishu message sent: `true`

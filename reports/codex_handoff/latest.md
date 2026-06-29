@@ -20,8 +20,8 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 
 ## Commit Metadata
 
-- `review_target_commit`: `dce731a19fbc21ace5372f5c119224d385c01105`
-- `current_repo_head`: `dce731a19fbc21ace5372f5c119224d385c01105`
+- `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
+- `current_repo_head`: `35348bc8c38df09562190f3c049142a252cbc85d`
 
 ## Major Review Package
 
