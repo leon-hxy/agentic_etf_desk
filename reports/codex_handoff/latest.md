@@ -22,9 +22,9 @@ The Stage 3.1 major review package remains ready for the user to request manual 
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 6`.
-- Current work package: `Stage 6 WP5 Hermes/Feishu notification stability`.
-- Last completed work package: `Stage 6 WP4 public repo hygiene`.
-- Next safe action: resume Stage 6 WP5 Hermes/Feishu notification stability.
+- Current work package: `Stage 6 WP6 OpenClaw agent boundary checks`.
+- Last completed work package: `Stage 6 WP5 Hermes/Feishu notification stability`.
+- Next safe action: resume Stage 6 WP6 OpenClaw agent boundary checks.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -34,19 +34,20 @@ The Stage 3.1 major review package remains ready for the user to request manual 
 - Stage 6 WP2 error recovery: `completed_internal_review`.
 - Stage 6 WP3 log redaction: `completed_internal_review`.
 - Stage 6 WP4 public repo hygiene: `completed_internal_review`.
-- Next work package: Stage 6 WP5 Hermes/Feishu notification stability.
+- Stage 6 WP5 Hermes/Feishu notification stability: `completed_internal_review`.
+- Next work package: Stage 6 WP6 OpenClaw agent boundary checks.
 
-## Stage 6 WP4 Result
+## Stage 6 WP5 Result
 
-- Public repo hygiene policy: `reports/operations/stage6_wp4_public_repo_hygiene.json`.
-- Work package report: `reports/program_runner/stage6_wp4_public_repo_hygiene_report.json`.
-- Internal review: `reports/internal_reviews/program/stage6_wp4_public_repo_hygiene.json`.
-- Hygiene scanner: `scripts/safety/check_public_repo_hygiene.py`.
+- Notification stability policy: `reports/operations/stage6_wp5_notification_stability.json`.
+- Work package report: `reports/program_runner/stage6_wp5_notification_stability_report.json`.
+- Internal review: `reports/internal_reviews/program/stage6_wp5_notification_stability.json`.
 - Live send attempted: false.
 - Real runtime modified: false.
 - Services restarted: false.
-- Credentialed URL detection added: true.
-- local_private detail detection added: true.
+- Idempotency key defined: true.
+- Allowed status gate defined: true.
+- next_safe_action required: true.
 
 ## Commit Metadata
 
