@@ -6,15 +6,15 @@
   "computer_use_allowed": false,
   "construction_branch": "stage/v1-autonomous-completion",
   "current_major_stage": "Stage 3.2",
-  "current_work_package": "Stage 3.2 WP2 price discrepancy and cash assumption scenarios",
+  "current_work_package": "Stage 3.2 WP3 transaction cost sensitivity scenarios",
   "final_review_only": true,
   "final_review_package": "reports/program_reviews/final/latest.md",
   "final_review_package_json": "reports/program_reviews/final/latest.json",
   "git_push_allowed_after_public_repo_hygiene_checks": true,
-  "last_checked_at_utc": "2026-06-29T11:36:03Z",
-  "last_completed_work_package": "Stage 3.2 WP1 research robustness source validation",
-  "last_internal_review": "reports/internal_reviews/program/stage3_2_wp1_source_validation.json",
-  "last_report": "reports/research_robustness/stage3_2_wp1_source_validation_report.json",
+  "last_checked_at_utc": "2026-06-29T11:52:23Z",
+  "last_completed_work_package": "Stage 3.2 WP2 price discrepancy and cash assumption scenarios",
+  "last_internal_review": "reports/internal_reviews/program/stage3_2_wp2_price_cash_scenarios.json",
+  "last_report": "reports/research_robustness/stage3_2_wp2_price_cash_scenarios_report.json",
   "minor_review_policy": "codex_internal_review",
   "mode": "autonomous_until_final_review",
   "notify_user_only_on": [
@@ -48,14 +48,15 @@
   "stage3_2": {
     "chatgpt_review_requested": false,
     "completed_work_packages": [
-      "stage3_2_wp1_source_validation"
+      "stage3_2_wp1_source_validation",
+      "stage3_2_wp2_price_cash_scenarios"
     ],
-    "current_work_package": "Stage 3.2 WP2 price discrepancy and cash assumption scenarios",
-    "last_completed_work_package": "Stage 3.2 WP1 research robustness source validation",
-    "last_internal_review": "reports/internal_reviews/program/stage3_2_wp1_source_validation.json",
-    "last_report": "reports/research_robustness/stage3_2_wp1_source_validation_report.json",
+    "current_work_package": "Stage 3.2 WP3 transaction cost sensitivity scenarios",
+    "last_completed_work_package": "Stage 3.2 WP2 price discrepancy and cash assumption scenarios",
+    "last_internal_review": "reports/internal_reviews/program/stage3_2_wp2_price_cash_scenarios.json",
+    "last_report": "reports/research_robustness/stage3_2_wp2_price_cash_scenarios_report.json",
     "reviewer_mode": "simulated_separate_pass",
-    "status": "wp1_completed_internal_review",
+    "status": "wp2_completed_internal_review",
     "user_notification_sent": false
   },
   "status": "next_work_package_ready"
