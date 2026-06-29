@@ -9,8 +9,8 @@ Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 ## Program Runner Recovery
 
 - Program Runner status: `next_work_package_ready`.
-- Current major stage: `Stage 3.2`.
-- Current work package: `Stage 3.2 WP1 research robustness source validation`.
+- Current major stage: `Stage 4`.
+- Current work package: `Stage 4 WP2 market brief command output`.
 - Stage 3.1 prerequisite recovered: true.
 - Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.json`.
 - Notification preview: `reports/program_runner/notification_preview.json`.

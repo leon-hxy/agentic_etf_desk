@@ -6,15 +6,15 @@
   "computer_use_allowed": false,
   "construction_branch": "stage/v1-autonomous-completion",
   "current_major_stage": "Stage 4",
-  "current_work_package": "Stage 4 WP1 Feishu command routing for ETF research",
+  "current_work_package": "Stage 4 WP2 market brief command output",
   "final_review_only": true,
   "final_review_package": "reports/program_reviews/final/latest.md",
   "final_review_package_json": "reports/program_reviews/final/latest.json",
   "git_push_allowed_after_public_repo_hygiene_checks": true,
-  "last_checked_at_utc": "2026-06-29T13:06:22Z",
-  "last_completed_work_package": "Stage 3.2 WP7 strategy conclusion grading",
-  "last_internal_review": "reports/internal_reviews/program/stage3_2_wp7_strategy_conclusion_grading.json",
-  "last_report": "reports/research_robustness/stage3_2_wp7_strategy_conclusion_grading_report.json",
+  "last_checked_at_utc": "2026-06-29T13:19:21Z",
+  "last_completed_work_package": "Stage 4 WP1 Feishu command routing for ETF research",
+  "last_internal_review": "reports/internal_reviews/program/stage4_wp1_feishu_command_routing.json",
+  "last_report": "reports/program_runner/stage4_wp1_feishu_command_routing_report.json",
   "minor_review_policy": "codex_internal_review",
   "mode": "autonomous_until_final_review",
   "notify_user_only_on": [
@@ -68,8 +68,14 @@
   },
   "stage4": {
     "chatgpt_review_requested": false,
-    "completed_work_packages": [],
-    "current_work_package": "Stage 4 WP1 Feishu command routing for ETF research",
+    "completed_work_packages": [
+      "stage4_wp1_feishu_command_routing"
+    ],
+    "current_work_package": "Stage 4 WP2 market brief command output",
+    "last_completed_work_package": "Stage 4 WP1 Feishu command routing for ETF research",
+    "last_internal_review": "reports/internal_reviews/program/stage4_wp1_feishu_command_routing.json",
+    "last_report": "reports/program_runner/stage4_wp1_feishu_command_routing_report.json",
+    "next_work_package": "Stage 4 WP2 market brief command output",
     "reviewer_mode": "simulated_separate_pass",
     "status": "next_work_package_ready",
     "user_notification_sent": false

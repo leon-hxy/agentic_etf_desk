@@ -1,0 +1,70 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "changed_entrypoints": [
+    "scripts/hermes/feishu_command_router.py",
+    "configs/hermes/README.md",
+    "configs/hermes/feishu_router_draft.md",
+    "configs/hermes/trading_desk_router_skill.md"
+  ],
+  "executes_live_feishu": false,
+  "final_trading_manual": true,
+  "major_stage": "Stage 4",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "modifies_real_runtime_config": false,
+  "rejected_request_classes": [
+    "unknown commands",
+    "automatic order requests",
+    "broker access requests",
+    "individual stocks",
+    "options",
+    "futures",
+    "crypto assets",
+    "leveraged ETFs",
+    "inverse ETFs",
+    "real runtime configuration changes"
+  ],
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "mode": "repo-only",
+    "passed": true,
+    "reviewer": "risk_agent",
+    "trade_ticket_outputs_require_review_before_actionable_suggestions": true
+  },
+  "routes": [
+    {
+      "command_id": "market_brief",
+      "repo_entrypoint": "scripts/reports/generate_market_brief.py",
+      "user_text": "今天 ETF 有什么信号？"
+    },
+    {
+      "command_id": "gtaa_backtest",
+      "repo_entrypoint": "scripts/backtest/run_backtest.py",
+      "repo_args": [
+        "--strategies",
+        "gtaa_10m_sma"
+      ],
+      "user_text": "跑一下 GTAA 回测"
+    },
+    {
+      "command_id": "monthly_rebalance_research_ticket",
+      "repo_entrypoint": "scripts/reports/generate_rebalance_ticket.py",
+      "trade_ticket": true,
+      "user_text": "生成本月 ETF 再平衡建议"
+    },
+    {
+      "command_id": "universe_health_check",
+      "repo_entrypoint": "scripts/data/validate_universe.py",
+      "user_text": "检查 ETF universe 有没有异常"
+    },
+    {
+      "command_id": "weekly_report",
+      "repo_entrypoint": "scripts/reports/generate_weekly_report.py",
+      "user_text": "生成周报"
+    }
+  ],
+  "status": "completed_internal_review",
+  "work_package": "Stage 4 WP1 Feishu command routing for ETF research"
+}
