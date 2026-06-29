@@ -10,7 +10,10 @@
   },
   "current_major_stage": "Stage 3.2",
   "current_work_package": null,
-  "status": "ready",
+  "status": "blocked",
+  "blocked_at_utc": "2026-06-29T09:03:09Z",
+  "blocked_reason": "Stage 3.1 prerequisite is not satisfied: local Stage 3.1 branch tip 0d7c855 is not contained in main.",
+  "blocked_reason_file": "ops/program_runner/blocked_reason.md",
   "final_review_only": true,
   "notify_user_only_on": [
     "blocked",

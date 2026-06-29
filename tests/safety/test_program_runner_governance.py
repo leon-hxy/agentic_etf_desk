@@ -150,13 +150,14 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
 
     def test_runner_state_enforces_autonomous_final_review_only_mode(self) -> None:
         state = read_json("ops/program_runner/program_runner_state.json")
+        blocked_reason = read("ops/program_runner/blocked_reason.md")
 
         expected_required = {
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
             "current_major_stage": "Stage 3.2",
             "current_work_package": None,
-            "status": "ready",
+            "status": "blocked",
             "final_review_only": True,
             "notify_user_only_on": [
                 "blocked",
@@ -182,6 +183,8 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
+        self.assertIn("status: blocked", blocked_reason)
+        self.assertIn("Stage 3.1 prerequisite is not satisfied", blocked_reason)
 
     def test_branching_policy_includes_autonomous_completion_branch(self) -> None:
         text = read("docs/branching_policy.md")
