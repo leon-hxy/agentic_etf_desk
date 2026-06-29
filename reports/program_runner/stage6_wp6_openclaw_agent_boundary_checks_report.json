@@ -1,0 +1,43 @@
+{
+  "agent_count": 8,
+  "apply_to_real_openclaw": false,
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "major_stage": "Stage 6",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP7 long-term runbook",
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "OpenClaw agent boundary policy; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "status": "completed_internal_review",
+  "trade_ticket_generated": false,
+  "validation_checks": {
+    "agent_ids_match_safe_plan": true,
+    "all_agents_order_placement_forbidden": true,
+    "all_agents_repo_only_draft": true,
+    "all_agents_write_forbidden": true,
+    "draft_not_applied_to_real_openclaw": true,
+    "no_policy_banned_role_ids": true,
+    "risk_agent_gate_preserved": true,
+    "safe_plan_not_applied_to_real_openclaw": true,
+    "workspace_isolation_blocks_real_runtime": true
+  },
+  "validation_summary": {
+    "findings": [],
+    "findings_count": 0,
+    "status": "pass"
+  },
+  "work_package": "Stage 6 WP6 OpenClaw agent boundary checks"
+}

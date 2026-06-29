@@ -1,0 +1,147 @@
+{
+  "agent_boundary_rows": [
+    {
+      "agent_id": "market_data_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "etf_research_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "etf_strategy_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "backtest_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "risk_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "trade_ticket_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "portfolio_journal_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "report_agent",
+      "allowed_outputs_count": 6,
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "runtime_mode": "repo_only_draft"
+    }
+  ],
+  "agent_count": 8,
+  "apply_to_real_openclaw": false,
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "boundary_checks": [
+    {
+      "check_id": "draft_not_applied_to_real_openclaw",
+      "description": "The OpenClaw agent draft is marked repo-only and not applied to real runtime configuration.",
+      "passed": true
+    },
+    {
+      "check_id": "safe_plan_not_applied_to_real_openclaw",
+      "description": "The safe integration plan is marked repo-only and not applied to real runtime configuration.",
+      "passed": true
+    },
+    {
+      "check_id": "all_agents_repo_only_draft",
+      "description": "All safe-plan agents remain in repo-only draft mode.",
+      "passed": true
+    },
+    {
+      "check_id": "all_agents_write_forbidden",
+      "description": "Every draft and safe-plan agent forbids broker write capability.",
+      "passed": true
+    },
+    {
+      "check_id": "all_agents_order_placement_forbidden",
+      "description": "Every draft and safe-plan agent forbids order placement.",
+      "passed": true
+    },
+    {
+      "check_id": "risk_agent_gate_preserved",
+      "description": "The risk_agent gate remains required before trade tickets can become actionable suggestions.",
+      "passed": true
+    },
+    {
+      "check_id": "workspace_isolation_blocks_real_runtime",
+      "description": "Workspace isolation blocks real OpenClaw, Hermes, and Feishu gateway targets.",
+      "passed": true
+    }
+  ],
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T17:57:48Z",
+  "final_trading_manual": true,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP7 long-term runbook",
+  "order_placement": false,
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "openclaw_agent_boundary_checks",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "OpenClaw agent boundary policy; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "source_files": [
+    "configs/openclaw/openclaw_agents_draft.json",
+    "configs/openclaw/stage4_safe_integration_plan.json"
+  ],
+  "trade_ticket_generated": false,
+  "validation_checks": {
+    "agent_ids_match_safe_plan": true,
+    "all_agents_order_placement_forbidden": true,
+    "all_agents_repo_only_draft": true,
+    "all_agents_write_forbidden": true,
+    "draft_not_applied_to_real_openclaw": true,
+    "no_policy_banned_role_ids": true,
+    "risk_agent_gate_preserved": true,
+    "safe_plan_not_applied_to_real_openclaw": true,
+    "workspace_isolation_blocks_real_runtime": true
+  },
+  "validation_summary": {
+    "findings": [],
+    "findings_count": 0,
+    "status": "pass"
+  },
+  "work_package": "Stage 6 WP6 OpenClaw agent boundary checks",
+  "workspace_isolation": {
+    "blocks_real_feishu_gateway": true,
+    "blocks_real_hermes": true,
+    "blocks_real_openclaw": true,
+    "mode": "repo_only"
+  }
+}

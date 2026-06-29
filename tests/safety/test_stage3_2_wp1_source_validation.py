@@ -80,9 +80,9 @@ class Stage32Wp1SourceValidationTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], "Stage 3.2 WP2 price discrepancy and cash assumption scenarios")
 
         self.assertEqual(state["current_major_stage"], "Stage 6")
-        self.assertEqual(state["current_work_package"], "Stage 6 WP6 OpenClaw agent boundary checks")
+        self.assertEqual(state["current_work_package"], "Stage 6 WP7 long-term runbook")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP5 Hermes/Feishu notification stability")
+        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP6 OpenClaw agent boundary checks")
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertIn("stage3_2_wp1_source_validation", state["stage3_2"]["completed_work_packages"])
         self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")

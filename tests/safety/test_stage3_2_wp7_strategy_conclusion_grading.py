@@ -103,16 +103,16 @@ class Stage32Wp7StrategyConclusionGradingTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
         self.assertEqual(state["current_major_stage"], "Stage 6")
-        self.assertEqual(state["current_work_package"], "Stage 6 WP6 OpenClaw agent boundary checks")
+        self.assertEqual(state["current_work_package"], "Stage 6 WP7 long-term runbook")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP5 Hermes/Feishu notification stability")
+        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP6 OpenClaw agent boundary checks")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage6_wp5_notification_stability.json",
+            "reports/internal_reviews/program/stage6_wp6_openclaw_agent_boundary_checks.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/program_runner/stage6_wp5_notification_stability_report.json",
+            "reports/program_runner/stage6_wp6_openclaw_agent_boundary_checks_report.json",
         )
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])

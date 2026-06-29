@@ -519,3 +519,31 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
 - real_runtime_modified: false
 - services_restarted: false
 - final_trading_manual: true
+## 2026-06-29T17:57:48Z Stage 6 WP6
+
+- wake time in UTC: 2026-06-29T17:57:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP6 OpenClaw agent boundary checks
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp6_openclaw_agent_boundary_checks`
+  - `python3 -m unittest tests.safety.test_openclaw_agents_safety`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp6_openclaw_agent_boundary_checks.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP7 long-term runbook
+- repo_only: true
+- apply_to_real_openclaw: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
