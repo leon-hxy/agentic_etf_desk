@@ -1,46 +1,62 @@
 {
-  "program": "agentic_etf_desk",
-  "mode": "autonomous_until_final_review",
-  "stable_branch": "main",
-  "construction_branch": "stage/v1-autonomous-completion",
-  "stage3_1_prerequisite": {
-    "required": true,
-    "description": "Stage 3.1 must be merged into main before Stage 3.2 business work begins.",
-    "verify_before_work_package": true,
-    "satisfied": true,
-    "verified_at_utc": "2026-06-29T11:17:25Z",
-    "local_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
-    "origin_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
-    "main_reconciliation_commit": "920b7f100479466a411e3dc1cf9da253b81686e4"
-  },
-  "current_major_stage": "Stage 3.2",
-  "current_work_package": "Stage 3.2 WP1 research robustness source validation",
-  "status": "next_work_package_ready",
-  "last_checked_at_utc": "2026-06-29T11:17:25Z",
+  "auto_trading_allowed": false,
   "blocked_reason_file": "ops/program_runner/blocked_reason.md",
-  "recovery": {
-    "status": "completed",
-    "recovered_at_utc": "2026-06-29T11:17:25Z",
-    "reason": "Stage 3.1 completion branch was merged into main and the stale remote-tracking ref was refreshed.",
-    "report_md": "reports/program_runner/stage3_1_prereq_reconciliation.md",
-    "report_json": "reports/program_runner/stage3_1_prereq_reconciliation.json",
-    "notification_preview_md": "reports/program_runner/notification_preview.md",
-    "notification_preview_json": "reports/program_runner/notification_preview.json",
-    "next_safe_action": "resume Stage 3.2 from the first research robustness source-validation work package"
-  },
+  "broker_write_allowed": false,
+  "chatgpt_review_policy": "final_program_review_only",
+  "computer_use_allowed": false,
+  "construction_branch": "stage/v1-autonomous-completion",
+  "current_major_stage": "Stage 3.2",
+  "current_work_package": "Stage 3.2 WP2 price discrepancy and cash assumption scenarios",
   "final_review_only": true,
+  "final_review_package": "reports/program_reviews/final/latest.md",
+  "final_review_package_json": "reports/program_reviews/final/latest.json",
+  "git_push_allowed_after_public_repo_hygiene_checks": true,
+  "last_checked_at_utc": "2026-06-29T11:36:03Z",
+  "last_completed_work_package": "Stage 3.2 WP1 research robustness source validation",
+  "last_internal_review": "reports/internal_reviews/program/stage3_2_wp1_source_validation.json",
+  "last_report": "reports/research_robustness/stage3_2_wp1_source_validation_report.json",
+  "minor_review_policy": "codex_internal_review",
+  "mode": "autonomous_until_final_review",
   "notify_user_only_on": [
     "blocked",
     "approval_required",
     "final_review_ready"
   ],
-  "chatgpt_review_policy": "final_program_review_only",
-  "minor_review_policy": "codex_internal_review",
-  "computer_use_allowed": false,
+  "program": "agentic_etf_desk",
   "real_config_changes_allowed_without_approval": false,
-  "broker_write_allowed": false,
-  "auto_trading_allowed": false,
-  "git_push_allowed_after_public_repo_hygiene_checks": true,
-  "final_review_package": "reports/program_reviews/final/latest.md",
-  "final_review_package_json": "reports/program_reviews/final/latest.json"
+  "recovery": {
+    "next_safe_action": "resume Stage 3.2 from the first research robustness source-validation work package",
+    "notification_preview_json": "reports/program_runner/notification_preview.json",
+    "notification_preview_md": "reports/program_runner/notification_preview.md",
+    "reason": "Stage 3.1 completion branch was merged into main and the stale remote-tracking ref was refreshed.",
+    "recovered_at_utc": "2026-06-29T11:17:25Z",
+    "report_json": "reports/program_runner/stage3_1_prereq_reconciliation.json",
+    "report_md": "reports/program_runner/stage3_1_prereq_reconciliation.md",
+    "status": "completed"
+  },
+  "stable_branch": "main",
+  "stage3_1_prerequisite": {
+    "description": "Stage 3.1 must be merged into main before Stage 3.2 business work begins.",
+    "local_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
+    "main_reconciliation_commit": "920b7f100479466a411e3dc1cf9da253b81686e4",
+    "origin_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
+    "required": true,
+    "satisfied": true,
+    "verified_at_utc": "2026-06-29T11:17:25Z",
+    "verify_before_work_package": true
+  },
+  "stage3_2": {
+    "chatgpt_review_requested": false,
+    "completed_work_packages": [
+      "stage3_2_wp1_source_validation"
+    ],
+    "current_work_package": "Stage 3.2 WP2 price discrepancy and cash assumption scenarios",
+    "last_completed_work_package": "Stage 3.2 WP1 research robustness source validation",
+    "last_internal_review": "reports/internal_reviews/program/stage3_2_wp1_source_validation.json",
+    "last_report": "reports/research_robustness/stage3_2_wp1_source_validation_report.json",
+    "reviewer_mode": "simulated_separate_pass",
+    "status": "wp1_completed_internal_review",
+    "user_notification_sent": false
+  },
+  "status": "next_work_package_ready"
 }
