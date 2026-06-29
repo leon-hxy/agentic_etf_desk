@@ -156,7 +156,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
             "current_major_stage": "Stage 4",
-            "current_work_package": "Stage 4 WP2 market brief command output",
+            "current_work_package": "Stage 4 WP3 weekly report command output",
             "status": "next_work_package_ready",
             "final_review_only": True,
             "notify_user_only_on": [
@@ -188,9 +188,9 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP1 Feishu command routing for ETF research")
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage4_wp1_feishu_command_routing.json")
-        self.assertEqual(state["last_report"], "reports/program_runner/stage4_wp1_feishu_command_routing_report.json")
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP2 market brief command output")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage4_wp2_market_brief_command_output.json")
+        self.assertEqual(state["last_report"], "reports/program_runner/stage4_wp2_market_brief_command_output_report.json")
         self.assertEqual(state["stage3_2"]["status"], "completed_internal_review")
         self.assertEqual(
             state["stage3_2"]["completed_work_packages"],
@@ -207,11 +207,17 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
         self.assertEqual(state["stage4"]["status"], "next_work_package_ready")
-        self.assertEqual(state["stage4"]["completed_work_packages"], ["stage4_wp1_feishu_command_routing"])
-        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP2 market brief command output")
-        self.assertEqual(state["stage4"]["last_completed_work_package"], "Stage 4 WP1 Feishu command routing for ETF research")
-        self.assertEqual(state["stage4"]["last_internal_review"], "reports/internal_reviews/program/stage4_wp1_feishu_command_routing.json")
-        self.assertEqual(state["stage4"]["last_report"], "reports/program_runner/stage4_wp1_feishu_command_routing_report.json")
+        self.assertEqual(
+            state["stage4"]["completed_work_packages"],
+            [
+                "stage4_wp1_feishu_command_routing",
+                "stage4_wp2_market_brief_command_output",
+            ],
+        )
+        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP3 weekly report command output")
+        self.assertEqual(state["stage4"]["last_completed_work_package"], "Stage 4 WP2 market brief command output")
+        self.assertEqual(state["stage4"]["last_internal_review"], "reports/internal_reviews/program/stage4_wp2_market_brief_command_output.json")
+        self.assertEqual(state["stage4"]["last_report"], "reports/program_runner/stage4_wp2_market_brief_command_output_report.json")
         self.assertFalse(state["stage4"]["user_notification_sent"])
         self.assertFalse(state["stage4"]["chatgpt_review_requested"])
         self.assertIn("Current status: not blocked", blocked_reason)
@@ -439,7 +445,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
             "reports/program_runner/stage3_1_prereq_reconciliation.json",
         )
         self.assertIn("## Program Runner Recovery", handoff_md)
-        self.assertIn("Stage 4 WP2 market brief command output", handoff_md)
+        self.assertIn("Stage 4 WP3 weekly report command output", handoff_md)
 
         combined = "\n".join(
             [report_md, preview_md, handoff_md, json.dumps(preview, sort_keys=True)]

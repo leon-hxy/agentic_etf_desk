@@ -1,0 +1,85 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "command_id": "market_brief",
+  "command_text": "今天 ETF 有什么信号？",
+  "executes_live_feishu": false,
+  "feishu_reply_preview": "摘要：生成 ETF 市场简报，基于 repo-only 研究与回测输出。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_market_brief.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+  "final_trading_manual": true,
+  "major_stage": "Stage 4",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "market_brief": {
+    "benchmark_comparison_preserved": true,
+    "local_report_path": "reports/stage2b_market_brief.md",
+    "row_count": 4,
+    "rows": [
+      {
+        "benchmark_cagr": 0.8717444252272559,
+        "benchmark_symbol": "VTI",
+        "cagr": 0.848364162258957,
+        "cagr_vs_benchmark": -0.02338026296829887,
+        "max_drawdown": 0.0,
+        "sharpe": 412.51774723559504,
+        "strategy": "benchmark_buy_hold"
+      },
+      {
+        "benchmark_cagr": 0.8717444252272559,
+        "benchmark_symbol": "VTI",
+        "cagr": 0.8019624837073598,
+        "cagr_vs_benchmark": -0.06978194151989614,
+        "max_drawdown": 0.0,
+        "sharpe": 199.11071001307204,
+        "strategy": "dual_momentum"
+      },
+      {
+        "benchmark_cagr": 0.8717444252272559,
+        "benchmark_symbol": "VTI",
+        "cagr": 0.84629363705362,
+        "cagr_vs_benchmark": -0.025450788173635885,
+        "max_drawdown": 0.0,
+        "sharpe": 411.67106112130796,
+        "strategy": "gtaa_10m_sma"
+      },
+      {
+        "benchmark_cagr": 0.8717444252272559,
+        "benchmark_symbol": "VTI",
+        "cagr": 0.7627267359017855,
+        "cagr_vs_benchmark": -0.1090176893254704,
+        "max_drawdown": 0.0,
+        "sharpe": 76.32937725152051,
+        "strategy": "static_6040"
+      }
+    ]
+  },
+  "modifies_real_runtime_config": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "mode": "repo-only",
+    "passed": true,
+    "reviewer": "risk_agent",
+    "trade_ticket_outputs_require_review_before_actionable_suggestions": true
+  },
+  "route_plan": {
+    "asset_scope": "ETF-only",
+    "automatic_trading": false,
+    "command_id": "market_brief",
+    "executes_live_feishu": false,
+    "feishu_reply_preview": "摘要：生成 ETF 市场简报，基于 repo-only 研究与回测输出。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_market_brief.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+    "local_report_path": "reports/stage2b_market_brief.md",
+    "manual_trading_note": "最终交易由用户手动决定。",
+    "modifies_real_runtime_config": false,
+    "repo_args": [],
+    "repo_entrypoint": "scripts/reports/generate_market_brief.py",
+    "repo_only": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "risk_level": "medium",
+    "status": "routed",
+    "summary": "生成 ETF 市场简报，基于 repo-only 研究与回测输出。",
+    "trade_ticket": false
+  },
+  "status": "completed_internal_review",
+  "work_package": "Stage 4 WP2 market brief command output"
+}
