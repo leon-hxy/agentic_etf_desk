@@ -440,6 +440,8 @@ def update_runner_state() -> None:
     state = read_json(RUNNER_STATE)
     stage3_2_state = state.get("stage3_2", {})
     stage4_completed = state.get("stage4", {}).get("completed_work_packages", [])
+    if "stage4_wp7_openclaw_agents_integration_plan" in stage4_completed:
+        return
     runner_beyond_wp7 = (
         state.get("current_major_stage") == NEXT_MAJOR_STAGE
         and (state.get("current_work_package") != NEXT_WORK_PACKAGE or bool(stage4_completed))

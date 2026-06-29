@@ -1,0 +1,176 @@
+{
+  "agent_count": 8,
+  "agents": [
+    {
+      "agent_id": "market_data_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Validate ETF universe and processed price panels.",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "etf_research_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Summarize allowed ETF research context from repo data.",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "etf_strategy_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Prepare ETF-only strategy template inputs and assumptions.",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "backtest_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Run repo-only backtests and write local reports.",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "risk_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Review risk limits before any recommendation ticket is shown.",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "trade_ticket_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Draft manual trade recommendation tickets after risk review.",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "portfolio_journal_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Record repo-only portfolio research journal entries.",
+      "runtime_mode": "repo_only_draft"
+    },
+    {
+      "agent_id": "report_agent",
+      "allowed_outputs": [
+        "research",
+        "backtests",
+        "risk_review",
+        "reports",
+        "manual_trade_recommendation_tickets",
+        "portfolio_journal"
+      ],
+      "broker_access": "write_forbidden",
+      "order_placement": "forbidden",
+      "purpose": "Generate Feishu-readable summaries and local report files.",
+      "runtime_mode": "repo_only_draft"
+    }
+  ],
+  "allowed_outputs": [
+    "research",
+    "backtests",
+    "risk_review",
+    "reports",
+    "manual_trade_recommendation_tickets",
+    "portfolio_journal"
+  ],
+  "apply_to_real_openclaw": false,
+  "approval_required_before": [
+    "modify real ~/.openclaw",
+    "restart OpenClaw",
+    "send live Feishu config changes"
+  ],
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 5 WP1 manual holdings CSV import",
+  "order_placement_surface": false,
+  "repo_only": true,
+  "risk_agent_gate": {
+    "required_before_trade_tickets": true,
+    "trade_tickets_actionable_without_review": false
+  },
+  "source_draft": "configs/openclaw/openclaw_agents_draft.json",
+  "stage": "Stage 4 WP7 safe integration plan",
+  "workspace_isolation": {
+    "may_read": [
+      "configs/universe/",
+      "data/processed/",
+      "strategies/",
+      "scripts/",
+      "reports/",
+      "backtests/",
+      "journals/"
+    ],
+    "may_write": [
+      "reports/",
+      "backtests/",
+      "journals/"
+    ],
+    "mode": "repo_only",
+    "must_not_apply_to": [
+      "~/.openclaw",
+      "~/.hermes",
+      "real Feishu gateway"
+    ],
+    "workspace_root": "agentic_etf_desk"
+  }
+}

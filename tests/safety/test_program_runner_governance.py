@@ -155,8 +155,8 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         expected_required = {
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
-            "current_major_stage": "Stage 4",
-            "current_work_package": "Stage 4 WP7 OpenClaw agents draft or safe integration plan",
+            "current_major_stage": "Stage 5",
+            "current_work_package": "Stage 5 WP1 manual holdings CSV import",
             "status": "next_work_package_ready",
             "final_review_only": True,
             "notify_user_only_on": [
@@ -188,9 +188,9 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP6 backtest command output")
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage4_wp6_backtest_command_output.json")
-        self.assertEqual(state["last_report"], "reports/program_runner/stage4_wp6_backtest_command_output_report.json")
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage4_wp7_openclaw_agents_integration_plan.json")
+        self.assertEqual(state["last_report"], "reports/program_runner/stage4_wp7_openclaw_agents_integration_plan_report.json")
         self.assertEqual(state["stage3_2"]["status"], "completed_internal_review")
         self.assertEqual(
             state["stage3_2"]["completed_work_packages"],
@@ -206,7 +206,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         )
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
-        self.assertEqual(state["stage4"]["status"], "next_work_package_ready")
+        self.assertEqual(state["stage4"]["status"], "completed_internal_review")
         self.assertEqual(
             state["stage4"]["completed_work_packages"],
             [
@@ -216,14 +216,21 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
                 "stage4_wp4_monthly_rebalance_command_output",
                 "stage4_wp5_universe_health_check_command_output",
                 "stage4_wp6_backtest_command_output",
+                "stage4_wp7_openclaw_agents_integration_plan",
             ],
         )
         self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
-        self.assertEqual(state["stage4"]["last_completed_work_package"], "Stage 4 WP6 backtest command output")
-        self.assertEqual(state["stage4"]["last_internal_review"], "reports/internal_reviews/program/stage4_wp6_backtest_command_output.json")
-        self.assertEqual(state["stage4"]["last_report"], "reports/program_runner/stage4_wp6_backtest_command_output_report.json")
+        self.assertEqual(state["stage4"]["last_completed_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
+        self.assertEqual(state["stage4"]["last_internal_review"], "reports/internal_reviews/program/stage4_wp7_openclaw_agents_integration_plan.json")
+        self.assertEqual(state["stage4"]["last_report"], "reports/program_runner/stage4_wp7_openclaw_agents_integration_plan_report.json")
+        self.assertEqual(state["stage4"]["next_work_package"], "Stage 5 WP1 manual holdings CSV import")
         self.assertFalse(state["stage4"]["user_notification_sent"])
         self.assertFalse(state["stage4"]["chatgpt_review_requested"])
+        self.assertEqual(state["stage5"]["status"], "next_work_package_ready")
+        self.assertEqual(state["stage5"]["current_work_package"], "Stage 5 WP1 manual holdings CSV import")
+        self.assertEqual(state["stage5"]["completed_work_packages"], [])
+        self.assertFalse(state["stage5"]["user_notification_sent"])
+        self.assertFalse(state["stage5"]["chatgpt_review_requested"])
         self.assertIn("Current status: not blocked", blocked_reason)
         self.assertIn("Stage 3.1 prerequisite recovered", blocked_reason)
         self.assertIn("next safe action: resume Stage 3.2", blocked_reason)
@@ -446,14 +453,15 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(handoff["program_runner"]["stage3_1_prerequisite_recovered"])
         self.assertEqual(
             handoff["program_runner"]["next_safe_action"],
-            "resume Stage 4 WP7 OpenClaw agents draft or safe integration plan",
+            "resume Stage 5 WP1 manual holdings CSV import",
         )
         self.assertEqual(
             handoff["program_runner"]["stage3_1_reconciliation_report"],
             "reports/program_runner/stage3_1_prereq_reconciliation.json",
         )
-        self.assertIn("## Program Runner Recovery", handoff_md)
+        self.assertIn("## Program Runner", handoff_md)
         self.assertIn("Stage 4 WP7 OpenClaw agents draft or safe integration plan", handoff_md)
+        self.assertIn("Stage 5 WP1 manual holdings CSV import", handoff_md)
 
         combined = "\n".join(
             [report_md, preview_md, handoff_md, json.dumps(preview, sort_keys=True)]

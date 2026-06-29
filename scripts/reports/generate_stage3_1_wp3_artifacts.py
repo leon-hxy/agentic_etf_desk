@@ -140,6 +140,9 @@ def program_runner_context() -> dict[str, Any]:
         "status": state.get("status"),
         "current_major_stage": state.get("current_major_stage"),
         "current_work_package": current_work_package,
+        "last_completed_work_package": state.get("last_completed_work_package"),
+        "last_internal_review": state.get("last_internal_review"),
+        "last_report": state.get("last_report"),
         "stage3_1_prerequisite_recovered": state.get("stage3_1_prerequisite", {}).get("satisfied"),
         "stage3_1_reconciliation_report": recovery.get("report_json"),
         "notification_preview": recovery.get("notification_preview_json"),
@@ -621,6 +624,19 @@ def common_payload(major: dict[str, Any], review_target_commit: str, updated_at:
 def write_handoff(payload: dict[str, Any]) -> None:
     write_json(HANDOFF_JSON, payload)
     runner = payload.get("program_runner", {})
+    runner_completion_lines: list[str] = []
+    if runner.get("last_completed_work_package") == "Stage 4 WP7 OpenClaw agents draft or safe integration plan":
+        runner_completion_lines = [
+            "## Stage 4 WP7 Result",
+            "",
+            "- Last completed work package: `Stage 4 WP7 OpenClaw agents draft or safe integration plan`.",
+            "- OpenClaw safe integration plan: `configs/openclaw/stage4_safe_integration_plan.json`.",
+            "- Work package report: `reports/program_runner/stage4_wp7_openclaw_agents_integration_plan_report.json`.",
+            "- Internal review: `reports/internal_reviews/program/stage4_wp7_openclaw_agents_integration_plan.json`.",
+            "- Codex requested ChatGPT review: false.",
+            "- User notification sent: false.",
+            "",
+        ]
     lines = [
         "# Codex Handoff",
         "",
@@ -665,6 +681,7 @@ def write_handoff(payload: dict[str, Any]) -> None:
         f"- Feishu notification sent after package: `{str(payload['stage3_1_major_gate_feishu_notification_sent']).lower()}`",
         f"- Feishu notification report: `{payload['stage3_1_live_notification_report']}`",
         "",
+        *runner_completion_lines,
         "## Safety Checklist",
         "",
         "- Modified real `~/.hermes`: false.",

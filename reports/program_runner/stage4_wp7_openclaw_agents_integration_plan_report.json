@@ -1,0 +1,44 @@
+{
+  "agent_ids": [
+    "market_data_agent",
+    "etf_research_agent",
+    "etf_strategy_agent",
+    "backtest_agent",
+    "risk_agent",
+    "trade_ticket_agent",
+    "portfolio_journal_agent",
+    "report_agent"
+  ],
+  "apply_to_real_openclaw": false,
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "executes_live_feishu": false,
+  "final_trading_manual": true,
+  "integration_plan": "configs/openclaw/stage4_safe_integration_plan.json",
+  "major_stage": "Stage 4",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "modifies_real_runtime_config": false,
+  "next_work_package": "Stage 5 WP1 manual holdings CSV import",
+  "openclaw_draft": "configs/openclaw/openclaw_agents_draft.json",
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "required_before_trade_tickets": true,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "trade_tickets_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "status": "completed_internal_review",
+  "validation_checks": {
+    "all_agents_research_only": true,
+    "existing_openclaw_draft_loaded": true,
+    "manual_trading_disclaimer_present": true,
+    "no_forbidden_agent_roles": true,
+    "openclaw_apply_disabled": true,
+    "risk_agent_gate_present": true
+  },
+  "work_package": "Stage 4 WP7 OpenClaw agents draft or safe integration plan"
+}

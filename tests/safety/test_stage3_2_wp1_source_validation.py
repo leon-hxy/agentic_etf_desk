@@ -79,14 +79,14 @@ class Stage32Wp1SourceValidationTest(unittest.TestCase):
         self.assertFalse(review["requires_user_attention"])
         self.assertEqual(review["promote_to_next_work_package"], "Stage 3.2 WP2 price discrepancy and cash assumption scenarios")
 
-        self.assertEqual(state["current_major_stage"], "Stage 4")
-        self.assertEqual(state["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
+        self.assertEqual(state["current_major_stage"], "Stage 5")
+        self.assertEqual(state["current_work_package"], "Stage 5 WP1 manual holdings CSV import")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP6 backtest command output")
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertIn("stage3_2_wp1_source_validation", state["stage3_2"]["completed_work_packages"])
         self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
-        self.assertEqual(state["stage4"]["next_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
+        self.assertEqual(state["stage4"]["next_work_package"], "Stage 5 WP1 manual holdings CSV import")
 
 
 if __name__ == "__main__":

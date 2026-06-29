@@ -7,7 +7,10 @@ Universe：`configs/universe/etf_universe.yaml`
 
 | Strategy | CAGR | Sharpe | Max Drawdown | Turnover | Trades |
 |---|---:|---:|---:|---:|---:|
+| benchmark_buy_hold | 0.8484 | 412.5177 | 0.0000 | 1.0000 | 1 |
+| static_6040 | 0.7627 | 76.3294 | 0.0000 | 1.0000 | 1 |
 | gtaa_10m_sma | 0.8463 | 411.6711 | 0.0000 | 1.0000 | 1 |
+| dual_momentum | 0.8020 | 199.1107 | 0.0000 | 3.0000 | 2 |
 
 风险等级：medium。样本数据仅用于流程验证，不能代表未来表现。
 是否通过 risk_agent 审核：true。

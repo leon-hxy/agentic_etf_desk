@@ -21,15 +21,13 @@
       "VWO"
     ]
   },
-  "generated_at": "2026-06-29T14:37:34.012802+00:00",
+  "generated_at": "2026-06-29T14:53:36.487205+00:00",
   "input_backtest_report": "reports/stage2b_backtest_report.json",
   "manual_execution_note": "Final trading is manually decided by the user.",
   "price_panel_metadata": "data/processed/price_panel_metadata.json",
   "reference_smoke_report_loaded": true,
   "reference_smoke_report_strategies": [
     "benchmark_buy_hold",
-    "dual_momentum",
-    "gtaa_10m_sma",
     "static_6040"
   ],
   "report_json": "reports/backtest_validation/stage3c_backtest_validation_report.json",
