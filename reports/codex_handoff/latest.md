@@ -16,15 +16,15 @@ WP3 used Codex internal review only. No ChatGPT review was requested or sent by 
 
 Only after WP3 completes and generates `reports/major_reviews/stage3_1/latest.md` and `reports/major_reviews/stage3_1/latest.json` may Codex notify the user through Feishu that the user can request manual ChatGPT major-stage review.
 
-The Stage 3.1 major review package is ready for the user to request manual ChatGPT major-stage review.
+The Stage 3.1 major review package remains ready for the user to request manual ChatGPT major-stage review.
 
 ## Program Runner
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 6`.
-- Current work package: `Stage 6 WP4 public repo hygiene`.
-- Last completed work package: `Stage 6 WP3 log redaction`.
-- Next safe action: resume Stage 6 WP4 public repo hygiene.
+- Current work package: `Stage 6 WP5 Hermes/Feishu notification stability`.
+- Last completed work package: `Stage 6 WP4 public repo hygiene`.
+- Next safe action: resume Stage 6 WP5 Hermes/Feishu notification stability.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -33,27 +33,20 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Stage 6 WP1 schedule dry-runs: `completed_internal_review`.
 - Stage 6 WP2 error recovery: `completed_internal_review`.
 - Stage 6 WP3 log redaction: `completed_internal_review`.
-- Next work package: Stage 6 WP4 public repo hygiene.
+- Stage 6 WP4 public repo hygiene: `completed_internal_review`.
+- Next work package: Stage 6 WP5 Hermes/Feishu notification stability.
 
-## Stage 5 Completed Work Packages
+## Stage 6 WP4 Result
 
-- Stage 5 WP1 manual holdings CSV import: `completed_internal_review`.
-- Stage 5 WP2 manual trades CSV import: `completed_internal_review`.
-- Stage 5 WP3 portfolio weight calculation: `completed_internal_review`.
-- Stage 5 WP4 drift checks: `completed_internal_review`.
-- Stage 5 WP5 rebalance research ticket: `completed_internal_review`.
-- Stage 5 WP6 adoption and rejection journal: `completed_internal_review`.
-
-## Stage 6 WP3 Result
-
-- Log redaction policy: `reports/operations/stage6_wp3_log_redaction.json`.
-- Work package report: `reports/program_runner/stage6_wp3_log_redaction_report.json`.
-- Internal review: `reports/internal_reviews/program/stage6_wp3_log_redaction.json`.
-- Redactor module: `scripts/safety/redact_sensitive_text.py`.
+- Public repo hygiene policy: `reports/operations/stage6_wp4_public_repo_hygiene.json`.
+- Work package report: `reports/program_runner/stage6_wp4_public_repo_hygiene_report.json`.
+- Internal review: `reports/internal_reviews/program/stage6_wp4_public_repo_hygiene.json`.
+- Hygiene scanner: `scripts/safety/check_public_repo_hygiene.py`.
 - Live send attempted: false.
 - Real runtime modified: false.
 - Services restarted: false.
-- Default log action: `redact_before_repo_visible_write`.
+- Credentialed URL detection added: true.
+- local_private detail detection added: true.
 
 ## Commit Metadata
 

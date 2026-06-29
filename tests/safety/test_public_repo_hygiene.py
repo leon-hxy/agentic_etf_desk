@@ -61,6 +61,38 @@ class PublicRepoHygieneTest(unittest.TestCase):
         reasons = {finding["reason"] for finding in payload["findings"]}
         self.assertIn("public live preflight config fingerprint", reasons)
 
+    def test_public_repo_hygiene_detects_credentialed_urls(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            url = "https://user:" + "example-secret" + "@example.com/repo.git"
+            (root / "remote.txt").write_text(f"origin={url}\n", encoding="utf-8")
+            result = self.run_script(root)
+        self.assertNotEqual(result.returncode, 0)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "fail")
+        reasons = {finding["reason"] for finding in payload["findings"]}
+        self.assertIn("credentialed url", reasons)
+
+    def test_public_repo_hygiene_detects_committed_local_private_details(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            private_dir = root / "local_private"
+            private_dir.mkdir()
+            (private_dir / "README.md").write_text("safe placeholder\n", encoding="utf-8")
+            (private_dir / ".gitkeep").write_text("", encoding="utf-8")
+            (private_dir / "runtime_detail.json").write_text('{"private": true}\n', encoding="utf-8")
+            result = self.run_script(root)
+        self.assertNotEqual(result.returncode, 0)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "fail")
+        self.assertIn(
+            {
+                "file": "local_private/runtime_detail.json",
+                "reason": "local private detail file",
+            },
+            payload["findings"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
