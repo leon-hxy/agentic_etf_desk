@@ -10,11 +10,11 @@ Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 5`.
-- Current work package: `Stage 5 WP2 manual trades CSV import`.
-- Last completed work package: `Stage 5 WP1 manual holdings CSV import`.
+- Current work package: `Stage 5 WP3 portfolio weight calculation`.
+- Last completed work package: `Stage 5 WP2 manual trades CSV import`.
 - Stage 3.1 prerequisite recovered: true.
 - Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.json`.
-- Next safe action: resume Stage 5 WP2 manual trades CSV import.
+- Next safe action: resume Stage 5 WP3 portfolio weight calculation.
 
 ## Work Package Result
 
@@ -33,14 +33,20 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
 - `current_repo_head`: `35348bc8c38df09562190f3c049142a252cbc85d`
 
-## Stage 5 WP1 Result
+## Stage 5 WP2 Result
 
-- Manual holdings importer: `scripts/portfolio/import_manual_holdings.py`.
-- Normalized holdings: `data/portfolio/manual_holdings_latest.json`.
-- Work package report: `reports/program_runner/stage5_wp1_manual_holdings_import_report.json`.
-- Internal review: `reports/internal_reviews/program/stage5_wp1_manual_holdings_import.json`.
+- Manual trades importer: `scripts/portfolio/import_manual_trades.py`.
+- Normalized trades: `data/portfolio/manual_trades_latest.json`.
+- Work package report: `reports/program_runner/stage5_wp2_manual_trades_import_report.json`.
+- Internal review: `reports/internal_reviews/program/stage5_wp2_manual_trades_import.json`.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
+
+## Stage 5 Completed Work Packages
+
+- Stage 5 WP1 manual holdings CSV import: `completed_internal_review`.
+- Stage 5 WP2 manual trades CSV import: `completed_internal_review`.
+- Next work package: Stage 5 WP3 portfolio weight calculation.
 
 ## Safety Checklist
 

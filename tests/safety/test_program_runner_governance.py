@@ -156,7 +156,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
             "current_major_stage": "Stage 5",
-            "current_work_package": "Stage 5 WP2 manual trades CSV import",
+            "current_work_package": "Stage 5 WP3 portfolio weight calculation",
             "status": "next_work_package_ready",
             "final_review_only": True,
             "notify_user_only_on": [
@@ -188,9 +188,9 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP1 manual holdings CSV import")
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage5_wp1_manual_holdings_import.json")
-        self.assertEqual(state["last_report"], "reports/program_runner/stage5_wp1_manual_holdings_import_report.json")
+        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP2 manual trades CSV import")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage5_wp2_manual_trades_import.json")
+        self.assertEqual(state["last_report"], "reports/program_runner/stage5_wp2_manual_trades_import_report.json")
         self.assertEqual(state["stage3_2"]["status"], "completed_internal_review")
         self.assertEqual(
             state["stage3_2"]["completed_work_packages"],
@@ -227,12 +227,18 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertFalse(state["stage4"]["user_notification_sent"])
         self.assertFalse(state["stage4"]["chatgpt_review_requested"])
         self.assertEqual(state["stage5"]["status"], "next_work_package_ready")
-        self.assertEqual(state["stage5"]["current_work_package"], "Stage 5 WP1 manual holdings CSV import")
-        self.assertEqual(state["stage5"]["completed_work_packages"], ["stage5_wp1_manual_holdings_import"])
-        self.assertEqual(state["stage5"]["last_completed_work_package"], "Stage 5 WP1 manual holdings CSV import")
-        self.assertEqual(state["stage5"]["last_internal_review"], "reports/internal_reviews/program/stage5_wp1_manual_holdings_import.json")
-        self.assertEqual(state["stage5"]["last_report"], "reports/program_runner/stage5_wp1_manual_holdings_import_report.json")
-        self.assertEqual(state["stage5"]["next_work_package"], "Stage 5 WP2 manual trades CSV import")
+        self.assertEqual(state["stage5"]["current_work_package"], "Stage 5 WP2 manual trades CSV import")
+        self.assertEqual(
+            state["stage5"]["completed_work_packages"],
+            [
+                "stage5_wp1_manual_holdings_import",
+                "stage5_wp2_manual_trades_import",
+            ],
+        )
+        self.assertEqual(state["stage5"]["last_completed_work_package"], "Stage 5 WP2 manual trades CSV import")
+        self.assertEqual(state["stage5"]["last_internal_review"], "reports/internal_reviews/program/stage5_wp2_manual_trades_import.json")
+        self.assertEqual(state["stage5"]["last_report"], "reports/program_runner/stage5_wp2_manual_trades_import_report.json")
+        self.assertEqual(state["stage5"]["next_work_package"], "Stage 5 WP3 portfolio weight calculation")
         self.assertEqual(state["stage5"]["reviewer_mode"], "simulated_separate_pass")
         self.assertFalse(state["stage5"]["user_notification_sent"])
         self.assertFalse(state["stage5"]["chatgpt_review_requested"])
@@ -458,7 +464,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(handoff["program_runner"]["stage3_1_prerequisite_recovered"])
         self.assertEqual(
             handoff["program_runner"]["next_safe_action"],
-            "resume Stage 5 WP2 manual trades CSV import",
+            "resume Stage 5 WP3 portfolio weight calculation",
         )
         self.assertEqual(
             handoff["program_runner"]["stage3_1_reconciliation_report"],
@@ -467,6 +473,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertIn("## Program Runner", handoff_md)
         self.assertIn("Stage 5 WP1 manual holdings CSV import", handoff_md)
         self.assertIn("Stage 5 WP2 manual trades CSV import", handoff_md)
+        self.assertIn("Stage 5 WP3 portfolio weight calculation", handoff_md)
 
         combined = "\n".join(
             [report_md, preview_md, handoff_md, json.dumps(preview, sort_keys=True)]
