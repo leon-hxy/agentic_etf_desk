@@ -1,0 +1,42 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_preserved": true,
+  "benchmark_symbol": "VTI",
+  "broker_write_surface": false,
+  "drift_artifact": "data/portfolio/portfolio_drift_latest.json",
+  "drift_status": "within_threshold",
+  "drift_threshold": 0.05,
+  "final_trading_manual": true,
+  "major_stage": "Stage 5",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "max_absolute_drift": 0.03299319727891159,
+  "max_drift_symbol": "VTI",
+  "next_work_package": "Stage 5 WP5 rebalance research ticket",
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "required_before_trade_tickets": true,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "drift checks are non-actionable portfolio monitoring and generate no trade ticket",
+    "trade_tickets_actionable_without_review": false
+  },
+  "source": "portfolio_weights_latest",
+  "status": "completed_internal_review",
+  "target_strategy_id": "static_6040",
+  "trade_ticket_generated": false,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "validation_checks": {
+    "allowlist_source_recorded": true,
+    "benchmark_comparison_preserved": true,
+    "drift_artifact_written": true,
+    "manual_trading_disclaimer_present": true,
+    "no_trade_ticket_generated": true,
+    "source_weights_exist": true,
+    "universe_allowlist_enforced": true
+  },
+  "work_package": "Stage 5 WP4 drift checks"
+}

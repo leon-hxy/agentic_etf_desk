@@ -1,0 +1,51 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_preserved": true,
+  "benchmark_symbol": "VTI",
+  "broker_write_surface": false,
+  "drift_rows": [
+    {
+      "absolute_drift": 0.004195011337868482,
+      "breaches_threshold": false,
+      "current_weight": 0.10419501133786849,
+      "direction": "above_target",
+      "drift": 0.004195011337868482,
+      "drift_bps": 41.9501,
+      "symbol": "BIL",
+      "target_weight": 0.1
+    },
+    {
+      "absolute_drift": 0.02879818594104311,
+      "breaches_threshold": false,
+      "current_weight": 0.3287981859410431,
+      "direction": "above_target",
+      "drift": 0.02879818594104311,
+      "drift_bps": 287.9819,
+      "symbol": "BND",
+      "target_weight": 0.3
+    },
+    {
+      "absolute_drift": 0.03299319727891159,
+      "breaches_threshold": false,
+      "current_weight": 0.5670068027210884,
+      "direction": "below_target",
+      "drift": -0.03299319727891159,
+      "drift_bps": -329.932,
+      "symbol": "VTI",
+      "target_weight": 0.6
+    }
+  ],
+  "drift_threshold": 0.05,
+  "final_trading_manual": true,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "max_absolute_drift": 0.03299319727891159,
+  "max_drift_symbol": "VTI",
+  "next_research_step": "Stage 5 WP5 rebalance research ticket",
+  "source": "portfolio_weights_latest",
+  "status": "within_threshold",
+  "target_strategy_id": "static_6040",
+  "trade_ticket_generated": false,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true
+}

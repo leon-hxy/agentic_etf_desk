@@ -6,16 +6,6 @@ Stage 3.1 major review package is ready.
 
 Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
-## Program Runner
-
-- Program Runner status: `next_work_package_ready`.
-- Current major stage: `Stage 5`.
-- Current work package: `Stage 5 WP4 drift checks`.
-- Last completed work package: `Stage 5 WP3 portfolio weight calculation`.
-- Stage 3.1 prerequisite recovered: true.
-- Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.json`.
-- Next safe action: resume Stage 5 WP4 drift checks.
-
 ## Stage 3.1 Work Package Result
 
 - WP1 real data ingestion and cache: `completed_internal_review`.
@@ -33,12 +23,22 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
 - `current_repo_head`: `35348bc8c38df09562190f3c049142a252cbc85d`
 
-## Stage 5 WP3 Result
+## Program Runner
 
-- Portfolio weight calculator: `scripts/portfolio/calculate_portfolio_weights.py`.
-- Portfolio weights: `data/portfolio/portfolio_weights_latest.json`.
-- Work package report: `reports/program_runner/stage5_wp3_portfolio_weights_report.json`.
-- Internal review: `reports/internal_reviews/program/stage5_wp3_portfolio_weights.json`.
+- Program Runner status: `next_work_package_ready`.
+- Current major stage: `Stage 5`.
+- Current work package: `Stage 5 WP5 rebalance research ticket`.
+- Last completed work package: `Stage 5 WP4 drift checks`.
+- Stage 3.1 prerequisite recovered: true.
+- Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.json`.
+- Next safe action: resume Stage 5 WP5 rebalance research ticket.
+
+## Stage 5 WP4 Result
+
+- Drift checker: `scripts/portfolio/check_portfolio_drift.py`.
+- Drift artifact: `data/portfolio/portfolio_drift_latest.json`.
+- Work package report: `reports/program_runner/stage5_wp4_drift_checks_report.json`.
+- Internal review: `reports/internal_reviews/program/stage5_wp4_drift_checks.json`.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -47,7 +47,8 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Stage 5 WP1 manual holdings CSV import: `completed_internal_review`.
 - Stage 5 WP2 manual trades CSV import: `completed_internal_review`.
 - Stage 5 WP3 portfolio weight calculation: `completed_internal_review`.
-- Next work package: Stage 5 WP4 drift checks.
+- Stage 5 WP4 drift checks: `completed_internal_review`.
+- Next work package: Stage 5 WP5 rebalance research ticket.
 
 ## Safety Checklist
 
@@ -61,5 +62,6 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Added broker write surface: false.
 - Added order placement code: false.
 - Added automatic trading surface: false.
+- Generated actionable trade ticket: false.
 
 Final trading is manually decided by the user.
