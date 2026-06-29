@@ -63,6 +63,17 @@ def git_head() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
+def default_review_target_commit() -> str:
+    if LIVE_NOTIFICATION_JSON.exists():
+        try:
+            payload = read_json(LIVE_NOTIFICATION_JSON)
+        except json.JSONDecodeError:
+            return git_head()
+        if payload.get("feishu_message_sent") and payload.get("review_target_commit"):
+            return str(payload["review_target_commit"])
+    return git_head()
+
+
 def ensure_wp3_backtest_outputs() -> None:
     if BACKTEST_REPORT.exists() and EVIDENCE_REPORT.exists():
         return
@@ -99,7 +110,7 @@ def stage31_notification_status() -> dict[str, Any]:
     }
 
 
-def update_runner_state(updated_at: str) -> None:
+def update_runner_state(updated_at: str, review_target_commit: str) -> None:
     payload = read_json(RUNNER_STATE)
     notification = stage31_notification_status()
     payload.update(
@@ -113,8 +124,8 @@ def update_runner_state(updated_at: str) -> None:
                 "wp2_real_data_quality_and_monthly_panel",
                 "wp3_formal_backtest_and_evidence_package",
             ],
-            "review_target_commit": git_head(),
-            "current_repo_head": git_head(),
+            "review_target_commit": review_target_commit,
+            "current_repo_head": review_target_commit,
             "stage3_1_major_gate_feishu_notification_sent": notification["sent"],
             "stage3_1_live_notification_report": notification["report"],
             "stage3_1_feishu_notification_method": notification["method"],
@@ -720,7 +731,7 @@ def main() -> int:
     parser.add_argument("--review-target-commit", default=None)
     args = parser.parse_args()
     updated_at = datetime.now(timezone.utc).isoformat()
-    review_target_commit = args.review_target_commit or git_head()
+    review_target_commit = args.review_target_commit or default_review_target_commit()
     ensure_wp3_backtest_outputs()
     backtest = read_json(BACKTEST_REPORT)
     evidence = read_json(EVIDENCE_REPORT)
@@ -728,7 +739,7 @@ def main() -> int:
     write_internal_review(review)
     major = major_review_payload(backtest, evidence, review, review_target_commit, updated_at)
     write_major_review(major)
-    update_runner_state(updated_at)
+    update_runner_state(updated_at, review_target_commit)
     update_manifest()
     handoff = common_payload(major, review_target_commit, updated_at)
     write_handoff(handoff)
