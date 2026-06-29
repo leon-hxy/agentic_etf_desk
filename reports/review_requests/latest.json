@@ -82,9 +82,9 @@
   "order_placement_surface": false,
   "program_runner": {
     "current_major_stage": "Stage 6",
-    "current_work_package": "Stage 6 WP7 long-term runbook",
-    "last_completed_work_package": "Stage 6 WP6 OpenClaw agent boundary checks",
-    "next_safe_action": "resume Stage 6 WP7 long-term runbook",
+    "current_work_package": "Final v1.0 review package",
+    "last_completed_work_package": "Stage 6 WP7 long-term runbook",
+    "next_safe_action": "prepare Final v1.0 review package",
     "status": "next_work_package_ready"
   },
   "real_config_modified": false,

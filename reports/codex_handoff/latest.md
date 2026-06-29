@@ -22,9 +22,9 @@ The Stage 3.1 major review package remains ready for the user to request manual 
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 6`.
-- Current work package: `Stage 6 WP7 long-term runbook`.
-- Last completed work package: `Stage 6 WP6 OpenClaw agent boundary checks`.
-- Next safe action: resume Stage 6 WP7 long-term runbook.
+- Current work package: `Final v1.0 review package`.
+- Last completed work package: `Stage 6 WP7 long-term runbook`.
+- Next safe action: prepare Final v1.0 review package.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -36,18 +36,18 @@ The Stage 3.1 major review package remains ready for the user to request manual 
 - Stage 6 WP4 public repo hygiene: `completed_internal_review`.
 - Stage 6 WP5 Hermes/Feishu notification stability: `completed_internal_review`.
 - Stage 6 WP6 OpenClaw agent boundary checks: `completed_internal_review`.
-- Next work package: Stage 6 WP7 long-term runbook.
+- Stage 6 WP7 long-term runbook: `completed_internal_review`.
+- Next work package: Final v1.0 review package.
 
-## Stage 6 WP6 Result
+## Stage 6 WP7 Result
 
-- OpenClaw boundary policy: `reports/operations/stage6_wp6_openclaw_agent_boundary_checks.json`.
-- Work package report: `reports/program_runner/stage6_wp6_openclaw_agent_boundary_checks_report.json`.
-- Internal review: `reports/internal_reviews/program/stage6_wp6_openclaw_agent_boundary_checks.json`.
-- Apply to real OpenClaw: false.
+- Runbook: `docs/runbook.md`.
+- Work package report: `reports/program_runner/stage6_wp7_long_term_runbook_report.json`.
+- Internal review: `reports/internal_reviews/program/stage6_wp7_long_term_runbook.json`.
 - Real runtime modified: false.
 - Services restarted: false.
-- All agents repo-only draft: true.
-- Risk agent gate preserved: true.
+- Broker write surface: false.
+- Automatic trading surface: false.
 
 ## Commit Metadata
 
