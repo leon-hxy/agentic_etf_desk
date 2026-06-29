@@ -11,7 +11,7 @@
   "branch": "stage/stage3.1-real-etf-data",
   "chatgpt_review_requested_by_codex": false,
   "computer_use_executed": false,
-  "current_branch_head": "cd13054a200c0777b810d277a126160159bd204d",
+  "current_branch_head": "906278073630a0f8ee4e9169f6753f12e4c7fe00",
   "current_repo_head": "35348bc8c38df09562190f3c049142a252cbc85d",
   "data_boundary": {
     "backtest_month_count": 89,
@@ -108,7 +108,7 @@
   "stage3_1_major_gate_feishu_notification_sent": true,
   "status": "major_review_package_ready",
   "tests_status": "passed",
-  "updated_at": "2026-06-29T11:23:24.758034+00:00",
+  "updated_at": "2026-06-29T11:26:10.677277+00:00",
   "user_notification_sent": true,
   "work_package_internal_reviews": {
     "WP1 real data ingestion and cache": "reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.json",

@@ -17,6 +17,7 @@ MAJOR_READY_STAGE = "Stage 3.1 major review package ready"
 MAJOR_STAGE = "Stage 3.1 major review package"
 STAGE_MANIFEST = ROOT / "ops" / "stages" / "stage3_1.yaml"
 RUNNER_STATE = ROOT / "ops" / "runners" / "stage3_1_runner_state.json"
+PROGRAM_RUNNER_STATE = ROOT / "ops" / "program_runner" / "program_runner_state.json"
 LOOP_STATE = ROOT / "ops" / "state" / "loop_state.json"
 HANDOFF_MD = ROOT / "reports" / "codex_handoff" / "latest.md"
 HANDOFF_JSON = ROOT / "reports" / "codex_handoff" / "latest.json"
@@ -107,6 +108,27 @@ def stage31_notification_status() -> dict[str, Any]:
         "report": rel(LIVE_NOTIFICATION_JSON),
         "method": payload.get("delivery_method"),
         "status": payload.get("status") if sent else "not_sent",
+    }
+
+
+def program_runner_context() -> dict[str, Any]:
+    if not PROGRAM_RUNNER_STATE.exists():
+        return {}
+    try:
+        state = read_json(PROGRAM_RUNNER_STATE)
+    except json.JSONDecodeError:
+        return {}
+    recovery = state.get("recovery")
+    if not isinstance(recovery, dict) or recovery.get("status") != "completed":
+        return {}
+    return {
+        "status": state.get("status"),
+        "current_major_stage": state.get("current_major_stage"),
+        "current_work_package": state.get("current_work_package"),
+        "stage3_1_prerequisite_recovered": state.get("stage3_1_prerequisite", {}).get("satisfied"),
+        "stage3_1_reconciliation_report": recovery.get("report_json"),
+        "notification_preview": recovery.get("notification_preview_json"),
+        "next_safe_action": recovery.get("next_safe_action"),
     }
 
 
@@ -483,6 +505,7 @@ def write_major_review(payload: dict[str, Any]) -> None:
 def common_payload(major: dict[str, Any], review_target_commit: str, updated_at: str) -> dict[str, Any]:
     head = git_head()
     notification = stage31_notification_status()
+    runner_context = program_runner_context()
     return {
         "stage": MAJOR_READY_STAGE,
         "status": "stage3_1_major_review_package_ready",
@@ -496,6 +519,7 @@ def common_payload(major: dict[str, Any], review_target_commit: str, updated_at:
         "commit_binding_note": "review_target_commit is the WP3 implementation, internal-review target, and Stage 3.1 major-review target; handoff_commit remains null because the final handoff commit cannot self-reference its own SHA.",
         "current_work_package": "Stage 3.1 major review package ready",
         "completed_work_packages": WORK_PACKAGES,
+        "program_runner": runner_context,
         "next_work_package": None,
         "next_recommended_stage": "Manual ChatGPT major-stage review by user",
         "stage3_1_scope_consolidated": True,
@@ -581,6 +605,7 @@ def common_payload(major: dict[str, Any], review_target_commit: str, updated_at:
 
 def write_handoff(payload: dict[str, Any]) -> None:
     write_json(HANDOFF_JSON, payload)
+    runner = payload.get("program_runner", {})
     lines = [
         "# Codex Handoff",
         "",
@@ -589,6 +614,16 @@ def write_handoff(payload: dict[str, Any]) -> None:
         "Stage 3.1 major review package is ready.",
         "",
         "Stage 3.1 is one major stage: Real ETF Historical Data MVP.",
+        "",
+        "## Program Runner Recovery",
+        "",
+        f"- Program Runner status: `{runner.get('status')}`.",
+        f"- Current major stage: `{runner.get('current_major_stage')}`.",
+        f"- Current work package: `{runner.get('current_work_package')}`.",
+        f"- Stage 3.1 prerequisite recovered: {str(runner.get('stage3_1_prerequisite_recovered')).lower()}.",
+        f"- Reconciliation report: `{runner.get('stage3_1_reconciliation_report')}`.",
+        f"- Notification preview: `{runner.get('notification_preview')}`.",
+        f"- Next safe action: {runner.get('next_safe_action')}.",
         "",
         "## Work Package Result",
         "",

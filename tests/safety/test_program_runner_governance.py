@@ -386,8 +386,10 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
     def test_program_runner_reconciliation_report_and_notification_preview_exist(self) -> None:
         report = read_json("reports/program_runner/stage3_1_prereq_reconciliation.json")
         preview = read_json("reports/program_runner/notification_preview.json")
+        handoff = read_json("reports/codex_handoff/latest.json")
         report_md = read("reports/program_runner/stage3_1_prereq_reconciliation.md")
         preview_md = read("reports/program_runner/notification_preview.md")
+        handoff_md = read("reports/codex_handoff/latest.md")
 
         self.assertTrue(report["local_stage3_1_contains_real_commits_not_in_main_before_recovery"])
         self.assertFalse(report["commits_equivalent_in_main_before_recovery"])
@@ -404,8 +406,18 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertEqual(preview["trigger_status"], "blocked_recovered")
         self.assertIn("next_safe_action", preview)
         self.assertIn("Stage 3.1 prerequisite recovered", preview_md)
+        self.assertEqual(handoff["program_runner"]["status"], "next_work_package_ready")
+        self.assertTrue(handoff["program_runner"]["stage3_1_prerequisite_recovered"])
+        self.assertEqual(
+            handoff["program_runner"]["stage3_1_reconciliation_report"],
+            "reports/program_runner/stage3_1_prereq_reconciliation.json",
+        )
+        self.assertIn("## Program Runner Recovery", handoff_md)
+        self.assertIn("Stage 3.2 WP1 research robustness source validation", handoff_md)
 
-        combined = "\n".join([report_md, preview_md, json.dumps(preview, sort_keys=True)])
+        combined = "\n".join(
+            [report_md, preview_md, handoff_md, json.dumps(preview, sort_keys=True)]
+        )
         forbidden_fragments = [
             "/" + "Volumes" + "/",
             "/" + "Users" + "/",
