@@ -1,0 +1,82 @@
+program: agentic_etf_desk
+mode: autonomous_until_final_review
+final_review_only: true
+chatgpt_review_policy: final_program_review_only
+minor_review_policy: codex_internal_review
+notify_user_only_on:
+  - blocked
+  - approval_required
+  - final_review_ready
+safety_boundaries:
+  etf_only: true
+  final_trading_manual: true
+  computer_use_allowed: false
+  real_config_changes_allowed_without_approval: false
+  broker_write_allowed: false
+  auto_trading_allowed: false
+  public_repo_secret_values_allowed: false
+  trade_tickets_require_risk_agent_review: true
+  every_strategy_requires_benchmark: true
+  manual_imports_must_use_etf_universe_allowlist: true
+branch:
+  stable_branch: main
+  construction_branch: stage/v1-autonomous-completion
+  stage3_1_must_be_merged_to_main_before_business_work: true
+stages:
+  - id: stage_3_2
+    name: "Stage 3.2"
+    title: "Research Robustness & Evidence Hardening"
+    user_visible_review_gate: false
+    goals:
+      - "second-source or alternate-source validation"
+      - "price discrepancy checks"
+      - "cash / short-term Treasury assumption scenarios"
+      - "transaction cost scenarios"
+      - "parameter sensitivity"
+      - "different start-window tests"
+      - "in-sample / out-of-sample split"
+      - "benchmark comparison preserved for every strategy"
+      - "strategy conclusion grading"
+  - id: stage_4
+    name: "Stage 4"
+    title: "Hermes / OpenClaw ETF Research Desk Integration"
+    user_visible_review_gate: false
+    goals:
+      - "Feishu command routing for ETF research"
+      - "market brief"
+      - "weekly report"
+      - "monthly rebalance research ticket"
+      - "trade tickets must pass risk_agent review before actionable suggestions"
+      - "ETF universe health check"
+      - "backtest command"
+      - "OpenClaw agents draft or safe integration plan"
+      - "no execution agent"
+      - "no automatic trading"
+  - id: stage_5
+    name: "Stage 5"
+    title: "Manual Portfolio Loop & Journal"
+    user_visible_review_gate: false
+    goals:
+      - "manual holdings CSV import"
+      - "manual trades CSV import"
+      - "reject holdings or trades outside configs/universe/etf_universe.yaml"
+      - "portfolio weight calculation"
+      - "drift checks"
+      - "rebalance research ticket"
+      - "trade tickets must pass risk_agent review before actionable suggestions"
+      - "adoption / rejection journal"
+      - "compare AI suggestion vs user manual decision"
+      - "no broker write access"
+  - id: stage_6
+    name: "Stage 6"
+    title: "Operating Pilot, Security Hardening & v1.0 Final Review Package"
+    user_visible_review_gate: false
+    goals:
+      - "schedule dry-runs"
+      - "error recovery"
+      - "log redaction"
+      - "public repo hygiene"
+      - "Hermes/Feishu notification stability"
+      - "OpenClaw agent boundary checks"
+      - "long-term runbook"
+      - "final v1.0 review package"

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -24,6 +25,45 @@ def terms() -> list[str]:
         "_".join(("live", "trader")),
         "_".join(("broker", "write")),
     ]
+
+
+SAFE_GOVERNANCE_FIELDS = (
+    "_".join(("broker", "write", "allowed")),
+    "_".join(("broker", "write", "surface")),
+)
+LEGACY_REVIEW_FIELD = "_".join(("broker", "write", "surface"))
+UNSAFE_GOVERNANCE_LINE = re.compile(
+    r"(?im)^([ \t>*-]*[\"']?(?:"
+    + "|".join(re.escape(field) for field in SAFE_GOVERNANCE_FIELDS)
+    + r")[\"']?[ \t]*[:=][ \t]*(?:true|yes|1)[ \t,]*(?:#.*)?)$"
+)
+SAFE_GOVERNANCE_LINE = re.compile(
+    r"(?im)^([ \t>*-]*[\"']?(?:"
+    + "|".join(re.escape(field) for field in SAFE_GOVERNANCE_FIELDS)
+    + r")[\"']?[ \t]*[:=][ \t]*(?:false|no|0|null|none)?[ \t,]*(?:#.*)?)$"
+)
+
+
+def mask_safe_governance_fields(text: str) -> str:
+    """Ignore false-valued broker-write governance fields without masking true values."""
+
+    text = re.sub(
+        re.escape(LEGACY_REVIEW_FIELD),
+        "safe_governance_field",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    def replace(match: re.Match[str]) -> str:
+        line = match.group(1)
+        masked = line
+        for field in SAFE_GOVERNANCE_FIELDS:
+            masked = re.sub(
+                re.escape(field), "safe_governance_field", masked, flags=re.IGNORECASE
+            )
+        return masked
+
+    return SAFE_GOVERNANCE_LINE.sub(replace, text)
 
 
 def iter_files(root: Path) -> list[Path]:
@@ -48,11 +88,13 @@ def scan(root: Path) -> dict[str, object]:
     danger = terms()
     for path in iter_files(root):
         text = path.read_text(encoding="utf-8", errors="ignore")
-        lowered = text.lower().replace("broker_write_surface", "")
+        rel = str(path.relative_to(root))
+        for match in UNSAFE_GOVERNANCE_LINE.finditer(text):
+            findings.append({"file": rel, "reason": "unsafe broker-write governance flag"})
+        lowered = mask_safe_governance_fields(text).lower()
         matched = [term for term in danger if term.lower() in lowered]
         if not matched:
             continue
-        rel = str(path.relative_to(root))
         if is_doc(path, root):
             label_ok = "forbidden example" in lowered or "policy-only forbidden" in lowered
             if not label_ok:

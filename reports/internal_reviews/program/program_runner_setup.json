@@ -1,0 +1,140 @@
+{
+  "major_stage": "Program Runner Setup",
+  "work_package": "Autonomous Program Runner Setup",
+  "commit": null,
+  "commit_note": "This review is committed with the setup change and cannot self-reference its final commit SHA.",
+  "changed_files": [
+    "docs/branching_policy.md",
+    "configs/codex_automation/program_runner_heartbeat_prompt.md",
+    "configs/codex_automation/program_runner_manual_trigger_prompt.md",
+    "ops/program_runner/README.md",
+    "ops/program_runner/roadmap.yaml",
+    "ops/program_runner/program_runner_state.json",
+    "ops/program_runner/program_runner.md",
+    "ops/program_runner/approval_queue.json",
+    "ops/program_runner/heartbeat_log.md",
+    "ops/program_runner/blocked_reason.md",
+    "ops/templates/program_internal_review_template.md",
+    "ops/templates/program_internal_review_template.json",
+    "reports/program_reviews/README.md",
+    "reports/program_reviews/final/README.md",
+    "reports/internal_reviews/program/README.md",
+    "reports/internal_reviews/program/program_runner_setup.md",
+    "reports/internal_reviews/program/program_runner_setup.json",
+    "scripts/safety/check_forbidden_surfaces.py",
+    "tests/safety/test_program_runner_governance.py"
+  ],
+  "reviewer_mode": "subagents",
+  "security_reviewer": {
+    "result": "pass_after_fixes",
+    "findings": [
+      "Missing risk_agent gate in the autonomous runner.",
+      "Approval queue conflicted with mandatory git push.",
+      "The broker-write allowed scanner exception was value-blind."
+    ],
+    "fixes_applied": [
+      "Added risk_agent trade-ticket gate to runner, templates, prompts, and roadmap.",
+      "Added safe git push exception after public repo hygiene, secret, forbidden-surface, and relevant safety checks pass.",
+      "Reworked forbidden-surface scanner and added true-value regression coverage."
+    ],
+    "secrets_touched": false,
+    "live_configs_modified": false,
+    "automatic_trading_surface": false,
+    "broker_write_surface": false
+  },
+  "domain_quant_reviewer": {
+    "result": "pass_after_fixes",
+    "findings": [
+      "Final-review-only governance needed migration language in branch policy.",
+      "Trade-ticket risk review, benchmark comparison, and ETF allowlist imports were too implicit.",
+      "Final package evidence wording needed to avoid formal investment-proof framing."
+    ],
+    "fixes_applied": [
+      "Added Program Runner final-only review policy to branching policy.",
+      "Added benchmark, risk_agent, and ETF allowlist obligations.",
+      "Clarified final evidence as research/backtest/scenario evidence, not formal investment proof."
+    ],
+    "etf_only_maintained": true,
+    "benchmark_comparison_present": true,
+    "research_limitations_clear": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "trade_tickets_actionable_without_risk_agent_review": false
+  },
+  "integration_reviewer": {
+    "result": "pass_after_fixes",
+    "findings": [
+      "Stage 3.1 prerequisite could be bypassed.",
+      "No branch guard before automated commit/push.",
+      "Intermediate states were not resumable.",
+      "Runner state update ordering was not auditable.",
+      "Approval queue lacked stable item fields."
+    ],
+    "fixes_applied": [
+      "Added branch guard and Stage 3.1 prerequisite verification.",
+      "Added resume instructions for intermediate states.",
+      "Moved runner state update before final commit and push.",
+      "Extended approval item schema."
+    ],
+    "hermes_feishu_boundary_respected": true,
+    "openclaw_boundary_respected": true,
+    "real_runtime_modified": false
+  },
+  "test_reproducibility_reviewer": {
+    "result": "pass_after_fixes",
+    "findings": [
+      "Files were untracked during review.",
+      "auto_trading key drift existed.",
+      "Roadmap test was mostly string-fragment based.",
+      "Scanner exception lacked red regression coverage."
+    ],
+    "fixes_applied": [
+      "Standardized on auto_trading_allowed.",
+      "Added structural roadmap block parsing in tests.",
+      "Added scanner red/green regression coverage."
+    ],
+    "tests_run": [
+      "python3 -m unittest tests.safety.test_program_runner_governance",
+      "python3 -m unittest",
+      "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+      "python3 scripts/safety/check_secret_leaks.py --root .",
+      "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+      "python3 scripts/safety/check_universe_only.py --root .",
+      "git diff --check"
+    ],
+    "reproducible_outputs": true
+  },
+  "public_repo_hygiene_reviewer": {
+    "result": "pass_after_fixes",
+    "findings": [
+      "The broker-write allowed scanner exception could mask future unsafe true value."
+    ],
+    "fixes_applied": [
+      "Added value-aware scanner masking and true-value regression coverage."
+    ],
+    "local_private_paths": false,
+    "secret_values": false,
+    "public_repo_safe": true
+  },
+  "findings": [
+    "All reviewer findings were addressed in repo-only files."
+  ],
+  "fixes_applied": [
+    "Added Program Runner governance artifacts.",
+    "Added branch and Stage 3.1 prerequisite guards.",
+    "Added risk_agent, benchmark, and ETF allowlist obligations.",
+    "Hardened forbidden-surface scanner exceptions.",
+    "Added Program Runner governance safety tests."
+  ],
+  "tests": [
+    "python3 -m unittest tests.safety.test_program_runner_governance",
+    "python3 -m unittest",
+    "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+    "python3 scripts/safety/check_secret_leaks.py --root .",
+    "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+    "python3 scripts/safety/check_universe_only.py --root .",
+    "git diff --check"
+  ],
+  "pass_fail": "pass_after_fixes_final_verification_passed_pending_git_push",
+  "requires_user_attention": false,
+  "promote_to_next_work_package": false
+}

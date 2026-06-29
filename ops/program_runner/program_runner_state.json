@@ -1,0 +1,29 @@
+{
+  "program": "agentic_etf_desk",
+  "mode": "autonomous_until_final_review",
+  "stable_branch": "main",
+  "construction_branch": "stage/v1-autonomous-completion",
+  "stage3_1_prerequisite": {
+    "required": true,
+    "description": "Stage 3.1 must be merged into main before Stage 3.2 business work begins.",
+    "verify_before_work_package": true
+  },
+  "current_major_stage": "Stage 3.2",
+  "current_work_package": null,
+  "status": "ready",
+  "final_review_only": true,
+  "notify_user_only_on": [
+    "blocked",
+    "approval_required",
+    "final_review_ready"
+  ],
+  "chatgpt_review_policy": "final_program_review_only",
+  "minor_review_policy": "codex_internal_review",
+  "computer_use_allowed": false,
+  "real_config_changes_allowed_without_approval": false,
+  "broker_write_allowed": false,
+  "auto_trading_allowed": false,
+  "git_push_allowed_after_public_repo_hygiene_checks": true,
+  "final_review_package": "reports/program_reviews/final/latest.md",
+  "final_review_package_json": "reports/program_reviews/final/latest.json"
+}
