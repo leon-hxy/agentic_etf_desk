@@ -237,7 +237,7 @@ Each heartbeat entry should record:
 - whether user attention is required
 
 Do not include secrets, tokens, auth values, local-private paths, or private runtime identifiers.
-## 2026-06-29T15:26:32Z Stage 4 WP7
+## 2026-06-29T15:39:23Z Stage 4 WP7
 
 - status: next_work_package_ready
 - completed_work_package: Stage 4 WP7 OpenClaw agents draft or safe integration plan
@@ -245,7 +245,7 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
 - reviewer_mode: simulated_separate_pass
 - live_openclaw_modified: false
 - final_trading_manual: true
-## 2026-06-29T15:26:32Z Stage 5 WP1
+## 2026-06-29T15:39:23Z Stage 5 WP1
 
 - status: next_work_package_ready
 - completed_work_package: Stage 5 WP1 manual holdings CSV import
@@ -253,9 +253,9 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
 - reviewer_mode: simulated_separate_pass
 - universe_allowlist_enforced: true
 - final_trading_manual: true
-## 2026-06-29T15:26:33Z Stage 5 WP2
+## 2026-06-29T15:39:24Z Stage 5 WP2
 
-- wake time in UTC: 2026-06-29T15:26:33Z
+- wake time in UTC: 2026-06-29T15:39:24Z
 - previous status: next_work_package_ready
 - selected work package: Stage 5 WP2 manual trades CSV import
 - reviewer mode: simulated_separate_pass
@@ -275,5 +275,30 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
 - next status: next_work_package_ready
 - whether user attention is required: no
 - next_safe_action: resume Stage 5 WP3 portfolio weight calculation
+- universe_allowlist_enforced: true
+- final_trading_manual: true
+## 2026-06-29T15:41:40Z Stage 5 WP3
+
+- wake time in UTC: 2026-06-29T15:41:40Z
+- previous status: next_work_package_ready
+- selected work package: Stage 5 WP3 portfolio weight calculation
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage5_wp3_portfolio_weights`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool data/portfolio/portfolio_weights_latest.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- whether user attention is required: no
+- next_safe_action: resume Stage 5 WP4 drift checks
 - universe_allowlist_enforced: true
 - final_trading_manual: true

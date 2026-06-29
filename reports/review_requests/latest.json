@@ -82,9 +82,9 @@
   "order_placement_surface": false,
   "program_runner": {
     "current_major_stage": "Stage 5",
-    "current_work_package": "Stage 5 WP3 portfolio weight calculation",
-    "last_completed_work_package": "Stage 5 WP2 manual trades CSV import",
-    "next_safe_action": "resume Stage 5 WP3 portfolio weight calculation",
+    "current_work_package": "Stage 5 WP4 drift checks",
+    "last_completed_work_package": "Stage 5 WP3 portfolio weight calculation",
+    "next_safe_action": "resume Stage 5 WP4 drift checks",
     "status": "next_work_package_ready"
   },
   "real_config_modified": false,

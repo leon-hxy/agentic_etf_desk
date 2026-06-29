@@ -10,13 +10,13 @@ Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 5`.
-- Current work package: `Stage 5 WP3 portfolio weight calculation`.
-- Last completed work package: `Stage 5 WP2 manual trades CSV import`.
+- Current work package: `Stage 5 WP4 drift checks`.
+- Last completed work package: `Stage 5 WP3 portfolio weight calculation`.
 - Stage 3.1 prerequisite recovered: true.
 - Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.json`.
-- Next safe action: resume Stage 5 WP3 portfolio weight calculation.
+- Next safe action: resume Stage 5 WP4 drift checks.
 
-## Work Package Result
+## Stage 3.1 Work Package Result
 
 - WP1 real data ingestion and cache: `completed_internal_review`.
 - WP2 real data quality and monthly panel: `completed_internal_review`.
@@ -33,12 +33,12 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
 - `current_repo_head`: `35348bc8c38df09562190f3c049142a252cbc85d`
 
-## Stage 5 WP2 Result
+## Stage 5 WP3 Result
 
-- Manual trades importer: `scripts/portfolio/import_manual_trades.py`.
-- Normalized trades: `data/portfolio/manual_trades_latest.json`.
-- Work package report: `reports/program_runner/stage5_wp2_manual_trades_import_report.json`.
-- Internal review: `reports/internal_reviews/program/stage5_wp2_manual_trades_import.json`.
+- Portfolio weight calculator: `scripts/portfolio/calculate_portfolio_weights.py`.
+- Portfolio weights: `data/portfolio/portfolio_weights_latest.json`.
+- Work package report: `reports/program_runner/stage5_wp3_portfolio_weights_report.json`.
+- Internal review: `reports/internal_reviews/program/stage5_wp3_portfolio_weights.json`.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -46,7 +46,8 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 
 - Stage 5 WP1 manual holdings CSV import: `completed_internal_review`.
 - Stage 5 WP2 manual trades CSV import: `completed_internal_review`.
-- Next work package: Stage 5 WP3 portfolio weight calculation.
+- Stage 5 WP3 portfolio weight calculation: `completed_internal_review`.
+- Next work package: Stage 5 WP4 drift checks.
 
 ## Safety Checklist
 
