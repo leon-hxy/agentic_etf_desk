@@ -71,7 +71,7 @@
       "title": "Operating Pilot, Security Hardening & v1.0 Final Review Package"
     }
   ],
-  "created_at_utc": "2026-06-29T21:49:41Z",
+  "created_at_utc": "2026-06-29T22:32:20Z",
   "data_source_notes": [
     "Stage 3.1 and Stage 3.2 artifacts use committed ETF price cache and processed panel artifacts.",
     "Stage 3.2 adds source validation, discrepancy checks, cash assumptions, costs, parameter sensitivity, start-window checks, and in-sample/out-of-sample review."
@@ -118,7 +118,7 @@
   },
   "final_readiness_message": "v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？",
   "final_trading_manual": true,
-  "generated_from_head": "7ffdd71f6dde9c2c8563ea2a84a7a1357c88aea9",
+  "generated_from_head": "f6eb4860f6158fa60ca64e4cbce0623954699c00",
   "hermes_feishu_status": {
     "live_configuration_modified": false,
     "live_send_attempted": false,
