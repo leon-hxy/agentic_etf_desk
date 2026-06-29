@@ -112,16 +112,16 @@ class Stage32Wp6InSampleOutOfSampleTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
         self.assertEqual(state["current_major_stage"], "Stage 6")
-        self.assertEqual(state["current_work_package"], "Stage 6 WP1 schedule dry-runs")
+        self.assertEqual(state["current_work_package"], "Stage 6 WP2 error recovery")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 5 WP6 adoption and rejection journal")
+        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP1 schedule dry-runs")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json",
+            "reports/internal_reviews/program/stage6_wp1_schedule_dry_runs.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/program_runner/stage5_wp6_adoption_rejection_journal_report.json",
+            "reports/program_runner/stage6_wp1_schedule_dry_runs_report.json",
         )
         self.assertIn("stage3_2_wp6_in_sample_out_of_sample", state["stage3_2"]["completed_work_packages"])
         self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")

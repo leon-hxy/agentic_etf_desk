@@ -27,11 +27,16 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 6`.
-- Current work package: `Stage 6 WP1 schedule dry-runs`.
-- Last completed work package: `Stage 5 WP6 adoption and rejection journal`.
-- Next safe action: resume Stage 6 WP1 schedule dry-runs.
+- Current work package: `Stage 6 WP2 error recovery`.
+- Last completed work package: `Stage 6 WP1 schedule dry-runs`.
+- Next safe action: resume Stage 6 WP2 error recovery.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
+
+## Stage 6 Completed Work Packages
+
+- Stage 6 WP1 schedule dry-runs: `completed_internal_review`.
+- Next work package: Stage 6 WP2 error recovery.
 
 ## Stage 5 Completed Work Packages
 
@@ -41,15 +46,15 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Stage 5 WP4 drift checks: `completed_internal_review`.
 - Stage 5 WP5 rebalance research ticket: `completed_internal_review`.
 - Stage 5 WP6 adoption and rejection journal: `completed_internal_review`.
-- Next work package: Stage 6 WP1 schedule dry-runs.
 
-## Stage 5 WP6 Result
+## Stage 6 WP1 Result
 
-- Adoption/rejection journal: `reports/portfolio/stage5_wp6_adoption_rejection_journal.json`.
-- Work package report: `reports/program_runner/stage5_wp6_adoption_rejection_journal_report.json`.
-- Internal review: `reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json`.
-- New actionable trade ticket generated: false.
-- risk_agent review: passed.
+- Schedule dry-run plan: `reports/operations/stage6_wp1_schedule_dry_runs.json`.
+- Work package report: `reports/program_runner/stage6_wp1_schedule_dry_runs_report.json`.
+- Internal review: `reports/internal_reviews/program/stage6_wp1_schedule_dry_runs.json`.
+- Live send attempted: false.
+- Real runtime modified: false.
+- Services restarted: false.
 
 ## Safety Checklist
 
@@ -64,4 +69,4 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Added order placement code: false.
 - Added automatic trading surface: false.
 
-This is research advice, not automatic order placement. Final trading is manually decided by the user.
+Final trading is manually decided by the user.

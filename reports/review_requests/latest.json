@@ -82,9 +82,9 @@
   "order_placement_surface": false,
   "program_runner": {
     "current_major_stage": "Stage 6",
-    "current_work_package": "Stage 6 WP1 schedule dry-runs",
-    "last_completed_work_package": "Stage 5 WP6 adoption and rejection journal",
-    "next_safe_action": "resume Stage 6 WP1 schedule dry-runs",
+    "current_work_package": "Stage 6 WP2 error recovery",
+    "last_completed_work_package": "Stage 6 WP1 schedule dry-runs",
+    "next_safe_action": "resume Stage 6 WP2 error recovery",
     "status": "next_work_package_ready"
   },
   "real_config_modified": false,
