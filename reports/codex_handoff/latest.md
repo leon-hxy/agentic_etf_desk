@@ -22,9 +22,9 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 
 - Program Runner status: `next_work_package_ready`.
 - Current major stage: `Stage 6`.
-- Current work package: `Stage 6 WP3 log redaction`.
-- Last completed work package: `Stage 6 WP2 error recovery`.
-- Next safe action: resume Stage 6 WP3 log redaction.
+- Current work package: `Stage 6 WP4 public repo hygiene`.
+- Last completed work package: `Stage 6 WP3 log redaction`.
+- Next safe action: resume Stage 6 WP4 public repo hygiene.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
@@ -32,7 +32,8 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 
 - Stage 6 WP1 schedule dry-runs: `completed_internal_review`.
 - Stage 6 WP2 error recovery: `completed_internal_review`.
-- Next work package: Stage 6 WP3 log redaction.
+- Stage 6 WP3 log redaction: `completed_internal_review`.
+- Next work package: Stage 6 WP4 public repo hygiene.
 
 ## Stage 5 Completed Work Packages
 
@@ -43,15 +44,16 @@ The Stage 3.1 major review package is ready for the user to request manual ChatG
 - Stage 5 WP5 rebalance research ticket: `completed_internal_review`.
 - Stage 5 WP6 adoption and rejection journal: `completed_internal_review`.
 
-## Stage 6 WP2 Result
+## Stage 6 WP3 Result
 
-- Error recovery playbook: `reports/operations/stage6_wp2_error_recovery.json`.
-- Work package report: `reports/program_runner/stage6_wp2_error_recovery_report.json`.
-- Internal review: `reports/internal_reviews/program/stage6_wp2_error_recovery.json`.
+- Log redaction policy: `reports/operations/stage6_wp3_log_redaction.json`.
+- Work package report: `reports/program_runner/stage6_wp3_log_redaction_report.json`.
+- Internal review: `reports/internal_reviews/program/stage6_wp3_log_redaction.json`.
+- Redactor module: `scripts/safety/redact_sensitive_text.py`.
 - Live send attempted: false.
 - Real runtime modified: false.
 - Services restarted: false.
-- Default runtime action: `do_not_restart_or_modify_real_services`.
+- Default log action: `redact_before_repo_visible_write`.
 
 ## Commit Metadata
 

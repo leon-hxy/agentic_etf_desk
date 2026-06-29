@@ -103,16 +103,16 @@ class Stage32Wp7StrategyConclusionGradingTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
         self.assertEqual(state["current_major_stage"], "Stage 6")
-        self.assertEqual(state["current_work_package"], "Stage 6 WP3 log redaction")
+        self.assertEqual(state["current_work_package"], "Stage 6 WP4 public repo hygiene")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP2 error recovery")
+        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP3 log redaction")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage6_wp2_error_recovery.json",
+            "reports/internal_reviews/program/stage6_wp3_log_redaction.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/program_runner/stage6_wp2_error_recovery_report.json",
+            "reports/program_runner/stage6_wp3_log_redaction_report.json",
         )
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
