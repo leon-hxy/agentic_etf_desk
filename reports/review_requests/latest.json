@@ -83,9 +83,10 @@
   "program_runner": {
     "current_major_stage": "Stage 6",
     "current_work_package": "Final v1.0 review package",
-    "last_completed_work_package": "Stage 6 WP7 long-term runbook",
-    "next_safe_action": "prepare Final v1.0 review package",
-    "status": "next_work_package_ready"
+    "final_review_package": "reports/program_reviews/final/latest.json",
+    "last_completed_work_package": "Final v1.0 review package",
+    "next_safe_action": "ask user whether to request ChatGPT final review",
+    "status": "final_review_ready"
   },
   "real_config_modified": false,
   "real_config_modified_this_stage": false,

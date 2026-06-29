@@ -81,8 +81,8 @@ class Stage32Wp1SourceValidationTest(unittest.TestCase):
 
         self.assertEqual(state["current_major_stage"], "Stage 6")
         self.assertEqual(state["current_work_package"], "Final v1.0 review package")
-        self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP7 long-term runbook")
+        self.assertEqual(state["status"], "final_review_ready")
+        self.assertEqual(state["last_completed_work_package"], "Final v1.0 review package")
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertIn("stage3_2_wp1_source_validation", state["stage3_2"]["completed_work_packages"])
         self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")

@@ -1,14 +1,10 @@
 # Program Runner Notification Preview
 
-Generated: 2026-06-29T11:17:25Z
+- trigger_status: `final_review_ready`
+- status: `generated_no_live_send`
+- next_safe_action: ask user whether to request ChatGPT final review
+- live_send_attempted: false
 
-- status: generated_no_live_send
-- trigger_status: blocked_recovered
-- reason_live_send_not_attempted: real Hermes/Feishu gateway modification or service restart is outside the approved recovery scope
-- next_safe_action: resume Stage 3.2 from the first research robustness source-validation work package
-
-## User Message
-
-Program Runner block recovered. Stage 3.1 prerequisite recovered after the completion branch was reconciled into main. Program Runner status is `next_work_package_ready`; next safe action is to resume Stage 3.2 from the first research robustness source-validation work package.
+v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？
 
 Final trading is manually decided by the user.

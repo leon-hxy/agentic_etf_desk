@@ -1,0 +1,259 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading_surface": false,
+  "benchmark_comparison_required": true,
+  "broker_interfaces_connected": false,
+  "broker_write_surface": false,
+  "chatgpt_review_requested_by_codex": false,
+  "completed_stages": [
+    {
+      "completed_work_packages": [
+        "stage3_2_wp1_source_validation",
+        "stage3_2_wp2_price_cash_scenarios",
+        "stage3_2_wp3_transaction_cost_scenarios",
+        "stage3_2_wp4_parameter_sensitivity",
+        "stage3_2_wp5_start_window_robustness",
+        "stage3_2_wp6_in_sample_out_of_sample",
+        "stage3_2_wp7_strategy_conclusion_grading"
+      ],
+      "id": "stage_3_2",
+      "name": "Stage 3.2",
+      "review_gate": "internal_codex_review_only",
+      "status": "completed_internal_review",
+      "title": "Research Robustness & Evidence Hardening"
+    },
+    {
+      "completed_work_packages": [
+        "stage4_wp1_feishu_command_routing",
+        "stage4_wp2_market_brief_command_output",
+        "stage4_wp3_weekly_report_command_output",
+        "stage4_wp4_monthly_rebalance_command_output",
+        "stage4_wp5_universe_health_check_command_output",
+        "stage4_wp6_backtest_command_output",
+        "stage4_wp7_openclaw_agents_integration_plan"
+      ],
+      "id": "stage_4",
+      "name": "Stage 4",
+      "review_gate": "internal_codex_review_only",
+      "status": "completed_internal_review",
+      "title": "Hermes / OpenClaw ETF Research Desk Integration"
+    },
+    {
+      "completed_work_packages": [
+        "stage5_wp1_manual_holdings_import",
+        "stage5_wp2_manual_trades_import",
+        "stage5_wp3_portfolio_weights",
+        "stage5_wp4_drift_checks",
+        "stage5_wp5_rebalance_research_ticket",
+        "stage5_wp6_adoption_rejection_journal"
+      ],
+      "id": "stage_5",
+      "name": "Stage 5",
+      "review_gate": "internal_codex_review_only",
+      "status": "completed_internal_review",
+      "title": "Manual Portfolio Loop & Journal"
+    },
+    {
+      "completed_work_packages": [
+        "stage6_wp1_schedule_dry_runs",
+        "stage6_wp2_error_recovery",
+        "stage6_wp3_log_redaction",
+        "stage6_wp4_public_repo_hygiene",
+        "stage6_wp5_notification_stability",
+        "stage6_wp6_openclaw_agent_boundary_checks",
+        "stage6_wp7_long_term_runbook",
+        "final_v1_0_review_package"
+      ],
+      "id": "stage_6",
+      "name": "Stage 6",
+      "review_gate": "manual_chatgpt_final_review_optional_by_user",
+      "status": "final_review_ready",
+      "title": "Operating Pilot, Security Hardening & v1.0 Final Review Package"
+    }
+  ],
+  "created_at_utc": "2026-06-29T18:27:28Z",
+  "data_source_notes": [
+    "Stage 3.1 and Stage 3.2 artifacts use committed ETF price cache and processed panel artifacts.",
+    "Stage 3.2 adds source validation, discrepancy checks, cash assumptions, costs, parameter sensitivity, start-window checks, and in-sample/out-of-sample review."
+  ],
+  "evidence_artifacts": {
+    "stage_3_2_research_robustness": [
+      "reports/research_robustness/stage3_2_wp1_source_validation_report.md",
+      "reports/research_robustness/stage3_2_wp2_price_cash_scenarios_report.md",
+      "reports/research_robustness/stage3_2_wp3_transaction_cost_scenarios_report.md",
+      "reports/research_robustness/stage3_2_wp4_parameter_sensitivity_report.md",
+      "reports/research_robustness/stage3_2_wp5_start_window_robustness_report.md",
+      "reports/research_robustness/stage3_2_wp6_in_sample_out_of_sample_report.md",
+      "reports/research_robustness/stage3_2_wp7_strategy_conclusion_grading_report.md"
+    ],
+    "stage_4_integration": [
+      "reports/program_runner/stage4_wp1_feishu_command_routing_report.md",
+      "reports/program_runner/stage4_wp2_market_brief_command_output_report.md",
+      "reports/program_runner/stage4_wp3_weekly_report_command_output_report.md",
+      "reports/program_runner/stage4_wp4_monthly_rebalance_command_output_report.md",
+      "reports/program_runner/stage4_wp5_universe_health_check_command_output_report.md",
+      "reports/program_runner/stage4_wp6_backtest_command_output_report.md",
+      "reports/program_runner/stage4_wp7_openclaw_agents_integration_plan_report.md"
+    ],
+    "stage_5_manual_portfolio_loop": [
+      "reports/program_runner/stage5_wp1_manual_holdings_import_report.md",
+      "reports/program_runner/stage5_wp2_manual_trades_import_report.md",
+      "reports/program_runner/stage5_wp3_portfolio_weights_report.md",
+      "reports/program_runner/stage5_wp4_drift_checks_report.md",
+      "reports/program_runner/stage5_wp5_rebalance_research_ticket_report.md",
+      "reports/program_runner/stage5_wp6_adoption_rejection_journal_report.md",
+      "reports/portfolio/stage5_wp5_rebalance_research_ticket.md",
+      "reports/portfolio/stage5_wp6_adoption_rejection_journal.md"
+    ],
+    "stage_6_operations": [
+      "reports/operations/stage6_wp1_schedule_dry_runs.md",
+      "reports/operations/stage6_wp2_error_recovery.md",
+      "reports/operations/stage6_wp3_log_redaction.md",
+      "reports/operations/stage6_wp4_public_repo_hygiene.md",
+      "reports/operations/stage6_wp5_notification_stability.md",
+      "reports/operations/stage6_wp6_openclaw_agent_boundary_checks.md",
+      "reports/operations/stage6_wp7_long_term_runbook.md",
+      "docs/runbook.md"
+    ]
+  },
+  "final_readiness_message": "v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？",
+  "final_trading_manual": true,
+  "generated_from_head": "a3c5382be9f1d708530176f9daebbc13f04e3a4b",
+  "hermes_feishu_status": {
+    "live_configuration_modified": false,
+    "live_send_attempted": false,
+    "notification_preview": "reports/program_runner/notification_preview.md",
+    "repo_only_command_routing_and_output_contracts": "prepared"
+  },
+  "internal_reviews": {
+    "artifacts": [
+      "reports/internal_reviews/program/program_runner_setup.json",
+      "reports/internal_reviews/program/stage3_2_wp1_source_validation.json",
+      "reports/internal_reviews/program/stage3_2_wp2_price_cash_scenarios.json",
+      "reports/internal_reviews/program/stage3_2_wp3_transaction_cost_scenarios.json",
+      "reports/internal_reviews/program/stage3_2_wp4_parameter_sensitivity.json",
+      "reports/internal_reviews/program/stage3_2_wp5_start_window_robustness.json",
+      "reports/internal_reviews/program/stage3_2_wp6_in_sample_out_of_sample.json",
+      "reports/internal_reviews/program/stage3_2_wp7_strategy_conclusion_grading.json",
+      "reports/internal_reviews/program/stage4_wp1_feishu_command_routing.json",
+      "reports/internal_reviews/program/stage4_wp2_market_brief_command_output.json",
+      "reports/internal_reviews/program/stage4_wp3_weekly_report_command_output.json",
+      "reports/internal_reviews/program/stage4_wp4_monthly_rebalance_command_output.json",
+      "reports/internal_reviews/program/stage4_wp5_universe_health_check_command_output.json",
+      "reports/internal_reviews/program/stage4_wp6_backtest_command_output.json",
+      "reports/internal_reviews/program/stage4_wp7_openclaw_agents_integration_plan.json",
+      "reports/internal_reviews/program/stage5_wp1_manual_holdings_import.json",
+      "reports/internal_reviews/program/stage5_wp2_manual_trades_import.json",
+      "reports/internal_reviews/program/stage5_wp3_portfolio_weights.json",
+      "reports/internal_reviews/program/stage5_wp4_drift_checks.json",
+      "reports/internal_reviews/program/stage5_wp5_rebalance_research_ticket.json",
+      "reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json",
+      "reports/internal_reviews/program/stage6_wp1_schedule_dry_runs.json",
+      "reports/internal_reviews/program/stage6_wp2_error_recovery.json",
+      "reports/internal_reviews/program/stage6_wp3_log_redaction.json",
+      "reports/internal_reviews/program/stage6_wp4_public_repo_hygiene.json",
+      "reports/internal_reviews/program/stage6_wp5_notification_stability.json",
+      "reports/internal_reviews/program/stage6_wp6_openclaw_agent_boundary_checks.json",
+      "reports/internal_reviews/program/stage6_wp7_long_term_runbook.json"
+    ],
+    "reviewer_mode": "simulated_separate_pass",
+    "summary": "Program work packages used Codex internal review with simulated separate reviewer passes."
+  },
+  "key_features": [
+    "ETF-only allowlisted universe",
+    "research robustness checks",
+    "benchmark-aware backtest evidence",
+    "Hermes/Feishu command output contracts",
+    "manual holdings and trades imports",
+    "portfolio drift checks",
+    "risk-reviewed rebalance research ticket",
+    "adoption and rejection journal",
+    "operating runbook and notification gates"
+  ],
+  "limitations": [
+    "Research/backtest/scenario evidence is not formal investment proof.",
+    "Backtests depend on available public ETF data and committed cache quality.",
+    "Generated trade tickets are research advice only and are not automatic order placement.",
+    "Final trading is manually decided by the user."
+  ],
+  "long_term_operating_pilot": {
+    "notification_gate": "blocked, approval_required, or final_review_ready only",
+    "ready_to_enter": true,
+    "runbook": "docs/runbook.md"
+  },
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "not_investment_advice": true,
+  "openclaw_agent_status": {
+    "automatic_trading_agent_created": false,
+    "execution_surface_created": false,
+    "live_runtime_modified": false,
+    "safe_integration_plan": "prepared"
+  },
+  "order_placement_surface": false,
+  "program": "agentic_etf_desk",
+  "project_goals": [
+    "Produce ETF-only research, backtests, risk reviews, reports, and manual trade recommendation tickets.",
+    "Preserve manual final trading decisions by the user.",
+    "Avoid broker write access, order placement, automatic trading, live runtime mutation, and secrets exposure."
+  ],
+  "real_runtime_modified": false,
+  "report_type": "final_v1_program_review_package",
+  "research_conclusion": "The repo is ready for final v1.0 review as an ETF-only research desk. The evidence package supports review of methodology, safety boundaries, and operating readiness, but it is research/backtest/scenario evidence, not formal investment proof.",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "scope": "Final review package only; no new trade ticket generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "security_boundaries": {
+    "asset_scope": "ETF-only",
+    "automatic_trading_surface": false,
+    "broker_write_surface": false,
+    "live_configs_modified": false,
+    "order_placement_surface": false,
+    "real_runtime_modified": false,
+    "secrets_touched": false
+  },
+  "services_restarted": false,
+  "status": "final_review_ready",
+  "tests": [
+    "python3 -m unittest tests.safety.test_final_v1_review_package",
+    "python3 -m unittest tests.safety.test_program_runner_governance",
+    "python3 -m unittest tests.safety.test_safety",
+    "python3 -m unittest discover tests/safety",
+    "python3 -m unittest discover tests/smoke",
+    "python3 -m json.tool ops/program_runner/program_runner_state.json",
+    "python3 -m json.tool reports/program_reviews/final/latest.json",
+    "python3 -m json.tool reports/program_runner/final_v1_review_package_report.json",
+    "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+    "python3 scripts/safety/check_secret_leaks.py --root .",
+    "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+    "python3 scripts/safety/check_universe_only.py",
+    "git diff --check"
+  ],
+  "validation_checks": {
+    "all_program_stages_completed": true,
+    "automatic_trading_surface": false,
+    "broker_interfaces_connected": false,
+    "broker_write_surface": false,
+    "chatgpt_review_requested_by_codex": false,
+    "computer_use_executed": false,
+    "etf_only": true,
+    "every_strategy_requires_benchmark": true,
+    "final_files_generated": true,
+    "final_trading_manual": true,
+    "notification_preview_generated": true,
+    "order_placement_surface": false,
+    "real_runtime_modified": false,
+    "research_backtest_scenario_evidence_not_formal_investment_proof": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "secrets_touched": false,
+    "services_restarted": false
+  },
+  "validation_summary": {
+    "findings": [],
+    "findings_count": 0,
+    "status": "pass"
+  },
+  "work_package": "Final v1.0 review package"
+}

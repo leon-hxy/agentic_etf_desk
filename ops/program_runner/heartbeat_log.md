@@ -573,3 +573,30 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
 - real_runtime_modified: false
 - services_restarted: false
 - final_trading_manual: true
+## 2026-06-29T18:27:28Z Final v1.0 Review Package
+
+- wake time in UTC: 2026-06-29T18:27:28Z
+- previous status: next_work_package_ready
+- selected work package: Final v1.0 review package
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_final_v1_review_package`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/program_reviews/final/latest.json`
+  - `python3 -m json.tool reports/program_runner/final_v1_review_package_report.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: final_review_ready
+- next_safe_action: ask user whether to request ChatGPT final review
+- repo_only: true
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true

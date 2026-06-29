@@ -157,7 +157,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
             "mode": "autonomous_until_final_review",
             "current_major_stage": "Stage 6",
             "current_work_package": "Final v1.0 review package",
-            "status": "next_work_package_ready",
+            "status": "final_review_ready",
             "final_review_only": True,
             "notify_user_only_on": [
                 "blocked",
@@ -188,9 +188,9 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertEqual(state["last_completed_work_package"], "Stage 6 WP7 long-term runbook")
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage6_wp7_long_term_runbook.json")
-        self.assertEqual(state["last_report"], "reports/program_runner/stage6_wp7_long_term_runbook_report.json")
+        self.assertEqual(state["last_completed_work_package"], "Final v1.0 review package")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/final_v1_review_package.json")
+        self.assertEqual(state["last_report"], "reports/program_runner/final_v1_review_package_report.json")
         self.assertEqual(state["stage3_2"]["status"], "completed_internal_review")
         self.assertEqual(
             state["stage3_2"]["completed_work_packages"],
@@ -246,7 +246,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertEqual(state["stage5"]["reviewer_mode"], "simulated_separate_pass")
         self.assertFalse(state["stage5"]["user_notification_sent"])
         self.assertFalse(state["stage5"]["chatgpt_review_requested"])
-        self.assertEqual(state["stage6"]["status"], "next_work_package_ready")
+        self.assertEqual(state["stage6"]["status"], "final_review_ready")
         self.assertEqual(state["stage6"]["current_work_package"], "Final v1.0 review package")
         self.assertEqual(
             state["stage6"]["completed_work_packages"],
@@ -258,12 +258,13 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
                 "stage6_wp5_notification_stability",
                 "stage6_wp6_openclaw_agent_boundary_checks",
                 "stage6_wp7_long_term_runbook",
+                "final_v1_0_review_package",
             ],
         )
-        self.assertEqual(state["stage6"]["last_completed_work_package"], "Stage 6 WP7 long-term runbook")
-        self.assertEqual(state["stage6"]["last_internal_review"], "reports/internal_reviews/program/stage6_wp7_long_term_runbook.json")
-        self.assertEqual(state["stage6"]["last_report"], "reports/program_runner/stage6_wp7_long_term_runbook_report.json")
-        self.assertEqual(state["stage6"]["next_work_package"], "Final v1.0 review package")
+        self.assertEqual(state["stage6"]["last_completed_work_package"], "Final v1.0 review package")
+        self.assertEqual(state["stage6"]["last_internal_review"], "reports/internal_reviews/program/final_v1_review_package.json")
+        self.assertEqual(state["stage6"]["last_report"], "reports/program_runner/final_v1_review_package_report.json")
+        self.assertIsNone(state["stage6"]["next_work_package"])
         self.assertEqual(state["stage6"]["reviewer_mode"], "simulated_separate_pass")
         self.assertFalse(state["stage6"]["user_notification_sent"])
         self.assertFalse(state["stage6"]["chatgpt_review_requested"])
@@ -481,27 +482,29 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertIn("0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057", report_md)
 
         self.assertEqual(preview["status"], "generated_no_live_send")
-        self.assertEqual(preview["reason_live_send_not_attempted"], "real Hermes/Feishu gateway modification or service restart is outside the approved recovery scope")
-        self.assertEqual(preview["trigger_status"], "blocked_recovered")
+        self.assertEqual(
+            preview["reason_live_send_not_attempted"],
+            "real Hermes/Feishu send was not attempted by the repo-only automation; user notification is returned in the Codex thread",
+        )
+        self.assertEqual(preview["trigger_status"], "final_review_ready")
         self.assertIn("next_safe_action", preview)
-        self.assertIn("Stage 3.1 prerequisite recovered", preview_md)
-        self.assertEqual(handoff["program_runner"]["status"], "next_work_package_ready")
+        self.assertIn("v1.0 final review package is ready", preview_md)
+        self.assertEqual(handoff["program_runner"]["status"], "final_review_ready")
         self.assertTrue(handoff["program_runner"]["stage3_1_prerequisite_recovered"])
         self.assertEqual(
             handoff["program_runner"]["next_safe_action"],
-            "prepare Final v1.0 review package",
+            "ask user whether to request ChatGPT final review",
         )
         self.assertEqual(
             handoff["program_runner"]["stage3_1_reconciliation_report"],
             "reports/program_runner/stage3_1_prereq_reconciliation.json",
         )
         self.assertIn("## Program Runner", handoff_md)
-        self.assertIn("Stage 6 WP1 schedule dry-runs", handoff_md)
-        self.assertIn("Stage 6 WP2 error recovery", handoff_md)
-        self.assertIn("Stage 6 WP3 log redaction", handoff_md)
-        self.assertIn("Stage 6 WP4 public repo hygiene", handoff_md)
-        self.assertIn("Stage 6 WP5 Hermes/Feishu notification stability", handoff_md)
-        self.assertIn("Stage 6 WP6 OpenClaw agent boundary checks", handoff_md)
+        self.assertIn("Stage 3.2 research robustness", handoff_md)
+        self.assertIn("Stage 4 Hermes/OpenClaw integration contracts", handoff_md)
+        self.assertIn("Stage 5 manual portfolio loop and journal", handoff_md)
+        self.assertIn("Stage 6 operating pilot and security hardening", handoff_md)
+        self.assertIn("Final v1.0 review package", handoff_md)
 
         combined = "\n".join(
             [report_md, preview_md, handoff_md, json.dumps(preview, sort_keys=True)]
