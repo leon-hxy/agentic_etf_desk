@@ -410,3 +410,30 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
 - real_runtime_modified: false
 - services_restarted: false
 - final_trading_manual: true
+## 2026-06-29T16:55:38Z Stage 6 WP2
+
+- wake time in UTC: 2026-06-29T16:55:38Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP2 error recovery
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp2_error_recovery`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp2_error_recovery.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP3 log redaction
+- repo_only: true
+- live_send_attempted: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true

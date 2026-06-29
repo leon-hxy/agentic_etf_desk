@@ -82,9 +82,9 @@
   "order_placement_surface": false,
   "program_runner": {
     "current_major_stage": "Stage 6",
-    "current_work_package": "Stage 6 WP2 error recovery",
-    "last_completed_work_package": "Stage 6 WP1 schedule dry-runs",
-    "next_safe_action": "resume Stage 6 WP2 error recovery",
+    "current_work_package": "Stage 6 WP3 log redaction",
+    "last_completed_work_package": "Stage 6 WP2 error recovery",
+    "next_safe_action": "resume Stage 6 WP3 log redaction",
     "status": "next_work_package_ready"
   },
   "real_config_modified": false,

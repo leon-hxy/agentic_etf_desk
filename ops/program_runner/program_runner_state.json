@@ -6,15 +6,15 @@
   "computer_use_allowed": false,
   "construction_branch": "stage/v1-autonomous-completion",
   "current_major_stage": "Stage 6",
-  "current_work_package": "Stage 6 WP2 error recovery",
+  "current_work_package": "Stage 6 WP3 log redaction",
   "final_review_only": true,
   "final_review_package": "reports/program_reviews/final/latest.md",
   "final_review_package_json": "reports/program_reviews/final/latest.json",
   "git_push_allowed_after_public_repo_hygiene_checks": true,
-  "last_checked_at_utc": "2026-06-29T16:40:58Z",
-  "last_completed_work_package": "Stage 6 WP1 schedule dry-runs",
-  "last_internal_review": "reports/internal_reviews/program/stage6_wp1_schedule_dry_runs.json",
-  "last_report": "reports/program_runner/stage6_wp1_schedule_dry_runs_report.json",
+  "last_checked_at_utc": "2026-06-29T16:55:38Z",
+  "last_completed_work_package": "Stage 6 WP2 error recovery",
+  "last_internal_review": "reports/internal_reviews/program/stage6_wp2_error_recovery.json",
+  "last_report": "reports/program_runner/stage6_wp2_error_recovery_report.json",
   "minor_review_policy": "codex_internal_review",
   "mode": "autonomous_until_final_review",
   "notify_user_only_on": [
@@ -108,13 +108,14 @@
   "stage6": {
     "chatgpt_review_requested": false,
     "completed_work_packages": [
-      "stage6_wp1_schedule_dry_runs"
+      "stage6_wp1_schedule_dry_runs",
+      "stage6_wp2_error_recovery"
     ],
-    "current_work_package": "Stage 6 WP2 error recovery",
-    "last_completed_work_package": "Stage 6 WP1 schedule dry-runs",
-    "last_internal_review": "reports/internal_reviews/program/stage6_wp1_schedule_dry_runs.json",
-    "last_report": "reports/program_runner/stage6_wp1_schedule_dry_runs_report.json",
-    "next_work_package": "Stage 6 WP2 error recovery",
+    "current_work_package": "Stage 6 WP3 log redaction",
+    "last_completed_work_package": "Stage 6 WP2 error recovery",
+    "last_internal_review": "reports/internal_reviews/program/stage6_wp2_error_recovery.json",
+    "last_report": "reports/program_runner/stage6_wp2_error_recovery_report.json",
+    "next_work_package": "Stage 6 WP3 log redaction",
     "reviewer_mode": "simulated_separate_pass",
     "status": "next_work_package_ready",
     "user_notification_sent": false
