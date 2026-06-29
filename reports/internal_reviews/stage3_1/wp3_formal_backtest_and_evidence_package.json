@@ -1,0 +1,94 @@
+{
+  "artifact_path": "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json",
+  "auto_trading_surface": false,
+  "broker_surface": false,
+  "broker_write_surface": false,
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "data_boundary": {
+    "backtest_month_count": 89,
+    "backtest_validation_report": "reports/backtest_validation/stage3_1_wp3_backtest_validation_report.json",
+    "benchmark_symbol": "VTI",
+    "month_count": 90,
+    "monthly_panel_file": "data/processed/stage3_1_monthly_panel.csv",
+    "not_investment_basis": true,
+    "note": "Stage 3.1 WP3 uses the reviewed real public ETF monthly panel for research backtest validation only; it is not investment advice or an order instruction.",
+    "real_data_used": true,
+    "sample_data_only": false,
+    "source": "yahoo_chart_public",
+    "strategies": [
+      "benchmark_buy_hold",
+      "static_6040",
+      "gtaa_10m_sma",
+      "dual_momentum"
+    ],
+    "strategy_evidence_report": "reports/strategy_evidence/stage3_1_wp3_strategy_evidence_report.json",
+    "symbols": [
+      "BIL",
+      "BND",
+      "DBC",
+      "EWJ",
+      "GLD",
+      "IEF",
+      "VEA",
+      "VNQ",
+      "VTI",
+      "VWO"
+    ]
+  },
+  "decision": "passed",
+  "dependencies_installed": false,
+  "feishu_gateway_modified": false,
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "hermes_modified": false,
+  "openclaw_modified": false,
+  "order_placement_surface": false,
+  "quality_checks": {
+    "backtest_validation_passed": "passed",
+    "major_review_package_ready": "passed",
+    "strategy_evidence_passed": "passed",
+    "wp2_quality_passed": "passed"
+  },
+  "real_config_modified": false,
+  "required_follow_up": "After commit/push verification, notify the user via Feishu that the Stage 3.1 major review package is ready for manual ChatGPT review.",
+  "review_route": "codex_internal_review",
+  "review_target": "Stage 3.1 WP3 formal backtest and evidence package",
+  "review_target_commit": "35348bc8c38df09562190f3c049142a252cbc85d",
+  "reviewed_files": [
+    "scripts/backtest/run_stage3_1_formal_backtest.py",
+    "scripts/reports/generate_stage3_1_wp3_artifacts.py",
+    "tests/safety/test_stage3_1_wp3_formal_backtest.py",
+    "reports/backtest_validation/stage3_1_wp3_backtest_validation_report.json",
+    "reports/strategy_evidence/stage3_1_wp3_strategy_evidence_report.json",
+    "reports/major_reviews/stage3_1/latest.json",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.json"
+  ],
+  "reviewers": {
+    "domain": {
+      "conclusion": "WP3 strategies, benchmark, and panel symbols all remain ETF-only and sourced from configs/universe/etf_universe.yaml.",
+      "result": "passed"
+    },
+    "integration": {
+      "conclusion": "WP3 writes formal backtest validation to reports/backtest_validation/stage3_1_wp3_backtest_validation_report.json, strategy evidence to reports/strategy_evidence/stage3_1_wp3_strategy_evidence_report.json, and the Stage 3.1 major review package to reports/major_reviews/stage3_1/latest.json.",
+      "result": "passed"
+    },
+    "security": {
+      "conclusion": "No secrets, credentials, broker interfaces, service restarts, dependency installs, Computer Use, or live Hermes/OpenClaw/Feishu gateway configuration changes were introduced.",
+      "result": "passed"
+    },
+    "test": {
+      "conclusion": "WP3 tests cover formal backtest validation, required benchmark metrics, strategy evidence, internal review generation, major review readiness, and latest artifact progression.",
+      "result": "passed"
+    }
+  },
+  "secret_values_written": false,
+  "secrets_touched": false,
+  "sent_to_chatgpt": false,
+  "services_restarted": false,
+  "stage": "Stage 3.1 Real ETF Historical Data MVP",
+  "updated_at": "2026-06-29T07:51:07.501899+00:00",
+  "user_notification_sent": false,
+  "work_package": "WP3 formal backtest and evidence package",
+  "work_package_id": "wp3_formal_backtest_and_evidence_package"
+}

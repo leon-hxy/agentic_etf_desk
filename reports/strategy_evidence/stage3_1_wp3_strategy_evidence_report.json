@@ -1,0 +1,179 @@
+{
+  "data_boundary": {
+    "monthly_panel_file": "data/processed/stage3_1_monthly_panel.csv",
+    "not_investment_basis": true,
+    "note": "Reviewed real public ETF monthly panel; research validation only, not investment basis.",
+    "panel_end_month": "2026-06",
+    "panel_start_month": "2019-01",
+    "real_data_used": true,
+    "sample_data_only": false,
+    "source": "yahoo_chart_public",
+    "symbols": [
+      "BIL",
+      "BND",
+      "DBC",
+      "EWJ",
+      "GLD",
+      "IEF",
+      "VEA",
+      "VNQ",
+      "VTI",
+      "VWO"
+    ]
+  },
+  "generated_at": "2026-06-29T01:13:32.806147+00:00",
+  "manual_execution_note": "Final trading is manually decided by the user.",
+  "report_json": "reports/strategy_evidence/stage3_1_wp3_strategy_evidence_report.json",
+  "report_md": "reports/strategy_evidence/stage3_1_wp3_strategy_evidence_report.md",
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "broker_write_surface": false,
+    "chatgpt_review_requested": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "feishu_gateway_modified": false,
+    "feishu_message_sent": false,
+    "hermes_modified": false,
+    "openclaw_modified": false,
+    "order_placement_surface": false,
+    "real_config_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "sent_to_chatgpt": false,
+    "services_restarted": false
+  },
+  "source_backtest_report": "reports/backtest_validation/stage3_1_wp3_backtest_validation_report.json",
+  "stage": "Stage 3.1 WP3 strategy evidence package",
+  "status": "passed",
+  "strategies": [
+    "benchmark_buy_hold",
+    "static_6040",
+    "gtaa_10m_sma",
+    "dual_momentum"
+  ],
+  "strategy_evidence": {
+    "benchmark_buy_hold": {
+      "benchmark_symbol": "VTI",
+      "display_name": "Benchmark Buy Hold",
+      "evidence_summary": "Benchmark Buy Hold generated 15.59% CAGR versus 15.59% for VTI, with -0.00% excess CAGR.",
+      "has_benchmark_comparison": true,
+      "has_required_metrics": true,
+      "limitation_notes": [
+        "Evidence uses public ETF historical data cached in the repo and remains subject to public-source availability and terms.",
+        "No broker connection, live execution, or order-routing capability is included.",
+        "Final trading is manually decided by the user."
+      ],
+      "metrics": {
+        "benchmark_cagr": 0.15588044918098354,
+        "benchmark_max_drawdown": -0.2481913481291671,
+        "excess_cagr_vs_benchmark": -1.504995904144657e-05,
+        "max_drawdown_difference_vs_benchmark": 2.702593482339921e-09,
+        "strategy_cagr": 0.1558653992219421,
+        "strategy_max_drawdown": -0.24819134542657362,
+        "trade_count": 1,
+        "turnover": 0.5
+      },
+      "risk_notes": [
+        "Real public historical data can contain vendor revisions and should be independently reviewed before production use.",
+        "Backtest evidence is research only and does not authorize automatic trading or order placement.",
+        "Benchmark buy-and-hold remains fully exposed to broad equity ETF drawdowns."
+      ],
+      "strategy_id": "benchmark_buy_hold"
+    },
+    "dual_momentum": {
+      "benchmark_symbol": "VTI",
+      "display_name": "Dual Momentum",
+      "evidence_summary": "Dual Momentum generated 15.97% CAGR versus 15.59% for VTI, with 0.38% excess CAGR.",
+      "has_benchmark_comparison": true,
+      "has_required_metrics": true,
+      "limitation_notes": [
+        "Evidence uses public ETF historical data cached in the repo and remains subject to public-source availability and terms.",
+        "No broker connection, live execution, or order-routing capability is included.",
+        "Final trading is manually decided by the user."
+      ],
+      "metrics": {
+        "benchmark_cagr": 0.15588044918098354,
+        "benchmark_max_drawdown": -0.2481913481291671,
+        "excess_cagr_vs_benchmark": 0.0038341583301280124,
+        "max_drawdown_difference_vs_benchmark": -0.006458830242001001,
+        "strategy_cagr": 0.15971460751111155,
+        "strategy_max_drawdown": -0.2546501783711681,
+        "trade_count": 19,
+        "turnover": 18.5
+      },
+      "risk_notes": [
+        "Real public historical data can contain vendor revisions and should be independently reviewed before production use.",
+        "Backtest evidence is research only and does not authorize automatic trading or order placement.",
+        "Higher turnover increases sensitivity to transaction costs, slippage, and manual execution timing.",
+        "Trend and momentum signals can lag reversals and may underperform in sideways markets."
+      ],
+      "strategy_id": "dual_momentum"
+    },
+    "gtaa_10m_sma": {
+      "benchmark_symbol": "VTI",
+      "display_name": "Gtaa 10M Sma",
+      "evidence_summary": "Gtaa 10M Sma generated 11.15% CAGR versus 15.59% for VTI, with -4.43% excess CAGR.",
+      "has_benchmark_comparison": true,
+      "has_required_metrics": true,
+      "limitation_notes": [
+        "Evidence uses public ETF historical data cached in the repo and remains subject to public-source availability and terms.",
+        "No broker connection, live execution, or order-routing capability is included.",
+        "Final trading is manually decided by the user."
+      ],
+      "metrics": {
+        "benchmark_cagr": 0.15588044918098354,
+        "benchmark_max_drawdown": -0.2481913481291671,
+        "excess_cagr_vs_benchmark": -0.04433376880581452,
+        "max_drawdown_difference_vs_benchmark": 0.053406344498047376,
+        "strategy_cagr": 0.11154668037516902,
+        "strategy_max_drawdown": -0.19478500363111972,
+        "trade_count": 53,
+        "turnover": 18.552380952380954
+      },
+      "risk_notes": [
+        "Real public historical data can contain vendor revisions and should be independently reviewed before production use.",
+        "Backtest evidence is research only and does not authorize automatic trading or order placement.",
+        "Higher turnover increases sensitivity to transaction costs, slippage, and manual execution timing.",
+        "Trend and momentum signals can lag reversals and may underperform in sideways markets."
+      ],
+      "strategy_id": "gtaa_10m_sma"
+    },
+    "static_6040": {
+      "benchmark_symbol": "VTI",
+      "display_name": "Static 6040",
+      "evidence_summary": "Static 6040 generated 10.31% CAGR versus 15.59% for VTI, with -5.28% excess CAGR.",
+      "has_benchmark_comparison": true,
+      "has_required_metrics": true,
+      "limitation_notes": [
+        "Evidence uses public ETF historical data cached in the repo and remains subject to public-source availability and terms.",
+        "No broker connection, live execution, or order-routing capability is included.",
+        "Final trading is manually decided by the user."
+      ],
+      "metrics": {
+        "benchmark_cagr": 0.15588044918098354,
+        "benchmark_max_drawdown": -0.2481913481291671,
+        "excess_cagr_vs_benchmark": -0.052813493852987836,
+        "max_drawdown_difference_vs_benchmark": 0.055202260281272064,
+        "strategy_cagr": 0.1030669553279957,
+        "strategy_max_drawdown": -0.19298908784789504,
+        "trade_count": 1,
+        "turnover": 0.5
+      },
+      "risk_notes": [
+        "Real public historical data can contain vendor revisions and should be independently reviewed before production use.",
+        "Backtest evidence is research only and does not authorize automatic trading or order placement.",
+        "Static 60/40 allocation can be exposed to bond-equity correlation shifts."
+      ],
+      "strategy_id": "static_6040"
+    }
+  },
+  "validation_checks": {
+    "benchmark_comparison_present": true,
+    "manual_trading_notice_present": true,
+    "real_data_boundary_documented": true,
+    "required_strategies_present": true,
+    "risk_and_limitations_documented": true,
+    "wp3_backtest_validation_passed": true
+  }
+}

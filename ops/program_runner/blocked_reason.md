@@ -1,6 +1,22 @@
 # Program Runner Blocked Reason
 
-Current status: blocked.
+Current status: not blocked.
+
+## 2026-06-29T11:17:25Z
+
+- status: recovered
+- work package: Stage 3.2 prerequisite verification
+- reason: Stage 3.1 prerequisite recovered after `stage/stage3.1-real-etf-data` was merged into `main`.
+- evidence:
+  - `main` resolves to `920b7f100479466a411e3dc1cf9da253b81686e4`.
+  - Local `stage/stage3.1-real-etf-data` resolves to `0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057`.
+  - `origin/stage/stage3.1-real-etf-data` resolves to `0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057`.
+  - `git merge-base --is-ancestor stage/stage3.1-real-etf-data main` returned exit code `0`.
+  - `git merge-base --is-ancestor origin/stage/stage3.1-real-etf-data main` returned exit code `0`.
+  - Reconciliation report: `reports/program_runner/stage3_1_prereq_reconciliation.md`.
+- attempted fixes: merged Stage 3.1 completion branch into `main`, pushed `main`, and refreshed the local remote-tracking Stage 3.1 ref.
+- next safe action: resume Stage 3.2 from the first research robustness source-validation work package.
+- whether approval is required: no, this recovery was explicitly requested by the user and stayed within repo/git boundaries.
 
 ## 2026-06-29T11:02:34Z
 

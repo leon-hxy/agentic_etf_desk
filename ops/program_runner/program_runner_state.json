@@ -6,15 +6,28 @@
   "stage3_1_prerequisite": {
     "required": true,
     "description": "Stage 3.1 must be merged into main before Stage 3.2 business work begins.",
-    "verify_before_work_package": true
+    "verify_before_work_package": true,
+    "satisfied": true,
+    "verified_at_utc": "2026-06-29T11:17:25Z",
+    "local_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
+    "origin_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
+    "main_reconciliation_commit": "920b7f100479466a411e3dc1cf9da253b81686e4"
   },
   "current_major_stage": "Stage 3.2",
-  "current_work_package": null,
-  "status": "blocked",
-  "blocked_at_utc": "2026-06-29T09:03:09Z",
-  "last_checked_at_utc": "2026-06-29T11:02:34Z",
-  "blocked_reason": "Stage 3.1 prerequisite remains blocked: origin/stage/stage3.1-real-etf-data is contained in main, but local Stage 3.1 branch tip 0d7c855 is not contained in main.",
+  "current_work_package": "Stage 3.2 WP1 research robustness source validation",
+  "status": "next_work_package_ready",
+  "last_checked_at_utc": "2026-06-29T11:17:25Z",
   "blocked_reason_file": "ops/program_runner/blocked_reason.md",
+  "recovery": {
+    "status": "completed",
+    "recovered_at_utc": "2026-06-29T11:17:25Z",
+    "reason": "Stage 3.1 completion branch was merged into main and the stale remote-tracking ref was refreshed.",
+    "report_md": "reports/program_runner/stage3_1_prereq_reconciliation.md",
+    "report_json": "reports/program_runner/stage3_1_prereq_reconciliation.json",
+    "notification_preview_md": "reports/program_runner/notification_preview.md",
+    "notification_preview_json": "reports/program_runner/notification_preview.json",
+    "next_safe_action": "resume Stage 3.2 from the first research robustness source-validation work package"
+  },
   "final_review_only": true,
   "notify_user_only_on": [
     "blocked",

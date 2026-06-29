@@ -1,0 +1,17 @@
+{
+  "generated_at_utc": "2026-06-29T11:17:25Z",
+  "status": "generated_no_live_send",
+  "trigger_status": "blocked_recovered",
+  "reason_live_send_not_attempted": "real Hermes/Feishu gateway modification or service restart is outside the approved recovery scope",
+  "next_safe_action": "resume Stage 3.2 from the first research robustness source-validation work package",
+  "message": "Program Runner block recovered. Stage 3.1 prerequisite recovered after the completion branch was reconciled into main. Program Runner status is next_work_package_ready; next safe action is to resume Stage 3.2 from the first research robustness source-validation work package.",
+  "contains_secret_values": false,
+  "contains_local_private_paths": false,
+  "contains_private_runtime_ids": false,
+  "live_config_modified": false,
+  "services_restarted": false,
+  "computer_use_executed": false,
+  "broker_interface_connected": false,
+  "order_code_added": false,
+  "final_trading_notice": "Final trading is manually decided by the user."
+}

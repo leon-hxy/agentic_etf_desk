@@ -73,9 +73,24 @@ Hermes/Feishu notification is allowed only when:
 - status is `approval_required`
 - status is `final_review_ready`
 
+For `status=blocked`, `status=approval_required`, and `status=final_review_ready`,
+the runner must generate Hermes/Feishu user notification content. The notification
+content must include `next_safe_action` and must not include secrets, tokens,
+auth values, local-private paths, Feishu IDs, OpenAI keys, broker account data,
+or broker credentials.
+
+If the current environment cannot send a real Feishu message without modifying
+real Hermes/Feishu gateway configuration or restarting services, the runner must
+generate `reports/program_runner/notification_preview.md` and
+`reports/program_runner/notification_preview.json`, and state why the live send
+was not attempted.
+
 When status is `final_review_ready`, the allowed user-facing message is:
 
 > v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？
+
+Do not notify the user for `work_package_completed`, `tests_passed`, or
+`internal_review_completed` status events.
 
 Do not request ChatGPT review for internal work packages. Do not run Computer Use. Do not modify real runtime configuration without explicit approval. Do not connect broker write interfaces. Do not place orders.
 

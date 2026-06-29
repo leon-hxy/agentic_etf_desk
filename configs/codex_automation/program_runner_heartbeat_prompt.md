@@ -14,11 +14,21 @@ If `status=ready`, `status=running`, or `status=next_work_package_ready`, contin
 
 If `status=work_package_in_progress`, `status=internal_review_in_progress`, `status=fixing_findings`, `status=tests_running`, or `status=committed_and_pushed`, inspect the changed files, review artifacts, tests, and git state, then resume from the next safe step.
 
-If `status=approval_required` or `status=blocked`, update the relevant report or block file and do not continue implementation.
+If `status=blocked`, generate Hermes/Feishu user notification content, update the relevant report or block file, and do not continue implementation.
+
+If `status=approval_required`, generate Hermes/Feishu user notification content, update `ops/program_runner/approval_queue.json`, and do not continue implementation.
+
+Blocked and approval-required notification content must include `next_safe_action` and must not contain secrets, tokens, auth values, local-private paths, Feishu IDs, OpenAI keys, broker account data, or broker credentials.
+
+If the current environment cannot send a real Feishu message without modifying real Hermes/Feishu gateway configuration or restarting services, generate `reports/program_runner/notification_preview.md` and `reports/program_runner/notification_preview.json`, and state why the live send was not attempted.
 
 If `status=final_review_ready`, stop and notify the user with:
 
 > v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？
+
+If `status=final_review_ready`, generate Hermes/Feishu user notification content and stop.
+
+Do not notify the user for `work_package_completed`, `tests_passed`, or `internal_review_completed`.
 
 Complete at most one work package per wake unless `ops/program_runner/program_runner_state.json` explicitly allows continuing.
 

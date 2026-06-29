@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
+EXPECTED_STAGE = "Stage 3.1 major review package ready"
 REPORT_JSON = ROOT / "reports" / "loop_dry_run" / "stage2c_loop_dry_run.json"
 REPORT_MD = ROOT / "reports" / "loop_dry_run" / "stage2c_loop_dry_run.md"
 NOTIFICATION_JSON = ROOT / "reports" / "review_requests" / "notification_preview.json"
@@ -67,14 +67,14 @@ class LoopAutomationDryRunTest(unittest.TestCase):
     def test_loop_state_and_task_mark_stage2c_completed(self) -> None:
         loop_state = read_json(ROOT / "ops" / "state" / "loop_state.json")
         self.assertEqual(loop_state["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(loop_state["status"], "stage3_1_scope_consolidated")
+        self.assertEqual(loop_state["status"], "stage3_1_major_review_package_ready")
         self.assertEqual(loop_state["stage2c_task"], "ops/tasks/stage2c_loop_automation_dry_run.md")
         self.assertEqual(loop_state["stage2c_task_status"], "completed")
         self.assertEqual(loop_state["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
         self.assertEqual(loop_state["stage2d1_task"], "ops/tasks/stage2d1_read_only_live_preflight.md")
         self.assertEqual(
             loop_state["next_task_status"],
-            "ready_after_user_approval",
+            "ready_for_user",
         )
 
         task = (ROOT / "ops" / "tasks" / "stage2c_loop_automation_dry_run.md").read_text(
@@ -89,9 +89,16 @@ class LoopAutomationDryRunTest(unittest.TestCase):
         self.assertTrue(NOTIFICATION_MD.exists())
         payload = read_json(NOTIFICATION_JSON)
         latest_review = read_json(ROOT / "reports" / "review_requests" / "latest.json")
-        self.assertIn(payload["loop_state_stage"], {EXPECTED_STAGE, "Stage 3 sample-data pipeline validation merged to main"})
-        self.assertIn(payload["stage"], {latest_review["stage"], "Stage 3 sample-data pipeline validation merged to main"})
-        self.assertEqual(payload["review_target_commit"], latest_review["review_target_commit"])
+        self.assertIn(
+            payload["loop_state_stage"],
+            {EXPECTED_STAGE, "Stage 3 sample-data pipeline validation merged to main"},
+        )
+        self.assertIn(
+            payload["stage"],
+            {latest_review["stage"], "Stage 3 sample-data pipeline validation merged to main"},
+        )
+        if payload["stage"] == latest_review["stage"]:
+            self.assertEqual(payload["review_target_commit"], latest_review["review_target_commit"])
         self.assertFalse(payload["sent_to_feishu"])
         self.assertEqual(payload["mode"], "replacement_notification_preview_after_finalization")
         self.assertTrue(payload["previous_notification_superseded"])

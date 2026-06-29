@@ -156,8 +156,8 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
             "current_major_stage": "Stage 3.2",
-            "current_work_package": None,
-            "status": "blocked",
+            "current_work_package": "Stage 3.2 WP1 research robustness source validation",
+            "status": "next_work_package_ready",
             "final_review_only": True,
             "notify_user_only_on": [
                 "blocked",
@@ -174,6 +174,11 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         }
         for key, value in expected_required.items():
             self.assertEqual(state[key], value)
+        self.assertTrue(state["stage3_1_prerequisite"]["satisfied"])
+        self.assertEqual(state["stage3_1_prerequisite"]["local_branch_tip"], "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057")
+        self.assertEqual(state["stage3_1_prerequisite"]["main_reconciliation_commit"], "920b7f100479466a411e3dc1cf9da253b81686e4")
+        self.assertEqual(state["recovery"]["status"], "completed")
+        self.assertEqual(state["recovery"]["report_md"], "reports/program_runner/stage3_1_prereq_reconciliation.md")
         self.assertEqual(state["stable_branch"], "main")
         self.assertEqual(state["construction_branch"], "stage/v1-autonomous-completion")
         self.assertEqual(
@@ -183,8 +188,9 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertIn("status: blocked", blocked_reason)
-        self.assertIn("Stage 3.1 prerequisite is not satisfied", blocked_reason)
+        self.assertIn("Current status: not blocked", blocked_reason)
+        self.assertIn("Stage 3.1 prerequisite recovered", blocked_reason)
+        self.assertIn("next safe action: resume Stage 3.2", blocked_reason)
 
     def test_branching_policy_includes_autonomous_completion_branch(self) -> None:
         text = read("docs/branching_policy.md")
@@ -226,6 +232,12 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertIn("Do not run Computer Use", text)
         self.assertIn("Do not modify real runtime configuration", text)
         self.assertIn("Git pushes to the configured repository remote are allowed", text)
+        self.assertIn("must generate Hermes/Feishu user notification content", text)
+        self.assertIn("reports/program_runner/notification_preview.md", text)
+        self.assertIn("next_safe_action", text)
+        self.assertIn("work_package_completed", text)
+        self.assertIn("tests_passed", text)
+        self.assertIn("internal_review_completed", text)
         self.assertIn("Final trading is manually decided by the user", text)
 
     def test_approval_queue_defers_live_or_sensitive_actions(self) -> None:
@@ -362,9 +374,49 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertIn("Every 10 to 30 minutes", heartbeat)
         self.assertIn("Complete at most one work package per wake", heartbeat)
         self.assertIn("If `status=final_review_ready`, stop", heartbeat)
+        self.assertIn("If `status=blocked`, generate Hermes/Feishu user notification content", heartbeat)
+        self.assertIn("If `status=approval_required`, generate Hermes/Feishu user notification content", heartbeat)
+        self.assertIn("reports/program_runner/notification_preview.md", heartbeat)
+        self.assertIn("next_safe_action", heartbeat)
+        self.assertIn("Do not notify the user for `work_package_completed`", heartbeat)
         self.assertIn("update runner state, then commit and push", heartbeat)
         self.assertIn("commit and push", heartbeat)
         self.assertIn("Do not request ChatGPT review until final_review_ready", manual)
+
+    def test_program_runner_reconciliation_report_and_notification_preview_exist(self) -> None:
+        report = read_json("reports/program_runner/stage3_1_prereq_reconciliation.json")
+        preview = read_json("reports/program_runner/notification_preview.json")
+        report_md = read("reports/program_runner/stage3_1_prereq_reconciliation.md")
+        preview_md = read("reports/program_runner/notification_preview.md")
+
+        self.assertTrue(report["local_stage3_1_contains_real_commits_not_in_main_before_recovery"])
+        self.assertFalse(report["commits_equivalent_in_main_before_recovery"])
+        self.assertTrue(report["merge_required"])
+        self.assertFalse(report["stale_local_branch"])
+        self.assertEqual(report["recommended_action"], "merge local Stage 3.1 completion branch into main")
+        self.assertFalse(report["user_approval_required"])
+        self.assertTrue(report["safe_to_continue_stage3_2_after_recovery"])
+        self.assertEqual(report["main_reconciliation_commit"], "920b7f100479466a411e3dc1cf9da253b81686e4")
+        self.assertIn("0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057", report_md)
+
+        self.assertEqual(preview["status"], "generated_no_live_send")
+        self.assertEqual(preview["reason_live_send_not_attempted"], "real Hermes/Feishu gateway modification or service restart is outside the approved recovery scope")
+        self.assertEqual(preview["trigger_status"], "blocked_recovered")
+        self.assertIn("next_safe_action", preview)
+        self.assertIn("Stage 3.1 prerequisite recovered", preview_md)
+
+        combined = "\n".join([report_md, preview_md, json.dumps(preview, sort_keys=True)])
+        forbidden_fragments = [
+            "/" + "Volumes" + "/",
+            "/" + "Users" + "/",
+            "FEISHU_APP_SECRET",
+            "OPENAI_API_KEY",
+            "broker credentials",
+            "token=",
+            "auth=",
+        ]
+        for fragment in forbidden_fragments:
+            self.assertNotIn(fragment, combined)
 
     def test_forbidden_surface_scanner_rejects_true_broker_access_allowed_flag(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

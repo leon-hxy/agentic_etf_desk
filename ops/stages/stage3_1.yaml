@@ -1,11 +1,11 @@
 stage: Stage 3.1 Real ETF Historical Data MVP
-status: stage3_1_scope_consolidated
+status: stage3_1_major_review_package_ready
 stable_branch: main
 construction_branch: stage/stage3.1-real-etf-data
 stage_type: major_stage
 user_visible_substages_allowed: false
-business_code_started: false
-scope_consolidation_only: true
+business_code_started: true
+scope_consolidation_only: false
 description: Real ETF Historical Data MVP for read-only ETF data ingestion, monthly panel validation, formal backtesting, and evidence packaging.
 forbidden_user_visible_substages:
   - Stage 3.1A
@@ -17,35 +17,38 @@ forbidden_user_visible_substages:
 work_packages:
   - id: wp1_real_data_ingestion_and_cache
     label: WP1 real data ingestion and cache
-    status: ready
+    status: completed_internal_review
     user_visible_stage: false
     review: codex_internal_review
     chatgpt_review_requested: false
     user_notification: false
+    internal_review: reports/internal_reviews/stage3_1/wp1_real_data_ingestion_and_cache.json
     scope:
       - Define read-only public ETF historical data ingestion.
       - Build local cache governance and provenance records.
       - Keep credentialed, paid, broker, and write interfaces out of scope.
   - id: wp2_real_data_quality_and_monthly_panel
     label: WP2 real data quality and monthly panel
-    status: planned
+    status: completed_internal_review
     depends_on: WP1 real data ingestion and cache completed_internal_review
     user_visible_stage: false
     review: codex_internal_review
     chatgpt_review_requested: false
     user_notification: false
+    internal_review: reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json
     scope:
       - Validate ETF-only symbols against the universe.
       - Build a reviewed monthly panel from real historical ETF data.
       - Report missing data, stale prices, adjusted price coverage, and benchmark availability.
   - id: wp3_formal_backtest_and_evidence_package
     label: WP3 formal backtest and evidence package
-    status: planned
+    status: completed_internal_review
     depends_on: WP2 real data quality and monthly panel completed_internal_review
     user_visible_stage: false
     review: codex_internal_review
     chatgpt_review_requested: false
     user_notification: false
+    internal_review: reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json
     scope:
       - Run formal backtest validation on the reviewed real ETF monthly panel.
       - Generate strategy evidence with benchmark comparisons and risk limitations.
