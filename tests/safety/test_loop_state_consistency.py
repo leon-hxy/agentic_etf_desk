@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
+EXPECTED_STAGE = "Stage 3.1 major review package ready"
 
 
 def read_json(path: str) -> dict:
@@ -32,7 +32,7 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(self.loop_state["status"], "stage3_1_scope_consolidated")
+        self.assertEqual(self.loop_state["status"], "stage3_1_major_review_package_ready")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
         expected_commit = self.handoff["review_target_commit"]
@@ -49,12 +49,13 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotIn(self.loop_state["review_target_commit"], stale_commits)
-        self.assertIn("Stage 3", self.loop_state["review_target_commit_note"])
+        self.assertIn("WP3", self.loop_state["commit_binding_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
         self.assertEqual(self.loop_state["last_review_request"], "reports/review_requests/latest.json")
-        self.assertEqual(self.loop_state["next_task"], "WP1 real data ingestion and cache")
+        self.assertEqual(self.loop_state["next_task"], "Manual ChatGPT major-stage review by user")
+        self.assertEqual(self.loop_state["next_task_status"], "ready_for_user")
         self.assertEqual(
             self.loop_state["stage2b_task"],
             "ops/tasks/stage2b_repo_only.md",
@@ -140,8 +141,8 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.loop_state["stage3f1_task_status"], "finalization_fix_internal_reviewed")
         self.assertEqual(self.loop_state["stage3_major_gate_finalization_status"], "completed")
         self.assertTrue(self.loop_state["stage3_finalization_fixes_internal_reviewed"])
-        self.assertFalse(self.loop_state["major_review_required"])
-        self.assertFalse(self.loop_state["manual_chatgpt_review_ready"])
+        self.assertTrue(self.loop_state["major_review_required"])
+        self.assertTrue(self.loop_state["manual_chatgpt_review_ready"])
         self.assertTrue(self.loop_state["feishu_message_sent"])
         self.assertTrue(self.loop_state["review_gate_written"])
         self.assertTrue(self.loop_state["feishu_confirmation_observed"])

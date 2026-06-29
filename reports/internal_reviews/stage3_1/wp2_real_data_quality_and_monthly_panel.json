@@ -1,0 +1,112 @@
+{
+  "artifact_path": "reports/internal_reviews/stage3_1/wp2_real_data_quality_and_monthly_panel.json",
+  "auto_trading_surface": false,
+  "broker_surface": false,
+  "broker_write_surface": false,
+  "chatgpt_review_requested": false,
+  "computer_use_executed": false,
+  "data_boundary": {
+    "benchmark_symbol": "VTI",
+    "data_quality_report": "reports/data_quality/stage3_1_wp2_data_quality_report.json",
+    "input_file": "data/raw/prices_yahoo_chart.csv",
+    "month_count": 90,
+    "monthly_metadata_file": "data/processed/stage3_1_monthly_panel_metadata.json",
+    "monthly_panel_file": "data/processed/stage3_1_monthly_panel.csv",
+    "monthly_row_count": 900,
+    "not_investment_basis": true,
+    "note": "WP2 validates and summarizes public read-only ETF historical data for research pipeline validation; it is not a trading instruction or investment basis.",
+    "public_data_source": "Yahoo Chart public JSON",
+    "real_data_used": true,
+    "sample_data_only": false,
+    "source": "yahoo_chart_public",
+    "symbols": [
+      "BIL",
+      "BND",
+      "DBC",
+      "EWJ",
+      "GLD",
+      "IEF",
+      "VEA",
+      "VNQ",
+      "VTI",
+      "VWO"
+    ]
+  },
+  "decision": "passed",
+  "dependencies_installed": false,
+  "feishu_gateway_modified": false,
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "hermes_modified": false,
+  "openclaw_modified": false,
+  "order_placement_surface": false,
+  "quality_checks": {
+    "adjusted_price_coverage": {
+      "description": "Every input row has positive numeric adjusted_close and total_return_index fields.",
+      "passed": true
+    },
+    "benchmark_availability": {
+      "benchmark_symbol": "VTI",
+      "description": "The benchmark symbol exists in the universe and has one month-end observation for every panel month.",
+      "passed": true
+    },
+    "daily_missing_data": {
+      "description": "Every symbol has values for each observed daily date after its first available date.",
+      "passed": true
+    },
+    "monthly_missing_data": {
+      "description": "Every symbol has one reviewed month-end observation for each panel month.",
+      "passed": true
+    },
+    "stale_prices": {
+      "description": "Every symbol has a latest available price within the configured stale-price tolerance.",
+      "max_stale_calendar_days": 7,
+      "passed": true
+    },
+    "universe_allowlist": {
+      "description": "Every symbol in the real data file and WP1 metadata must come from configs/universe/etf_universe.yaml.",
+      "passed": true
+    }
+  },
+  "real_config_modified": false,
+  "request_chatgpt_review_for_finalization_fixes": false,
+  "required_follow_up": "Proceed to WP3 formal backtest and evidence package after WP2 commit/push verification.",
+  "review_route": "codex_internal_review",
+  "review_target": "Stage 3.1 WP2 real data quality and monthly panel",
+  "review_target_commit": "f8b9967c01d563fa197b6aba734364eb68d356c7",
+  "reviewed_files": [
+    "scripts/data/build_stage3_1_monthly_panel.py",
+    "tests/safety/test_stage3_1_wp2_real_data_quality.py",
+    "data/processed/stage3_1_monthly_panel.csv",
+    "data/processed/stage3_1_monthly_panel_metadata.json",
+    "reports/data_quality/stage3_1_wp2_data_quality_report.json",
+    "reports/codex_handoff/latest.json",
+    "reports/review_requests/latest.json"
+  ],
+  "reviewers": {
+    "domain": {
+      "conclusion": "All monthly panel symbols and benchmark `VTI` came from configs/universe/etf_universe.yaml and remain ETF-only, non-leveraged, and non-inverse.",
+      "result": "passed"
+    },
+    "integration": {
+      "conclusion": "WP2 writes the reviewed monthly panel to data/processed/stage3_1_monthly_panel.csv and the quality report to reports/data_quality/stage3_1_wp2_data_quality_report.json with missing-data, stale-price, adjusted-price, and benchmark checks.",
+      "result": "passed"
+    },
+    "security": {
+      "conclusion": "No secrets, credentials, broker interfaces, service restarts, dependency installs, Computer Use, or live Hermes/OpenClaw/Feishu gateway configuration changes were introduced.",
+      "result": "passed"
+    },
+    "test": {
+      "conclusion": "WP2 regression tests cover real monthly panel generation, universe allowlist status, benchmark availability, safety flags, internal review generation, and latest artifact progression.",
+      "result": "passed"
+    }
+  },
+  "secret_values_written": false,
+  "secrets_touched": false,
+  "sent_to_chatgpt": false,
+  "services_restarted": false,
+  "stage": "Stage 3.1 Real ETF Historical Data MVP",
+  "updated_at": "2026-06-28T16:53:35.424520+00:00",
+  "user_notification_sent": false,
+  "work_package": "WP2 real data quality and monthly panel",
+  "work_package_id": "wp2_real_data_quality_and_monthly_panel"
+}

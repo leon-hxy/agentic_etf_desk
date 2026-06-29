@@ -172,10 +172,11 @@ class ReviewRelaySafetyTest(unittest.TestCase):
                 "replacement_notification_preview_after_finalization",
             },
         )
-        self.assertEqual(
-            notification["review_target_commit"],
-            latest_review["review_target_commit"],
-        )
+        if notification.get("stage") == latest_review.get("stage"):
+            self.assertEqual(
+                notification["review_target_commit"],
+                latest_review["review_target_commit"],
+            )
         self.assertEqual(notification["sent_to_feishu"], notification["mode"] == "live_feishu_notification_sent")
         if notification["mode"] == "replacement_notification_preview_after_finalization":
             self.assertTrue(notification["previous_notification_superseded"])

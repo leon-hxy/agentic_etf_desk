@@ -2,52 +2,34 @@
 
 ## Current Stage
 
-Stage 3.1 Real ETF Historical Data MVP scope consolidated.
-
-## Scope
+Stage 3.1 major review package is ready.
 
 Stage 3.1 is one major stage: Real ETF Historical Data MVP.
 
-It must not be split into user-visible Stage 3.1A, Stage 3.1B, Stage 3.1C,
-Stage 3.1D, Stage 3.1E, or Stage 3.1F stages.
+## Work Package Result
 
-## Internal Work Packages
+- WP1 real data ingestion and cache: `completed_internal_review`.
+- WP2 real data quality and monthly panel: `completed_internal_review`.
+- WP3 formal backtest and evidence package: `completed_internal_review`.
 
-- WP1 real data ingestion and cache.
-- WP2 real data quality and monthly panel.
-- WP3 formal backtest and evidence package.
+WP3 used Codex internal review only. No ChatGPT review was requested or sent by Codex.
 
-WP1, WP2, and WP3 use Codex internal review only. Codex must not request
-ChatGPT review for WP1, WP2, or WP3. Codex must not notify the user for routine
-work package completion.
+Only after WP3 completes and generates `reports/major_reviews/stage3_1/latest.md` and `reports/major_reviews/stage3_1/latest.json` may Codex notify the user through Feishu that the user can request manual ChatGPT major-stage review.
 
-Only after WP3 completes and both `reports/major_reviews/stage3_1/latest.md`
-and `reports/major_reviews/stage3_1/latest.json` exist may Codex notify the
-user through Feishu that the user can request manual ChatGPT major-stage review.
+The Stage 3.1 major review package is ready for the user to request manual ChatGPT major-stage review.
 
-## Artifacts
+## Commit Metadata
 
-- Stage manifest: `ops/stages/stage3_1.yaml`
-- Runner state: `ops/runners/stage3_1_runner_state.json`
-- Runner prompt: `configs/codex_automation/stage3_1_runner_prompt.md`
-- Internal review template: `reports/internal_reviews/stage3_1/wp_internal_review_template.md`
-- Internal review template JSON: `reports/internal_reviews/stage3_1/wp_internal_review_template.json`
-- Major review template: `reports/major_reviews/stage3_1/template.md`
-- Major review template JSON: `reports/major_reviews/stage3_1/template.json`
+- `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
+- `current_repo_head`: `35348bc8c38df09562190f3c049142a252cbc85d`
 
-## Base
+## Major Review Package
 
-- Base branch: `main`
-- Base main head: `d62f301ce7d6ca993fb29bc3a545104661b29ab4`
-- Historical Stage 3 package `review_target_commit`: `9c8ad5841bf30585575b78511e30e21b661f5774`
-- Historical Stage 3 `latest_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
-  includes finalization fixes.
-- Historical Stage 3 `current_branch_head`: `207f5957fa2cc6b5dadd6eb535f78139225b113d`
-  includes finalization fixes.
-- Historical Stage 3 package `review_target_commit` is the Stage 3 major package audit target.
-- Stage 3 closeout remains sample-data pipeline validation only, not formal investment evidence, and not investment basis.
-- Construction branch: `stage/stage3.1-real-etf-data`
-- WP1 business code started: false.
+- Markdown: `reports/major_reviews/stage3_1/latest.md`
+- JSON: `reports/major_reviews/stage3_1/latest.json`
+- Internal review: `reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json`
+- Feishu notification sent after package: `true`
+- Feishu notification report: `reports/live_notifications/stage3_1_major_gate_feishu_notification.json`
 
 ## Safety Checklist
 
@@ -61,13 +43,5 @@ user through Feishu that the user can request manual ChatGPT major-stage review.
 - Added broker write access: false.
 - Added order placement code: false.
 - Added automatic trading surface: false.
-- Final trading is manually decided by the user.
 
-## Tests
-
-- `python3 -m unittest`: pass.
-- `python3 scripts/safety/check_forbidden_surfaces.py`: pass.
-- `python3 scripts/safety/check_secret_leaks.py`: pass.
-- `python3 scripts/safety/check_public_repo_hygiene.py`: pass.
-- `python3 scripts/safety/check_universe_only.py`: pass.
-- `git diff --check`: pass.
+Final trading is manually decided by the user.

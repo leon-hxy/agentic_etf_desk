@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGE = "Stage 3.1 Real ETF Historical Data MVP scope consolidated"
+STAGE = "Stage 3.1 major review package ready"
 
 
 def read(path: str) -> str:

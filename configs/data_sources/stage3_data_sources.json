@@ -89,6 +89,22 @@
       "rate_limit_note": "Not enabled for automated ingestion in Stage 3A.",
       "reproducibility_note": "Manual spot-checks must be documented separately and cannot replace raw cached source data.",
       "licensing_caveat": "Terms require explicit review before any automated use."
+    },
+    {
+      "id": "yahoo_chart_public",
+      "name": "Yahoo Chart public JSON",
+      "role": "stage3_1_wp1_real_data_fallback",
+      "selected_for_stage3b": false,
+      "selected_for_stage3_1_wp1": true,
+      "read_only": true,
+      "public_data": true,
+      "requires_secret": false,
+      "access_method": "https_json",
+      "url_template": "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={period1}&period2={period2}&interval=1d&events=history&includeAdjustedClose=true",
+      "rate_limit_note": "Use conservative serial fetching and local cache files. No project-specific quota or credential is stored in repo.",
+      "reproducibility_note": "Cache raw JSON by source, symbol, date range, and request date before producing normalized raw price rows.",
+      "licensing_caveat": "Research-cache use only; confirm permitted use before publication, redistribution, or commercial use.",
+      "fallback_reason": "Stooq daily CSV returned a JavaScript browser-verification HTML page during WP1 validation, so the response was rejected and not cached."
     }
   ]
 }
