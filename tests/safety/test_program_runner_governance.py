@@ -155,8 +155,8 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         expected_required = {
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
-            "current_major_stage": "Stage 3.2",
-            "current_work_package": "Stage 3.2 WP7 strategy conclusion grading",
+            "current_major_stage": "Stage 4",
+            "current_work_package": "Stage 4 WP1 Feishu command routing for ETF research",
             "status": "next_work_package_ready",
             "final_review_only": True,
             "notify_user_only_on": [
@@ -188,10 +188,10 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertEqual(state["last_completed_work_package"], "Stage 3.2 WP6 in-sample / out-of-sample split")
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage3_2_wp6_in_sample_out_of_sample.json")
-        self.assertEqual(state["last_report"], "reports/research_robustness/stage3_2_wp6_in_sample_out_of_sample_report.json")
-        self.assertEqual(state["stage3_2"]["status"], "wp6_completed_internal_review")
+        self.assertEqual(state["last_completed_work_package"], "Stage 3.2 WP7 strategy conclusion grading")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage3_2_wp7_strategy_conclusion_grading.json")
+        self.assertEqual(state["last_report"], "reports/research_robustness/stage3_2_wp7_strategy_conclusion_grading_report.json")
+        self.assertEqual(state["stage3_2"]["status"], "completed_internal_review")
         self.assertEqual(
             state["stage3_2"]["completed_work_packages"],
             [
@@ -201,6 +201,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
                 "stage3_2_wp4_parameter_sensitivity",
                 "stage3_2_wp5_start_window_robustness",
                 "stage3_2_wp6_in_sample_out_of_sample",
+                "stage3_2_wp7_strategy_conclusion_grading",
             ],
         )
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
