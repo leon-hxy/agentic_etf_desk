@@ -53,7 +53,7 @@
   "required_follow_up": "After commit/push verification, notify the user via Feishu that the Stage 3.1 major review package is ready for manual ChatGPT review.",
   "review_route": "codex_internal_review",
   "review_target": "Stage 3.1 WP3 formal backtest and evidence package",
-  "review_target_commit": "4b0ba4f9ee0f1ed6553675a189138b32cbdc5321",
+  "review_target_commit": "fa4ebcb0d139d8c3e2a4023eea52876198024245",
   "reviewed_files": [
     "scripts/backtest/run_stage3_1_formal_backtest.py",
     "scripts/reports/generate_stage3_1_wp3_artifacts.py",
@@ -87,7 +87,7 @@
   "sent_to_chatgpt": false,
   "services_restarted": false,
   "stage": "Stage 3.1 Real ETF Historical Data MVP",
-  "updated_at": "2026-06-29T01:20:10.551921+00:00",
+  "updated_at": "2026-06-29T01:22:34.933627+00:00",
   "user_notification_sent": false,
   "work_package": "WP3 formal backtest and evidence package",
   "work_package_id": "wp3_formal_backtest_and_evidence_package"

@@ -5,7 +5,7 @@
 - Review route: `codex_internal_review`
 - ChatGPT review requested: `false`
 - User notification sent during WP3 build: `false`
-- `review_target_commit`: `4b0ba4f9ee0f1ed6553675a189138b32cbdc5321`
+- `review_target_commit`: `fa4ebcb0d139d8c3e2a4023eea52876198024245`
 - Decision: `passed`
 
 ## Reviewer Conclusions
