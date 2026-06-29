@@ -103,16 +103,16 @@ class Stage32Wp7StrategyConclusionGradingTest(unittest.TestCase):
         self.assertEqual(review["promote_to_next_work_package"], NEXT_WORK_PACKAGE)
 
         self.assertEqual(state["current_major_stage"], NEXT_MAJOR_STAGE)
-        self.assertEqual(state["current_work_package"], "Stage 4 WP6 backtest command output")
+        self.assertEqual(state["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
         self.assertEqual(state["status"], "next_work_package_ready")
-        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP5 ETF universe health check command output")
+        self.assertEqual(state["last_completed_work_package"], "Stage 4 WP6 backtest command output")
         self.assertEqual(
             state["last_internal_review"],
-            "reports/internal_reviews/program/stage4_wp5_universe_health_check_command_output.json",
+            "reports/internal_reviews/program/stage4_wp6_backtest_command_output.json",
         )
         self.assertEqual(
             state["last_report"],
-            "reports/program_runner/stage4_wp5_universe_health_check_command_output_report.json",
+            "reports/program_runner/stage4_wp6_backtest_command_output_report.json",
         )
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertFalse(state["stage3_2"]["chatgpt_review_requested"])
@@ -137,10 +137,11 @@ class Stage32Wp7StrategyConclusionGradingTest(unittest.TestCase):
                 "stage4_wp3_weekly_report_command_output",
                 "stage4_wp4_monthly_rebalance_command_output",
                 "stage4_wp5_universe_health_check_command_output",
+                "stage4_wp6_backtest_command_output",
             ],
         )
-        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP6 backtest command output")
-        self.assertEqual(state["stage4"]["next_work_package"], "Stage 4 WP6 backtest command output")
+        self.assertEqual(state["stage4"]["current_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
+        self.assertEqual(state["stage4"]["next_work_package"], "Stage 4 WP7 OpenClaw agents draft or safe integration plan")
 
 
 if __name__ == "__main__":

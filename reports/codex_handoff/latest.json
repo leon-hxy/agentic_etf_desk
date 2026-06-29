@@ -76,8 +76,8 @@
   "order_placement_surface": false,
   "program_runner": {
     "current_major_stage": "Stage 4",
-    "current_work_package": "Stage 4 WP6 backtest command output",
-    "next_safe_action": "resume Stage 4 WP6 backtest command output",
+    "current_work_package": "Stage 4 WP7 OpenClaw agents draft or safe integration plan",
+    "next_safe_action": "resume Stage 4 WP7 OpenClaw agents draft or safe integration plan",
     "notification_preview": "reports/program_runner/notification_preview.json",
     "stage3_1_prerequisite_recovered": true,
     "stage3_1_reconciliation_report": "reports/program_runner/stage3_1_prereq_reconciliation.json",

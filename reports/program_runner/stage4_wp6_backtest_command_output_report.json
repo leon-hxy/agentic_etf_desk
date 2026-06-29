@@ -1,0 +1,81 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "backtest": {
+    "benchmark_comparison_preserved": true,
+    "benchmark_symbol": "VTI",
+    "data_source": "data/processed/price_panel.csv",
+    "local_report_path": "reports/stage2b_backtest_report.md",
+    "metrics": {
+      "annualized_volatility": 0.0014913062814876838,
+      "cagr": 0.84629363705362,
+      "calmar": 0.0,
+      "longest_drawdown_recovery_days": 0,
+      "max_drawdown": 0.0,
+      "sharpe": 411.67106112130796,
+      "sortino": 0.0,
+      "trade_count": 1,
+      "turnover": 1.0,
+      "win_rate": 1.0,
+      "worst_month": {
+        "period": "2024-01",
+        "return": 0.009780538764168512
+      },
+      "worst_year": {
+        "period": "2024",
+        "return": 0.009780538764168512
+      }
+    },
+    "strategies": [
+      "gtaa_10m_sma"
+    ],
+    "strategy_count": 1,
+    "universe_source": "configs/universe/etf_universe.yaml"
+  },
+  "broker_write_surface": false,
+  "command_id": "gtaa_backtest",
+  "command_text": "跑一下 GTAA 回测",
+  "executes_live_feishu": false,
+  "feishu_reply_preview": "摘要：生成 GTAA 10M SMA 回测，策略必须保留 benchmark comparison。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_backtest_report.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+  "final_trading_manual": true,
+  "major_stage": "Stage 4",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "modifies_real_runtime_config": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "not_applicable_reason": "Backtest command output is not a trade ticket and produces no actionable trade suggestion.",
+    "review_required_before_trade_tickets": true,
+    "trade_ticket_output": false
+  },
+  "route_plan": {
+    "asset_scope": "ETF-only",
+    "automatic_trading": false,
+    "command_id": "gtaa_backtest",
+    "executes_live_feishu": false,
+    "feishu_reply_preview": "摘要：生成 GTAA 10M SMA 回测，策略必须保留 benchmark comparison。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_backtest_report.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+    "local_report_path": "reports/stage2b_backtest_report.md",
+    "manual_trading_note": "最终交易由用户手动决定。",
+    "modifies_real_runtime_config": false,
+    "repo_args": [
+      "--strategies",
+      "gtaa_10m_sma"
+    ],
+    "repo_entrypoint": "scripts/backtest/run_backtest.py",
+    "repo_only": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "risk_level": "medium",
+    "status": "routed",
+    "summary": "生成 GTAA 10M SMA 回测，策略必须保留 benchmark comparison。",
+    "trade_ticket": false
+  },
+  "status": "completed_internal_review",
+  "validation_checks": {
+    "backtest_report_generated": true,
+    "benchmark_comparison_present": true,
+    "manual_trading_disclaimer_present": true,
+    "route_is_repo_only": true
+  },
+  "work_package": "Stage 4 WP6 backtest command output"
+}
