@@ -156,7 +156,7 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
             "program": "agentic_etf_desk",
             "mode": "autonomous_until_final_review",
             "current_major_stage": "Stage 3.2",
-            "current_work_package": "Stage 3.2 WP4 parameter sensitivity scenarios",
+            "current_work_package": "Stage 3.2 WP5 start-window robustness tests",
             "status": "next_work_package_ready",
             "final_review_only": True,
             "notify_user_only_on": [
@@ -188,16 +188,17 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertTrue(state["stage3_1_prerequisite"]["verify_before_work_package"])
         self.assertTrue(state["git_push_allowed_after_public_repo_hygiene_checks"])
         self.assertEqual(state["final_review_package_json"], "reports/program_reviews/final/latest.json")
-        self.assertEqual(state["last_completed_work_package"], "Stage 3.2 WP3 transaction cost sensitivity scenarios")
-        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage3_2_wp3_transaction_cost_scenarios.json")
-        self.assertEqual(state["last_report"], "reports/research_robustness/stage3_2_wp3_transaction_cost_scenarios_report.json")
-        self.assertEqual(state["stage3_2"]["status"], "wp3_completed_internal_review")
+        self.assertEqual(state["last_completed_work_package"], "Stage 3.2 WP4 parameter sensitivity scenarios")
+        self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/stage3_2_wp4_parameter_sensitivity.json")
+        self.assertEqual(state["last_report"], "reports/research_robustness/stage3_2_wp4_parameter_sensitivity_report.json")
+        self.assertEqual(state["stage3_2"]["status"], "wp4_completed_internal_review")
         self.assertEqual(
             state["stage3_2"]["completed_work_packages"],
             [
                 "stage3_2_wp1_source_validation",
                 "stage3_2_wp2_price_cash_scenarios",
                 "stage3_2_wp3_transaction_cost_scenarios",
+                "stage3_2_wp4_parameter_sensitivity",
             ],
         )
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
