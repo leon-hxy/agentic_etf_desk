@@ -11,7 +11,7 @@
   "final_review_package": "reports/program_reviews/final/latest.md",
   "final_review_package_json": "reports/program_reviews/final/latest.json",
   "git_push_allowed_after_public_repo_hygiene_checks": true,
-  "last_checked_at_utc": "2026-06-30T01:32:41Z",
+  "last_checked_at_utc": "2026-06-30T10:47:33Z",
   "last_completed_work_package": "Final v1.0 review package",
   "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
   "last_report": "reports/program_runner/final_v1_review_package_report.json",
