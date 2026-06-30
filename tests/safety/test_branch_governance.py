@@ -5,6 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3.1 major review package ready"
+FINAL_STAGE = "v1.0 final review completed / ready for merge"
+FINAL_STATUS = "final_review_ready_waiting_for_release"
 STAGE_BRANCH = "stage/stage3-data-backtest"
 
 
@@ -133,10 +135,12 @@ class BranchGovernanceTest(unittest.TestCase):
         handoff = read_json("reports/codex_handoff/latest.json")
         review = read_json("reports/review_requests/latest.json")
 
-        self.assertEqual(loop_state["current_stage"], STAGE)
-        self.assertEqual(handoff["stage"], STAGE)
-        self.assertEqual(review["stage"], STAGE)
-        self.assertEqual(loop_state["status"], "stage3_1_major_review_package_ready")
+        self.assertEqual(loop_state["current_stage"], FINAL_STAGE)
+        self.assertEqual(handoff["stage"], FINAL_STAGE)
+        self.assertEqual(review["stage"], FINAL_STAGE)
+        self.assertEqual(loop_state["status"], FINAL_STATUS)
+        self.assertTrue(handoff["stage3_1_major_review_package_ready"])
+        self.assertTrue(review["stage3_1_major_review_package_ready"])
         self.assertEqual(loop_state["stage2f1_task_status"], "completed_repo_only_branch_governance_stage3_plan")
         self.assertEqual(loop_state["stage3_stage_branch"], STAGE_BRANCH)
         self.assertTrue(loop_state["stage3_business_code_started"])

@@ -4,7 +4,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_STAGE = "Stage 3.1 major review package ready"
+EXPECTED_STAGE = "v1.0 final review completed / ready for merge"
+EXPECTED_STATUS = "final_review_ready_waiting_for_release"
 
 
 def read_json(path: str) -> dict:
@@ -32,7 +33,9 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.handoff.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.review.get("loop_state_stage"), expected_stage)
         self.assertEqual(self.loop_state["current_stage"], expected_stage)
-        self.assertEqual(self.loop_state["status"], "stage3_1_major_review_package_ready")
+        self.assertEqual(self.loop_state["status"], EXPECTED_STATUS)
+        self.assertEqual(self.handoff["program_status"], "final_review_ready")
+        self.assertEqual(self.review["program_status"], "final_review_ready")
 
     def test_loop_state_binds_same_review_target_as_latest_artifacts(self) -> None:
         expected_commit = self.handoff["review_target_commit"]
@@ -49,13 +52,13 @@ class LoopStateConsistencyTest(unittest.TestCase):
         self.assertEqual(self.review["review_target_commit"], expected_commit)
         self.assertEqual(self.loop_state["review_target_commit"], expected_commit)
         self.assertNotIn(self.loop_state["review_target_commit"], stale_commits)
-        self.assertIn("WP3", self.loop_state["commit_binding_note"])
+        self.assertIn("v1.0 final package generation head", self.handoff["commit_binding_note"])
 
     def test_loop_state_points_to_current_handoff_review_and_next_task(self) -> None:
         self.assertEqual(self.loop_state["last_handoff"], "reports/codex_handoff/latest.json")
         self.assertEqual(self.loop_state["last_review_request"], "reports/review_requests/latest.json")
-        self.assertEqual(self.loop_state["next_task"], "Manual ChatGPT major-stage review by user")
-        self.assertEqual(self.loop_state["next_task_status"], "ready_for_user")
+        self.assertEqual(self.loop_state["next_task"], "Merge stage/v1-autonomous-completion to main after tests")
+        self.assertEqual(self.loop_state["next_task_status"], "ready_for_release")
         self.assertEqual(
             self.loop_state["stage2b_task"],
             "ops/tasks/stage2b_repo_only.md",

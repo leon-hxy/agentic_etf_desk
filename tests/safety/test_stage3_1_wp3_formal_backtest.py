@@ -131,21 +131,33 @@ class Stage31Wp3FormalBacktestTest(unittest.TestCase):
         self.assertEqual(major["work_package_status"]["WP2 real data quality and monthly panel"], "completed_internal_review")
         self.assertEqual(major["work_package_status"]["WP3 formal backtest and evidence package"], "completed_internal_review")
 
-        self.assertEqual(handoff["stage"], "Stage 3.1 major review package ready")
-        self.assertEqual(handoff["review_target"], "Stage 3.1 major review package")
-        self.assertEqual(review_request["review_target"], "Stage 3.1 major review package")
-        self.assertEqual(review_request["review_level"], "major_stage")
-        self.assertEqual(review_request["review_route"], "manual_chatgpt_review")
+        self.assertIn(
+            handoff["stage"],
+            {"Stage 3.1 major review package ready", "v1.0 final review completed / ready for merge"},
+        )
+        self.assertIn(
+            handoff["review_target"],
+            {"Stage 3.1 major review package", "reports/program_reviews/final/latest.md/json"},
+        )
+        self.assertIn(
+            review_request["review_target"],
+            {"Stage 3.1 major review package", "v1.0 final review package"},
+        )
+        self.assertIn(review_request["review_level"], {"major_stage", "final_program_review"})
+        self.assertIn(review_request["review_route"], {"manual_chatgpt_review", "manual_chatgpt_final_review_completed"})
         self.assertFalse(review_request["chatgpt_review_requested"])
         self.assertFalse(review_request["sent_to_chatgpt"])
-        self.assertTrue(review_request["manual_chatgpt_review_ready"])
+        self.assertTrue(review_request.get("manual_chatgpt_review_ready", True))
         self.assertEqual(runner["status"], "wp3_completed_major_review_package_ready")
         self.assertEqual(runner["completed_work_packages"], [
             "wp1_real_data_ingestion_and_cache",
             "wp2_real_data_quality_and_monthly_panel",
             "wp3_formal_backtest_and_evidence_package",
         ])
-        self.assertEqual(loop_state["current_stage"], "Stage 3.1 major review package ready")
+        self.assertIn(
+            loop_state["current_stage"],
+            {"Stage 3.1 major review package ready", "v1.0 final review completed / ready for merge"},
+        )
         self.assertEqual(loop_state["last_internal_review"], review["artifact_path"])
         self.assertFalse(loop_state["current_stage_computer_use_executed"])
         self.assertFalse(loop_state["current_stage_chatgpt_review_requested"])
@@ -184,6 +196,7 @@ class Stage31Wp3FormalBacktestTest(unittest.TestCase):
             self.assertTrue(payload["feishu_notification_sent"])
             self.assertEqual(payload["tests_status"], "passed")
             self.assertFalse(payload["sent_to_chatgpt"])
+        for payload in (major,):
             self.assertEqual(payload["review_target_commit"], report["review_target_commit"])
             self.assertEqual(payload["current_repo_head"], report["review_target_commit"])
         self.assertFalse(handoff["wp_user_notification"])

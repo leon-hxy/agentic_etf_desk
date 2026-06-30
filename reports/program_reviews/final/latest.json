@@ -71,7 +71,7 @@
       "title": "Operating Pilot, Security Hardening & v1.0 Final Review Package"
     }
   ],
-  "created_at_utc": "2026-06-30T10:47:33Z",
+  "created_at_utc": "2026-06-30T15:53:56Z",
   "data_source_notes": [
     "Stage 3.1 and Stage 3.2 artifacts use committed ETF price cache and processed panel artifacts.",
     "Stage 3.2 adds source validation, discrepancy checks, cash assumptions, costs, parameter sensitivity, start-window checks, and in-sample/out-of-sample review."
@@ -117,8 +117,9 @@
     ]
   },
   "final_readiness_message": "v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？",
+  "final_review_verdict": "conditional_pass",
   "final_trading_manual": true,
-  "generated_from_head": "39635ce7a12c055d9ff72f86cf67a3b9da347728",
+  "generated_from_head": "79074769f3bba8c0c5dff6239ae8cc8ccd2fec78",
   "hermes_feishu_status": {
     "live_configuration_modified": false,
     "live_send_attempted": false,
@@ -197,8 +198,14 @@
     "Avoid broker write access, order placement, automatic trading, live runtime mutation, and secrets exposure."
   ],
   "real_runtime_modified": false,
+  "release_scope": "ETF research desk, not investment advice, not automatic trading",
   "report_type": "final_v1_program_review_package",
   "research_conclusion": "The repo is ready for final v1.0 review as an ETF-only research desk. The evidence package supports review of methodology, safety boundaries, and operating readiness, but it is research/backtest/scenario evidence, not formal investment proof.",
+  "review_level": "final_program_review",
+  "review_target": "v1.0 final review package",
+  "review_target_commit": "79074769f3bba8c0c5dff6239ae8cc8ccd2fec78",
+  "review_target_json": "reports/program_reviews/final/latest.json",
+  "review_target_md": "reports/program_reviews/final/latest.md",
   "risk_agent_review": {
     "new_actionable_trade_suggestion": false,
     "result": "passed",

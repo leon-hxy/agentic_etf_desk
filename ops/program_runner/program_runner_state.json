@@ -1,5 +1,6 @@
 {
   "auto_trading_allowed": false,
+  "automation_recommended_action": "pause",
   "blocked_reason_file": "ops/program_runner/blocked_reason.md",
   "broker_write_allowed": false,
   "chatgpt_review_policy": "final_program_review_only",
@@ -10,13 +11,16 @@
   "final_review_only": true,
   "final_review_package": "reports/program_reviews/final/latest.md",
   "final_review_package_json": "reports/program_reviews/final/latest.json",
+  "final_review_result": "conditional_pass",
   "git_push_allowed_after_public_repo_hygiene_checks": true,
-  "last_checked_at_utc": "2026-06-30T10:47:33Z",
+  "heartbeat_should_continue": false,
+  "last_checked_at_utc": "2026-06-30T15:53:56Z",
   "last_completed_work_package": "Final v1.0 review package",
   "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
   "last_report": "reports/program_runner/final_v1_review_package_report.json",
   "minor_review_policy": "codex_internal_review",
   "mode": "autonomous_until_final_review",
+  "next_safe_action": "merge_to_main_after_tests",
   "notify_user_only_on": [
     "blocked",
     "approval_required",
@@ -126,5 +130,5 @@
     "status": "final_review_ready",
     "user_notification_sent": false
   },
-  "status": "final_review_ready"
+  "status": "final_review_ready_waiting_for_release"
 }
