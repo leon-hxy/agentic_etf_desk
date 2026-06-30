@@ -524,15 +524,36 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertEqual(handoff["stage"], "v1.0 final review completed / ready for merge")
         self.assertEqual(handoff["program_status"], "final_review_ready")
         self.assertEqual(handoff["status"], "final_review_ready_waiting_for_release")
+        self.assertEqual(handoff["branch"], "stage/v1-autonomous-completion")
+        self.assertEqual(handoff["construction_branch"], "stage/v1-autonomous-completion")
         self.assertEqual(handoff["review_target"], "reports/program_reviews/final/latest.md/json")
         self.assertEqual(handoff["review_target_md"], "reports/program_reviews/final/latest.md")
         self.assertEqual(handoff["review_target_json"], "reports/program_reviews/final/latest.json")
+        self.assertEqual(handoff["review_level"], "final_program_review")
         self.assertEqual(handoff["final_review_verdict"], "conditional_pass")
         self.assertEqual(
             handoff["release_scope"],
             "ETF research desk, not investment advice, not automatic trading",
         )
         self.assertEqual(handoff["next_safe_action"], "merge_to_main_after_tests")
+        self.assertNotIn("completed_work_packages", handoff)
+        self.assertNotIn("major_review_package_json", handoff)
+        self.assertNotIn("major_review_package_md", handoff)
+        self.assertNotIn("stage3_1_branch", handoff)
+        self.assertIn("evidence_context", handoff)
+        self.assertIn("stage3_1", handoff["evidence_context"])
+        stage31 = handoff["evidence_context"]["stage3_1"]
+        self.assertEqual(stage31["branch"], "stage/stage3.1-real-etf-data")
+        self.assertEqual(stage31["major_review_package_json"], "reports/major_reviews/stage3_1/latest.json")
+        self.assertEqual(stage31["major_review_package_md"], "reports/major_reviews/stage3_1/latest.md")
+        self.assertEqual(
+            stage31["completed_work_packages"],
+            [
+                "WP1 real data ingestion and cache",
+                "WP2 real data quality and monthly panel",
+                "WP3 formal backtest and evidence package",
+            ],
+        )
 
         self.assertEqual(review["review_level"], "final_program_review")
         self.assertEqual(review["review_target"], "v1.0 final review package")

@@ -91,9 +91,10 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
                 handoff["next_recommended_stage"],
                 "Manual ChatGPT major-stage review by user",
             )
+            self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
         else:
             self.assertEqual(handoff["next_safe_action"], "merge_to_main_after_tests")
-        self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
+            self.assertTrue(handoff["evidence_context"]["stage3_1"]["finalization_fixes_internal_reviewed"])
 
         for payload in (major, handoff, review_request, prompt):
             self.assertNotEqual(payload.get("stage"), "Stage 3F major_gate_feishu_notification_sent")

@@ -78,7 +78,7 @@ class Stage2FReviewGovernanceTest(unittest.TestCase):
         self.assertEqual(loop_state["current_stage"], FINAL_STAGE)
         self.assertEqual(handoff["stage"], FINAL_STAGE)
         self.assertEqual(review["stage"], FINAL_STAGE)
-        self.assertTrue(handoff["stage3_1_major_review_package_ready"])
+        self.assertTrue(handoff["evidence_context"]["stage3_1"]["major_review_package_ready"])
         self.assertTrue(review["stage3_1_major_review_package_ready"])
         self.assertIn(relay_status["stage"], {STAGE, "Stage 3 sample-data pipeline validation merged to main"})
         self.assertEqual(loop_state["review_governance_mode"], "small_stage_codex_self_review_major_stage_chatgpt_manual")

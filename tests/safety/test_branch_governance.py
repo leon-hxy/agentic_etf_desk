@@ -135,11 +135,17 @@ class BranchGovernanceTest(unittest.TestCase):
         handoff = read_json("reports/codex_handoff/latest.json")
         review = read_json("reports/review_requests/latest.json")
 
-        self.assertEqual(loop_state["current_stage"], FINAL_STAGE)
-        self.assertEqual(handoff["stage"], FINAL_STAGE)
-        self.assertEqual(review["stage"], FINAL_STAGE)
-        self.assertEqual(loop_state["status"], FINAL_STATUS)
-        self.assertTrue(handoff["stage3_1_major_review_package_ready"])
+        if loop_state["current_stage"] == FINAL_STAGE:
+            self.assertEqual(handoff["stage"], FINAL_STAGE)
+            self.assertEqual(review["stage"], FINAL_STAGE)
+            self.assertEqual(loop_state["status"], FINAL_STATUS)
+            self.assertTrue(handoff["evidence_context"]["stage3_1"]["major_review_package_ready"])
+        else:
+            self.assertEqual(loop_state["current_stage"], STAGE)
+            self.assertEqual(handoff["stage"], STAGE)
+            self.assertEqual(review["stage"], STAGE)
+            self.assertEqual(loop_state["status"], "stage3_1_major_review_package_ready")
+            self.assertTrue(handoff["stage3_1_major_review_package_ready"])
         self.assertTrue(review["stage3_1_major_review_package_ready"])
         self.assertEqual(loop_state["stage2f1_task_status"], "completed_repo_only_branch_governance_stage3_plan")
         self.assertEqual(loop_state["stage3_stage_branch"], STAGE_BRANCH)

@@ -4,7 +4,7 @@
 - Review target: `v1.0 final review package`.
 - Review target markdown: `reports/program_reviews/final/latest.md`.
 - Review target JSON: `reports/program_reviews/final/latest.json`.
-- `review_target_commit`: `79074769f3bba8c0c5dff6239ae8cc8ccd2fec78`.
+- `review_target_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`.
 - Program status: `final_review_ready`.
 - Final review verdict: `conditional_pass`.
 - Release scope: ETF research desk, not investment advice, not automatic trading.

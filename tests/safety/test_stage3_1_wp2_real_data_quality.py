@@ -86,7 +86,7 @@ class Stage31Wp2RealDataQualityTest(unittest.TestCase):
         self.assertFalse(review["computer_use_executed"])
 
         self.assertEqual(handoff["stage"], "v1.0 final review completed / ready for merge")
-        self.assertEqual(handoff["stage3_1_wp2_status"], "completed_internal_review")
+        self.assertEqual(handoff["evidence_context"]["stage3_1"]["wp2_status"], "completed_internal_review")
         self.assertEqual(handoff["current_work_package"], "Final v1.0 review package")
         self.assertEqual(review_request["review_target"], "v1.0 final review package")
         self.assertFalse(handoff["chatgpt_review_requested"])

@@ -210,7 +210,7 @@ class Stage31Wp1RealDataIngestionTest(unittest.TestCase):
         self.assertEqual(handoff["review_target"], "reports/program_reviews/final/latest.md/json")
         self.assertEqual(review_request["review_target"], "v1.0 final review package")
         self.assertEqual(handoff["current_work_package"], "Final v1.0 review package")
-        self.assertEqual(handoff["stage3_1_wp1_status"], "completed_internal_review")
+        self.assertEqual(handoff["evidence_context"]["stage3_1"]["wp1_status"], "completed_internal_review")
         self.assertFalse(handoff["chatgpt_review_requested"])
         self.assertFalse(review_request["chatgpt_review_requested"])
         self.assertFalse(handoff["sent_to_chatgpt"])

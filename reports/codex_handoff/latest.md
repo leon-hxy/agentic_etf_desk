@@ -60,7 +60,7 @@ Stage 3.1 major review was completed before autonomous v1.0 completion work bega
 
 ## Commit Metadata
 
-- `review_target_commit`: `79074769f3bba8c0c5dff6239ae8cc8ccd2fec78`
-- `current_repo_head`: `79074769f3bba8c0c5dff6239ae8cc8ccd2fec78`
+- `review_target_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`
+- `current_repo_head`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`
 
 Final trading is manually decided by the user.
