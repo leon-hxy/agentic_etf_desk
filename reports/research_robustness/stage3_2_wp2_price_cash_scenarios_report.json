@@ -1,0 +1,297 @@
+{
+  "benchmark_symbol": "VTI",
+  "cash_assumption_scenarios": {
+    "base_bil_cash_proxy": {
+      "description": "base_bil_cash_proxy uses committed BIL total-return history for defensive or cash-like allocations.",
+      "description_key": "base_bil_cash_proxy",
+      "strategy_results": {
+        "benchmark_buy_hold": {
+          "average_cash_proxy_weight": 0.0,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 0,
+          "ending_equity": 2.927940204275227,
+          "excess_cagr_vs_benchmark": -1.504995904144657e-05,
+          "max_cash_proxy_weight": 0.0,
+          "max_drawdown": -0.24819134725629377,
+          "max_drawdown_difference_vs_benchmark": 8.728733291718527e-10,
+          "months": 89,
+          "scenario_cagr": 0.1558653992219421
+        },
+        "dual_momentum": {
+          "average_cash_proxy_weight": 0.1348314606741573,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 12,
+          "ending_equity": 3.0010336292264914,
+          "excess_cagr_vs_benchmark": 0.0038341583301280124,
+          "max_cash_proxy_weight": 1.0,
+          "max_drawdown": -0.2546501795621672,
+          "max_drawdown_difference_vs_benchmark": -0.0064588314330000784,
+          "months": 89,
+          "scenario_cagr": 0.15971460751111155
+        },
+        "gtaa_10m_sma": {
+          "average_cash_proxy_weight": 0.12359550561797752,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 11,
+          "ending_equity": 2.19094029671124,
+          "excess_cagr_vs_benchmark": -0.04433374912266985,
+          "max_cash_proxy_weight": 1.0,
+          "max_drawdown": -0.1947849764934595,
+          "max_drawdown_difference_vs_benchmark": 0.053406371635707606,
+          "months": 89,
+          "scenario_cagr": 0.11154670005831369
+        },
+        "static_6040": {
+          "average_cash_proxy_weight": 0.1,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 89,
+          "ending_equity": 2.0699692940752805,
+          "excess_cagr_vs_benchmark": -0.052813493852987836,
+          "max_cash_proxy_weight": 0.1,
+          "max_drawdown": -0.19298908372891188,
+          "max_drawdown_difference_vs_benchmark": 0.05520226440025522,
+          "months": 89,
+          "scenario_cagr": 0.1030669553279957
+        }
+      }
+    },
+    "short_treasury_ief_proxy": {
+      "description": "short_treasury_ief_proxy replaces BIL returns with IEF monthly total returns while preserving strategy weights.",
+      "description_key": "short_treasury_ief_proxy",
+      "strategy_results": {
+        "benchmark_buy_hold": {
+          "average_cash_proxy_weight": 0.0,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 0,
+          "ending_equity": 2.927940204275227,
+          "excess_cagr_vs_benchmark": -1.504995904144657e-05,
+          "max_cash_proxy_weight": 0.0,
+          "max_drawdown": -0.24819134725629377,
+          "max_drawdown_difference_vs_benchmark": 8.728733291718527e-10,
+          "months": 89,
+          "scenario_cagr": 0.1558653992219421
+        },
+        "dual_momentum": {
+          "average_cash_proxy_weight": 0.1348314606741573,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 12,
+          "ending_equity": 3.268023231060272,
+          "excess_cagr_vs_benchmark": 0.017237868026330982,
+          "max_cash_proxy_weight": 1.0,
+          "max_drawdown": -0.2546501795621672,
+          "max_drawdown_difference_vs_benchmark": -0.0064588314330000784,
+          "months": 89,
+          "scenario_cagr": 0.17311831720731452
+        },
+        "gtaa_10m_sma": {
+          "average_cash_proxy_weight": 0.12359550561797752,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 11,
+          "ending_equity": 2.3898057233366274,
+          "excess_cagr_vs_benchmark": -0.031236161788041894,
+          "max_cash_proxy_weight": 1.0,
+          "max_drawdown": -0.18211821041758502,
+          "max_drawdown_difference_vs_benchmark": 0.06607313771158208,
+          "months": 89,
+          "scenario_cagr": 0.12464428739294164
+        },
+        "static_6040": {
+          "average_cash_proxy_weight": 0.1,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 89,
+          "ending_equity": 2.0460621775901124,
+          "excess_cagr_vs_benchmark": -0.05453987399296234,
+          "max_cash_proxy_weight": 0.1,
+          "max_drawdown": -0.20758905799232696,
+          "max_drawdown_difference_vs_benchmark": 0.040602290136840136,
+          "months": 89,
+          "scenario_cagr": 0.1013405751880212
+        }
+      }
+    },
+    "zero_return_cash": {
+      "description": "zero_return_cash replaces BIL returns with 0.0 monthly return while preserving strategy weights.",
+      "description_key": "zero_return_cash",
+      "strategy_results": {
+        "benchmark_buy_hold": {
+          "average_cash_proxy_weight": 0.0,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 0,
+          "ending_equity": 2.927940204275227,
+          "excess_cagr_vs_benchmark": -1.504995904144657e-05,
+          "max_cash_proxy_weight": 0.0,
+          "max_drawdown": -0.24819134725629377,
+          "max_drawdown_difference_vs_benchmark": 8.728733291718527e-10,
+          "months": 89,
+          "scenario_cagr": 0.1558653992219421
+        },
+        "dual_momentum": {
+          "average_cash_proxy_weight": 0.1348314606741573,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 12,
+          "ending_equity": 2.9428723242509833,
+          "excess_cagr_vs_benchmark": 0.0007780019918184333,
+          "max_cash_proxy_weight": 1.0,
+          "max_drawdown": -0.25465017956216696,
+          "max_drawdown_difference_vs_benchmark": -0.006458831432999856,
+          "months": 89,
+          "scenario_cagr": 0.15665845117280197
+        },
+        "gtaa_10m_sma": {
+          "average_cash_proxy_weight": 0.12359550561797752,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 11,
+          "ending_equity": 2.1456207780212786,
+          "excess_cagr_vs_benchmark": -0.047461936460361454,
+          "max_cash_proxy_weight": 1.0,
+          "max_drawdown": -0.1985858201003683,
+          "max_drawdown_difference_vs_benchmark": 0.049605528028798807,
+          "months": 89,
+          "scenario_cagr": 0.10841851272062208
+        },
+        "static_6040": {
+          "average_cash_proxy_weight": 0.1,
+          "benchmark_cagr": 0.15588044918098354,
+          "benchmark_max_drawdown": -0.2481913481291671,
+          "benchmark_symbol": "VTI",
+          "cash_proxy_weight_months": 89,
+          "ending_equity": 2.0308477791269666,
+          "excess_cagr_vs_benchmark": -0.05564764514322462,
+          "max_cash_proxy_weight": 0.1,
+          "max_drawdown": -0.19345858910285696,
+          "max_drawdown_difference_vs_benchmark": 0.05473275902631014,
+          "months": 89,
+          "scenario_cagr": 0.10023280403775892
+        }
+      }
+    }
+  },
+  "cash_proxy_symbol": "BIL",
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "generated_at": "2026-06-29T11:51:29.010136+00:00",
+  "major_stage": "Stage 3.2",
+  "monthly_panel_file": "data/processed/stage3_1_monthly_panel.csv",
+  "price_discrepancies": [],
+  "price_tolerance_scenarios": [
+    {
+      "breach_count": 0,
+      "comparison_count": 1800,
+      "max_absolute_difference": 0.0,
+      "max_relative_difference": 0.0,
+      "passed": true,
+      "tolerance_bps": 1,
+      "tolerance_ratio": 0.0001
+    },
+    {
+      "breach_count": 0,
+      "comparison_count": 1800,
+      "max_absolute_difference": 0.0,
+      "max_relative_difference": 0.0,
+      "passed": true,
+      "tolerance_bps": 5,
+      "tolerance_ratio": 0.0005
+    },
+    {
+      "breach_count": 0,
+      "comparison_count": 1800,
+      "max_absolute_difference": 0.0,
+      "max_relative_difference": 0.0,
+      "passed": true,
+      "tolerance_bps": 10,
+      "tolerance_ratio": 0.001
+    }
+  ],
+  "raw_price_file": "data/raw/prices_yahoo_chart.csv",
+  "research_limitations": [
+    "This report uses committed public ETF research artifacts only; it is not a live vendor certification.",
+    "Cash scenarios are assumption replays for robustness analysis, not trade tickets or automatic order placement.",
+    "Final trading is manually decided by the user."
+  ],
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "broker_write_surface": false,
+    "chatgpt_review_requested": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "feishu_gateway_modified": false,
+    "feishu_message_sent": false,
+    "hermes_modified": false,
+    "openclaw_modified": false,
+    "order_placement_surface": false,
+    "real_config_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "sent_to_chatgpt": false,
+    "services_restarted": false
+  },
+  "short_treasury_proxy_symbol": "IEF",
+  "source_backtest_report": "reports/backtest_validation/stage3_1_wp3_backtest_validation_report.json",
+  "status": "passed",
+  "strategies": [
+    "benchmark_buy_hold",
+    "dual_momentum",
+    "gtaa_10m_sma",
+    "static_6040"
+  ],
+  "symbol_count": 10,
+  "symbols": [
+    "BIL",
+    "BND",
+    "DBC",
+    "EWJ",
+    "GLD",
+    "IEF",
+    "VEA",
+    "VNQ",
+    "VTI",
+    "VWO"
+  ],
+  "universe_file": "configs/universe/etf_universe.yaml",
+  "unknown_symbols": [],
+  "validation_checks": {
+    "benchmark_comparison_preserved": {
+      "description": "Each scenario result keeps the VTI benchmark comparison.",
+      "passed": true
+    },
+    "cash_assumption_scenarios": {
+      "description": "Base BIL, zero-return cash, and IEF proxy scenario replays were generated for every reviewed strategy.",
+      "passed": true
+    },
+    "price_discrepancy_tolerances": {
+      "description": "Reviewed month-end panel prices match committed raw prices across configured tolerance bands.",
+      "passed": true
+    },
+    "research_only_boundary": {
+      "description": "The artifact is a research robustness report only and creates no trade ticket or execution surface.",
+      "passed": true
+    },
+    "universe_allowlist": {
+      "description": "All panel symbols and cash-proxy symbols are present in configs/universe/etf_universe.yaml.",
+      "passed": true
+    }
+  },
+  "work_package": "Stage 3.2 WP2 price discrepancy and cash assumption scenarios"
+}

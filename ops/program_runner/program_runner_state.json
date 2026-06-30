@@ -1,0 +1,130 @@
+{
+  "auto_trading_allowed": false,
+  "blocked_reason_file": "ops/program_runner/blocked_reason.md",
+  "broker_write_allowed": false,
+  "chatgpt_review_policy": "final_program_review_only",
+  "computer_use_allowed": false,
+  "construction_branch": "stage/v1-autonomous-completion",
+  "current_major_stage": "Stage 6",
+  "current_work_package": "Final v1.0 review package",
+  "final_review_only": true,
+  "final_review_package": "reports/program_reviews/final/latest.md",
+  "final_review_package_json": "reports/program_reviews/final/latest.json",
+  "git_push_allowed_after_public_repo_hygiene_checks": true,
+  "last_checked_at_utc": "2026-06-30T10:47:33Z",
+  "last_completed_work_package": "Final v1.0 review package",
+  "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
+  "last_report": "reports/program_runner/final_v1_review_package_report.json",
+  "minor_review_policy": "codex_internal_review",
+  "mode": "autonomous_until_final_review",
+  "notify_user_only_on": [
+    "blocked",
+    "approval_required",
+    "final_review_ready"
+  ],
+  "program": "agentic_etf_desk",
+  "real_config_changes_allowed_without_approval": false,
+  "recovery": {
+    "next_safe_action": "resume Stage 3.2 from the first research robustness source-validation work package",
+    "notification_preview_json": "reports/program_runner/notification_preview.json",
+    "notification_preview_md": "reports/program_runner/notification_preview.md",
+    "reason": "Stage 3.1 completion branch was merged into main and the stale remote-tracking ref was refreshed.",
+    "recovered_at_utc": "2026-06-29T11:17:25Z",
+    "report_json": "reports/program_runner/stage3_1_prereq_reconciliation.json",
+    "report_md": "reports/program_runner/stage3_1_prereq_reconciliation.md",
+    "status": "completed"
+  },
+  "stable_branch": "main",
+  "stage3_1_prerequisite": {
+    "description": "Stage 3.1 must be merged into main before Stage 3.2 business work begins.",
+    "local_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
+    "main_reconciliation_commit": "920b7f100479466a411e3dc1cf9da253b81686e4",
+    "origin_branch_tip": "0d7c855bbf1fb4ee0c66bcb50f5d53f3d510b057",
+    "required": true,
+    "satisfied": true,
+    "verified_at_utc": "2026-06-29T11:17:25Z",
+    "verify_before_work_package": true
+  },
+  "stage3_2": {
+    "chatgpt_review_requested": false,
+    "completed_work_packages": [
+      "stage3_2_wp1_source_validation",
+      "stage3_2_wp2_price_cash_scenarios",
+      "stage3_2_wp3_transaction_cost_scenarios",
+      "stage3_2_wp4_parameter_sensitivity",
+      "stage3_2_wp5_start_window_robustness",
+      "stage3_2_wp6_in_sample_out_of_sample",
+      "stage3_2_wp7_strategy_conclusion_grading"
+    ],
+    "current_work_package": "Stage 3.2 WP7 strategy conclusion grading",
+    "last_completed_work_package": "Stage 3.2 WP7 strategy conclusion grading",
+    "last_internal_review": "reports/internal_reviews/program/stage3_2_wp7_strategy_conclusion_grading.json",
+    "last_report": "reports/research_robustness/stage3_2_wp7_strategy_conclusion_grading_report.json",
+    "next_major_stage": "Stage 4",
+    "next_work_package": "Stage 4 WP1 Feishu command routing for ETF research",
+    "reviewer_mode": "simulated_separate_pass",
+    "status": "completed_internal_review",
+    "user_notification_sent": false
+  },
+  "stage4": {
+    "chatgpt_review_requested": false,
+    "completed_work_packages": [
+      "stage4_wp1_feishu_command_routing",
+      "stage4_wp2_market_brief_command_output",
+      "stage4_wp3_weekly_report_command_output",
+      "stage4_wp4_monthly_rebalance_command_output",
+      "stage4_wp5_universe_health_check_command_output",
+      "stage4_wp6_backtest_command_output",
+      "stage4_wp7_openclaw_agents_integration_plan"
+    ],
+    "current_work_package": "Stage 4 WP7 OpenClaw agents draft or safe integration plan",
+    "last_completed_work_package": "Stage 4 WP7 OpenClaw agents draft or safe integration plan",
+    "last_internal_review": "reports/internal_reviews/program/stage4_wp7_openclaw_agents_integration_plan.json",
+    "last_report": "reports/program_runner/stage4_wp7_openclaw_agents_integration_plan_report.json",
+    "next_work_package": "Stage 5 WP1 manual holdings CSV import",
+    "reviewer_mode": "simulated_separate_pass",
+    "status": "completed_internal_review",
+    "user_notification_sent": false
+  },
+  "stage5": {
+    "chatgpt_review_requested": false,
+    "completed_work_packages": [
+      "stage5_wp1_manual_holdings_import",
+      "stage5_wp2_manual_trades_import",
+      "stage5_wp3_portfolio_weights",
+      "stage5_wp4_drift_checks",
+      "stage5_wp5_rebalance_research_ticket",
+      "stage5_wp6_adoption_rejection_journal"
+    ],
+    "current_work_package": "Stage 5 WP6 adoption and rejection journal",
+    "last_completed_work_package": "Stage 5 WP6 adoption and rejection journal",
+    "last_internal_review": "reports/internal_reviews/program/stage5_wp6_adoption_rejection_journal.json",
+    "last_report": "reports/program_runner/stage5_wp6_adoption_rejection_journal_report.json",
+    "next_work_package": "Stage 6 WP1 schedule dry-runs",
+    "reviewer_mode": "simulated_separate_pass",
+    "status": "completed_internal_review",
+    "user_notification_sent": false
+  },
+  "stage6": {
+    "chatgpt_review_requested": false,
+    "completed_work_packages": [
+      "stage6_wp1_schedule_dry_runs",
+      "stage6_wp2_error_recovery",
+      "stage6_wp3_log_redaction",
+      "stage6_wp4_public_repo_hygiene",
+      "stage6_wp5_notification_stability",
+      "stage6_wp6_openclaw_agent_boundary_checks",
+      "stage6_wp7_long_term_runbook",
+      "final_v1_0_review_package"
+    ],
+    "current_work_package": "Final v1.0 review package",
+    "last_completed_work_package": "Final v1.0 review package",
+    "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
+    "last_report": "reports/program_runner/final_v1_review_package_report.json",
+    "next_work_package": null,
+    "reviewer_mode": "simulated_separate_pass",
+    "status": "final_review_ready",
+    "user_notification_sent": false
+  },
+  "status": "final_review_ready"
+}

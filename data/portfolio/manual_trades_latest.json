@@ -1,0 +1,33 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "gross_notional": 608.65,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "source": "manual_csv_import",
+  "symbol_count": 2,
+  "trade_count": 2,
+  "trades": [
+    {
+      "gross_notional": 500.5,
+      "price": 250.25,
+      "quantity": 2.0,
+      "side": "BUY",
+      "signed_quantity": 2.0,
+      "symbol": "VTI",
+      "trade_date": "2026-06-26"
+    },
+    {
+      "gross_notional": 108.15,
+      "price": 72.1,
+      "quantity": 1.5,
+      "side": "SELL",
+      "signed_quantity": -1.5,
+      "symbol": "BND",
+      "trade_date": "2026-06-27"
+    }
+  ],
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true
+}

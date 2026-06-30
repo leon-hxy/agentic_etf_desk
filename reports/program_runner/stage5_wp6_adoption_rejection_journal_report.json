@@ -1,0 +1,41 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_preserved": true,
+  "benchmark_symbol": "VTI",
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "journal_artifacts": {
+    "json": "reports/portfolio/stage5_wp6_adoption_rejection_journal.json",
+    "markdown": "reports/portfolio/stage5_wp6_adoption_rejection_journal.md"
+  },
+  "major_stage": "Stage 5",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_major_stage": "Stage 6",
+  "next_work_package": "Stage 6 WP1 schedule dry-runs",
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "findings": [],
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "manual adoption/rejection journal; no new actionable trade suggestion"
+  },
+  "status": "completed_internal_review",
+  "trade_ticket_generated": false,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "validation_checks": {
+    "benchmark_comparison_preserved": true,
+    "journal_artifact_written": true,
+    "manual_decision_source_exists": true,
+    "manual_trading_disclaimer_present": true,
+    "research_ticket_source_exists": true,
+    "risk_agent_review_passed": true,
+    "trade_ticket_not_generated": true,
+    "universe_allowlist_enforced": true
+  },
+  "work_package": "Stage 5 WP6 adoption and rejection journal"
+}

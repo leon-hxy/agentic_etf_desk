@@ -1,0 +1,62 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T17:26:14Z",
+  "final_trading_manual": true,
+  "hygiene_controls": [
+    {
+      "control_id": "no_secret_or_token_values",
+      "description": "Public files must not contain secrets, tokens, auth values, provider keys, Feishu app secrets, broker credentials, private keys, or sensitive assignment values.",
+      "verification": "scripts/safety/check_secret_leaks.py and scripts/safety/check_public_repo_hygiene.py"
+    },
+    {
+      "control_id": "no_absolute_local_paths",
+      "description": "Public files must avoid absolute local user or volume paths and exact live runtime fingerprints.",
+      "verification": "scripts/safety/check_public_repo_hygiene.py"
+    },
+    {
+      "control_id": "no_credentialed_urls",
+      "description": "Public files must not include URLs with embedded user credential material.",
+      "verification": "credentialed URL detection in scripts/safety/check_public_repo_hygiene.py"
+    },
+    {
+      "control_id": "no_committed_local_private_details",
+      "description": "Only local_private placeholders may be committed; private detail artifacts stay untracked.",
+      "verification": "local_private detail detection in scripts/safety/check_public_repo_hygiene.py"
+    },
+    {
+      "control_id": "public_private_audit_split",
+      "description": "Audit outputs keep public sanitized summaries in reports and private detail under local_private.",
+      "verification": "docs/public_repo_policy.md plus public repo hygiene scan"
+    },
+    {
+      "control_id": "pre_commit_hygiene_verification",
+      "description": "Run public repo hygiene, secret, forbidden-surface, ETF-universe, safety, smoke, and diff checks before pushing.",
+      "verification": "Program Runner required test list"
+    }
+  ],
+  "live_send_attempted": false,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP5 Hermes/Feishu notification stability",
+  "order_placement": false,
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "public_repo_hygiene_policy",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "public repo hygiene policy; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "scan_summary": {
+    "files_checked": 535,
+    "findings_count": 0,
+    "status": "pass"
+  },
+  "services_restarted": false,
+  "trade_ticket_generated": false,
+  "work_package": "Stage 6 WP4 public repo hygiene"
+}

@@ -1,0 +1,53 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "command_id": "weekly_report",
+  "command_text": "生成周报",
+  "executes_live_feishu": false,
+  "feishu_reply_preview": "摘要：生成 ETF 周报，包含 risk_agent review 状态与本地报告路径。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_weekly_report.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+  "final_trading_manual": true,
+  "major_stage": "Stage 4",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "modifies_real_runtime_config": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "mode": "repo-only",
+    "passed": true,
+    "reviewer": "risk_agent",
+    "trade_ticket_outputs_require_review_before_actionable_suggestions": true
+  },
+  "route_plan": {
+    "asset_scope": "ETF-only",
+    "automatic_trading": false,
+    "command_id": "weekly_report",
+    "executes_live_feishu": false,
+    "feishu_reply_preview": "摘要：生成 ETF 周报，包含 risk_agent review 状态与本地报告路径。\n风险等级：medium\nrisk_agent review：trade ticket 输出前必须通过；非票据输出记录 review 状态。\n本地报告路径：`reports/stage2b_weekly_report.md`\n这是 ETF-only 研究输出，不是自动下单。最终交易由用户手动决定。",
+    "local_report_path": "reports/stage2b_weekly_report.md",
+    "manual_trading_note": "最终交易由用户手动决定。",
+    "modifies_real_runtime_config": false,
+    "repo_args": [],
+    "repo_entrypoint": "scripts/reports/generate_weekly_report.py",
+    "repo_only": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "risk_level": "medium",
+    "status": "routed",
+    "summary": "生成 ETF 周报，包含 risk_agent review 状态与本地报告路径。",
+    "trade_ticket": false
+  },
+  "status": "completed_internal_review",
+  "weekly_report": {
+    "benchmark_comparison_preserved": true,
+    "local_report_path": "reports/stage2b_weekly_report.md",
+    "strategies_reviewed": [
+      "benchmark_buy_hold",
+      "dual_momentum",
+      "gtaa_10m_sma",
+      "static_6040"
+    ],
+    "strategy_count": 4
+  },
+  "work_package": "Stage 4 WP3 weekly report command output"
+}

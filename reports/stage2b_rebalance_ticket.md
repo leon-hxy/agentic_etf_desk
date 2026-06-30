@@ -9,6 +9,7 @@
 | BIL | 10.00% | 10.00% | hold |
 
 策略依据：static_6040 目标权重。
+benchmark comparison：static_6040 against VTI。
 回测依据：`reports/stage2b_backtest_report.md`。
 风险点：sample data only；真实数据刷新前不得作为行动依据。
 失效条件：ETF 离开 allowlist、risk_agent 审核失败、数据新鲜度检查失败。

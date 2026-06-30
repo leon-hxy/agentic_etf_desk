@@ -1,0 +1,9 @@
+{
+  "created_at_utc": "2026-06-30T10:47:33Z",
+  "live_send_attempted": false,
+  "message": "v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？",
+  "next_safe_action": "ask user whether to request ChatGPT final review",
+  "reason_live_send_not_attempted": "real Hermes/Feishu send was not attempted by the repo-only automation; user notification is returned in the Codex thread",
+  "status": "generated_no_live_send",
+  "trigger_status": "final_review_ready"
+}

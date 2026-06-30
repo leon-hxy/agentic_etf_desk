@@ -1,0 +1,97 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T17:10:53Z",
+  "default_log_action": "redact_before_repo_visible_write",
+  "final_trading_manual": true,
+  "live_send_attempted": false,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP4 public repo hygiene",
+  "order_placement": false,
+  "real_runtime_modified": false,
+  "redaction_rules": [
+    {
+      "action": "replace value with <redacted>",
+      "description": "Mask values assigned to sensitive-looking key names before log text becomes repo-visible.",
+      "rule_id": "secret_assignment_values"
+    },
+    {
+      "action": "replace bearer value with <redacted>",
+      "description": "Mask authorization header bearer values in copied command output.",
+      "rule_id": "authorization_headers"
+    },
+    {
+      "action": "replace path with <redacted-path>",
+      "description": "Mask absolute local user and volume paths from public logs and reports.",
+      "rule_id": "absolute_local_paths"
+    },
+    {
+      "action": "replace detail with local_private/<redacted>",
+      "description": "Keep local-private storage references generic when logs mention private approval files.",
+      "rule_id": "local_private_references"
+    },
+    {
+      "action": "replace numeric process id with <redacted-pid>",
+      "description": "Mask process identifiers that describe local runtime state.",
+      "rule_id": "process_identifiers"
+    },
+    {
+      "action": "replace private identifier value with <redacted-id>",
+      "description": "Mask Feishu or broker private identifier values when copied from diagnostics.",
+      "rule_id": "feishu_or_broker_private_identifiers"
+    }
+  ],
+  "redactor_module": "scripts/safety/redact_sensitive_text.py",
+  "repo_only": true,
+  "report_type": "log_redaction_policy",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "log redaction policy; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "synthetic_validation_samples": [
+    {
+      "contains_original_sensitive_value": false,
+      "redacted": true,
+      "redacted_text": "api_key=<redacted>",
+      "sample_id": "secret_assignment_values"
+    },
+    {
+      "contains_original_sensitive_value": false,
+      "redacted": true,
+      "redacted_text": "Authorization: Bearer <redacted>",
+      "sample_id": "authorization_headers"
+    },
+    {
+      "contains_original_sensitive_value": false,
+      "redacted": true,
+      "redacted_text": "path=<redacted-path>",
+      "sample_id": "absolute_local_paths"
+    },
+    {
+      "contains_original_sensitive_value": false,
+      "redacted": true,
+      "redacted_text": "approval=local_private/<redacted>",
+      "sample_id": "local_private_references"
+    },
+    {
+      "contains_original_sensitive_value": false,
+      "redacted": true,
+      "redacted_text": "pid: <redacted-pid>",
+      "sample_id": "process_identifiers"
+    },
+    {
+      "contains_original_sensitive_value": false,
+      "redacted": true,
+      "redacted_text": "broker_account_id=<redacted-id>",
+      "sample_id": "feishu_or_broker_private_identifiers"
+    }
+  ],
+  "trade_ticket_generated": false,
+  "work_package": "Stage 6 WP3 log redaction"
+}

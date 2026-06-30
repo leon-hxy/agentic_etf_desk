@@ -1,0 +1,96 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T16:55:38Z",
+  "default_runtime_action": "do_not_restart_or_modify_real_services",
+  "final_trading_manual": true,
+  "live_send_attempted": false,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP3 log redaction",
+  "notification_preview_json": "reports/program_runner/notification_preview.json",
+  "notification_preview_md": "reports/program_runner/notification_preview.md",
+  "order_placement": false,
+  "real_runtime_modified": false,
+  "recovery_scenarios": [
+    {
+      "asset_scope": "ETF-only",
+      "broker_write_allowed": false,
+      "detection_evidence": [
+        "missing expected repo artifact",
+        "stale artifact timestamp in generated report metadata"
+      ],
+      "next_safe_action": "regenerate repo-only data or report artifact, then rerun targeted tests",
+      "real_runtime_modified": false,
+      "scenario_id": "missing_or_stale_data_artifact",
+      "service_restart_allowed": false,
+      "status_after_detection": "fixing_findings"
+    },
+    {
+      "asset_scope": "ETF-only",
+      "broker_write_allowed": false,
+      "detection_evidence": [
+        "generator exits non-zero",
+        "required markdown or JSON output is absent"
+      ],
+      "next_safe_action": "fix the repo-only generator and rerun targeted plus safety tests",
+      "real_runtime_modified": false,
+      "scenario_id": "failed_repo_only_report_generation",
+      "service_restart_allowed": false,
+      "status_after_detection": "fixing_findings"
+    },
+    {
+      "asset_scope": "ETF-only",
+      "broker_write_allowed": false,
+      "detection_evidence": [
+        "safety test failure",
+        "smoke test failure",
+        "public repo hygiene failure"
+      ],
+      "next_safe_action": "keep work in repo, fix findings, and rerun the full verification suite",
+      "real_runtime_modified": false,
+      "scenario_id": "failed_safety_or_smoke_test",
+      "service_restart_allowed": false,
+      "status_after_detection": "fixing_findings"
+    },
+    {
+      "asset_scope": "ETF-only",
+      "broker_write_allowed": false,
+      "detection_evidence": [
+        "work requires secret value, private account data, live runtime change, or external send",
+        "approval queue item is needed before continuing"
+      ],
+      "next_safe_action": "write approval queue item and stop without live runtime changes",
+      "real_runtime_modified": false,
+      "scenario_id": "blocked_live_runtime_or_secret_requirement",
+      "service_restart_allowed": false,
+      "status_after_detection": "approval_required"
+    },
+    {
+      "asset_scope": "ETF-only",
+      "broker_write_allowed": false,
+      "detection_evidence": [
+        "status requires notification but live send would need service restart or Feishu config change",
+        "notification preview can be generated without runtime access"
+      ],
+      "next_safe_action": "generate notification preview artifact and stop for user review",
+      "real_runtime_modified": false,
+      "scenario_id": "notification_send_unavailable_without_runtime_change",
+      "service_restart_allowed": false,
+      "status_after_detection": "blocked"
+    }
+  ],
+  "repo_only": true,
+  "report_type": "error_recovery_playbook",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "error recovery playbook; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "trade_ticket_generated": false,
+  "work_package": "Stage 6 WP2 error recovery"
+}

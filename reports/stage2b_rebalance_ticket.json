@@ -1,4 +1,7 @@
 {
+  "benchmark_basis": "static_6040 is tracked against VTI as the benchmark in repo-only research outputs.",
+  "benchmark_comparison_preserved": true,
+  "benchmark_symbol": "VTI",
   "invalid_conditions": [
     "ETF leaves allowlist",
     "risk_agent review fails",

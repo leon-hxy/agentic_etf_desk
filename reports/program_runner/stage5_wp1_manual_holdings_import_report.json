@@ -1,0 +1,39 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "holdings_artifacts": {
+    "csv": "data/portfolio/manual_holdings_latest.csv",
+    "json": "data/portfolio/manual_holdings_latest.json",
+    "sample_input": "data/portfolio/manual_holdings_sample.csv"
+  },
+  "major_stage": "Stage 5",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 5 WP2 manual trades CSV import",
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "required_before_trade_tickets": true,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "manual holdings import has no actionable trade ticket output",
+    "trade_tickets_actionable_without_review": false
+  },
+  "source": "manual_csv_import",
+  "status": "completed_internal_review",
+  "symbol_count": 3,
+  "total_market_value": 4410.0,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "validation_checks": {
+    "allowlist_source_recorded": true,
+    "holdings_artifacts_written": true,
+    "manual_trading_disclaimer_present": true,
+    "non_empty_holdings": true,
+    "portfolio_weights_sum_to_one": true,
+    "universe_allowlist_enforced": true
+  },
+  "work_package": "Stage 5 WP1 manual holdings CSV import"
+}

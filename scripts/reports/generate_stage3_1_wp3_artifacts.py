@@ -17,6 +17,7 @@ MAJOR_READY_STAGE = "Stage 3.1 major review package ready"
 MAJOR_STAGE = "Stage 3.1 major review package"
 STAGE_MANIFEST = ROOT / "ops" / "stages" / "stage3_1.yaml"
 RUNNER_STATE = ROOT / "ops" / "runners" / "stage3_1_runner_state.json"
+PROGRAM_RUNNER_STATE = ROOT / "ops" / "program_runner" / "program_runner_state.json"
 LOOP_STATE = ROOT / "ops" / "state" / "loop_state.json"
 HANDOFF_MD = ROOT / "reports" / "codex_handoff" / "latest.md"
 HANDOFF_JSON = ROOT / "reports" / "codex_handoff" / "latest.json"
@@ -63,6 +64,28 @@ def git_head() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
+def existing_json_value(path: Path, key: str, fallback: str) -> str:
+    if not path.exists():
+        return fallback
+    try:
+        payload = read_json(path)
+    except json.JSONDecodeError:
+        return fallback
+    value = payload.get(key)
+    return str(value) if value else fallback
+
+
+def default_review_target_commit() -> str:
+    if LIVE_NOTIFICATION_JSON.exists():
+        try:
+            payload = read_json(LIVE_NOTIFICATION_JSON)
+        except json.JSONDecodeError:
+            return git_head()
+        if payload.get("feishu_message_sent") and payload.get("review_target_commit"):
+            return str(payload["review_target_commit"])
+    return git_head()
+
+
 def ensure_wp3_backtest_outputs() -> None:
     if BACKTEST_REPORT.exists() and EVIDENCE_REPORT.exists():
         return
@@ -99,7 +122,35 @@ def stage31_notification_status() -> dict[str, Any]:
     }
 
 
-def update_runner_state(updated_at: str) -> None:
+def program_runner_context() -> dict[str, Any]:
+    if not PROGRAM_RUNNER_STATE.exists():
+        return {}
+    try:
+        state = read_json(PROGRAM_RUNNER_STATE)
+    except json.JSONDecodeError:
+        return {}
+    recovery = state.get("recovery")
+    if not isinstance(recovery, dict) or recovery.get("status") != "completed":
+        return {}
+    current_work_package = state.get("current_work_package")
+    next_safe_action = recovery.get("next_safe_action")
+    if state.get("status") != "blocked" and isinstance(current_work_package, str):
+        next_safe_action = f"resume {current_work_package}"
+    return {
+        "status": state.get("status"),
+        "current_major_stage": state.get("current_major_stage"),
+        "current_work_package": current_work_package,
+        "last_completed_work_package": state.get("last_completed_work_package"),
+        "last_internal_review": state.get("last_internal_review"),
+        "last_report": state.get("last_report"),
+        "stage3_1_prerequisite_recovered": state.get("stage3_1_prerequisite", {}).get("satisfied"),
+        "stage3_1_reconciliation_report": recovery.get("report_json"),
+        "notification_preview": recovery.get("notification_preview_json"),
+        "next_safe_action": next_safe_action,
+    }
+
+
+def update_runner_state(updated_at: str, review_target_commit: str) -> None:
     payload = read_json(RUNNER_STATE)
     notification = stage31_notification_status()
     payload.update(
@@ -113,8 +164,8 @@ def update_runner_state(updated_at: str) -> None:
                 "wp2_real_data_quality_and_monthly_panel",
                 "wp3_formal_backtest_and_evidence_package",
             ],
-            "review_target_commit": git_head(),
-            "current_repo_head": git_head(),
+            "review_target_commit": review_target_commit,
+            "current_repo_head": review_target_commit,
             "stage3_1_major_gate_feishu_notification_sent": notification["sent"],
             "stage3_1_live_notification_report": notification["report"],
             "stage3_1_feishu_notification_method": notification["method"],
@@ -343,7 +394,7 @@ def major_review_payload(backtest: dict[str, Any], evidence: dict[str, Any], rev
         "branch": "stage/stage3.1-real-etf-data",
         "review_target_commit": review_target_commit,
         "current_repo_head": review_target_commit,
-        "current_branch_head": git_head(),
+        "current_branch_head": existing_json_value(MAJOR_REVIEW_JSON, "current_branch_head", git_head()),
         "package_commit": None,
         "package_commit_note": "The package commit is created after these files are generated, so this package cannot self-reference its own commit.",
         "work_packages": WORK_PACKAGES,
@@ -472,6 +523,7 @@ def write_major_review(payload: dict[str, Any]) -> None:
 def common_payload(major: dict[str, Any], review_target_commit: str, updated_at: str) -> dict[str, Any]:
     head = git_head()
     notification = stage31_notification_status()
+    runner_context = program_runner_context()
     return {
         "stage": MAJOR_READY_STAGE,
         "status": "stage3_1_major_review_package_ready",
@@ -485,6 +537,7 @@ def common_payload(major: dict[str, Any], review_target_commit: str, updated_at:
         "commit_binding_note": "review_target_commit is the WP3 implementation, internal-review target, and Stage 3.1 major-review target; handoff_commit remains null because the final handoff commit cannot self-reference its own SHA.",
         "current_work_package": "Stage 3.1 major review package ready",
         "completed_work_packages": WORK_PACKAGES,
+        "program_runner": runner_context,
         "next_work_package": None,
         "next_recommended_stage": "Manual ChatGPT major-stage review by user",
         "stage3_1_scope_consolidated": True,
@@ -570,6 +623,20 @@ def common_payload(major: dict[str, Any], review_target_commit: str, updated_at:
 
 def write_handoff(payload: dict[str, Any]) -> None:
     write_json(HANDOFF_JSON, payload)
+    runner = payload.get("program_runner", {})
+    runner_completion_lines: list[str] = []
+    if runner.get("last_completed_work_package") == "Stage 4 WP7 OpenClaw agents draft or safe integration plan":
+        runner_completion_lines = [
+            "## Stage 4 WP7 Result",
+            "",
+            "- Last completed work package: `Stage 4 WP7 OpenClaw agents draft or safe integration plan`.",
+            "- OpenClaw safe integration plan: `configs/openclaw/stage4_safe_integration_plan.json`.",
+            "- Work package report: `reports/program_runner/stage4_wp7_openclaw_agents_integration_plan_report.json`.",
+            "- Internal review: `reports/internal_reviews/program/stage4_wp7_openclaw_agents_integration_plan.json`.",
+            "- Codex requested ChatGPT review: false.",
+            "- User notification sent: false.",
+            "",
+        ]
     lines = [
         "# Codex Handoff",
         "",
@@ -578,6 +645,16 @@ def write_handoff(payload: dict[str, Any]) -> None:
         "Stage 3.1 major review package is ready.",
         "",
         "Stage 3.1 is one major stage: Real ETF Historical Data MVP.",
+        "",
+        "## Program Runner Recovery",
+        "",
+        f"- Program Runner status: `{runner.get('status')}`.",
+        f"- Current major stage: `{runner.get('current_major_stage')}`.",
+        f"- Current work package: `{runner.get('current_work_package')}`.",
+        f"- Stage 3.1 prerequisite recovered: {str(runner.get('stage3_1_prerequisite_recovered')).lower()}.",
+        f"- Reconciliation report: `{runner.get('stage3_1_reconciliation_report')}`.",
+        f"- Notification preview: `{runner.get('notification_preview')}`.",
+        f"- Next safe action: {runner.get('next_safe_action')}.",
         "",
         "## Work Package Result",
         "",
@@ -604,6 +681,7 @@ def write_handoff(payload: dict[str, Any]) -> None:
         f"- Feishu notification sent after package: `{str(payload['stage3_1_major_gate_feishu_notification_sent']).lower()}`",
         f"- Feishu notification report: `{payload['stage3_1_live_notification_report']}`",
         "",
+        *runner_completion_lines,
         "## Safety Checklist",
         "",
         "- Modified real `~/.hermes`: false.",
@@ -719,8 +797,12 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--review-target-commit", default=None)
     args = parser.parse_args()
-    updated_at = datetime.now(timezone.utc).isoformat()
-    review_target_commit = args.review_target_commit or git_head()
+    updated_at = existing_json_value(
+        RUNNER_STATE,
+        "updated_at",
+        datetime.now(timezone.utc).isoformat(),
+    )
+    review_target_commit = args.review_target_commit or default_review_target_commit()
     ensure_wp3_backtest_outputs()
     backtest = read_json(BACKTEST_REPORT)
     evidence = read_json(EVIDENCE_REPORT)
@@ -728,7 +810,7 @@ def main() -> int:
     write_internal_review(review)
     major = major_review_payload(backtest, evidence, review, review_target_commit, updated_at)
     write_major_review(major)
-    update_runner_state(updated_at)
+    update_runner_state(updated_at, review_target_commit)
     update_manifest()
     handoff = common_payload(major, review_target_commit, updated_at)
     write_handoff(handoff)

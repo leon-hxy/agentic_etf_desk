@@ -1,0 +1,39 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "delivery_status": "repo_only_policy_no_live_send",
+  "final_trading_manual": true,
+  "live_send_attempted": false,
+  "major_stage": "Stage 6",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP6 OpenClaw agent boundary checks",
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "notification stability policy; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "status": "completed_internal_review",
+  "trade_ticket_generated": false,
+  "validation_checks": {
+    "allowed_status_gate_defined": true,
+    "delivery_status_audit_fields_defined": true,
+    "idempotency_key_defined": true,
+    "manual_trading_disclaimer_present": true,
+    "next_safe_action_required": true,
+    "notification_preview_fallback_defined": true,
+    "real_runtime_not_modified": true,
+    "secret_free_message_body_required": true,
+    "services_not_restarted": true,
+    "trade_ticket_not_generated": true
+  },
+  "work_package": "Stage 6 WP5 Hermes/Feishu notification stability"
+}

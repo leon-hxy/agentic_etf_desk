@@ -1,0 +1,36 @@
+{
+  "program": "agentic_etf_desk",
+  "status": "empty",
+  "default_action_if_not_approved": "skip_or_defer",
+  "approval_required_for": [
+    "modify real hermes configuration",
+    "modify real openclaw configuration",
+    "modify real Feishu gateway",
+    "restart a service",
+    "install dependencies",
+    "secret or API key required",
+    "send to a real external service other than git push after public repo hygiene checks",
+    "access non-public data source",
+    "rewrite git history",
+    "access broker account",
+    "trade, order, or account-changing capability"
+  ],
+  "safe_external_service_exceptions": [
+    "git push to the configured repository remote after public repo hygiene, secret, forbidden-surface, and relevant safety tests pass"
+  ],
+  "approval_item_schema": {
+    "id": "",
+    "status": "pending",
+    "created_at": "",
+    "work_package": "",
+    "reason": "",
+    "requested_action": "",
+    "files_or_services_touched": [],
+    "risks": [],
+    "rollback_plan": "",
+    "next_safe_action": "",
+    "user_notification_message": "",
+    "default_action_if_not_approved": "skip_or_defer"
+  },
+  "items": []
+}

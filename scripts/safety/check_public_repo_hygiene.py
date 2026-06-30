@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 from pathlib import Path
 
 
@@ -79,6 +80,8 @@ LIVE_PREFLIGHT_CONFIG_FINGERPRINT_PATTERNS = [
     re.compile(r'"api_key"'),
     re.compile(r"\b(fallback_providers|provider_filter)\b"),
 ]
+ALLOWED_LOCAL_PRIVATE_FILES = {"local_private/.gitkeep", "local_private/README.md"}
+CREDENTIALED_URL_PATTERN = re.compile(r"https?://[^/\s:@]+:[^@\s/]+@")
 
 
 def iter_candidate_files(root: Path) -> list[Path]:
@@ -108,6 +111,20 @@ def read_text(path: Path) -> str | None:
         return None
 
 
+def is_git_worktree(root: Path) -> bool:
+    return (root / ".git").exists()
+
+
+def is_git_tracked(root: Path, rel: str) -> bool:
+    result = subprocess.run(
+        ["git", "-C", str(root), "ls-files", "--error-unmatch", "--", rel],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def safe_assignment_value(value: str) -> bool:
     cleaned = value.strip().strip(",").strip()
     lowered = cleaned.lower()
@@ -127,9 +144,19 @@ def scan_file(root: Path, path: Path) -> list[dict[str, str]]:
     rel = str(path.relative_to(root))
     findings: list[dict[str, str]] = []
 
+    if (
+        rel.startswith("local_private/")
+        and rel not in ALLOWED_LOCAL_PRIVATE_FILES
+        and (not is_git_worktree(root) or is_git_tracked(root, rel))
+    ):
+        findings.append({"file": rel, "reason": "local private detail file"})
+
     for reason, pattern in path_patterns():
         if pattern.search(text):
             findings.append({"file": rel, "reason": reason})
+
+    if CREDENTIALED_URL_PATTERN.search(text):
+        findings.append({"file": rel, "reason": "credentialed url"})
 
     for line in PID_PATTERN.findall(text):
         findings.append({"file": rel, "reason": PID_REASON, "sample": line[:SAMPLE_CHARS]})

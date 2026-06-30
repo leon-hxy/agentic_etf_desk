@@ -1,0 +1,40 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "gross_notional": 608.65,
+  "major_stage": "Stage 5",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 5 WP3 portfolio weight calculation",
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "required_before_trade_tickets": true,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "manual trades import records user-decided historical/manual trades and has no actionable trade ticket output",
+    "trade_tickets_actionable_without_review": false
+  },
+  "source": "manual_csv_import",
+  "status": "completed_internal_review",
+  "symbol_count": 2,
+  "trade_artifacts": {
+    "csv": "data/portfolio/manual_trades_latest.csv",
+    "json": "data/portfolio/manual_trades_latest.json",
+    "sample_input": "data/portfolio/manual_trades_sample.csv"
+  },
+  "trade_count": 2,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "validation_checks": {
+    "allowlist_source_recorded": true,
+    "manual_trading_disclaimer_present": true,
+    "non_empty_trades": true,
+    "trade_artifacts_written": true,
+    "trade_sides_normalized": true,
+    "universe_allowlist_enforced": true
+  },
+  "work_package": "Stage 5 WP2 manual trades CSV import"
+}

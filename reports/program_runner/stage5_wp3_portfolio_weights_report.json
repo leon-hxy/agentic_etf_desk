@@ -1,0 +1,53 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "largest_position": {
+    "market_value": 2500.5,
+    "portfolio_weight": 0.5670068027210884,
+    "quantity": 10.0,
+    "symbol": "VTI"
+  },
+  "major_stage": "Stage 5",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 5 WP4 drift checks",
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "required_before_trade_tickets": true,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "portfolio weight calculation is a non-actionable portfolio-state artifact and creates no trade ticket",
+    "trade_tickets_actionable_without_review": false
+  },
+  "smallest_position": {
+    "market_value": 459.5,
+    "portfolio_weight": 0.10419501133786849,
+    "quantity": 5.0,
+    "symbol": "BIL"
+  },
+  "source": "manual_holdings_snapshot",
+  "status": "completed_internal_review",
+  "symbol_count": 3,
+  "total_market_value": 4410.0,
+  "total_weight": 1.0,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "validation_checks": {
+    "allowlist_source_recorded": true,
+    "manual_trading_disclaimer_present": true,
+    "non_empty_weights": true,
+    "total_market_value_positive": true,
+    "total_weight_sums_to_one": true,
+    "universe_allowlist_enforced": true,
+    "weight_artifacts_written": true
+  },
+  "weight_artifacts": {
+    "csv": "data/portfolio/portfolio_weights_latest.csv",
+    "json": "data/portfolio/portfolio_weights_latest.json",
+    "source_holdings": "data/portfolio/manual_holdings_latest.json"
+  },
+  "work_package": "Stage 5 WP3 portfolio weight calculation"
+}

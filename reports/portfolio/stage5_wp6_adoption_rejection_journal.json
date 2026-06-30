@@ -1,0 +1,72 @@
+{
+  "actionable_suggestion": false,
+  "adopted_count": 2,
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_preserved": true,
+  "benchmark_symbol": "VTI",
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T16:25:07Z",
+  "final_trading_manual": true,
+  "journal_rows": [
+    {
+      "decision_note": "Manual user decision recorded from manual trade import; no automatic order placement.",
+      "manual_decision": "rejected_or_deferred",
+      "manual_trade_dates": [],
+      "manual_trade_notional": 0.0,
+      "manual_trade_side": null,
+      "suggested_action": "decrease",
+      "suggested_trade_value": 18.5,
+      "symbol": "BIL",
+      "value_difference_vs_suggestion": -18.5
+    },
+    {
+      "decision_note": "Manual user decision recorded from manual trade import; no automatic order placement.",
+      "manual_decision": "adopted",
+      "manual_trade_dates": [
+        "2026-06-27"
+      ],
+      "manual_trade_notional": 108.15,
+      "manual_trade_side": "SELL",
+      "suggested_action": "decrease",
+      "suggested_trade_value": 127.0,
+      "symbol": "BND",
+      "value_difference_vs_suggestion": -18.85
+    },
+    {
+      "decision_note": "Manual user decision recorded from manual trade import; no automatic order placement.",
+      "manual_decision": "adopted",
+      "manual_trade_dates": [
+        "2026-06-26"
+      ],
+      "manual_trade_notional": 500.5,
+      "manual_trade_side": "BUY",
+      "suggested_action": "increase",
+      "suggested_trade_value": 145.5,
+      "symbol": "VTI",
+      "value_difference_vs_suggestion": 355.0
+    }
+  ],
+  "manual_decision_source": "data/portfolio/manual_trades_latest.json",
+  "manual_execution_note": "This is research advice, not automatic order placement. Final trading is manually decided by the user.",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "modified_count": 0,
+  "next_work_package": "Stage 6 WP1 schedule dry-runs",
+  "order_placement": false,
+  "rejected_or_deferred_count": 1,
+  "report_type": "adoption_rejection_journal",
+  "research_ticket_source": "reports/portfolio/stage5_wp5_rebalance_research_ticket.json",
+  "risk_agent_review": {
+    "findings": [],
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "manual adoption/rejection journal; no new actionable trade suggestion"
+  },
+  "source_trade_count": 2,
+  "source_trade_gross_notional": 608.65,
+  "trade_ticket_generated": false,
+  "universe_allowlist": "configs/universe/etf_universe.yaml",
+  "universe_allowlist_enforced": true,
+  "work_package": "Stage 5 WP6 adoption and rejection journal"
+}

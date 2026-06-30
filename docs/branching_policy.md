@@ -53,6 +53,16 @@ approved Feishu path that a manual ChatGPT review may be requested.
 Stage 2F.1 must not start Stage 3 business code. It only creates the branch
 policy, Stage 3 task plan, state updates, handoff artifacts, and safety tests.
 
+Stage 3E is historical Stage 3 governance for the sample-data pipeline
+validation package. After Stage 3.1 is merged into main, autonomous completion
+work uses `stage/v1-autonomous-completion`.
+
+Stage 3.2 through Stage 6 use final v1.0 program review only. Internal Program
+Runner work packages use Codex internal review, and Codex does not request
+ChatGPT review for internal Program Runner work packages.
+
+Do not request ChatGPT review for internal Program Runner work packages.
+
 ## Safety boundaries
 
 ETF-only remains mandatory. Final trading is manually decided by the user. The

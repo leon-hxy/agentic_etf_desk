@@ -1,0 +1,89 @@
+{
+  "changed_files": [
+    "ops/program_runner/heartbeat_log.md",
+    "ops/program_runner/program_runner_state.json",
+    "ops/state/loop_state.json",
+    "reports/codex_handoff/latest.json",
+    "reports/codex_handoff/latest.md",
+    "reports/internal_reviews/program/stage4_wp5_universe_health_check_command_output.json",
+    "reports/internal_reviews/program/stage4_wp5_universe_health_check_command_output.md",
+    "reports/program_runner/stage4_wp5_universe_health_check_command_output_report.json",
+    "reports/program_runner/stage4_wp5_universe_health_check_command_output_report.md",
+    "scripts/reports/generate_stage4_wp5_universe_health_check_command_output.py",
+    "tests/safety/test_program_runner_governance.py",
+    "tests/safety/test_stage4_wp5_universe_health_check_command_output.py"
+  ],
+  "commit": null,
+  "domain_quant_reviewer": {
+    "benchmark_comparison_present": true,
+    "etf_only_maintained": true,
+    "findings": [],
+    "research_limitations_clear": true,
+    "result": "pass",
+    "risk_agent_review_required_for_trade_tickets": true,
+    "trade_tickets_actionable_without_risk_agent_review": false
+  },
+  "findings": [],
+  "fixes_applied": [],
+  "integration_reviewer": {
+    "findings": [],
+    "hermes_feishu_boundary_respected": true,
+    "openclaw_boundary_respected": true,
+    "real_runtime_modified": false,
+    "result": "pass"
+  },
+  "major_stage": "Stage 4",
+  "pass_fail": "pass",
+  "promote_to_next_work_package": true,
+  "public_repo_hygiene_reviewer": {
+    "findings": [],
+    "local_private_paths": false,
+    "public_repo_safe": true,
+    "result": "pass",
+    "secret_values": false
+  },
+  "requires_user_attention": false,
+  "reviewer_mode": "simulated_separate_pass",
+  "security_reviewer": {
+    "automatic_trading_surface": false,
+    "broker_write_surface": false,
+    "findings": [],
+    "live_configs_modified": false,
+    "result": "pass",
+    "secrets_touched": false
+  },
+  "test_reproducibility_reviewer": {
+    "findings": [],
+    "reproducible_outputs": true,
+    "result": "pass",
+    "tests_run": [
+      "python3 -m unittest tests.safety.test_stage4_wp5_universe_health_check_command_output",
+      "python3 -m unittest tests.safety.test_program_runner_governance",
+      "python3 -m unittest tests.safety.test_hermes_router_safety",
+      "python3 -m unittest tests.safety.test_safety",
+      "python3 -m unittest discover tests/safety",
+      "python3 -m unittest discover tests/smoke",
+      "python3 -m json.tool ops/program_runner/program_runner_state.json",
+      "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+      "python3 scripts/safety/check_secret_leaks.py --root .",
+      "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+      "python3 scripts/safety/check_universe_only.py",
+      "git diff --check"
+    ]
+  },
+  "tests": [
+    "python3 -m unittest tests.safety.test_stage4_wp5_universe_health_check_command_output",
+    "python3 -m unittest tests.safety.test_program_runner_governance",
+    "python3 -m unittest tests.safety.test_hermes_router_safety",
+    "python3 -m unittest tests.safety.test_safety",
+    "python3 -m unittest discover tests/safety",
+    "python3 -m unittest discover tests/smoke",
+    "python3 -m json.tool ops/program_runner/program_runner_state.json",
+    "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+    "python3 scripts/safety/check_secret_leaks.py --root .",
+    "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+    "python3 scripts/safety/check_universe_only.py",
+    "git diff --check"
+  ],
+  "work_package": "Stage 4 WP5 ETF universe health check command output"
+}

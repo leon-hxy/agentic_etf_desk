@@ -1,0 +1,82 @@
+{
+  "changed_files": [
+    "scripts/reports/generate_stage3_2_wp3_transaction_cost_scenarios.py",
+    "tests/safety/test_stage3_2_wp3_transaction_cost_scenarios.py",
+    "reports/research_robustness/stage3_2_wp3_transaction_cost_scenarios_report.json",
+    "reports/research_robustness/stage3_2_wp3_transaction_cost_scenarios_report.md",
+    "reports/internal_reviews/program/stage3_2_wp3_transaction_cost_scenarios.json",
+    "reports/internal_reviews/program/stage3_2_wp3_transaction_cost_scenarios.md",
+    "ops/program_runner/program_runner_state.json",
+    "tests/safety/test_program_runner_governance.py"
+  ],
+  "commit": null,
+  "commit_note": "This review is committed with the WP3 change and cannot self-reference its final commit SHA.",
+  "domain_quant_reviewer": {
+    "benchmark_comparison_present": true,
+    "etf_only_maintained": true,
+    "findings": [],
+    "research_limitations_clear": true,
+    "result": "passed",
+    "risk_agent_review_required_for_trade_tickets": true,
+    "trade_tickets_actionable_without_risk_agent_review": false,
+    "transaction_cost_scenarios_reviewed": true
+  },
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "findings": [],
+  "fixes_applied": [
+    "Added transaction-cost sensitivity replays for Stage 3.2 WP3.",
+    "Preserved VTI benchmark comparison for every scenario and strategy.",
+    "Recorded Program Runner internal review and state advancement."
+  ],
+  "integration_reviewer": {
+    "findings": [],
+    "hermes_feishu_boundary_respected": true,
+    "openclaw_boundary_respected": true,
+    "real_runtime_modified": false,
+    "result": "passed"
+  },
+  "major_stage": "Stage 3.2",
+  "pass_fail": "passed",
+  "promote_to_next_work_package": "Stage 3.2 WP4 parameter sensitivity scenarios",
+  "public_repo_hygiene_reviewer": {
+    "findings": [],
+    "local_private_paths": false,
+    "public_repo_safe": true,
+    "result": "passed",
+    "secret_values": false
+  },
+  "requires_user_attention": false,
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "findings": [],
+    "manual_trading_notice_present": true,
+    "no_actionable_trade_tickets_generated": true,
+    "result": "passed"
+  },
+  "security_reviewer": {
+    "automatic_trading_surface": false,
+    "broker_write_surface": false,
+    "findings": [],
+    "live_configs_modified": false,
+    "result": "passed",
+    "secrets_touched": false
+  },
+  "test_reproducibility_reviewer": {
+    "findings": [],
+    "reproducible_outputs": true,
+    "result": "passed",
+    "tests_run": [
+      "python3 -m unittest tests.safety.test_stage3_2_wp3_transaction_cost_scenarios",
+      "python3 -m unittest tests.safety.test_program_runner_governance",
+      "python3 -m unittest tests.smoke.test_universe_and_data tests.smoke.test_reports_smoke",
+      "python3 -m unittest tests.safety.test_safety",
+      "python3 scripts/safety/check_forbidden_surfaces.py --root .",
+      "python3 scripts/safety/check_secret_leaks.py --root .",
+      "python3 scripts/safety/check_public_repo_hygiene.py --root .",
+      "python3 scripts/safety/check_universe_only.py --root .",
+      "git diff --check"
+    ]
+  },
+  "tests": [],
+  "work_package": "Stage 3.2 WP3 transaction cost sensitivity scenarios"
+}

@@ -1,0 +1,71 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T18:10:29Z",
+  "final_trading_manual": true,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Final v1.0 review package",
+  "order_placement": false,
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "long_term_runbook",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "Long-term operating runbook; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "runbook_sections": [
+    {
+      "section_id": "heartbeat_operating_loop",
+      "status": "documented"
+    },
+    {
+      "section_id": "status_and_notification_gates",
+      "status": "documented"
+    },
+    {
+      "section_id": "safety_verification",
+      "status": "documented"
+    },
+    {
+      "section_id": "runtime_boundaries",
+      "status": "documented"
+    },
+    {
+      "section_id": "incident_recovery",
+      "status": "documented"
+    },
+    {
+      "section_id": "final_review_transition",
+      "status": "documented"
+    }
+  ],
+  "services_restarted": false,
+  "source_files": [
+    "configs/codex_automation/program_runner_heartbeat_prompt.md",
+    "ops/program_runner/program_runner_state.json",
+    "ops/program_runner/roadmap.yaml",
+    "docs/security_policy.md",
+    "docs/branching_policy.md"
+  ],
+  "trade_ticket_generated": false,
+  "validation_checks": {
+    "manual_trading_disclaimer_preserved": true,
+    "no_live_runtime_change_required": true,
+    "runbook_has_final_review_transition": true,
+    "runbook_has_heartbeat_operating_loop": true,
+    "runbook_has_notification_gates": true,
+    "runbook_has_safety_verification": true,
+    "runbook_preserves_runtime_boundaries": true
+  },
+  "validation_summary": {
+    "findings": [],
+    "findings_count": 0,
+    "status": "pass"
+  },
+  "work_package": "Stage 6 WP7 long-term runbook"
+}

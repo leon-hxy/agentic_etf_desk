@@ -1,0 +1,50 @@
+{
+  "major_stage": "",
+  "work_package": "",
+  "commit": null,
+  "changed_files": [],
+  "reviewer_mode": "",
+  "security_reviewer": {
+    "result": "",
+    "findings": [],
+    "secrets_touched": false,
+    "live_configs_modified": false,
+    "automatic_trading_surface": false,
+    "broker_write_surface": false
+  },
+  "domain_quant_reviewer": {
+    "result": "",
+    "findings": [],
+    "etf_only_maintained": true,
+    "benchmark_comparison_present": null,
+    "research_limitations_clear": null,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "trade_tickets_actionable_without_risk_agent_review": false
+  },
+  "integration_reviewer": {
+    "result": "",
+    "findings": [],
+    "hermes_feishu_boundary_respected": true,
+    "openclaw_boundary_respected": true,
+    "real_runtime_modified": false
+  },
+  "test_reproducibility_reviewer": {
+    "result": "",
+    "findings": [],
+    "tests_run": [],
+    "reproducible_outputs": null
+  },
+  "public_repo_hygiene_reviewer": {
+    "result": "",
+    "findings": [],
+    "local_private_paths": false,
+    "secret_values": false,
+    "public_repo_safe": null
+  },
+  "findings": [],
+  "fixes_applied": [],
+  "tests": [],
+  "pass_fail": "",
+  "requires_user_attention": false,
+  "promote_to_next_work_package": null
+}

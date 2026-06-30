@@ -1,0 +1,40 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "live_send_attempted": false,
+  "major_stage": "Stage 6",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP2 error recovery",
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "schedule dry-run plan; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "schedule_artifacts": {
+    "json": "reports/operations/stage6_wp1_schedule_dry_runs.json",
+    "markdown": "reports/operations/stage6_wp1_schedule_dry_runs.md"
+  },
+  "services_restarted": false,
+  "status": "completed_internal_review",
+  "trade_ticket_generated": false,
+  "validation_checks": {
+    "benchmark_comparison_required": true,
+    "dry_run_events_defined": true,
+    "live_send_not_attempted": true,
+    "manual_trading_disclaimer_present": true,
+    "real_runtime_not_modified": true,
+    "schedule_artifact_written": true,
+    "services_not_restarted": true,
+    "trade_ticket_not_generated": true
+  },
+  "work_package": "Stage 6 WP1 schedule dry-runs"
+}

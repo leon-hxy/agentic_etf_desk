@@ -1,0 +1,84 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "created_at_utc": "2026-06-29T16:40:58Z",
+  "dry_run_mode": "repo_only_render_and_validate",
+  "final_trading_manual": true,
+  "live_send_attempted": false,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP2 error recovery",
+  "order_placement": false,
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "schedule_dry_run_plan",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "schedule dry-run plan; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "schedule_events": [
+    {
+      "asset_scope": "ETF-only",
+      "cadence": "weekday_before_market_open",
+      "event_id": "daily_market_brief",
+      "execution_mode": "dry_run",
+      "expected_artifact": "reports/stage2b_market_brief.md",
+      "live_send_attempted": false,
+      "real_runtime_modified": false,
+      "repo_only_validation_command": "python3 scripts/reports/generate_market_brief.py",
+      "service_restart_required": false
+    },
+    {
+      "asset_scope": "ETF-only",
+      "cadence": "weekly_after_market_close",
+      "event_id": "weekly_report",
+      "execution_mode": "dry_run",
+      "expected_artifact": "reports/stage2b_weekly_report.md",
+      "live_send_attempted": false,
+      "real_runtime_modified": false,
+      "repo_only_validation_command": "python3 scripts/reports/generate_weekly_report.py",
+      "service_restart_required": false
+    },
+    {
+      "asset_scope": "ETF-only",
+      "cadence": "monthly_after_month_end",
+      "event_id": "monthly_rebalance_research_ticket",
+      "execution_mode": "dry_run",
+      "expected_artifact": "reports/portfolio/stage5_wp5_rebalance_research_ticket.md",
+      "live_send_attempted": false,
+      "real_runtime_modified": false,
+      "repo_only_validation_command": "python3 scripts/reports/generate_stage5_wp5_rebalance_research_ticket.py",
+      "service_restart_required": false
+    },
+    {
+      "asset_scope": "ETF-only",
+      "cadence": "daily_after_data_refresh",
+      "event_id": "universe_health_check",
+      "execution_mode": "dry_run",
+      "expected_artifact": "reports/program_runner/stage4_wp5_universe_health_check_command_output_report.md",
+      "live_send_attempted": false,
+      "real_runtime_modified": false,
+      "repo_only_validation_command": "python3 scripts/data/validate_universe.py",
+      "service_restart_required": false
+    },
+    {
+      "asset_scope": "ETF-only",
+      "cadence": "monthly_research_validation",
+      "event_id": "backtest_command",
+      "execution_mode": "dry_run",
+      "expected_artifact": "reports/program_runner/stage4_wp6_backtest_command_output_report.md",
+      "live_send_attempted": false,
+      "real_runtime_modified": false,
+      "repo_only_validation_command": "python3 scripts/backtest/run_backtest.py --strategy static_6040",
+      "service_restart_required": false
+    }
+  ],
+  "scheduler_binding": "documentation_only_no_launchd_or_cron_change",
+  "services_restarted": false,
+  "trade_ticket_generated": false,
+  "work_package": "Stage 6 WP1 schedule dry-runs"
+}

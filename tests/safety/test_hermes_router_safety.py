@@ -37,6 +37,7 @@ class HermesRouterSafetyTest(unittest.TestCase):
     def test_hermes_router_mentions_only_safe_repo_entrypoints(self) -> None:
         combined = "\n".join((ROOT / rel).read_text(encoding="utf-8") for rel in ROUTER_FILES)
         safe_entrypoints = [
+            "scripts/hermes/feishu_command_router.py",
             "scripts/data/validate_universe.py",
             "scripts/backtest/run_backtest.py",
             "scripts/reports/generate_market_brief.py",

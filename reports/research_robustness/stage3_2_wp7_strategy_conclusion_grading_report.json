@@ -1,0 +1,189 @@
+{
+  "benchmark_symbol": "VTI",
+  "conclusion_summary": {
+    "actionable_suggestions_shown": false,
+    "best_research_grade": "D",
+    "next_major_stage": "Stage 4",
+    "next_work_package": "Stage 4 WP1 Feishu command routing for ETF research",
+    "no_strategy_promoted_to_trade_ticket": true
+  },
+  "final_trading_notice": "Final trading is manually decided by the user.",
+  "generated_at": "2026-06-29T13:06:22.922296+00:00",
+  "major_stage": "Stage 3.2",
+  "research_limitations": [
+    "This report grades strategy research evidence only; it is not live trading evidence.",
+    "No strategy is promoted to an actionable trade ticket by this work package.",
+    "This is research advice, not automatic order placement, and final trading is manually decided by the user.",
+    "Final trading is manually decided by the user."
+  ],
+  "safety_flags": {
+    "auto_trading_surface": false,
+    "broker_surface": false,
+    "broker_write_surface": false,
+    "chatgpt_review_requested": false,
+    "computer_use_executed": false,
+    "dependencies_installed": false,
+    "feishu_gateway_modified": false,
+    "feishu_message_sent": false,
+    "hermes_modified": false,
+    "openclaw_modified": false,
+    "order_placement_surface": false,
+    "real_config_modified": false,
+    "secret_values_written": false,
+    "secrets_touched": false,
+    "sent_to_chatgpt": false,
+    "services_restarted": false
+  },
+  "source_reports": {
+    "wp1_source_validation": "reports/research_robustness/stage3_2_wp1_source_validation_report.json",
+    "wp2_price_cash": "reports/research_robustness/stage3_2_wp2_price_cash_scenarios_report.json",
+    "wp3_transaction_cost": "reports/research_robustness/stage3_2_wp3_transaction_cost_scenarios_report.json",
+    "wp4_parameter_sensitivity": "reports/research_robustness/stage3_2_wp4_parameter_sensitivity_report.json",
+    "wp5_start_window": "reports/research_robustness/stage3_2_wp5_start_window_robustness_report.json",
+    "wp6_split_window": "reports/research_robustness/stage3_2_wp6_in_sample_out_of_sample_report.json"
+  },
+  "status": "passed",
+  "strategies": [
+    "dual_momentum",
+    "gtaa_10m_sma",
+    "static_6040"
+  ],
+  "strategy_grades": {
+    "dual_momentum": {
+      "actionable_trade_ticket": false,
+      "benchmark_result": "mixed_or_benchmark_lagging_evidence",
+      "benchmark_symbol": "VTI",
+      "conclusion_bucket": "watchlist_only",
+      "evidence": {
+        "full_window_excess_cagr_vs_benchmark": 0.0038341583301280124,
+        "in_sample_excess_cagr_vs_benchmark": -0.02914024042857144,
+        "mean_parameter_excess_cagr_vs_benchmark": -0.012019783257623503,
+        "mean_split_window_excess_cagr_vs_benchmark": 0.00524227579025401,
+        "mean_start_window_excess_cagr_vs_benchmark": 0.005024312447029333,
+        "out_of_sample_excess_cagr_vs_benchmark": 0.04103290946920546,
+        "parameter_scenario_positive_share": 0.3333333333333333,
+        "split_window_positive_share": 0.6666666666666666,
+        "start_window_positive_share": 0.5
+      },
+      "final_decision_boundary": "manual_user_decision_required",
+      "limitations": [
+        "This report grades strategy research evidence only; it is not live trading evidence.",
+        "No strategy is promoted to an actionable trade ticket by this work package.",
+        "This is research advice, not automatic order placement, and final trading is manually decided by the user.",
+        "Final trading is manually decided by the user."
+      ],
+      "overall_grade": "C",
+      "risk_review": {
+        "benchmark_comparison_reviewed": true,
+        "manual_review_required_before_any_user_trade": true,
+        "no_actionable_trade_ticket_generated": true,
+        "result": "passed"
+      },
+      "robustness_score": 54,
+      "strategy_id": "dual_momentum"
+    },
+    "gtaa_10m_sma": {
+      "actionable_trade_ticket": false,
+      "benchmark_result": "benchmark_lagging_evidence",
+      "benchmark_symbol": "VTI",
+      "conclusion_bucket": "do_not_prioritize",
+      "evidence": {
+        "full_window_excess_cagr_vs_benchmark": -0.04433376880581452,
+        "in_sample_excess_cagr_vs_benchmark": -0.04185908166007146,
+        "mean_parameter_excess_cagr_vs_benchmark": -0.0363675972264453,
+        "mean_split_window_excess_cagr_vs_benchmark": -0.03813486973861324,
+        "mean_start_window_excess_cagr_vs_benchmark": -0.04939216525504542,
+        "out_of_sample_excess_cagr_vs_benchmark": -0.02821175874995374,
+        "parameter_scenario_positive_share": 0.0,
+        "split_window_positive_share": 0.0,
+        "start_window_positive_share": 0.0
+      },
+      "final_decision_boundary": "manual_user_decision_required",
+      "limitations": [
+        "This report grades strategy research evidence only; it is not live trading evidence.",
+        "No strategy is promoted to an actionable trade ticket by this work package.",
+        "This is research advice, not automatic order placement, and final trading is manually decided by the user.",
+        "Final trading is manually decided by the user."
+      ],
+      "overall_grade": "D",
+      "risk_review": {
+        "benchmark_comparison_reviewed": true,
+        "manual_review_required_before_any_user_trade": true,
+        "no_actionable_trade_ticket_generated": true,
+        "result": "passed"
+      },
+      "robustness_score": 23,
+      "strategy_id": "gtaa_10m_sma"
+    },
+    "static_6040": {
+      "actionable_trade_ticket": false,
+      "benchmark_result": "benchmark_lagging_evidence",
+      "benchmark_symbol": "VTI",
+      "conclusion_bucket": "do_not_prioritize",
+      "evidence": {
+        "full_window_excess_cagr_vs_benchmark": -0.052813493852987836,
+        "in_sample_excess_cagr_vs_benchmark": -0.04720192352605612,
+        "mean_parameter_excess_cagr_vs_benchmark": -0.05285639403648738,
+        "mean_split_window_excess_cagr_vs_benchmark": -0.05243046355057116,
+        "mean_start_window_excess_cagr_vs_benchmark": -0.05257464455579158,
+        "out_of_sample_excess_cagr_vs_benchmark": -0.057275973272669534,
+        "parameter_scenario_positive_share": 0.0,
+        "split_window_positive_share": 0.0,
+        "start_window_positive_share": 0.0
+      },
+      "final_decision_boundary": "manual_user_decision_required",
+      "limitations": [
+        "This report grades strategy research evidence only; it is not live trading evidence.",
+        "No strategy is promoted to an actionable trade ticket by this work package.",
+        "This is research advice, not automatic order placement, and final trading is manually decided by the user.",
+        "Final trading is manually decided by the user."
+      ],
+      "overall_grade": "D",
+      "risk_review": {
+        "benchmark_comparison_reviewed": true,
+        "manual_review_required_before_any_user_trade": true,
+        "no_actionable_trade_ticket_generated": true,
+        "result": "passed"
+      },
+      "robustness_score": 19,
+      "strategy_id": "static_6040"
+    }
+  },
+  "symbol_count": 10,
+  "symbols": [
+    "BIL",
+    "BND",
+    "DBC",
+    "EWJ",
+    "GLD",
+    "IEF",
+    "VEA",
+    "VNQ",
+    "VTI",
+    "VWO"
+  ],
+  "unknown_symbols": [],
+  "validation_checks": {
+    "benchmark_comparison_preserved": {
+      "description": "Strategy grading uses VTI benchmark-relative evidence from the robustness reports.",
+      "passed": true
+    },
+    "research_only_boundary": {
+      "description": "The grading report creates no trade ticket, execution path, or automatic order placement.",
+      "passed": true
+    },
+    "robustness_inputs_present": {
+      "description": "WP1 through WP6 source reports are present and passed.",
+      "passed": true
+    },
+    "strategy_grades": {
+      "description": "Every Stage 3.1 strategy received a non-actionable research grade.",
+      "passed": true
+    },
+    "universe_allowlist": {
+      "description": "All symbols referenced by the grading inputs are present in configs/universe/etf_universe.yaml.",
+      "passed": true
+    }
+  },
+  "work_package": "Stage 3.2 WP7 strategy conclusion grading"
+}

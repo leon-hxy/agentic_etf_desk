@@ -1,0 +1,47 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading_surface": false,
+  "broker_write_surface": false,
+  "final_review_package": "reports/program_reviews/final/latest.md",
+  "final_review_package_json": "reports/program_reviews/final/latest.json",
+  "final_trading_manual": true,
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "notification_preview": "reports/program_runner/notification_preview.md",
+  "real_runtime_modified": false,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "scope": "Final review package only; no new trade ticket generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "status": "final_review_ready",
+  "trade_ticket_generated": false,
+  "validation_checks": {
+    "all_program_stages_completed": true,
+    "automatic_trading_surface": false,
+    "broker_interfaces_connected": false,
+    "broker_write_surface": false,
+    "chatgpt_review_requested_by_codex": false,
+    "computer_use_executed": false,
+    "etf_only": true,
+    "every_strategy_requires_benchmark": true,
+    "final_files_generated": true,
+    "final_trading_manual": true,
+    "notification_preview_generated": true,
+    "order_placement_surface": false,
+    "real_runtime_modified": false,
+    "research_backtest_scenario_evidence_not_formal_investment_proof": true,
+    "risk_agent_review_required_for_trade_tickets": true,
+    "secrets_touched": false,
+    "services_restarted": false
+  },
+  "validation_summary": {
+    "findings": [],
+    "findings_count": 0,
+    "status": "pass"
+  },
+  "work_package": "Final v1.0 review package"
+}

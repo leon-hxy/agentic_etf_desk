@@ -1,0 +1,602 @@
+# Program Runner Heartbeat Log
+
+## 2026-06-29T14:36:55Z
+
+- wake time in UTC: 2026-06-29T14:36:55Z
+- previous status: next_work_package_ready
+- selected work package: Stage 4 WP6 backtest command output
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage4_wp6_backtest_command_output`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_hermes_router_safety`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: pending in Stage 4 WP6 wake commit
+- next status: next_work_package_ready
+- whether user attention is required: no
+- notes: Generated the repo-only GTAA backtest command output through the approved router path, preserving benchmark comparison and manual-trading disclaimers. Live Feishu sends, real runtime config changes, broker access, order placement, and automatic trading remain disabled. Next safe action is Stage 4 WP7 OpenClaw agents draft or safe integration plan.
+
+## 2026-06-29T14:19:32Z
+
+- wake time in UTC: 2026-06-29T14:19:32Z
+- previous status: next_work_package_ready
+- selected work package: Stage 4 WP5 ETF universe health check command output
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage4_wp5_universe_health_check_command_output`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_hermes_router_safety`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: pending in Stage 4 WP5 wake commit
+- next status: next_work_package_ready
+- whether user attention is required: no
+- notes: Generated the repo-only ETF universe health check command output and validated `configs/universe/etf_universe.yaml` through the approved router path. Live Feishu sends, real runtime config changes, broker access, order placement, and automatic trading remain disabled. Next safe action is Stage 4 WP6 backtest command output.
+
+## 2026-06-29T14:05:08Z
+
+- wake time in UTC: 2026-06-29T14:05:08Z
+- previous status: next_work_package_ready
+- selected work package: Stage 4 WP4 monthly rebalance research ticket command output
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage4_wp4_monthly_rebalance_command_output`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_stage3_2_wp1_source_validation tests.safety.test_stage3_2_wp2_price_cash_scenarios tests.safety.test_stage3_2_wp3_transaction_cost_scenarios tests.safety.test_stage3_2_wp4_parameter_sensitivity tests.safety.test_stage3_2_wp5_start_window_robustness tests.safety.test_stage3_2_wp6_in_sample_out_of_sample tests.safety.test_stage3_2_wp7_strategy_conclusion_grading`
+  - `python3 -m unittest tests.safety.test_hermes_router_safety`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: pending in Stage 4 WP4 wake commit
+- next status: next_work_package_ready
+- whether user attention is required: no
+- notes: Generated the repo-only monthly rebalance research ticket command output, preserved benchmark comparison, recorded risk_agent review before actionable suggestions, and hardened Stage 3.1 artifact regeneration so full safety discovery keeps the current Program Runner next_safe_action. Live Feishu sends, real runtime config changes, broker access, order placement, and automatic trading remain disabled. Next safe action is Stage 4 WP5 ETF universe health check command output.
+
+## 2026-06-29T13:49:20Z
+
+- wake time in UTC: 2026-06-29T13:49:20Z
+- previous status: next_work_package_ready
+- selected work package: Stage 4 WP3 weekly report command output
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage4_wp3_weekly_report_command_output`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_hermes_router_safety`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: pending in Stage 4 WP3 wake commit
+- next status: next_work_package_ready
+- whether user attention is required: no
+- notes: Generated the repo-only weekly report command output and preserved benchmark comparison for each strategy row. Live Feishu sends, real runtime config changes, broker access, order placement, and automatic trading remain disabled. Next safe action is Stage 4 WP4 monthly rebalance research ticket command output.
+
+## 2026-06-29T13:34:40Z
+
+- wake time in UTC: 2026-06-29T13:34:40Z
+- previous status: next_work_package_ready
+- selected work package: Stage 4 WP2 market brief command output
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage4_wp2_market_brief_command_output`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_hermes_router_safety`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: pending in Stage 4 WP2 wake commit
+- next status: next_work_package_ready
+- whether user attention is required: no
+- notes: Generated the repo-only market brief command output and preserved benchmark comparison for each strategy row. Live Feishu sends, real runtime config changes, broker access, order placement, and automatic trading remain disabled. Next safe action is Stage 4 WP3 weekly report command output.
+
+## 2026-06-29T13:19:21Z
+
+- wake time in UTC: 2026-06-29T13:19:21Z
+- previous status: next_work_package_ready
+- selected work package: Stage 4 WP1 Feishu command routing for ETF research
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage4_wp1_feishu_command_router`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_hermes_router_safety`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: pending in Stage 4 WP1 wake commit
+- next status: next_work_package_ready
+- whether user attention is required: no
+- notes: Added repo-only Feishu command routing for approved ETF research commands; live Feishu sends, real runtime config changes, broker access, order placement, and automatic trading remain disabled. Next safe action is Stage 4 WP2 market brief command output.
+
+## 2026-06-29T11:17:25Z
+
+- wake time in UTC: 2026-06-29T11:17:25Z
+- previous status: blocked
+- selected work package: Stage 3.2 prerequisite verification recovery
+- reviewer mode: direct recovery with safety verification
+- tests run:
+  - `python3 -m unittest`
+  - `python3 scripts/safety/check_forbidden_surfaces.py`
+  - `python3 scripts/safety/check_secret_leaks.py`
+  - `python3 scripts/safety/check_public_repo_hygiene.py`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: pending in runner recovery commit
+- next status: next_work_package_ready
+- whether user attention is required: no
+- notes: Stage 3.1 prerequisite was recovered by merging the real Stage 3.1 completion branch into `main`; the runner can resume Stage 3.2 on the next wake.
+
+## 2026-06-29T11:02:34Z
+
+- wake time in UTC: 2026-06-29T11:02:34Z
+- previous status: blocked
+- selected work package: Stage 3.2 prerequisite verification
+- reviewer mode: not_applicable_blocked_before_implementation
+- tests run:
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke` (final rerun after safety discovery normalized generated Stage 2B report artifacts)
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+- commit pushed: yes, in this wake after verification
+- next status: blocked
+- whether user attention is required: yes
+- notes: Stage 3.2 business work was not started because the runner was already blocked and the latest prerequisite check still shows the local Stage 3.1 branch tip is not contained in `main`.
+
+## 2026-06-29T09:47:22Z
+
+- wake time in UTC: 2026-06-29T09:47:22Z
+- previous status: blocked
+- selected work package: Stage 3.2 prerequisite verification
+- reviewer mode: not_applicable_blocked_before_implementation
+- tests run:
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+- commit pushed: yes, in this wake after verification
+- next status: blocked
+- whether user attention is required: yes
+- notes: Stage 3.2 business work was not started because the runner was already blocked and the latest prerequisite check still shows the local Stage 3.1 branch tip is not contained in `main`.
+
+## 2026-06-29T09:03:09Z
+
+- wake time in UTC: 2026-06-29T09:03:09Z
+- previous status: ready
+- selected work package: Stage 3.2 prerequisite verification
+- reviewer mode: not_applicable_blocked_before_implementation
+- tests run:
+  - `python3 -m unittest tests.safety.test_program_runner_governance.ProgramRunnerGovernanceTest.test_runner_state_enforces_autonomous_final_review_only_mode`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+- commit pushed: yes, in this wake after verification
+- next status: blocked
+- whether user attention is required: yes
+- notes: Stage 3.2 business work was not started because the latest local Stage 3.1 branch tip was not verified as merged into `main`.
+
+Each heartbeat entry should record:
+
+- wake time in UTC
+- previous status
+- selected work package
+- reviewer mode
+- tests run
+- commit pushed
+- next status
+- whether user attention is required
+
+Do not include secrets, tokens, auth values, local-private paths, or private runtime identifiers.
+## 2026-06-29T18:08:48Z Stage 4 WP7
+
+- status: next_work_package_ready
+- completed_work_package: Stage 4 WP7 OpenClaw agents draft or safe integration plan
+- next_safe_action: resume Stage 5 WP1 manual holdings CSV import
+- reviewer_mode: simulated_separate_pass
+- live_openclaw_modified: false
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 5 WP1
+
+- status: next_work_package_ready
+- completed_work_package: Stage 5 WP1 manual holdings CSV import
+- next_safe_action: resume Stage 5 WP2 manual trades CSV import
+- reviewer_mode: simulated_separate_pass
+- universe_allowlist_enforced: true
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 5 WP2
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 5 WP2 manual trades CSV import
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage5_wp2_manual_trades_import`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- whether user attention is required: no
+- next_safe_action: resume Stage 5 WP3 portfolio weight calculation
+- universe_allowlist_enforced: true
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 5 WP3
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 5 WP3 portfolio weight calculation
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage5_wp3_portfolio_weights`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool data/portfolio/portfolio_weights_latest.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- whether user attention is required: no
+- next_safe_action: resume Stage 5 WP4 drift checks
+- universe_allowlist_enforced: true
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 5 WP4
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 5 WP4 drift checks
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage5_wp4_drift_checks`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool data/portfolio/portfolio_drift_latest.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- whether user attention is required: no
+- next_safe_action: resume Stage 5 WP5 rebalance research ticket
+- universe_allowlist_enforced: true
+- benchmark_comparison_preserved: true
+- trade_ticket_generated: false
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 5 WP5
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 5 WP5 rebalance research ticket
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage5_wp5_rebalance_research_ticket`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/portfolio/stage5_wp5_rebalance_research_ticket.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- whether user attention is required: no
+- next_safe_action: resume Stage 5 WP6 adoption and rejection journal
+- universe_allowlist_enforced: true
+- benchmark_comparison_preserved: true
+- trade_ticket_generated: true
+- risk_agent_review: passed
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 5 WP6
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 5 WP6 adoption and rejection journal
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage5_wp6_adoption_rejection_journal`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/portfolio/stage5_wp6_adoption_rejection_journal.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP1 schedule dry-runs
+- universe_allowlist_enforced: true
+- benchmark_comparison_preserved: true
+- trade_ticket_generated: false
+- risk_agent_review: passed
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 6 WP1
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP1 schedule dry-runs
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp1_schedule_dry_runs`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp1_schedule_dry_runs.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP2 error recovery
+- repo_only: true
+- live_send_attempted: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 6 WP2
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP2 error recovery
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp2_error_recovery`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp2_error_recovery.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP3 log redaction
+- repo_only: true
+- live_send_attempted: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 6 WP3
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP3 log redaction
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp3_log_redaction`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp3_log_redaction.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP4 public repo hygiene
+- repo_only: true
+- live_send_attempted: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
+## 2026-06-29T18:08:48Z Stage 6 WP4
+
+- wake time in UTC: 2026-06-29T18:08:48Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP4 public repo hygiene
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_public_repo_hygiene`
+  - `python3 -m unittest tests.safety.test_stage6_wp4_public_repo_hygiene`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp4_public_repo_hygiene.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP5 Hermes/Feishu notification stability
+- repo_only: true
+- live_send_attempted: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
+## 2026-06-29T18:08:49Z Stage 6 WP5
+
+- wake time in UTC: 2026-06-29T18:08:49Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP5 Hermes/Feishu notification stability
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp5_notification_stability`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp5_notification_stability.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP6 OpenClaw agent boundary checks
+- repo_only: true
+- live_send_attempted: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
+## 2026-06-29T18:08:49Z Stage 6 WP6
+
+- wake time in UTC: 2026-06-29T18:08:49Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP6 OpenClaw agent boundary checks
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp6_openclaw_agent_boundary_checks`
+  - `python3 -m unittest tests.safety.test_openclaw_agents_safety`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp6_openclaw_agent_boundary_checks.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: resume Stage 6 WP7 long-term runbook
+- repo_only: true
+- apply_to_real_openclaw: false
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
+## 2026-06-29T18:10:29Z Stage 6 WP7
+
+- wake time in UTC: 2026-06-29T18:10:29Z
+- previous status: next_work_package_ready
+- selected work package: Stage 6 WP7 long-term runbook
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_stage6_wp7_long_term_runbook`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/operations/stage6_wp7_long_term_runbook.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: next_work_package_ready
+- next_safe_action: prepare Final v1.0 review package
+- repo_only: true
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true
+## 2026-06-30T10:47:33Z Final v1.0 Review Package
+
+- wake time in UTC: 2026-06-30T10:47:33Z
+- previous status: next_work_package_ready
+- selected work package: Final v1.0 review package
+- reviewer mode: simulated_separate_pass
+- tests run:
+  - `python3 -m unittest tests.safety.test_final_v1_review_package`
+  - `python3 -m unittest tests.safety.test_program_runner_governance`
+  - `python3 -m unittest tests.safety.test_safety`
+  - `python3 -m unittest discover tests/safety`
+  - `python3 -m unittest discover tests/smoke`
+  - `python3 -m json.tool ops/program_runner/program_runner_state.json`
+  - `python3 -m json.tool reports/program_reviews/final/latest.json`
+  - `python3 -m json.tool reports/program_runner/final_v1_review_package_report.json`
+  - `python3 scripts/safety/check_forbidden_surfaces.py --root .`
+  - `python3 scripts/safety/check_secret_leaks.py --root .`
+  - `python3 scripts/safety/check_public_repo_hygiene.py --root .`
+  - `python3 scripts/safety/check_universe_only.py`
+  - `git diff --check`
+- commit pushed: yes, in this wake after verification
+- next status: final_review_ready
+- next_safe_action: ask user whether to request ChatGPT final review
+- repo_only: true
+- real_runtime_modified: false
+- services_restarted: false
+- final_trading_manual: true

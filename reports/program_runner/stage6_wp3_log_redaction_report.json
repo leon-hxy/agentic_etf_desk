@@ -1,0 +1,37 @@
+{
+  "asset_scope": "ETF-only",
+  "automatic_trading": false,
+  "benchmark_comparison_required": true,
+  "broker_write_surface": false,
+  "final_trading_manual": true,
+  "live_send_attempted": false,
+  "major_stage": "Stage 6",
+  "manual_trading_note": "Final trading is manually decided by the user.",
+  "next_work_package": "Stage 6 WP4 public repo hygiene",
+  "real_runtime_modified": false,
+  "repo_only": true,
+  "report_type": "program_runner_work_package_report",
+  "reviewer_mode": "simulated_separate_pass",
+  "risk_agent_review": {
+    "new_actionable_trade_suggestion": false,
+    "result": "passed",
+    "reviewer": "risk_agent",
+    "scope": "log redaction policy; no trade ticket or actionable trade suggestion generated",
+    "trade_ticket_actionable_without_review": false
+  },
+  "services_restarted": false,
+  "status": "completed_internal_review",
+  "trade_ticket_generated": false,
+  "validation_checks": {
+    "all_synthetic_samples_redacted": true,
+    "log_redaction_artifact_written": true,
+    "manual_trading_disclaimer_present": true,
+    "real_runtime_not_modified": true,
+    "redactor_masks_private_paths": true,
+    "redactor_masks_process_ids": true,
+    "redactor_masks_secret_assignments": true,
+    "services_not_restarted": true,
+    "trade_ticket_not_generated": true
+  },
+  "work_package": "Stage 6 WP3 log redaction"
+}
