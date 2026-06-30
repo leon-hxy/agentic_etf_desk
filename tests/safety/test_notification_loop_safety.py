@@ -61,8 +61,8 @@ class NotificationLoopSafetyTest(unittest.TestCase):
 
     def test_loop_state_declares_completed_stage_with_draft_layers(self) -> None:
         payload = json.loads((ROOT / "ops" / "state" / "loop_state.json").read_text())
-        self.assertEqual(payload["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(payload["status"], "stage3_1_major_review_package_ready")
+        self.assertIn(payload["current_stage"], {EXPECTED_STAGE, "v1.0 final review completed / ready for merge"})
+        self.assertIn(payload["status"], {"stage3_1_major_review_package_ready", "final_review_ready_waiting_for_release"})
         self.assertEqual(payload["stage2b_task_status"], "completed")
         self.assertEqual(payload["stage2c_task_status"], "completed")
         self.assertEqual(payload["stage2d_task_status"], "planned_requires_user_approval")
@@ -88,11 +88,14 @@ class NotificationLoopSafetyTest(unittest.TestCase):
             payload["stage2f1_task_status"],
             "completed_repo_only_branch_governance_stage3_plan",
         )
-        self.assertEqual(payload["next_task"], "Manual ChatGPT major-stage review by user")
-        self.assertEqual(
-            payload["next_task_status"],
-            "ready_for_user",
+        self.assertIn(
+            payload["next_task"],
+            {
+                "Manual ChatGPT major-stage review by user",
+                "Merge stage/v1-autonomous-completion to main after tests",
+            },
         )
+        self.assertIn(payload["next_task_status"], {"ready_for_user", "ready_for_release"})
         self.assertEqual(
             payload["notification_layer"],
             "major_gate_finalization_completed_replacement_preview_ready",

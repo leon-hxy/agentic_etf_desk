@@ -17,6 +17,7 @@ Final trading is manually decided by the user.
 - `approval_required`: Work cannot continue until the user approves an explicit queue item.
 - `blocked`: Work cannot continue because of a non-approval blocker.
 - `final_review_ready`: The final v1.0 review package is ready and the user may decide whether to request ChatGPT final review.
+- `final_review_ready_waiting_for_release`: The final v1.0 review package has a final review verdict and automation is paused until release/merge.
 - `completed`: The program is complete.
 
 ## Work Package Contract
@@ -85,7 +86,7 @@ generate `reports/program_runner/notification_preview.md` and
 `reports/program_runner/notification_preview.json`, and state why the live send
 was not attempted.
 
-When status is `final_review_ready`, the allowed user-facing message is:
+When status is `final_review_ready` or `final_review_ready_waiting_for_release`, the allowed user-facing message is:
 
 > v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？
 
@@ -96,4 +97,4 @@ Do not request ChatGPT review for internal work packages. Do not run Computer Us
 
 ## Completion Rule
 
-The program may move to `final_review_ready` only after `reports/program_reviews/final/latest.md` and `reports/program_reviews/final/latest.json` have been generated and internally reviewed.
+The program may move to `final_review_ready_waiting_for_release` only after `reports/program_reviews/final/latest.md` and `reports/program_reviews/final/latest.json` have been generated, internally reviewed, and reconciled as the latest release target.

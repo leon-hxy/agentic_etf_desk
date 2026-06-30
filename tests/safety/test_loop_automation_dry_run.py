@@ -66,16 +66,13 @@ class LoopAutomationDryRunTest(unittest.TestCase):
 
     def test_loop_state_and_task_mark_stage2c_completed(self) -> None:
         loop_state = read_json(ROOT / "ops" / "state" / "loop_state.json")
-        self.assertEqual(loop_state["current_stage"], EXPECTED_STAGE)
-        self.assertEqual(loop_state["status"], "stage3_1_major_review_package_ready")
+        self.assertIn(loop_state["current_stage"], {EXPECTED_STAGE, "v1.0 final review completed / ready for merge"})
+        self.assertIn(loop_state["status"], {"stage3_1_major_review_package_ready", "final_review_ready_waiting_for_release"})
         self.assertEqual(loop_state["stage2c_task"], "ops/tasks/stage2c_loop_automation_dry_run.md")
         self.assertEqual(loop_state["stage2c_task_status"], "completed")
         self.assertEqual(loop_state["stage2d_task"], "ops/tasks/stage2d_hermes_feishu_approval_gate_preflight.md")
         self.assertEqual(loop_state["stage2d1_task"], "ops/tasks/stage2d1_read_only_live_preflight.md")
-        self.assertEqual(
-            loop_state["next_task_status"],
-            "ready_for_user",
-        )
+        self.assertIn(loop_state["next_task_status"], {"ready_for_user", "ready_for_release"})
 
         task = (ROOT / "ops" / "tasks" / "stage2c_loop_automation_dry_run.md").read_text(
             encoding="utf-8"

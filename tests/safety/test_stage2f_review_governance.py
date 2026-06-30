@@ -5,6 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = "Stage 3.1 major review package ready"
+FINAL_STAGE = "v1.0 final review completed / ready for merge"
 
 
 def read(path: str) -> str:
@@ -74,9 +75,11 @@ class Stage2FReviewGovernanceTest(unittest.TestCase):
         review = read_json("reports/review_requests/latest.json")
         relay_status = read_json("reports/review_requests/relay_status.json")
 
-        self.assertEqual(loop_state["current_stage"], STAGE)
-        self.assertEqual(handoff["stage"], STAGE)
-        self.assertEqual(review["stage"], STAGE)
+        self.assertEqual(loop_state["current_stage"], FINAL_STAGE)
+        self.assertEqual(handoff["stage"], FINAL_STAGE)
+        self.assertEqual(review["stage"], FINAL_STAGE)
+        self.assertTrue(handoff["evidence_context"]["stage3_1"]["major_review_package_ready"])
+        self.assertTrue(review["stage3_1_major_review_package_ready"])
         self.assertIn(relay_status["stage"], {STAGE, "Stage 3 sample-data pipeline validation merged to main"})
         self.assertEqual(loop_state["review_governance_mode"], "small_stage_codex_self_review_major_stage_chatgpt_manual")
         self.assertEqual(loop_state["stage2f_task_status"], "completed_repo_only_review_governance_refactor")

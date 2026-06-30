@@ -35,7 +35,7 @@ class FinalV1ReviewPackageTest(unittest.TestCase):
         result = self.run_cmd(["scripts/reports/generate_final_v1_review_package.py"])
         self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
         payload = json.loads(result.stdout)
-        self.assertEqual(payload["status"], "final_review_ready")
+        self.assertEqual(payload["status"], "final_review_ready_waiting_for_release")
         self.assertEqual(payload["message"], READY_MESSAGE)
 
         for path in (
@@ -60,6 +60,11 @@ class FinalV1ReviewPackageTest(unittest.TestCase):
 
         self.assertEqual(package["report_type"], "final_v1_program_review_package")
         self.assertEqual(package["status"], "final_review_ready")
+        self.assertEqual(package["final_review_verdict"], "conditional_pass")
+        self.assertEqual(
+            package["release_scope"],
+            "ETF research desk, not investment advice, not automatic trading",
+        )
         self.assertEqual(package["asset_scope"], "ETF-only")
         self.assertTrue(package["final_trading_manual"])
         self.assertTrue(package["benchmark_comparison_required"])
@@ -96,23 +101,34 @@ class FinalV1ReviewPackageTest(unittest.TestCase):
         self.assertFalse(internal["security_reviewer"][BROKER_ACCESS_SURFACE_FIELD])
 
         self.assertEqual(notification["trigger_status"], "final_review_ready")
-        self.assertEqual(notification["status"], "generated_no_live_send")
+        self.assertEqual(notification["status"], "final_review_ready_waiting_for_user_or_merge")
         self.assertEqual(notification["message"], READY_MESSAGE)
         self.assertFalse(notification["live_send_attempted"])
+        self.assertEqual(notification["automation_recommended_action"], "pause")
+        self.assertFalse(notification["heartbeat_should_continue"])
+        self.assertTrue(notification["no_repeated_heartbeat_needed"])
+        self.assertEqual(notification["next_safe_action"], "merge_to_main_after_tests")
 
-        self.assertEqual(state["status"], "final_review_ready")
+        self.assertEqual(state["status"], "final_review_ready_waiting_for_release")
         self.assertEqual(state["current_work_package"], "Final v1.0 review package")
         self.assertEqual(state["last_completed_work_package"], "Final v1.0 review package")
         self.assertEqual(state["last_internal_review"], "reports/internal_reviews/program/final_v1_review_package.json")
         self.assertEqual(state["last_report"], "reports/program_runner/final_v1_review_package_report.json")
+        self.assertFalse(state["heartbeat_should_continue"])
+        self.assertEqual(state["automation_recommended_action"], "pause")
+        self.assertEqual(state["final_review_result"], "conditional_pass")
+        self.assertEqual(state["next_safe_action"], "merge_to_main_after_tests")
         self.assertEqual(state["stage6"]["status"], "final_review_ready")
         self.assertIn("final_v1_0_review_package", state["stage6"]["completed_work_packages"])
         self.assertIsNone(state["stage6"]["next_work_package"])
         self.assertFalse(state["stage6"]["user_notification_sent"])
 
-        self.assertEqual(handoff["program_runner"]["status"], "final_review_ready")
-        self.assertEqual(handoff["program_runner"]["next_safe_action"], "ask user whether to request ChatGPT final review")
-        self.assertEqual(loop_state["program_runner"]["status"], "final_review_ready")
+        self.assertEqual(handoff["stage"], "v1.0 final review completed / ready for merge")
+        self.assertEqual(handoff["program_status"], "final_review_ready")
+        self.assertEqual(handoff["final_review_verdict"], "conditional_pass")
+        self.assertEqual(handoff["program_runner"]["status"], "final_review_ready_waiting_for_release")
+        self.assertEqual(handoff["program_runner"]["next_safe_action"], "merge_to_main_after_tests")
+        self.assertEqual(loop_state["program_runner"]["status"], "final_review_ready_waiting_for_release")
 
         combined = "\n".join(
             [

@@ -54,38 +54,47 @@ class MajorGateFinalizerGovernanceTest(unittest.TestCase):
 
         self.assertEqual(major["stage"], "Stage 3 major review package")
         self.assertEqual(major["status"], "major_review_package_ready")
-        self.assertIn(
-            review_request["review_level"],
-            {"major_stage", "scope_consolidation", "work_package_internal_review"},
-        )
-        self.assertIn(
-            review_request["review_target"],
-            {
-                "Stage 3 major review package",
-                "Stage 3.1 scope consolidation",
-                "Stage 3.1 WP1 real data ingestion and cache",
-                "Stage 3.1 WP2 real data quality and monthly panel",
-                "Stage 3.1 major review package",
-            },
-        )
+        if review_request["review_level"] == "final_program_review":
+            self.assertEqual(review_request["review_target"], "v1.0 final review package")
+            self.assertEqual(review_request["review_target_md"], "reports/program_reviews/final/latest.md")
+            self.assertEqual(review_request["final_review_verdict"], "conditional_pass")
+        else:
+            self.assertIn(
+                review_request["review_level"],
+                {"major_stage", "scope_consolidation", "work_package_internal_review"},
+            )
+            self.assertIn(
+                review_request["review_target"],
+                {
+                    "Stage 3 major review package",
+                    "Stage 3.1 scope consolidation",
+                    "Stage 3.1 WP1 real data ingestion and cache",
+                    "Stage 3.1 WP2 real data quality and monthly panel",
+                    "Stage 3.1 major review package",
+                },
+            )
+            self.assertIn(
+                review_request["chatgpt_review_targets"],
+                [
+                    ["reports/major_reviews/stage3/latest.md"],
+                    ["reports/major_reviews/stage3_1/latest.md", "reports/major_reviews/stage3_1/latest.json"],
+                    [],
+                ],
+            )
         self.assertTrue(review_request.get("include_finalization_fixes_as_context", True))
         self.assertFalse(review_request.get("request_chatgpt_review_for_finalization_fixes", False))
-        self.assertIn(
-            review_request["chatgpt_review_targets"],
-            [
-                ["reports/major_reviews/stage3/latest.md"],
-                ["reports/major_reviews/stage3_1/latest.md", "reports/major_reviews/stage3_1/latest.json"],
-                [],
-            ],
-        )
         self.assertEqual(prompt["review_target"], "Stage 3 major review package")
         self.assertFalse(prompt["request_chatgpt_review_for_finalization_fixes"])
-        self.assertEqual(handoff["stage"], EXPECTED_STAGE)
-        self.assertEqual(
-            handoff["next_recommended_stage"],
-            "Manual ChatGPT major-stage review by user",
-        )
-        self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
+        self.assertIn(handoff["stage"], {EXPECTED_STAGE, "v1.0 final review completed / ready for merge"})
+        if handoff["stage"] == EXPECTED_STAGE:
+            self.assertEqual(
+                handoff["next_recommended_stage"],
+                "Manual ChatGPT major-stage review by user",
+            )
+            self.assertTrue(handoff["finalization_fixes_internal_reviewed"])
+        else:
+            self.assertEqual(handoff["next_safe_action"], "merge_to_main_after_tests")
+            self.assertTrue(handoff["evidence_context"]["stage3_1"]["finalization_fixes_internal_reviewed"])
 
         for payload in (major, handoff, review_request, prompt):
             self.assertNotEqual(payload.get("stage"), "Stage 3F major_gate_feishu_notification_sent")

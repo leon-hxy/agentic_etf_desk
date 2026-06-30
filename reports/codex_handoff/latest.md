@@ -1,19 +1,27 @@
 # Codex Handoff
 
-## Program Runner
+## v1.0 Final Review
 
-- Program Runner status: `final_review_ready`.
+- Stage: `v1.0 final review completed / ready for merge`.
+- Program Runner status: `final_review_ready_waiting_for_release`.
+- Program status: `final_review_ready`.
+- Final review verdict: `conditional_pass`.
+- Release scope: ETF research desk, not investment advice, not automatic trading.
+- Review target markdown: `reports/program_reviews/final/latest.md`.
+- Review target JSON: `reports/program_reviews/final/latest.json`.
 - Current major stage: `Stage 6`.
 - Current work package: `Final v1.0 review package`.
 - Last completed work package: `Final v1.0 review package`.
 - Final review package: `reports/program_reviews/final/latest.md`.
-- Next safe action: ask user whether to request ChatGPT final review.
+- Next safe action: merge_to_main_after_tests.
+- Automation recommended action: `pause`.
+- Heartbeat should continue: false.
 - Codex requested ChatGPT review: false.
 - User notification sent: false.
 
 ## Final Readiness
 
-v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？
+The v1.0 final review package has passed final review with a conditional_pass verdict and is ready for merge after tests.
 
 ## Stage 3.1 Historical Context
 
@@ -52,7 +60,12 @@ Stage 3.1 major review was completed before autonomous v1.0 completion work bega
 
 ## Commit Metadata
 
-- `review_target_commit`: `35348bc8c38df09562190f3c049142a252cbc85d`
-- `current_repo_head`: `35348bc8c38df09562190f3c049142a252cbc85d`
+- `final_review_package_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`
+- `final_metadata_commit`: `798ede171e8aeb04364ce678fb9fe84643e6515a`
+- `release_candidate_head`: `798ede171e8aeb04364ce678fb9fe84643e6515a`
+- `merge_target_branch`: `main`
+- `next_safe_action`: `merge_to_main_after_tests`
+- `review_target_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`
+- `current_repo_head`: `798ede171e8aeb04364ce678fb9fe84643e6515a`
 
 Final trading is manually decided by the user.

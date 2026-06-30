@@ -81,7 +81,7 @@ class Stage32Wp1SourceValidationTest(unittest.TestCase):
 
         self.assertEqual(state["current_major_stage"], "Stage 6")
         self.assertEqual(state["current_work_package"], "Final v1.0 review package")
-        self.assertEqual(state["status"], "final_review_ready")
+        self.assertIn(state["status"], {"final_review_ready", "final_review_ready_waiting_for_release"})
         self.assertEqual(state["last_completed_work_package"], "Final v1.0 review package")
         self.assertFalse(state["stage3_2"]["user_notification_sent"])
         self.assertIn("stage3_2_wp1_source_validation", state["stage3_2"]["completed_work_packages"])

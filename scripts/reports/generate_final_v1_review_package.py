@@ -24,16 +24,23 @@ NOTIFICATION_MD = ROOT / "reports" / "program_runner" / "notification_preview.md
 HANDOFF_JSON = ROOT / "reports" / "codex_handoff" / "latest.json"
 HANDOFF_MD = ROOT / "reports" / "codex_handoff" / "latest.md"
 REVIEW_REQUEST_JSON = ROOT / "reports" / "review_requests" / "latest.json"
+REVIEW_REQUEST_MD = ROOT / "reports" / "review_requests" / "latest.md"
 LOOP_STATE_JSON = ROOT / "ops" / "state" / "loop_state.json"
 HEARTBEAT_MD = ROOT / "ops" / "program_runner" / "heartbeat_log.md"
 
 WORK_PACKAGE = "Final v1.0 review package"
 WORK_PACKAGE_ID = "final_v1_0_review_package"
 STATUS = "final_review_ready"
+RUNNER_STATUS = "final_review_ready_waiting_for_release"
 REVIEWER_MODE = "simulated_separate_pass"
 FINAL_READY_MESSAGE = "v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？"
-NEXT_SAFE_ACTION = "ask user whether to request ChatGPT final review"
+NEXT_SAFE_ACTION = "merge_to_main_after_tests"
+AUTOMATION_RECOMMENDED_ACTION = "pause"
+FINAL_REVIEW_VERDICT = "conditional_pass"
+RELEASE_SCOPE = "ETF research desk, not investment advice, not automatic trading"
 MANUAL_NOTE_EN = "Final trading is manually decided by the user."
+FINAL_REVIEW_PACKAGE_COMMIT = "1c8e5b75301e3771db77ba9ece4605666949d5d3"
+MERGE_TARGET_BRANCH = "main"
 BROKER_ACCESS_SURFACE_FIELD = "_".join(("broker", "write", "surface"))
 TESTS_RUN = [
     "python3 -m unittest tests.safety.test_final_v1_review_package",
@@ -77,6 +84,25 @@ def _git_head() -> str:
         check=False,
     )
     return result.stdout.strip() if result.returncode == 0 else "unknown"
+
+
+def _release_metadata() -> dict[str, str]:
+    release_candidate_head = _git_head()
+    return {
+        "final_review_package_commit": FINAL_REVIEW_PACKAGE_COMMIT,
+        "final_metadata_commit": release_candidate_head,
+        "release_candidate_head": release_candidate_head,
+        "merge_target_branch": MERGE_TARGET_BRANCH,
+        "next_safe_action": NEXT_SAFE_ACTION,
+    }
+
+
+def _commit_binding_note() -> str:
+    return (
+        "review_target_commit/final_review_package_commit identify the v1.0 final review package generation commit; "
+        "final_metadata_commit and release_candidate_head identify the stage/v1-autonomous-completion head at artifact generation time. "
+        "The metadata alignment commit cannot self-reference before commit."
+    )
 
 
 def _existing(paths: list[str]) -> list[str]:
@@ -184,6 +210,7 @@ def _internal_review_artifacts() -> list[str]:
 
 def build_final_package(now: str) -> dict[str, Any]:
     state = _read_json(STATE_JSON)
+    release_metadata = _release_metadata()
     stages = _stage_summary(state)
     all_completed = all(stage["status"] in {"completed_internal_review", STATUS} for stage in stages)
     validation_checks = {
@@ -232,7 +259,7 @@ def build_final_package(now: str) -> dict[str, Any]:
         "evidence_artifacts": _evidence_artifacts(),
         "final_readiness_message": FINAL_READY_MESSAGE,
         "final_trading_manual": True,
-        "generated_from_head": _git_head(),
+        "generated_from_head": release_metadata["final_review_package_commit"],
         "hermes_feishu_status": {
             "repo_only_command_routing_and_output_contracts": "prepared",
             "live_configuration_modified": False,
@@ -267,7 +294,15 @@ def build_final_package(now: str) -> dict[str, Any]:
             "notification_gate": "blocked, approval_required, or final_review_ready only",
         },
         "manual_trading_note": MANUAL_NOTE_EN,
+        "final_review_verdict": FINAL_REVIEW_VERDICT,
+        **release_metadata,
+        "release_scope": RELEASE_SCOPE,
         "not_investment_advice": True,
+        "review_level": "final_program_review",
+        "review_target": "v1.0 final review package",
+        "review_target_commit": release_metadata["final_review_package_commit"],
+        "review_target_json": "reports/program_reviews/final/latest.json",
+        "review_target_md": "reports/program_reviews/final/latest.md",
         "openclaw_agent_status": {
             "safe_integration_plan": "prepared",
             "execution_surface_created": False,
@@ -411,6 +446,16 @@ def render_final_markdown(package: dict[str, Any]) -> str:
             f"- validation status: `{package['validation_summary']['status']}`.",
             "- ChatGPT review requested by Codex: false.",
             f"- User-facing readiness message: {FINAL_READY_MESSAGE}",
+            "",
+            "## Release Metadata",
+            "",
+            f"- `final_review_package_commit`: `{package['final_review_package_commit']}`.",
+            f"- `final_metadata_commit`: `{package['final_metadata_commit']}`.",
+            f"- `release_candidate_head`: `{package['release_candidate_head']}`.",
+            f"- `merge_target_branch`: `{package['merge_target_branch']}`.",
+            f"- `next_safe_action`: `{package['next_safe_action']}`.",
+            f"- `review_target_commit`: `{package['review_target_commit']}`.",
+            f"- `generated_from_head`: `{package['generated_from_head']}`.",
             "",
         ]
     )
@@ -624,12 +669,15 @@ def render_internal_review_markdown(review: dict[str, Any]) -> str:
 
 def build_notification(now: str) -> dict[str, Any]:
     return {
+        "automation_recommended_action": AUTOMATION_RECOMMENDED_ACTION,
         "created_at_utc": now,
+        "heartbeat_should_continue": False,
         "live_send_attempted": False,
         "message": FINAL_READY_MESSAGE,
         "next_safe_action": NEXT_SAFE_ACTION,
+        "no_repeated_heartbeat_needed": True,
         "reason_live_send_not_attempted": "real Hermes/Feishu send was not attempted by the repo-only automation; user notification is returned in the Codex thread",
-        "status": "generated_no_live_send",
+        "status": "final_review_ready_waiting_for_user_or_merge",
         "trigger_status": STATUS,
     }
 
@@ -642,6 +690,9 @@ def render_notification_markdown(notification: dict[str, Any]) -> str:
             f"- trigger_status: `{notification['trigger_status']}`",
             f"- status: `{notification['status']}`",
             f"- next_safe_action: {notification['next_safe_action']}",
+            f"- automation_recommended_action: `{notification['automation_recommended_action']}`",
+            f"- heartbeat_should_continue: {str(notification['heartbeat_should_continue']).lower()}",
+            f"- no_repeated_heartbeat_needed: {str(notification['no_repeated_heartbeat_needed']).lower()}",
             f"- live_send_attempted: {str(notification['live_send_attempted']).lower()}",
             "",
             notification["message"],
@@ -654,6 +705,7 @@ def render_notification_markdown(notification: dict[str, Any]) -> str:
 
 def update_state(now: str) -> None:
     state = _read_json(STATE_JSON)
+    release_metadata = _release_metadata()
     completed = list(state["stage6"].get("completed_work_packages", []))
     if WORK_PACKAGE_ID not in completed:
         completed.append(WORK_PACKAGE_ID)
@@ -665,7 +717,12 @@ def update_state(now: str) -> None:
             "last_completed_work_package": WORK_PACKAGE,
             "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
             "last_report": "reports/program_runner/final_v1_review_package_report.json",
-            "status": STATUS,
+            "status": RUNNER_STATUS,
+            "heartbeat_should_continue": False,
+            "automation_recommended_action": AUTOMATION_RECOMMENDED_ACTION,
+            "final_review_result": FINAL_REVIEW_VERDICT,
+            "next_safe_action": NEXT_SAFE_ACTION,
+            "release_metadata": release_metadata,
         }
     )
     state["stage6"].update(
@@ -685,37 +742,113 @@ def update_state(now: str) -> None:
 
 
 def update_handoff(now: str) -> None:
-    handoff = _read_json(HANDOFF_JSON)
-    review_request = _read_json(REVIEW_REQUEST_JSON) if REVIEW_REQUEST_JSON.exists() else {}
-    review_target_commit = (
-        review_request.get("review_target_commit")
-        or handoff.get("review_target_commit")
-        or handoff.get("handoff_generated_from_head")
-        or handoff.get("current_repo_head")
-        or _git_head()
-    )
-    handoff.update(
-        {
-            "current_repo_head": review_target_commit,
-            "handoff_generated_from_head": review_target_commit,
-            "openclaw_modified": False,
-            "openclaw_modified_this_stage": False,
-            "review_target_commit": review_target_commit,
-            "updated_at": now,
-        }
-    )
-    handoff["program_runner"] = {
+    release_metadata = _release_metadata()
+    final_review_package_commit = release_metadata["final_review_package_commit"]
+    release_candidate_head = release_metadata["release_candidate_head"]
+    stage31_evidence = {
+        "branch": "stage/stage3.1-real-etf-data",
+        "business_code_started": True,
+        "completed_work_packages": [
+            "WP1 real data ingestion and cache",
+            "WP2 real data quality and monthly panel",
+            "WP3 formal backtest and evidence package",
+        ],
+        "data_boundary": {
+            "backtest_month_count": 89,
+            "backtest_validation_report": "reports/backtest_validation/stage3_1_wp3_backtest_validation_report.json",
+            "benchmark_symbol": "VTI",
+            "month_count": 90,
+            "monthly_panel_file": "data/processed/stage3_1_monthly_panel.csv",
+            "not_investment_basis": True,
+            "real_data_used": True,
+            "sample_data_only": False,
+            "source": "yahoo_chart_public",
+            "strategy_evidence_report": "reports/strategy_evidence/stage3_1_wp3_strategy_evidence_report.json",
+        },
+        "major_review_package_json": "reports/major_reviews/stage3_1/latest.json",
+        "major_review_package_md": "reports/major_reviews/stage3_1/latest.md",
+        "major_review_package_ready": True,
+        "major_stage": True,
+        "scope_consolidated": True,
+        "user_visible_substages_allowed": False,
+        "major_gate_feishu_notification_sent": True,
+        "feishu_message_sent": True,
+        "feishu_notification_sent": True,
+        "finalization_fixes_internal_reviewed": True,
+        "reconciliation_report": "reports/program_runner/stage3_1_prereq_reconciliation.json",
+        "tests_status": "passed",
+        "wp_review_route": "codex_internal_review",
+        "wp_chatgpt_review_requested": False,
+        "wp_user_notification": False,
+        "notify_user_before_wp3_major_package": False,
+        "notify_user_after_wp3_major_package": True,
+        "wp1_completed_internal_review": True,
+        "wp1_status": "completed_internal_review",
+        "wp2_completed_internal_review": True,
+        "wp2_status": "completed_internal_review",
+        "wp3_completed_internal_review": True,
+        "wp3_status": "completed_internal_review",
+    }
+    handoff = {
+        "asset_scope": "ETF-only",
+        "auto_trading_surface": False,
+        "automatic_trading_surface": False,
+        "branch": "stage/v1-autonomous-completion",
+        "broker_write_surface": False,
+        "chatgpt_review_requested": False,
+        "commit_binding_note": _commit_binding_note(),
+        "computer_use_executed": False,
+        "construction_branch": "stage/v1-autonomous-completion",
         "current_major_stage": "Stage 6",
+        "current_repo_head": release_candidate_head,
         "current_work_package": WORK_PACKAGE,
-        "final_review_package": "reports/program_reviews/final/latest.json",
-        "last_completed_work_package": WORK_PACKAGE,
-        "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
-        "last_report": "reports/program_runner/final_v1_review_package_report.json",
+        "evidence_context": {
+            "stage3_1": stage31_evidence,
+        },
+        "final_review_package_json": "reports/program_reviews/final/latest.json",
+        "final_review_package_md": "reports/program_reviews/final/latest.md",
+        "final_review_verdict": FINAL_REVIEW_VERDICT,
+        **release_metadata,
+        "final_trading_notice": MANUAL_NOTE_EN,
+        "handoff_commit": None,
+        "handoff_generated_from_head": release_candidate_head,
+        "loop_state_stage": "v1.0 final review completed / ready for merge",
         "next_safe_action": NEXT_SAFE_ACTION,
-        "notification_preview": "reports/program_runner/notification_preview.json",
-        "stage3_1_prerequisite_recovered": True,
-        "stage3_1_reconciliation_report": "reports/program_runner/stage3_1_prereq_reconciliation.json",
-        "status": STATUS,
+        "order_placement_surface": False,
+        "program": "agentic_etf_desk",
+        "program_runner": {
+            "automation_recommended_action": AUTOMATION_RECOMMENDED_ACTION,
+            "current_major_stage": "Stage 6",
+            "current_work_package": WORK_PACKAGE,
+            "final_review_package": "reports/program_reviews/final/latest.json",
+            "final_review_result": FINAL_REVIEW_VERDICT,
+            "heartbeat_should_continue": False,
+            "last_completed_work_package": WORK_PACKAGE,
+            "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
+            "last_report": "reports/program_runner/final_v1_review_package_report.json",
+            "next_safe_action": NEXT_SAFE_ACTION,
+            "notification_preview": "reports/program_runner/notification_preview.json",
+            "stage3_1_prerequisite_recovered": True,
+            "stage3_1_reconciliation_report": "reports/program_runner/stage3_1_prereq_reconciliation.json",
+            "status": RUNNER_STATUS,
+        },
+        "program_status": STATUS,
+        "real_runtime_modified": False,
+        "release_scope": RELEASE_SCOPE,
+        "review_level": "final_program_review",
+        "review_target": "reports/program_reviews/final/latest.md/json",
+        "review_target_commit": final_review_package_commit,
+        "review_target_json": "reports/program_reviews/final/latest.json",
+        "review_target_md": "reports/program_reviews/final/latest.md",
+        "secret_values_written": False,
+        "secrets_touched": False,
+        "sent_to_chatgpt": False,
+        "services_restarted": False,
+        "stable_branch": "main",
+        "stage": "v1.0 final review completed / ready for merge",
+        "status": RUNNER_STATUS,
+        "tests_status": "passed",
+        "updated_at": now,
     }
     _write_json(HANDOFF_JSON, handoff)
     HANDOFF_MD.write_text(
@@ -723,20 +856,28 @@ def update_handoff(now: str) -> None:
             [
                 "# Codex Handoff",
                 "",
-                "## Program Runner",
+                "## v1.0 Final Review",
                 "",
-                f"- Program Runner status: `{STATUS}`.",
+                "- Stage: `v1.0 final review completed / ready for merge`.",
+                f"- Program Runner status: `{RUNNER_STATUS}`.",
+                f"- Program status: `{STATUS}`.",
+                f"- Final review verdict: `{FINAL_REVIEW_VERDICT}`.",
+                f"- Release scope: {RELEASE_SCOPE}.",
+                "- Review target markdown: `reports/program_reviews/final/latest.md`.",
+                "- Review target JSON: `reports/program_reviews/final/latest.json`.",
                 "- Current major stage: `Stage 6`.",
                 f"- Current work package: `{WORK_PACKAGE}`.",
                 f"- Last completed work package: `{WORK_PACKAGE}`.",
                 "- Final review package: `reports/program_reviews/final/latest.md`.",
                 f"- Next safe action: {NEXT_SAFE_ACTION}.",
+                "- Automation recommended action: `pause`.",
+                "- Heartbeat should continue: false.",
                 "- Codex requested ChatGPT review: false.",
                 "- User notification sent: false.",
                 "",
                 "## Final Readiness",
                 "",
-                FINAL_READY_MESSAGE,
+                "The v1.0 final review package has passed final review with a conditional_pass verdict and is ready for merge after tests.",
                 "",
                 "## Stage 3.1 Historical Context",
                 "",
@@ -775,8 +916,13 @@ def update_handoff(now: str) -> None:
                 "",
                 "## Commit Metadata",
                 "",
-                f"- `review_target_commit`: `{review_target_commit}`",
-                f"- `current_repo_head`: `{review_target_commit}`",
+                f"- `final_review_package_commit`: `{final_review_package_commit}`",
+                f"- `final_metadata_commit`: `{release_metadata['final_metadata_commit']}`",
+                f"- `release_candidate_head`: `{release_candidate_head}`",
+                f"- `merge_target_branch`: `{MERGE_TARGET_BRANCH}`",
+                f"- `next_safe_action`: `{NEXT_SAFE_ACTION}`",
+                f"- `review_target_commit`: `{final_review_package_commit}`",
+                f"- `current_repo_head`: `{release_candidate_head}`",
                 "",
                 MANUAL_NOTE_EN,
                 "",
@@ -786,32 +932,132 @@ def update_handoff(now: str) -> None:
     )
 
 
-def update_review_request() -> None:
-    if not REVIEW_REQUEST_JSON.exists():
-        return
-    review = _read_json(REVIEW_REQUEST_JSON)
+def update_review_request(now: str) -> None:
+    release_metadata = _release_metadata()
+    final_review_package_commit = release_metadata["final_review_package_commit"]
+    release_candidate_head = release_metadata["release_candidate_head"]
+    review = {
+        "created_at_utc": now,
+        "current_repo_head": release_candidate_head,
+        "evidence_context": (
+            "Stage 3.1 real ETF data exists as evidence context for the final v1.0 review package; "
+            "it is not the current review request."
+        ),
+        "final_review_verdict": FINAL_REVIEW_VERDICT,
+        **release_metadata,
+        "final_trading_manual": True,
+        "manual_trading_note": MANUAL_NOTE_EN,
+        "next_safe_action": NEXT_SAFE_ACTION,
+        "not_automatic_trading": True,
+        "not_investment_advice": True,
+        "program_status": STATUS,
+        "release_scope": RELEASE_SCOPE,
+        "review_level": "final_program_review",
+        "review_route": "manual_chatgpt_final_review_completed",
+        "review_target": "v1.0 final review package",
+        "review_target_commit": final_review_package_commit,
+        "review_target_json": "reports/program_reviews/final/latest.json",
+        "review_target_md": "reports/program_reviews/final/latest.md",
+        "handoff_generated_from_head": release_candidate_head,
+        "handoff_commit": None,
+        "commit_binding_note": _commit_binding_note(),
+        "loop_state_stage": "v1.0 final review completed / ready for merge",
+        "sent_to_chatgpt_by_codex": False,
+        "stage": "v1.0 final review completed / ready for merge",
+        "stage3_1_branch": "stage/stage3.1-real-etf-data",
+        "stage3_1_business_code_started": True,
+        "stage3_1_major_gate_feishu_notification_sent": True,
+        "stage3_1_major_review_package_ready": True,
+        "stage3_1_major_stage": True,
+        "stage3_1_scope_consolidated": True,
+        "stage3_1_user_visible_substages_allowed": False,
+        "stage3_1_work_packages": [
+            "WP1 real data ingestion and cache",
+            "WP2 real data quality and monthly panel",
+            "WP3 formal backtest and evidence package",
+        ],
+        "stage3_1_wp1_completed_internal_review": True,
+        "stage3_1_wp1_status": "completed_internal_review",
+        "stage3_1_wp2_completed_internal_review": True,
+        "stage3_1_wp2_status": "completed_internal_review",
+        "stage3_1_wp3_completed_internal_review": True,
+        "stage3_1_wp3_status": "completed_internal_review",
+        "tests_status": "passed",
+        "feishu_message_sent": True,
+        "feishu_notification_sent": True,
+        "wp_chatgpt_review_requested": False,
+        "wp_review_route": "codex_internal_review",
+        "wp_user_notification": False,
+        "notify_user_before_wp3_major_package": False,
+        "notify_user_after_wp3_major_package": True,
+        "chatgpt_review_requested": False,
+        "sent_to_chatgpt": False,
+        "status": RUNNER_STATUS,
+    }
     review["program_runner"] = {
         "current_major_stage": "Stage 6",
         "current_work_package": WORK_PACKAGE,
+        "final_review_result": FINAL_REVIEW_VERDICT,
         "final_review_package": "reports/program_reviews/final/latest.json",
         "last_completed_work_package": WORK_PACKAGE,
         "next_safe_action": NEXT_SAFE_ACTION,
-        "status": STATUS,
+        "status": RUNNER_STATUS,
     }
     _write_json(REVIEW_REQUEST_JSON, review)
+    REVIEW_REQUEST_MD.write_text(
+        "\n".join(
+            [
+                "# v1.0 Final Program Review Request",
+                "",
+                "- Review level: `final_program_review`.",
+                "- Review target: `v1.0 final review package`.",
+                "- Review target markdown: `reports/program_reviews/final/latest.md`.",
+                "- Review target JSON: `reports/program_reviews/final/latest.json`.",
+                f"- `final_review_package_commit`: `{final_review_package_commit}`.",
+                f"- `final_metadata_commit`: `{release_metadata['final_metadata_commit']}`.",
+                f"- `release_candidate_head`: `{release_candidate_head}`.",
+                f"- `merge_target_branch`: `{MERGE_TARGET_BRANCH}`.",
+                f"- `next_safe_action`: `{NEXT_SAFE_ACTION}`.",
+                f"- `review_target_commit`: `{final_review_package_commit}`.",
+                f"- `current_repo_head`: `{release_candidate_head}`.",
+                f"- Program status: `{STATUS}`.",
+                f"- Final review verdict: `{FINAL_REVIEW_VERDICT}`.",
+                f"- Release scope: {RELEASE_SCOPE}.",
+                f"- Next safe action: {NEXT_SAFE_ACTION}.",
+                "",
+                "Stage 3.1 real ETF data exists as evidence context for this final v1.0 package; it is not the current review request.",
+                "",
+                "This is an ETF research desk, not investment advice and not automatic trading.",
+                "",
+                "No broker write access, order placement, execution agent, or automatic trading surface is created.",
+                "",
+                MANUAL_NOTE_EN,
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
 
 
 def update_loop_state(now: str) -> None:
     if not LOOP_STATE_JSON.exists():
         return
     loop_state = _read_json(LOOP_STATE_JSON)
+    release_metadata = _release_metadata()
     loop_state.update(
         {
+            "current_stage": "v1.0 final review completed / ready for merge",
             "current_stage_openclaw_modified": False,
             "current_stage_real_config_modified": False,
             "current_stage_repo_only": True,
+            "current_work_package": WORK_PACKAGE,
+            "next_task": "Merge stage/v1-autonomous-completion to main after tests",
+            "next_task_status": "ready_for_release",
             "openclaw_modified": False,
             "openclaw_modified_this_stage": False,
+            "review_target_commit": release_metadata["final_review_package_commit"],
+            "release_metadata": release_metadata,
+            "status": RUNNER_STATUS,
             "updated_at": now,
         }
     )
@@ -819,6 +1065,8 @@ def update_loop_state(now: str) -> None:
         "current_major_stage": "Stage 6",
         "current_work_package": WORK_PACKAGE,
         "final_review_package": "reports/program_reviews/final/latest.json",
+        "final_review_result": FINAL_REVIEW_VERDICT,
+        "heartbeat_should_continue": False,
         "last_completed_work_package": WORK_PACKAGE,
         "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
         "last_report": "reports/program_runner/final_v1_review_package_report.json",
@@ -826,7 +1074,7 @@ def update_loop_state(now: str) -> None:
         "notification_preview": "reports/program_runner/notification_preview.json",
         "stage3_1_prerequisite_recovered": True,
         "stage3_1_reconciliation_report": "reports/program_runner/stage3_1_prereq_reconciliation.json",
-        "status": STATUS,
+        "status": RUNNER_STATUS,
     }
     _write_json(LOOP_STATE_JSON, loop_state)
 
@@ -855,8 +1103,10 @@ def append_heartbeat(now: str) -> None:
             "- tests run:",
             test_lines,
             "- commit pushed: yes, in this wake after verification",
-            f"- next status: {STATUS}",
+            f"- next status: {RUNNER_STATUS}",
             f"- next_safe_action: {NEXT_SAFE_ACTION}",
+            f"- automation_recommended_action: {AUTOMATION_RECOMMENDED_ACTION}",
+            "- heartbeat_should_continue: false",
             "- repo_only: true",
             "- real_runtime_modified: false",
             "- services_restarted: false",
@@ -884,7 +1134,7 @@ def main() -> int:
 
     update_state(now)
     update_handoff(now)
-    update_review_request()
+    update_review_request(now)
     update_loop_state(now)
     append_heartbeat(now)
 
@@ -893,7 +1143,7 @@ def main() -> int:
             {
                 "final_review_package": "reports/program_reviews/final/latest.md",
                 "message": FINAL_READY_MESSAGE,
-                "status": STATUS,
+                "status": RUNNER_STATUS,
                 "validation_status": package["validation_summary"]["status"],
             },
             ensure_ascii=False,

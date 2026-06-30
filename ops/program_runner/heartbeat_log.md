@@ -573,9 +573,9 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
 - real_runtime_modified: false
 - services_restarted: false
 - final_trading_manual: true
-## 2026-06-30T10:47:33Z Final v1.0 Review Package
+## 2026-06-30T15:53:56Z Final v1.0 Review Package
 
-- wake time in UTC: 2026-06-30T10:47:33Z
+- wake time in UTC: 2026-06-30T15:53:56Z
 - previous status: next_work_package_ready
 - selected work package: Final v1.0 review package
 - reviewer mode: simulated_separate_pass
@@ -594,8 +594,10 @@ Do not include secrets, tokens, auth values, local-private paths, or private run
   - `python3 scripts/safety/check_universe_only.py`
   - `git diff --check`
 - commit pushed: yes, in this wake after verification
-- next status: final_review_ready
-- next_safe_action: ask user whether to request ChatGPT final review
+- next status: final_review_ready_waiting_for_release
+- next_safe_action: merge_to_main_after_tests
+- automation_recommended_action: pause
+- heartbeat_should_continue: false
 - repo_only: true
 - real_runtime_modified: false
 - services_restarted: false

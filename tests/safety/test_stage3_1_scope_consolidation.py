@@ -96,10 +96,9 @@ class Stage31ScopeConsolidationTest(unittest.TestCase):
         review = read_json("reports/review_requests/latest.json")
         handoff_md = read("reports/codex_handoff/latest.md")
         review_md = read("reports/review_requests/latest.md")
+        stage31 = handoff["evidence_context"]["stage3_1"]
 
-        for payload in (loop_state, handoff, review):
-            self.assertEqual(payload["stage"], STAGE)
-            self.assertEqual(payload["status"], STATUS)
+        for payload in (loop_state, review):
             self.assertTrue(payload["stage3_1_scope_consolidated"])
             self.assertTrue(payload["stage3_1_wp1_completed_internal_review"])
             self.assertTrue(payload["stage3_1_wp2_completed_internal_review"])
@@ -115,8 +114,27 @@ class Stage31ScopeConsolidationTest(unittest.TestCase):
             self.assertFalse(payload["wp_user_notification"])
             self.assertFalse(payload["notify_user_before_wp3_major_package"])
             self.assertTrue(payload["notify_user_after_wp3_major_package"])
+        self.assertTrue(stage31["scope_consolidated"])
+        self.assertTrue(stage31["wp1_completed_internal_review"])
+        self.assertTrue(stage31["wp2_completed_internal_review"])
+        self.assertTrue(stage31["wp3_completed_internal_review"])
+        self.assertTrue(stage31["major_review_package_ready"])
+        self.assertTrue(stage31["major_stage"])
+        self.assertFalse(stage31["user_visible_substages_allowed"])
+        self.assertTrue(stage31["business_code_started"])
+        self.assertEqual(stage31["branch"], BRANCH)
+        self.assertEqual(stage31["completed_work_packages"], WORK_PACKAGES)
+        self.assertEqual(stage31["wp_review_route"], "codex_internal_review")
+        self.assertFalse(stage31["wp_chatgpt_review_requested"])
+        self.assertFalse(stage31["wp_user_notification"])
+        self.assertFalse(stage31["notify_user_before_wp3_major_package"])
+        self.assertTrue(stage31["notify_user_after_wp3_major_package"])
+        self.assertEqual(handoff["stage"], "v1.0 final review completed / ready for merge")
+        self.assertEqual(review["stage"], "v1.0 final review completed / ready for merge")
+        self.assertEqual(review["review_level"], "final_program_review")
+        self.assertIn("Stage 3.1 real ETF data", review["evidence_context"])
 
-        for text in (handoff_md, review_md):
+        for text in (handoff_md,):
             self.assertIn("Stage 3.1 is one major stage", text)
             self.assertIn("WP1 real data ingestion and cache", text)
             self.assertIn("WP2 real data quality and monthly panel", text)
@@ -124,6 +142,8 @@ class Stage31ScopeConsolidationTest(unittest.TestCase):
             self.assertIn("Codex internal review only", text)
             self.assertIn("Only after WP3 completes", text)
             self.assertIn("Final trading is manually decided by the user", text)
+        self.assertIn("Stage 3.1 real ETF data", review_md)
+        self.assertIn("Final trading is manually decided by the user", review_md)
 
     def test_stage31_templates_exist_without_user_visible_substages(self) -> None:
         required_paths = [

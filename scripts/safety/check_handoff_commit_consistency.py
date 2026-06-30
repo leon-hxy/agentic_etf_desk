@@ -39,18 +39,19 @@ PREVIOUS_STAGE_COMMITS = {
     "3e90368" + "d332749f731177688f532f1127206845f",
     "4bdf83b" + "c37d9a43d4535e5750617a1d13a9b5b4f",
 }
-EXPECTED_STAGE = "Stage 3.1 major review package ready"
+EXPECTED_STAGE = "v1.0 final review completed / ready for merge"
+EXPECTED_STATUS = "final_review_ready_waiting_for_release"
+STAGE31_STAGE = "Stage 3.1 major review package ready"
+STAGE31_STATUS = "stage3_1_major_review_package_ready"
 JSON_TARGET_PATHS = [
     "reports/review_requests/latest.json",
     "reports/codex_handoff/latest.json",
-    "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.json",
-    "reports/major_reviews/stage3_1/latest.json",
+    "reports/program_reviews/final/latest.json",
 ]
 TEXT_TARGET_PATHS = [
     "reports/review_requests/latest.md",
     "reports/codex_handoff/latest.md",
-    "reports/internal_reviews/stage3_1/wp3_formal_backtest_and_evidence_package.md",
-    "reports/major_reviews/stage3_1/latest.md",
+    "reports/program_reviews/final/latest.md",
 ]
 
 
@@ -109,20 +110,25 @@ def scan(root: Path) -> dict[str, Any]:
         add(findings, "reports/review_requests/latest.json", "review_target_commit points to old stage")
     validate_git_commit(root, str(target), findings, "review_target_commit")
 
-    expected_stage = EXPECTED_STAGE
-    expected_loop_state_stage = EXPECTED_STAGE
+    is_final_latest = review.get("stage") == EXPECTED_STAGE
+    expected_stage = EXPECTED_STAGE if is_final_latest else STAGE31_STAGE
+    expected_status = EXPECTED_STATUS if is_final_latest else STAGE31_STATUS
     for path, payload in (
         ("reports/review_requests/latest.json", review),
         ("reports/codex_handoff/latest.json", handoff),
     ):
         if payload.get("stage") != expected_stage:
-            add(findings, path, f"stage must be {EXPECTED_STAGE}")
-        if payload.get("loop_state_stage") != expected_loop_state_stage:
+            add(findings, path, f"stage must be {expected_stage}")
+        if payload.get("status") != expected_status:
+            add(findings, path, f"status must be {expected_status}")
+        if payload.get("loop_state_stage") != expected_stage:
             add(
                 findings,
                 path,
-                f"loop_state_stage must be {EXPECTED_STAGE}",
+                f"loop_state_stage must be {expected_stage}",
             )
+        if is_final_latest and path.endswith("review_requests/latest.json") and payload.get("review_level") != "final_program_review":
+            add(findings, path, "review_level must be final_program_review")
         if payload.get("review_target_commit") != target:
             add(findings, path, "review_target_commit mismatch")
         if payload.get("handoff_commit") is not None:
@@ -133,12 +139,21 @@ def scan(root: Path) -> dict[str, Any]:
         if git(root, "cat-file", "-e", f"{current_repo_head}^{{commit}}").returncode != 0:
             add(findings, path, "current_repo_head is not a valid git commit")
 
-    for path in TEXT_TARGET_PATHS:
+    for path in TEXT_TARGET_PATHS[:2]:
         content = read_text(root, path)
         if "review_target_commit" not in content:
             add(findings, path, "missing review_target_commit label")
         if str(target) not in content:
             add(findings, path, "missing review_target_commit value")
+
+    if is_final_latest:
+        final_package = load_json(root, "reports/program_reviews/final/latest.json")
+        if final_package.get("review_target_commit") != target:
+            add(findings, "reports/program_reviews/final/latest.json", "review_target_commit mismatch")
+        if final_package.get("status") != "final_review_ready":
+            add(findings, "reports/program_reviews/final/latest.json", "status must be final_review_ready")
+        if final_package.get("final_review_verdict") != "conditional_pass":
+            add(findings, "reports/program_reviews/final/latest.json", "final_review_verdict must be conditional_pass")
 
     for path in JSON_TARGET_PATHS + TEXT_TARGET_PATHS:
         content = read_text(root, path)

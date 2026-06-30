@@ -15,6 +15,7 @@ STAGE3F = "Stage 3F major_gate_feishu_notification_sent"
 STAGE3F1 = "Stage 3F.1 review_target_commit_consistency_fixed"
 STAGE3_CLOSEOUT = "Stage 3 sample-data pipeline validation merged to main"
 STAGE3_READY = "Stage 3.1 major review package ready"
+FINAL_STAGE = "v1.0 final review completed / ready for merge"
 LOCAL_TARGET_CONFIG = "local_private/chatgpt_review_target.json"
 MAX_SHORT_PROMPT_CHARS = 900
 
@@ -34,8 +35,9 @@ class Stage2E1RelayHardeningTest(unittest.TestCase):
         prompt_md = read_text(ROOT / "reports" / "review_requests" / "chatgpt_review_prompt.md")
         prompt = prompt_json["prompt"]
 
-        self.assertIn(latest["stage"], {STAGE, STAGE2F, STAGE3B, STAGE3C, STAGE3D, STAGE3E, STAGE3F, STAGE3F1, STAGE3_CLOSEOUT, STAGE3_READY})
-        self.assertIn(prompt_json["stage"], {latest["stage"], STAGE3_CLOSEOUT})
+        known_stages = {STAGE, STAGE2F, STAGE3B, STAGE3C, STAGE3D, STAGE3E, STAGE3F, STAGE3F1, STAGE3_CLOSEOUT, STAGE3_READY, FINAL_STAGE}
+        self.assertIn(latest["stage"], known_stages)
+        self.assertIn(prompt_json["stage"], known_stages)
         self.assertEqual(prompt_md.strip(), prompt.strip())
         self.assertLessEqual(len(prompt), MAX_SHORT_PROMPT_CHARS)
         self.assertIn("https://github.com/leon-hxy/agentic_etf_desk", prompt)
