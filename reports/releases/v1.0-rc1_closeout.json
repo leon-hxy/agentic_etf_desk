@@ -1,0 +1,19 @@
+{
+  "automatic_trading_system": false,
+  "broker_access_mode": "read_only_no_write",
+  "final_review_package_commit": "1c8e5b75301e3771db77ba9ece4605666949d5d3",
+  "final_review_verdict": "conditional_pass",
+  "final_trading_manual": true,
+  "generated_at_utc": "2026-06-30T16:51:07Z",
+  "investment_advice": false,
+  "main_merge_commit": "d834bff50082cfd5189242b65860be8d3e286894",
+  "next_recommended_step": "operating_pilot_not_live_trading",
+  "order_placement_surface": false,
+  "program_runner_automation_should_remain_paused": true,
+  "release_candidate": "v1.0-rc1",
+  "release_candidate_head": "798ede171e8aeb04364ce678fb9fe84643e6515a",
+  "release_scope": "ETF-only research desk",
+  "source_branch": "stage/v1-autonomous-completion",
+  "source_branch_head": "fb2db75f5713423080059fbb6f8f8e0a08e69aba",
+  "status": "closeout_ready"
+}
