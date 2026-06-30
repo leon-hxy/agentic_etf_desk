@@ -173,3 +173,13 @@ Research/backtest/scenario evidence, not formal investment proof.
 - validation status: `pass`.
 - ChatGPT review requested by Codex: false.
 - User-facing readiness message: v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？
+
+## Release Metadata
+
+- `final_review_package_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`.
+- `final_metadata_commit`: `798ede171e8aeb04364ce678fb9fe84643e6515a`.
+- `release_candidate_head`: `798ede171e8aeb04364ce678fb9fe84643e6515a`.
+- `merge_target_branch`: `main`.
+- `next_safe_action`: `merge_to_main_after_tests`.
+- `review_target_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`.
+- `generated_from_head`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`.

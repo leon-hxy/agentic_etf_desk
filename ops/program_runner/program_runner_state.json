@@ -14,7 +14,7 @@
   "final_review_result": "conditional_pass",
   "git_push_allowed_after_public_repo_hygiene_checks": true,
   "heartbeat_should_continue": false,
-  "last_checked_at_utc": "2026-06-30T16:15:48Z",
+  "last_checked_at_utc": "2026-06-30T16:32:55Z",
   "last_completed_work_package": "Final v1.0 review package",
   "last_internal_review": "reports/internal_reviews/program/final_v1_review_package.json",
   "last_report": "reports/program_runner/final_v1_review_package_report.json",
@@ -37,6 +37,13 @@
     "report_json": "reports/program_runner/stage3_1_prereq_reconciliation.json",
     "report_md": "reports/program_runner/stage3_1_prereq_reconciliation.md",
     "status": "completed"
+  },
+  "release_metadata": {
+    "final_metadata_commit": "798ede171e8aeb04364ce678fb9fe84643e6515a",
+    "final_review_package_commit": "1c8e5b75301e3771db77ba9ece4605666949d5d3",
+    "merge_target_branch": "main",
+    "next_safe_action": "merge_to_main_after_tests",
+    "release_candidate_head": "798ede171e8aeb04364ce678fb9fe84643e6515a"
   },
   "stable_branch": "main",
   "stage3_1_prerequisite": {

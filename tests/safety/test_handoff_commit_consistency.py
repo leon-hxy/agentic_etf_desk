@@ -77,6 +77,9 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.handoff = read_json("reports/codex_handoff/latest.json")
         self.review = read_json("reports/review_requests/latest.json")
         self.review_target_commit = self.handoff.get("review_target_commit")
+        self.final_review_package_commit = self.handoff.get("final_review_package_commit")
+        self.final_metadata_commit = self.handoff.get("final_metadata_commit")
+        self.release_candidate_head = self.handoff.get("release_candidate_head")
 
     def test_latest_json_files_declare_review_target_commit(self) -> None:
         self.assertEqual(
@@ -102,15 +105,19 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         self.assertTrue(self.review_target_commit)
         self.assertNotIn(self.review_target_commit, PREVIOUS_STAGE_COMMITS)
         self.assertEqual(self.review_target_commit, self.review.get("review_target_commit"))
-        self.assertEqual(self.handoff.get("current_repo_head"), self.review.get("current_repo_head"))
-        self.assertEqual(
-            self.handoff.get("current_repo_head"),
-            self.handoff.get("handoff_generated_from_head"),
-        )
+        self.assertEqual(self.review_target_commit, self.final_review_package_commit)
+        self.assertEqual(self.final_metadata_commit, self.release_candidate_head)
+        self.assertEqual(self.handoff.get("current_repo_head"), self.release_candidate_head)
+        self.assertEqual(self.review.get("current_repo_head"), self.release_candidate_head)
+        self.assertEqual(self.handoff.get("handoff_generated_from_head"), self.release_candidate_head)
+        self.assertEqual(self.review.get("handoff_generated_from_head"), self.release_candidate_head)
+        self.assertEqual(self.handoff.get("merge_target_branch"), "main")
+        self.assertEqual(self.review.get("merge_target_branch"), "main")
         self.assertIn("handoff_generated_from_head", self.handoff)
         self.assertIn("commit_binding_note", self.handoff)
         self.assertIn("review_target_commit", self.handoff["commit_binding_note"])
-        self.assertIn("v1.0 final package generation head", self.handoff["commit_binding_note"])
+        self.assertIn("final_review_package_commit", self.handoff["commit_binding_note"])
+        self.assertIn("release_candidate_head", self.handoff["commit_binding_note"])
         self.assertIsNone(self.handoff.get("handoff_commit"))
 
     def test_review_target_commit_is_valid_git_commit(self) -> None:
@@ -127,6 +134,11 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         result = git("cat-file", "-e", f"{current_repo_head}^{{commit}}")
         self.assertEqual(result.returncode, 0, msg=result.stderr)
 
+        target = str(self.review_target_commit)
+        self.assertNotEqual(current_repo_head, target)
+        ancestor = git("merge-base", "--is-ancestor", target, current_repo_head)
+        self.assertEqual(ancestor.returncode, 0, msg=ancestor.stderr)
+
     def test_all_json_artifacts_bind_same_review_target(self) -> None:
         target = str(self.review_target_commit)
         for path in REVIEW_TARGET_PATHS:
@@ -139,9 +151,14 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         for path in JSON_TARGET_PATHS:
             payload = read_json(path)
             self.assertEqual(payload["review_target_commit"], target, path)
+            self.assertEqual(payload["final_review_package_commit"], target, path)
+            self.assertEqual(payload["final_metadata_commit"], self.final_metadata_commit, path)
+            self.assertEqual(payload["release_candidate_head"], self.release_candidate_head, path)
+            self.assertEqual(payload["merge_target_branch"], "main", path)
+            self.assertEqual(payload["next_safe_action"], "merge_to_main_after_tests", path)
             if path != "reports/program_reviews/final/latest.json":
-                self.assertEqual(payload["current_repo_head"], target, path)
-                self.assertEqual(payload["handoff_generated_from_head"], target, path)
+                self.assertEqual(payload["current_repo_head"], self.release_candidate_head, path)
+                self.assertEqual(payload["handoff_generated_from_head"], self.release_candidate_head, path)
                 self.assertEqual(payload["loop_state_stage"], EXPECTED_STAGE, path)
             else:
                 self.assertEqual(payload["generated_from_head"], target, path)
@@ -153,7 +170,13 @@ class HandoffCommitConsistencyTest(unittest.TestCase):
         for path in TEXT_TARGET_PATHS[:2]:
             content = read_text(path)
             self.assertIn("review_target_commit", content, path)
+            self.assertIn("final_review_package_commit", content, path)
+            self.assertIn("final_metadata_commit", content, path)
+            self.assertIn("release_candidate_head", content, path)
+            self.assertIn("merge_target_branch", content, path)
             self.assertIn(target, content, path)
+            self.assertIn(str(self.final_metadata_commit), content, path)
+            self.assertIn(str(self.release_candidate_head), content, path)
 
     def test_review_target_does_not_point_to_old_stage(self) -> None:
         target = str(self.review_target_commit)

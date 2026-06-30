@@ -39,6 +39,8 @@ AUTOMATION_RECOMMENDED_ACTION = "pause"
 FINAL_REVIEW_VERDICT = "conditional_pass"
 RELEASE_SCOPE = "ETF research desk, not investment advice, not automatic trading"
 MANUAL_NOTE_EN = "Final trading is manually decided by the user."
+FINAL_REVIEW_PACKAGE_COMMIT = "1c8e5b75301e3771db77ba9ece4605666949d5d3"
+MERGE_TARGET_BRANCH = "main"
 BROKER_ACCESS_SURFACE_FIELD = "_".join(("broker", "write", "surface"))
 TESTS_RUN = [
     "python3 -m unittest tests.safety.test_final_v1_review_package",
@@ -82,6 +84,25 @@ def _git_head() -> str:
         check=False,
     )
     return result.stdout.strip() if result.returncode == 0 else "unknown"
+
+
+def _release_metadata() -> dict[str, str]:
+    release_candidate_head = _git_head()
+    return {
+        "final_review_package_commit": FINAL_REVIEW_PACKAGE_COMMIT,
+        "final_metadata_commit": release_candidate_head,
+        "release_candidate_head": release_candidate_head,
+        "merge_target_branch": MERGE_TARGET_BRANCH,
+        "next_safe_action": NEXT_SAFE_ACTION,
+    }
+
+
+def _commit_binding_note() -> str:
+    return (
+        "review_target_commit/final_review_package_commit identify the v1.0 final review package generation commit; "
+        "final_metadata_commit and release_candidate_head identify the stage/v1-autonomous-completion head at artifact generation time. "
+        "The metadata alignment commit cannot self-reference before commit."
+    )
 
 
 def _existing(paths: list[str]) -> list[str]:
@@ -189,7 +210,7 @@ def _internal_review_artifacts() -> list[str]:
 
 def build_final_package(now: str) -> dict[str, Any]:
     state = _read_json(STATE_JSON)
-    head = _git_head()
+    release_metadata = _release_metadata()
     stages = _stage_summary(state)
     all_completed = all(stage["status"] in {"completed_internal_review", STATUS} for stage in stages)
     validation_checks = {
@@ -238,7 +259,7 @@ def build_final_package(now: str) -> dict[str, Any]:
         "evidence_artifacts": _evidence_artifacts(),
         "final_readiness_message": FINAL_READY_MESSAGE,
         "final_trading_manual": True,
-        "generated_from_head": head,
+        "generated_from_head": release_metadata["final_review_package_commit"],
         "hermes_feishu_status": {
             "repo_only_command_routing_and_output_contracts": "prepared",
             "live_configuration_modified": False,
@@ -274,11 +295,12 @@ def build_final_package(now: str) -> dict[str, Any]:
         },
         "manual_trading_note": MANUAL_NOTE_EN,
         "final_review_verdict": FINAL_REVIEW_VERDICT,
+        **release_metadata,
         "release_scope": RELEASE_SCOPE,
         "not_investment_advice": True,
         "review_level": "final_program_review",
         "review_target": "v1.0 final review package",
-        "review_target_commit": head,
+        "review_target_commit": release_metadata["final_review_package_commit"],
         "review_target_json": "reports/program_reviews/final/latest.json",
         "review_target_md": "reports/program_reviews/final/latest.md",
         "openclaw_agent_status": {
@@ -424,6 +446,16 @@ def render_final_markdown(package: dict[str, Any]) -> str:
             f"- validation status: `{package['validation_summary']['status']}`.",
             "- ChatGPT review requested by Codex: false.",
             f"- User-facing readiness message: {FINAL_READY_MESSAGE}",
+            "",
+            "## Release Metadata",
+            "",
+            f"- `final_review_package_commit`: `{package['final_review_package_commit']}`.",
+            f"- `final_metadata_commit`: `{package['final_metadata_commit']}`.",
+            f"- `release_candidate_head`: `{package['release_candidate_head']}`.",
+            f"- `merge_target_branch`: `{package['merge_target_branch']}`.",
+            f"- `next_safe_action`: `{package['next_safe_action']}`.",
+            f"- `review_target_commit`: `{package['review_target_commit']}`.",
+            f"- `generated_from_head`: `{package['generated_from_head']}`.",
             "",
         ]
     )
@@ -673,6 +705,7 @@ def render_notification_markdown(notification: dict[str, Any]) -> str:
 
 def update_state(now: str) -> None:
     state = _read_json(STATE_JSON)
+    release_metadata = _release_metadata()
     completed = list(state["stage6"].get("completed_work_packages", []))
     if WORK_PACKAGE_ID not in completed:
         completed.append(WORK_PACKAGE_ID)
@@ -689,6 +722,7 @@ def update_state(now: str) -> None:
             "automation_recommended_action": AUTOMATION_RECOMMENDED_ACTION,
             "final_review_result": FINAL_REVIEW_VERDICT,
             "next_safe_action": NEXT_SAFE_ACTION,
+            "release_metadata": release_metadata,
         }
     )
     state["stage6"].update(
@@ -708,7 +742,9 @@ def update_state(now: str) -> None:
 
 
 def update_handoff(now: str) -> None:
-    review_target_commit = _git_head()
+    release_metadata = _release_metadata()
+    final_review_package_commit = release_metadata["final_review_package_commit"]
+    release_candidate_head = release_metadata["release_candidate_head"]
     stage31_evidence = {
         "branch": "stage/stage3.1-real-etf-data",
         "business_code_started": True,
@@ -760,11 +796,11 @@ def update_handoff(now: str) -> None:
         "branch": "stage/v1-autonomous-completion",
         "broker_write_surface": False,
         "chatgpt_review_requested": False,
-        "commit_binding_note": "review_target_commit is the v1.0 final package generation head; the final reconciliation commit cannot self-reference before commit.",
+        "commit_binding_note": _commit_binding_note(),
         "computer_use_executed": False,
         "construction_branch": "stage/v1-autonomous-completion",
         "current_major_stage": "Stage 6",
-        "current_repo_head": review_target_commit,
+        "current_repo_head": release_candidate_head,
         "current_work_package": WORK_PACKAGE,
         "evidence_context": {
             "stage3_1": stage31_evidence,
@@ -772,9 +808,10 @@ def update_handoff(now: str) -> None:
         "final_review_package_json": "reports/program_reviews/final/latest.json",
         "final_review_package_md": "reports/program_reviews/final/latest.md",
         "final_review_verdict": FINAL_REVIEW_VERDICT,
+        **release_metadata,
         "final_trading_notice": MANUAL_NOTE_EN,
         "handoff_commit": None,
-        "handoff_generated_from_head": review_target_commit,
+        "handoff_generated_from_head": release_candidate_head,
         "loop_state_stage": "v1.0 final review completed / ready for merge",
         "next_safe_action": NEXT_SAFE_ACTION,
         "order_placement_surface": False,
@@ -800,7 +837,7 @@ def update_handoff(now: str) -> None:
         "release_scope": RELEASE_SCOPE,
         "review_level": "final_program_review",
         "review_target": "reports/program_reviews/final/latest.md/json",
-        "review_target_commit": review_target_commit,
+        "review_target_commit": final_review_package_commit,
         "review_target_json": "reports/program_reviews/final/latest.json",
         "review_target_md": "reports/program_reviews/final/latest.md",
         "secret_values_written": False,
@@ -879,8 +916,13 @@ def update_handoff(now: str) -> None:
                 "",
                 "## Commit Metadata",
                 "",
-                f"- `review_target_commit`: `{review_target_commit}`",
-                f"- `current_repo_head`: `{review_target_commit}`",
+                f"- `final_review_package_commit`: `{final_review_package_commit}`",
+                f"- `final_metadata_commit`: `{release_metadata['final_metadata_commit']}`",
+                f"- `release_candidate_head`: `{release_candidate_head}`",
+                f"- `merge_target_branch`: `{MERGE_TARGET_BRANCH}`",
+                f"- `next_safe_action`: `{NEXT_SAFE_ACTION}`",
+                f"- `review_target_commit`: `{final_review_package_commit}`",
+                f"- `current_repo_head`: `{release_candidate_head}`",
                 "",
                 MANUAL_NOTE_EN,
                 "",
@@ -891,15 +933,18 @@ def update_handoff(now: str) -> None:
 
 
 def update_review_request(now: str) -> None:
-    review_target_commit = _git_head()
+    release_metadata = _release_metadata()
+    final_review_package_commit = release_metadata["final_review_package_commit"]
+    release_candidate_head = release_metadata["release_candidate_head"]
     review = {
         "created_at_utc": now,
-        "current_repo_head": review_target_commit,
+        "current_repo_head": release_candidate_head,
         "evidence_context": (
             "Stage 3.1 real ETF data exists as evidence context for the final v1.0 review package; "
             "it is not the current review request."
         ),
         "final_review_verdict": FINAL_REVIEW_VERDICT,
+        **release_metadata,
         "final_trading_manual": True,
         "manual_trading_note": MANUAL_NOTE_EN,
         "next_safe_action": NEXT_SAFE_ACTION,
@@ -910,12 +955,12 @@ def update_review_request(now: str) -> None:
         "review_level": "final_program_review",
         "review_route": "manual_chatgpt_final_review_completed",
         "review_target": "v1.0 final review package",
-        "review_target_commit": review_target_commit,
+        "review_target_commit": final_review_package_commit,
         "review_target_json": "reports/program_reviews/final/latest.json",
         "review_target_md": "reports/program_reviews/final/latest.md",
-        "handoff_generated_from_head": review_target_commit,
+        "handoff_generated_from_head": release_candidate_head,
         "handoff_commit": None,
-        "commit_binding_note": "review_target_commit is the v1.0 final package generation head; the final reconciliation commit cannot self-reference before commit.",
+        "commit_binding_note": _commit_binding_note(),
         "loop_state_stage": "v1.0 final review completed / ready for merge",
         "sent_to_chatgpt_by_codex": False,
         "stage": "v1.0 final review completed / ready for merge",
@@ -968,7 +1013,13 @@ def update_review_request(now: str) -> None:
                 "- Review target: `v1.0 final review package`.",
                 "- Review target markdown: `reports/program_reviews/final/latest.md`.",
                 "- Review target JSON: `reports/program_reviews/final/latest.json`.",
-                f"- `review_target_commit`: `{review_target_commit}`.",
+                f"- `final_review_package_commit`: `{final_review_package_commit}`.",
+                f"- `final_metadata_commit`: `{release_metadata['final_metadata_commit']}`.",
+                f"- `release_candidate_head`: `{release_candidate_head}`.",
+                f"- `merge_target_branch`: `{MERGE_TARGET_BRANCH}`.",
+                f"- `next_safe_action`: `{NEXT_SAFE_ACTION}`.",
+                f"- `review_target_commit`: `{final_review_package_commit}`.",
+                f"- `current_repo_head`: `{release_candidate_head}`.",
                 f"- Program status: `{STATUS}`.",
                 f"- Final review verdict: `{FINAL_REVIEW_VERDICT}`.",
                 f"- Release scope: {RELEASE_SCOPE}.",
@@ -992,7 +1043,7 @@ def update_loop_state(now: str) -> None:
     if not LOOP_STATE_JSON.exists():
         return
     loop_state = _read_json(LOOP_STATE_JSON)
-    review_target_commit = _git_head()
+    release_metadata = _release_metadata()
     loop_state.update(
         {
             "current_stage": "v1.0 final review completed / ready for merge",
@@ -1004,7 +1055,8 @@ def update_loop_state(now: str) -> None:
             "next_task_status": "ready_for_release",
             "openclaw_modified": False,
             "openclaw_modified_this_stage": False,
-            "review_target_commit": review_target_commit,
+            "review_target_commit": release_metadata["final_review_package_commit"],
+            "release_metadata": release_metadata,
             "status": RUNNER_STATUS,
             "updated_at": now,
         }

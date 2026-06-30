@@ -5,11 +5,11 @@
   "branch": "stage/v1-autonomous-completion",
   "broker_write_surface": false,
   "chatgpt_review_requested": false,
-  "commit_binding_note": "review_target_commit is the v1.0 final package generation head; the final reconciliation commit cannot self-reference before commit.",
+  "commit_binding_note": "review_target_commit/final_review_package_commit identify the v1.0 final review package generation commit; final_metadata_commit and release_candidate_head identify the stage/v1-autonomous-completion head at artifact generation time. The metadata alignment commit cannot self-reference before commit.",
   "computer_use_executed": false,
   "construction_branch": "stage/v1-autonomous-completion",
   "current_major_stage": "Stage 6",
-  "current_repo_head": "1c8e5b75301e3771db77ba9ece4605666949d5d3",
+  "current_repo_head": "798ede171e8aeb04364ce678fb9fe84643e6515a",
   "current_work_package": "Final v1.0 review package",
   "evidence_context": {
     "stage3_1": {
@@ -57,13 +57,16 @@
       "wp_user_notification": false
     }
   },
+  "final_metadata_commit": "798ede171e8aeb04364ce678fb9fe84643e6515a",
+  "final_review_package_commit": "1c8e5b75301e3771db77ba9ece4605666949d5d3",
   "final_review_package_json": "reports/program_reviews/final/latest.json",
   "final_review_package_md": "reports/program_reviews/final/latest.md",
   "final_review_verdict": "conditional_pass",
   "final_trading_notice": "Final trading is manually decided by the user.",
   "handoff_commit": null,
-  "handoff_generated_from_head": "1c8e5b75301e3771db77ba9ece4605666949d5d3",
+  "handoff_generated_from_head": "798ede171e8aeb04364ce678fb9fe84643e6515a",
   "loop_state_stage": "v1.0 final review completed / ready for merge",
+  "merge_target_branch": "main",
   "next_safe_action": "merge_to_main_after_tests",
   "order_placement_surface": false,
   "program": "agentic_etf_desk",
@@ -85,6 +88,7 @@
   },
   "program_status": "final_review_ready",
   "real_runtime_modified": false,
+  "release_candidate_head": "798ede171e8aeb04364ce678fb9fe84643e6515a",
   "release_scope": "ETF research desk, not investment advice, not automatic trading",
   "review_level": "final_program_review",
   "review_target": "reports/program_reviews/final/latest.md/json",
@@ -99,5 +103,5 @@
   "stage": "v1.0 final review completed / ready for merge",
   "status": "final_review_ready_waiting_for_release",
   "tests_status": "passed",
-  "updated_at": "2026-06-30T16:15:48Z"
+  "updated_at": "2026-06-30T16:32:55Z"
 }

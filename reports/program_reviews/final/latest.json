@@ -71,7 +71,7 @@
       "title": "Operating Pilot, Security Hardening & v1.0 Final Review Package"
     }
   ],
-  "created_at_utc": "2026-06-30T16:15:48Z",
+  "created_at_utc": "2026-06-30T16:32:55Z",
   "data_source_notes": [
     "Stage 3.1 and Stage 3.2 artifacts use committed ETF price cache and processed panel artifacts.",
     "Stage 3.2 adds source validation, discrepancy checks, cash assumptions, costs, parameter sensitivity, start-window checks, and in-sample/out-of-sample review."
@@ -116,7 +116,9 @@
       "docs/runbook.md"
     ]
   },
+  "final_metadata_commit": "798ede171e8aeb04364ce678fb9fe84643e6515a",
   "final_readiness_message": "v1.0 final review package is ready. 是否请求 ChatGPT 最终审核？",
+  "final_review_package_commit": "1c8e5b75301e3771db77ba9ece4605666949d5d3",
   "final_review_verdict": "conditional_pass",
   "final_trading_manual": true,
   "generated_from_head": "1c8e5b75301e3771db77ba9ece4605666949d5d3",
@@ -183,6 +185,8 @@
     "runbook": "docs/runbook.md"
   },
   "manual_trading_note": "Final trading is manually decided by the user.",
+  "merge_target_branch": "main",
+  "next_safe_action": "merge_to_main_after_tests",
   "not_investment_advice": true,
   "openclaw_agent_status": {
     "automatic_trading_agent_created": false,
@@ -198,6 +202,7 @@
     "Avoid broker write access, order placement, automatic trading, live runtime mutation, and secrets exposure."
   ],
   "real_runtime_modified": false,
+  "release_candidate_head": "798ede171e8aeb04364ce678fb9fe84643e6515a",
   "release_scope": "ETF research desk, not investment advice, not automatic trading",
   "report_type": "final_v1_program_review_package",
   "research_conclusion": "The repo is ready for final v1.0 review as an ETF-only research desk. The evidence package supports review of methodology, safety boundaries, and operating readiness, but it is research/backtest/scenario evidence, not formal investment proof.",

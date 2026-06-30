@@ -4,7 +4,13 @@
 - Review target: `v1.0 final review package`.
 - Review target markdown: `reports/program_reviews/final/latest.md`.
 - Review target JSON: `reports/program_reviews/final/latest.json`.
+- `final_review_package_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`.
+- `final_metadata_commit`: `798ede171e8aeb04364ce678fb9fe84643e6515a`.
+- `release_candidate_head`: `798ede171e8aeb04364ce678fb9fe84643e6515a`.
+- `merge_target_branch`: `main`.
+- `next_safe_action`: `merge_to_main_after_tests`.
 - `review_target_commit`: `1c8e5b75301e3771db77ba9ece4605666949d5d3`.
+- `current_repo_head`: `798ede171e8aeb04364ce678fb9fe84643e6515a`.
 - Program status: `final_review_ready`.
 - Final review verdict: `conditional_pass`.
 - Release scope: ETF research desk, not investment advice, not automatic trading.

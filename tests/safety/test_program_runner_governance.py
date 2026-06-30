@@ -518,8 +518,10 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
     def test_latest_artifacts_point_to_final_v1_review_package(self) -> None:
         handoff = read_json("reports/codex_handoff/latest.json")
         review = read_json("reports/review_requests/latest.json")
+        final_package = read_json("reports/program_reviews/final/latest.json")
         handoff_md = read("reports/codex_handoff/latest.md")
         review_md = read("reports/review_requests/latest.md")
+        final_package_md = read("reports/program_reviews/final/latest.md")
 
         self.assertEqual(handoff["stage"], "v1.0 final review completed / ready for merge")
         self.assertEqual(handoff["program_status"], "final_review_ready")
@@ -563,11 +565,40 @@ class ProgramRunnerGovernanceTest(unittest.TestCase):
         self.assertEqual(review["final_review_verdict"], "conditional_pass")
         self.assertIn("Stage 3.1 real ETF data", review["evidence_context"])
 
+        final_review_package_commit = "1c8e5b75301e3771db77ba9ece4605666949d5d3"
+        release_candidate_head = handoff["release_candidate_head"]
+        final_metadata_commit = handoff["final_metadata_commit"]
+        for payload in (handoff, review, final_package):
+            self.assertEqual(payload["final_review_package_commit"], final_review_package_commit)
+            self.assertEqual(payload["final_metadata_commit"], final_metadata_commit)
+            self.assertEqual(payload["release_candidate_head"], release_candidate_head)
+            self.assertEqual(payload["merge_target_branch"], "main")
+            self.assertEqual(payload["next_safe_action"], "merge_to_main_after_tests")
+            self.assertEqual(payload["review_target_commit"], final_review_package_commit)
+        self.assertEqual(handoff["current_repo_head"], release_candidate_head)
+        self.assertEqual(review["current_repo_head"], release_candidate_head)
+        self.assertEqual(handoff["handoff_generated_from_head"], release_candidate_head)
+        self.assertEqual(review["handoff_generated_from_head"], release_candidate_head)
+        self.assertNotEqual(final_review_package_commit, release_candidate_head)
+        self.assertNotEqual(final_review_package_commit, final_metadata_commit)
+
         combined = "\n".join([handoff_md, review_md, json.dumps(handoff, sort_keys=True), json.dumps(review, sort_keys=True)])
         self.assertIn("v1.0 final review package", combined)
         self.assertIn("conditional_pass", combined)
         self.assertIn("ETF research desk, not investment advice, not automatic trading", combined)
         self.assertIn("Final trading is manually decided by the user", combined)
+        metadata_text = "\n".join([handoff_md, review_md, final_package_md])
+        for field in (
+            "final_review_package_commit",
+            "final_metadata_commit",
+            "release_candidate_head",
+            "merge_target_branch",
+            "next_safe_action",
+        ):
+            self.assertIn(field, metadata_text)
+        self.assertIn(final_review_package_commit, metadata_text)
+        self.assertIn(final_metadata_commit, metadata_text)
+        self.assertIn(release_candidate_head, metadata_text)
         self.assertIn("Stage 3.1 real ETF data", combined)
         self.assertNotIn("# Stage 3.1 Major Review Request", review_md)
 
